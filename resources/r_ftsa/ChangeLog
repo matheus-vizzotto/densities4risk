@@ -1,0 +1,297 @@
+v 6.6
+
+1. Update the ftsmPI function
+2. Update the nipals.R function
+
+v 6.5
+
+1. Move the One_way_median_polish and Two_way_median_polish to a newly created hdftsa package
+
+v 6.4
+
+1. Add One_way_median_polish and One_way_Residuals functions
+2. Remove the vignette
+
+v 6.3
+
+1. Add Two_way_Residuals_means and Two_way_Residuals functions
+2. Update the forecast.ftsm function
+
+v 6.2
+
+1. Add sieve bootstrapping
+2. Update the mftsc.R code
+3. Add FANOVA and two-way functional median polish decompositions
+4. Add the all_hmd_female_data and all_hmd_male_data data sets
+
+v 6.1
+
+1. Add CoDa_FPCA, LQDT_FPCA, Horta_Ziegelmann_FPCA and skew_t_fun functions for forecasting densities
+2. Add CoDa_BayesNW function for forecasting densities
+3. Add GAEVforecast function for forecasting a time series of densities of extreme values
+
+v 6.0
+
+1. Update the T_stationary function by introducing critical values (see Table 6.1 in Horvath and Kokoszka's book)
+
+v 5.9
+
+1. Add the plsPI_var.R function
+2. Update the dynamic_FLR.R function
+3. Update the dmfpca.R function
+4. Update the pm_10_GR.Rd manual file
+
+v 5.8
+
+1. Add MAF_Multivariate function to perform maximum autocorrelation factors
+2. Add multilevel functional principal component analysis and multiple functional time series clustering
+3. Update long_run_covariance_estimation function
+
+v 5.7
+
+1. Add a function (ER_GR) for selecting the number of retained principal components
+2. Add a function (stop_time_detect) for detecting the optimal stopping time in a curve time series
+3. Add a function (stop_time_sim_data) for generating simulated data following a functional autoregression of order one with a breakpoint at the middle of a curve sample
+
+v 5.6
+
+1. Update the fdpca and rapca functions in R
+2. Update the farforecast manual and farforecast function in R
+
+v 5.5
+
+1. Update fdpca and ftsm functions
+2. Add ftsa:::method.FPE function used in the farforecast function
+3. Add dmfpca function for implementing dynamic multilevel functional principal component analysis
+4. Add mftsc function for clustering multiple functional time series
+
+v 5.4
+
+1. Update the ElNino data set
+
+v 5.3
+
+1. Add the high-dimensional functional principal component regression
+2. Add the forecast function for the high-dimensional functional principal component regression
+3. Add the facf function for computing the functional autocorrelation function at various lags
+4. Update the two vignettes' titles
+
+v 5.2
+
+1. Update the ftsm function to fix the warning message from the fts function
+2. Update the forecast.ftsm function to fix the warning message from the fts function
+3. Add some new references to the ../man
+
+v 5.1
+
+1. Replace Depends: R (>= 3.5.0) to R (>= 3.4.0)
+
+v 5.0
+
+1. Remove R/diff.R
+2. Remove R/diff.default.R
+
+v 4.9
+
+1. Update the forecast.ftsm.R (model type ets.na in forecast.ftsm now returns en enriched arima model)
+2. Update the forecast.ftsm2.R (replaced rw and rwdrift models internally with the corresponding arima model)
+3. Update the ftsm.R (ftsm can handle years with only NAs)
+4. Update the pegelsna.R (ets.na accepts a lower bound for the parameters)
+5. Update the plot.ftsf.R (plot the fitted lines as well)
+6. Update the plot.ftsm.R (make the ftsm plots splittable by introducing a new parameter component)
+7. Update the ftsm.Rd (fixed typo in the help page)
+
+v 4.8
+
+1. Add long_run_covariance_estimation function
+2. Add kweights and FlatTop functions
+3. Update smdape.R and smape.R functions
+4. remove median re-definition and create an S3 method for median.fts
+5. remove sd and var re-definition and create their S3 methods for var.fts and sd.fts
+
+v 4.7
+
+1. Add a new vignette to describe the use of farforecast and T_stationary functions
+
+v 4.6
+
+1. Update the farforecast function and its help file
+2. Update the T_stationary function and its help file
+
+v 4.5
+
+1. Update the description of the ftsa-package
+2. Update the T_stationary function
+3. Update the farforecast function
+4. Update the ftsa:::ftsmPI function for forecast horizon h > 1
+5. Add the meboot option in the pcscorebootstrapdata for bootstrapping a functional time series
+6. Add the dynamic_FLR function to update point and interval forecasts via a functional linear regression
+
+v 4.4
+
+1. Include PM10 pollution data set and its square root transformation
+2. Include multivariate time series method for forecasting principal component scores, called farforecast
+3. Include a stationarity test, called T_stationary, for functional time series
+4. Update forecast.ftsm function (ftsa:::ftsmPI)
+
+v 4.3
+
+1. Remove R2jags package dependency and put it as a suggested package
+
+v 4.2
+
+1. Update dynupdate function
+2. Update ftsm function
+3. Update fdpca function
+4. Update plsPI function
+5. Add MFDM function
+
+v 4.1
+
+1. Add pcaPP and MASS packages as imports
+2. Remove \donttest in the examples
+3. Add \alias{ftsa} in the ftsa-package help file
+
+v 4.0
+
+1. Update the ftsm and forecast.ftsm functions for handling functional time series
+
+v 3.9
+
+1. Update the plot.ftsf function
+2. Add Imports field in the description file
+
+v 3.8
+
+1. Update the ftsa:::fdpca function
+2. Update the ftsm function
+3. Update the plot.ftsm function
+
+v 3.7
+
+1. Update the forecast.ftsm function
+2. Update the forecast.ftsm2 function
+
+v 3.6
+
+1. Add more detail to the example section
+2. Add the depth.radius option to the mean.fts, median.fts, sd.fts and var.fts
+
+v 3.5
+
+1. Update the plot.fmres function using the colorspace package
+2. Delete some internal functions, namely cm.spline.R, KalmanLike.R, L1median.R, PCAproj.R, ash2.R, bin2.R
+
+v 3.4
+
+1. Update the ftsm function
+2. Update the var.default function
+3. Update the ftsa:::plsPI function
+4. Add the vignette
+
+v 3.3
+
+1. Update the sd.default.R, var.default.R functions.
+
+v 3.2
+
+1. Delete the standard sd.R, var.R, quantile.R, median.R functions, which are available in base
+
+v 3.1
+
+1. Update the scaled error measures in the error function
+
+v 3.0
+
+1. Correct the plot.ftsm function
+2. Update plot.ftsf function
+
+v 2.9
+
+1. Correct the plot.ftsm function
+
+v 2.8
+
+1. Update the plot.ftsm function
+2. Add the forecast.fplsr function
+3. Add the forecast.ftsmiterative function
+4. Add the plot.fplsr function
+5. Add the pcscorebootstrapdata function
+
+v 2.7
+
+1. Update the extract function
+2. Add the ftsmweightselect function to select the optimal weighted used in the weighted ftsm
+
+v 2.6
+
+1. Update ftsm function to produce the orthonormal basis functions
+
+v 2.5
+
+1. correct ftsm function
+
+v 2.4
+
+1. correct ftsm function weight
+
+v 2.3
+
+1. correct ftsm function
+
+v 2.2
+
+1. correct ftsm function
+
+v 2.1
+
+1. update ftsm
+2. update mean.fts and median.fts
+
+v 2.0
+
+1. update plot.ftsm
+2. add varprop output in ftsm function when weight = TRUE
+
+v 1.9
+
+1. Remove some duplicate functions
+
+v 1.8
+
+1. Update the arfima function in forecast.ftsm
+
+v 1.7
+
+1. Change the package dependency of fds
+2. Update the forecast.ftsm() function (allowing struct and arfima models, and fixing the way stationary models are used)
+3. Update the isfe.fts() function (adding ar and arfima as possible forecast methods)
+4. Make plot.ftsm visible
+5. Update plot.ftsm to allow plotting specific components
+
+v 1.6
+
+1. Update the JCGS reference
+
+v 1.5
+
+1. Update the ftsa:::me function
+2. Add the ftsa:::mpe function
+
+v 1.4
+
+1. Update dynupdate function to incorporate three ways of computing functional principal component analysis.
+
+v 1.3
+
+1. Add dynupdatelambdaselect function.
+
+v 1.2
+
+1. Correct the extract function
+2. Add ftsmweightselect and fplsrweightselect functions to determine geometrically decaying weights
+
+v 1.1
+
+1. Update the references
+2. Correct the yname of a functional object
