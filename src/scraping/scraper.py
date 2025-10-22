@@ -148,7 +148,7 @@ in_path = 'data/raw/'
 out_path = 'data/processed/'
 
 # df = pd.DataFrame()
-df = pd.read_parquet('data/raw/history.parquet')
+df = pd.read_parquet('data/raw/history.parquet').reset_index()
 tickers = list_tickers()
 for ticker in tickers:
     ticker_str = ticker.replace('^', '').replace('.','').replace('-','_')
