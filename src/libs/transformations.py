@@ -1,5 +1,3 @@
-# OBS: could not find function "trapzRcpp" -> install.packages("fdapace")
-
 import numpy as np
 import warnings
 from scipy import integrate
@@ -21,7 +19,12 @@ def T_q(
         t0 (int, optional): value in density_support for which the cdf value c is retained, i.e. c = F(t0). Defaults to None.
 
     Returns:
-    list[np.array, np.array, np.float64]: [lqd_support, lqd, c]
+        list[np.array, np.array, np.float64]: [lqd_support, lqd, c]
+
+    Example:
+        dens_support = np.linspace(0, 1, 512)
+        dens = np.full(512, 0.5)
+        lqd_support, lqd, c = T_q(density=dens, density_support=dens_support)
     """
     lqd_support = np.linspace(0,1, len(density_support))
     t0 = density_support[0]
@@ -123,15 +126,20 @@ def T_q_inv(
         """Function for converting log quantile densities to densities.
 
         Args:
-                lqd (np.array): log quantile density on lqd_support
-                lqd_support (np.array, optional): support for lqd domain - must begin at 0 and end at 1. Defaults to None.
-                t0 (int, optional): value for which the target cdf has F(t0) = c (default: 0). Defaults to 0.
-                c (int, optional): value in lqd_support representing the value of target cdf at t0 (default: lqd_support[1]). Defaults to 0.
-                useSplines (bool, optional): fit spline to the lqd when doing the numerical integration (default: TRUE). Defaults to True.
-                cut (list, optional): vector with two elements, indicating how many boundary to cut on the left and right side (default: c(0, 0)).  More will be cut off if exp(lqd) is infinite for some values.. Defaults to [0,0].
+            lqd (np.array): log quantile density on lqd_support
+            lqd_support (np.array, optional): support for lqd domain - must begin at 0 and end at 1. Defaults to None.
+            t0 (int, optional): value for which the target cdf has F(t0) = c (default: 0). Defaults to 0.
+            c (int, optional): value in lqd_support representing the value of target cdf at t0 (default: lqd_support[1]). Defaults to 0.
+            useSplines (bool, optional): fit spline to the lqd when doing the numerical integration (default: TRUE). Defaults to True.
+            cut (list, optional): vector with two elements, indicating how many boundary to cut on the left and right side (default: c(0, 0)).  More will be cut off if exp(lqd) is infinite for some values.. Defaults to [0,0].
 
         Returns:
-                list[np.array, np.array]: [density_support, density]
+            list[np.array, np.array]: [density_support, density]
+
+        Example:
+            y_lqd = np.full(512, np.log(2))
+            lqd_sup = np.linspace(0,1,len(y_lqd))
+            density_support, density = T_q_inv(lqd=y_lqd, lqd_support=lqd_sup)
         """
         if not (np.array([lqd_support.min(),lqd_support.max()]) == np.array([0,1])).all():
                 warnings.warn("Problem with support of the LQD domain's boundaries - resetting to default.")
