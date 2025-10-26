@@ -139,14 +139,15 @@ def T_q_inv(
         M = len(lqd)
         r = np.where(np.exp(lqd)==np.inf)[0]
         if len(r)>0:
+                print(r)
                 if np.any(r < int(M/2)):
                         cut[0] = np.max(cut[0], np.max(r[r<int(M/2)]))
                 if np.any(r >= int(M/2)):
                         cut[1] = np.max(cut[1], M - np.min(r[r >= int(M/2)]))
         
         # Cut boundaries
-        ldqSup = lqdSup[(cut[0]+1):(M-cut[1])]
-        lqd    = lqd[(cut[1]+1):(M-cut[1])]
+        lqdSup = lqdSup[(cut[0]):(M-cut[1])]
+        lqd    = lqd[(cut[0]):(M-cut[1])]
         M      = len(lqd) # reset N
         if not (c in lqdSup):
                 if (c < lqdSup[0] or c > lqdSup[M]):
