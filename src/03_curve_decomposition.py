@@ -1,0 +1,1 @@
+# performs function decomposition with DFPCR and Wavelets to obtain multivariate time series model
