@@ -302,6 +302,8 @@ class K_dFPC:
     model.fit(lag_max=6, B=1000, alpha=0.10, du=0.05, p=5, m=Y.shape[0],
                 u=Y.index.values, select_ncomp=False,dimension=10
     )
+    model.plot_psihat()
+    model.plot_etahat()
     scores_pred = model.forecast_scores(h=1)
     predicted_curves = model.predict(scores_pred)
     """
