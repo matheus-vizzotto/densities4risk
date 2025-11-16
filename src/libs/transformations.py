@@ -34,12 +34,12 @@ def T_q(
     if np.abs(np.trapezoid(density, density_support) - 1) > 1e-5:
         warnings.warn("Density does not integrate to 1 with tolerance of 1e-5 - renormalizing now.")
         density = density/np.trapezoid(density, density_support)
-    if np.any(density==0):  # FUNÇÃO NÃO CONSIDERA POSSIBILIDADE DE ZERO ENTRE LIMITES DE (SUPORTE>O)
+    if np.any(density==0):  
         warnings.warn("There are some zero density values - truncating support grid so all are positive.")
         lower_bound = np.min(np.where(density>0))
         upper_bound = np.max(np.where(density>0))
         density_support = density_support[lower_bound : upper_bound]
-        density = density/np.trapezoid(density, density_support) # ENTENDER POR QUE ISSO FUNCIONA
+        density = density/np.trapezoid(density, density_support) 
         
     N = len(density_support)
 
@@ -94,7 +94,7 @@ def T_q(
             Ind = Ind[-len(Ind)]
 
         interp_values = np.interp(
-            lqd_support[Ind-1],                 # xout
+            lqd_support[Ind-1],            # xout
             qtemp[tmpInd-1],               # x
             lqd_temp[tmpInd-1],            # y
             left=lqd_temp[tmpInd-1][0],    # rule = 2 → use endpoint values
