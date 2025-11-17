@@ -100,7 +100,7 @@ dens2lqd = function(dens, dSup, lqdSup = seq(0, 1, length.out = length(dSup)), t
 
 data(DJI_return)
 library("ftsa")
-library(fdapace) # -> trapzRcpp 
+library("fdapace") # -> trapzRcpp 
 data <- DJI_return
 
 kernel = "gaussian"
@@ -169,14 +169,14 @@ for(i in 1:n)
 
 ### DADOS DA PESQUISA
 library("readxl")
-Y0 <- read_excel("C:/Users/user/Projetos/densities4risk/data/processed/kde.xlsx")
-Y <- as.matrix(Y0[ , -1])
-
+Y0 <- read_excel("C:/Users/user/Projetos/densities4risk/data/processed/BVSP_returns_densities.xlsx")
+Y <- as.matrix(Y0[,2:ncol(Y0)]) # exclui indice
+u = Y0$...1
 
 
 n = ncol(Y)
 M = nrow(Y) # number of gridpoints for LQD functions - chosen large here so that 0 isn't too close to the boundary of all supports
-u = seq(from = -0.01032280959030984, to = 0.01017648430576656, length = M)
+# u = seq(from = -0.01032280959030984, to = 0.01017648430576656, length = M)
 lqd = matrix(0, nrow = M, ncol = n)
 c = rep(0, 1, n)
 t = seq(0, 1, length.out = M)

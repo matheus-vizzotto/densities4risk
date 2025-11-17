@@ -196,3 +196,11 @@ df_complete["r_t"] = np.log(df_complete["close"]) - np.log(df_complete["close"].
 df_complete.dropna(inplace=True)
 
 df_complete.to_excel("data/processed/BVSP_returns.xlsx", index=False)
+
+# Saves file in functional data format
+df = df_complete.loc[:,["datetime", "r_t"]]
+df["date"] = df["datetime"].dt.date
+df["time"] = df["datetime"].dt.time
+returns = df.pivot(index="time", columns="date", values="r_t")
+returns.fillna(returns.mean(axis=0).mean(), inplace=True)
+returns.to_excel("data/processed/BVSP_returns_wide.xlsx")
