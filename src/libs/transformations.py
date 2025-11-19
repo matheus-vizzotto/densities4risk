@@ -2,6 +2,10 @@ import numpy as np
 import warnings
 from scipy import integrate
 from scipy import interpolate 
+from scipy.interpolate import interp1d
+from scipy.integrate import cumulative_trapezoid, trapezoid
+from scipy.interpolate import interp1d, CubicSpline
+from scipy.integrate import cumulative_trapezoid, quad, trapezoid
 
 
 def T_q(
@@ -34,12 +38,12 @@ def T_q(
     if np.abs(np.trapezoid(density, density_support) - 1) > 1e-5:
         warnings.warn("Density does not integrate to 1 with tolerance of 1e-5 - renormalizing now.")
         density = density/np.trapezoid(density, density_support)
-    if np.any(density==0):  # FUNÇÃO NÃO CONSIDERA POSSIBILIDADE DE ZERO ENTRE LIMITES DE (SUPORTE>O)
+    if np.any(density==0):  
         warnings.warn("There are some zero density values - truncating support grid so all are positive.")
         lower_bound = np.min(np.where(density>0))
         upper_bound = np.max(np.where(density>0))
         density_support = density_support[lower_bound : upper_bound]
-        density = density/np.trapezoid(density, density_support) # ENTENDER POR QUE ISSO FUNCIONA
+        density = density/np.trapezoid(density, density_support) 
         
     N = len(density_support)
 
@@ -94,7 +98,7 @@ def T_q(
             Ind = Ind[-len(Ind)]
 
         interp_values = np.interp(
-            lqd_support[Ind-1],                 # xout
+            lqd_support[Ind-1],            # xout
             qtemp[tmpInd-1],               # x
             lqd_temp[tmpInd-1],            # y
             left=lqd_temp[tmpInd-1][0],    # rule = 2 → use endpoint values
@@ -219,3 +223,205 @@ def T_q_inv(
         density = density / area * (lqd_support[-1] - lqd_support[0])
 
         return [density_support, density]
+
+
+
+
+
+
+
+
+
+
+
+def dens2lqd(dens, dSup, lqdSup=None, t0=None, verbose=True):
+    dens = np.asarray(dens)
+    dSup = np.asarray(dSup)
+
+    # Default t0
+    if t0 is None:
+        t0 = dSup[0]
+
+    # ---- Check density requirements ----
+    if np.any(dens < 0):
+        raise ValueError("Please correct negative density values.")
+
+    if abs(trapezoid(dens, dSup) - 1) > 1e-5:
+        if verbose:
+            print("Density does not integrate to 1 with tolerance 1e-5 - renormalizing now.")
+        dens = dens / trapezoid(dens, dSup)
+
+    # ---- Handle zero density values by truncating support ----
+    if np.any(dens == 0):
+        if verbose:
+            print("There are some zero density values - truncating support grid so all are positive")
+
+        positive_idx = np.where(dens > 0)[0]
+        lbd, ubd = positive_idx[0], positive_idx[-1]
+
+        dens = dens[lbd:ubd+1]
+        dSup = dSup[lbd:ubd+1]
+
+        dens = dens / trapezoid(dens, dSup)
+
+    N = len(dSup)
+
+    # ---- Check LQD output grid ----
+    if lqdSup is None:
+        lqdSup = np.linspace(0, 1, N)
+    else:
+        lqdSup = np.asarray(lqdSup)
+        if not (np.isclose(lqdSup.min(), 0) and np.isclose(lqdSup.max(), 1)):
+            if verbose:
+                print("Problem with support of the LQD domain’s boundaries - resetting to default.")
+            lqdSup = np.linspace(0, 1, N)
+
+    # ---- Check t0 ----
+    if t0 not in dSup:
+        if verbose:
+            print("t0 is not a value in dSup - resetting to closest value")
+        t0 = dSup[np.argmin(np.abs(dSup - t0))]
+
+    M = len(lqdSup)
+    c_ind = np.where(dSup == t0)[0][0]
+
+    # ---- Compute CDF and constant c ----
+    tmp = cumulative_trapezoid(dens, dSup, initial=0)
+    c = tmp[c_ind]
+
+    # ---- Remove duplicated CDF values (monotonicity issues in KDE) ----
+    left_dup  = np.concatenate([np.diff(tmp[:N//2]) == 0, [False]])
+    right_dup = np.concatenate([[False], np.diff(tmp[N//2:]) == 0])
+
+    # NOTE: In R: !c(indL, indR)
+    keep = ~(np.concatenate([left_dup, right_dup]))
+
+    qtemp = tmp[keep]
+    lqd_temp = -np.log(dens[keep])
+
+    # ---- Interpolate lqd on the desired LQD support ----
+    lqd = np.zeros(M)
+
+    # Handle infinite boundary values
+    temp_first_inf = np.isinf(lqd_temp[0])
+    temp_last_inf = np.isinf(lqd_temp[-1])
+
+    if temp_first_inf or temp_last_inf:
+
+        tmpInd = np.arange(len(qtemp))
+        Ind = np.arange(M)
+
+        if temp_first_inf:
+            lqd[0] = np.inf
+            tmpInd = tmpInd[1:]
+            Ind = Ind[1:]
+
+        if temp_last_inf:
+            lqd[-1] = np.inf
+            tmpInd = tmpInd[:-1]
+            Ind = Ind[:-1]
+
+        interp = interp1d(qtemp[tmpInd], lqd_temp[tmpInd],
+                          kind="linear", fill_value="extrapolate")
+        lqd[Ind] = interp(lqdSup[Ind])
+
+    else:
+        interp = interp1d(qtemp, lqd_temp, kind="linear",
+                          fill_value="extrapolate")
+        lqd = interp(lqdSup)
+
+    return lqdSup, lqd, c
+
+def lqd2dens(lqd, lqdSup=None, dSup=None, t0=0, c=0, useSplines=True,
+             cut=None, verbose=True):
+
+    lqd = np.asarray(lqd)
+
+    # Default cut
+    if cut is None:
+        cut = [0, 0]
+
+    # Default lqdSup
+    if lqdSup is None:
+        lqdSup = np.linspace(0, 1, len(lqd))
+    else:
+        lqdSup = np.asarray(lqdSup)
+        if not (np.isclose(lqdSup.min(), 0) and np.isclose(lqdSup.max(), 1)):
+            if verbose:
+                print("Problem with support of the LQD domain's boundaries - resetting to default.")
+            lqdSup = np.linspace(0, 1, len(lqd))
+
+    M = len(lqd)
+
+    # Identify infinite exp(lqd) values
+    r = np.where(np.isinf(np.exp(lqd)))[0]
+
+    if len(r) > 0:
+        left = r[r < (M//2)]
+        right = r[r >= (M//2)]
+
+        if len(left) > 0:
+            cut[0] = max(cut[0], left.max())
+        if len(right) > 0:
+            cut[1] = max(cut[1], M - right.min())
+
+    # ------ Apply cutoff ------
+    lqdSup = lqdSup[cut[0] : M - cut[1]]
+    lqd = lqd[cut[0] : M - cut[1]]
+    M = len(lqd)
+
+    # ------ Ensure c is in support ------
+    if c not in lqdSup:
+        if c < lqdSup[0] or c > lqdSup[-1]:
+            raise ValueError("c is not contained within range of lqdSup after cutoff")
+
+        if verbose:
+            print("c is not equal to a value in lqdSup - resetting to closest value")
+
+        c = lqdSup[np.argmin(np.abs(lqdSup - c))]
+
+    c_ind = np.where(lqdSup == c)[0][0]
+
+    # ------ Compute dtemp from LQD ------
+    if useSplines:
+        # Natural cubic spline approximation of lqd(t)
+        spline = CubicSpline(lqdSup, lqd, bc_type='natural')
+
+        def lqd_exp(t):
+            return np.exp(spline(t))
+
+        # Build dtemp using numerical integration between grid points
+        dtemp_vals = [0.0]
+        for i in range(1, len(lqdSup)):
+            val, _ = quad(lqd_exp, lqdSup[i-1], lqdSup[i])
+            dtemp_vals.append(dtemp_vals[-1] + val)
+
+        dtemp = t0 + np.array(dtemp_vals) - quad(lqd_exp, lqdSup[0], lqdSup[c_ind])[0]
+
+    else:
+        # Trapezoidal approximation
+        dtemp = t0 + cumulative_trapezoid(np.exp(lqd), lqdSup, initial=0)
+        dtemp -= trapezoid(np.exp(lqd[: c_ind+1]), lqdSup[: c_ind+1])
+
+    # ------ Remove duplicates ------
+    left_dup = np.concatenate([np.diff(dtemp[: M//2]) == 0, [False]])
+    right_dup = np.concatenate([[False], np.diff(dtemp[M//2:]) == 0])
+
+    keep = ~(np.concatenate([left_dup, right_dup]))
+
+    dtemp = dtemp[keep]
+    dens_temp = np.exp(-lqd[keep])
+
+    # ------ Interpolate to new dSup ------
+    dSup_new = np.linspace(dtemp[0], dtemp[-1], len(dtemp))
+
+    interp = interp1d(dtemp, dens_temp, kind="linear", fill_value="extrapolate")
+    dens = interp(dSup_new)
+
+    # Normalize, accounting for truncated LQD domain
+    dens = dens / trapezoid(dens, dSup_new) * (lqdSup[-1] - lqdSup[0])
+
+    return {
+        "dSup": dSup_new,
+        "dens": dens
+    }

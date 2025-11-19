@@ -44,6 +44,27 @@ with open(file_path, 'w') as json_file:
     json.dump(kdes, json_file, indent=4)
 
 
+
+
+# 1) Global support
+df_returns = pd.read_excel("data/processed/BVSP_returns_wide.xlsx", index_col="time")
+
+global_min = df_returns.min().min()
+global_max = df_returns.max().max()
+m = 3000
+u = np.linspace(global_min, global_max, m)
+
+# 2) Prepare density matrix (m × T)
+df_densities = pd.DataFrame(index=u, columns=df_returns.columns)
+
+# 3) KDE for each day evaluated on a common support
+for t in df_returns.columns:
+    kde = gaussian_kde(df_returns[t])
+    df_densities[t] = kde(u)
+
+df_densities.to_excel("data/processed/BVSP_returns_densities.xlsx")
+
+
 ############################################# VISUALIZAÇÃO ######################################
 # Distribuição de retornos
 plt.figure(figsize=(15,5))

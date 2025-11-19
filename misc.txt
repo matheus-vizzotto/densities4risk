@@ -1,0 +1,2 @@
+# Salvar lista de setup do ambiente
+conda env export > environment.yml
