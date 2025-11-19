@@ -1,3 +1,9 @@
 *.xlsx
 *.parquet
 *.json
+
+
+# Allow specific files
+!data/processed/*.xlsx
+!data/processed/*.json
+!data/processed/*.npz
