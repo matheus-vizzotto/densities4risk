@@ -3,13 +3,14 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 
+# TODO: plot_3d_ts traz domínio da função invertido
+
 def plot_2d_fts(
         df : pd.DataFrame, 
         x: np.array, 
-        common_domain=True,
-        f_domains : list=None,
         title_="Functional time series", 
-        alpha_=0.1):
+        alpha_=0.1,
+        output_path=None):
     """
     df (pd.Dataframe): Dataframe with only function values where columns are functional objects and rows are grid points.
     x  (np.array): numpy array of x axis values
@@ -18,24 +19,29 @@ def plot_2d_fts(
     """
     cols = df.columns
 
-    if common_domain:
-        plt.figure(figsize=(15,5))
-        for col in cols:
-            plt.plot(x, df.loc[:, col], c="gray", alpha=alpha_)
-        pointwise_mean = df.mean(axis=1)
-        plt.plot(x, pointwise_mean, c="red", label="Point-wise mean")
+    plt.figure(figsize=(15,5))
+    for col in cols:
+        plt.plot(x, df.loc[:, col], c="gray", alpha=alpha_)
+    pointwise_mean = df.mean(axis=1)
+    plt.plot(x, pointwise_mean, c="red", label="Point-wise mean")
 
-        plt.title(title_)
-        plt.legend()
+    plt.title(title_)
+    plt.legend()
 
+    if not output_path:
         plt.show()
+    elif output_path:
+        plt.savefig(output_path) # png
 
 def plot_3d_fts(
         df: pd.DataFrame, 
         f_domain: np.array, 
         time_index: np.array, 
         title_="Functional Time Series", 
-        axis_titles=["x","y","z"]):
+        axis_titles=["x","y","z"],
+        color_scale = "Turbo",
+        output_angle = [-0.7, -2.0, 0.8],
+        output_path=None):
     """
     ex: plot_3d_fts(df_lqds.iloc[1:-1,:], t[1:-1], df_lqds.columns, title_="LQDensities", axis_titles=["u", "Day", "LQDensity"])
     """
@@ -47,7 +53,7 @@ def plot_3d_fts(
         x=domain, 
         y=T,
         z=image,  
-        colorscale='Turbo'
+        colorscale=color_scale
     )])
 
     fig.update_layout(
@@ -59,7 +65,7 @@ def plot_3d_fts(
         ),
         height=700,
         scene_camera=dict(
-            eye=dict(x=0.7, y=2.0, z=0.8)  # change these values to rotate
+            eye=dict(x=output_angle[0], y=output_angle[1], z=output_angle[2])  # change these values to rotate
         ),
         title={
             'text': title_,
@@ -68,4 +74,8 @@ def plot_3d_fts(
         }
     )
 
-    fig.show()
+    if not output_path:
+        fig.show()
+    elif output_path:
+        fig.show()
+        fig.write_image(output_path, width=1200, height=800, scale=2) # png
