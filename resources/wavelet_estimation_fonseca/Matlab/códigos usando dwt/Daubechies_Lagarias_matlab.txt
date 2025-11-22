@@ -1,0 +1,69 @@
+h = fliplr(wfilters('db2'));
+N = length(h)/2;
+T0 = zeros(2*N-1,2*N-1);
+T1 = zeros(2*N-1,2*N-1);
+
+for ii = 1:(2*N-1)
+for jj = 1:(2*N-1)
+	if (2*ii-jj-1<0) h_ind=0; elseif (2*ii-jj-1>2*N-1) h_ind=0; else h_ind=h(2*ii-jj); end
+	T0(ii,jj) = sqrt(2)*h_ind;
+	if (2*ii-jj<0) h_ind=0; elseif (2*ii-jj>2*N-1) h_ind=0; else h_ind=h(2*ii-jj+1); end
+	T1(ii,jj) = sqrt(2)*h_ind;
+end
+end
+
+%{
+function d = dyadn(x,n)
+  d = zeros(n,1);
+  xd = x;
+  for ii = 1:n
+    d(ii) = floor(2*xd);
+    xd = 2*xd - floor(2*xd);
+  end
+end
+%}
+
+vd = dyadn(.45,20);
+if (vd(1)==0) mT = T0;, else mT = T1; end
+for ii = 2:length(vd)
+  if (vd(ii)==0) mT = mT*T0;, else mT = mT*T1; end
+end
+mT
+
+x = 0.45;
+vu = zeros(2*N-1,1);
+for (ii = 1:(2*N-1))
+  if (ii+1-floor(2*x)<0) h_ind=0;, elseif (ii+1-floor(2*x)>2*N-1) h_ind=0;, else h_ind=h(ii+1-floor(2*x)+1); end
+  vu(ii) = ((-1)^(1-floor(2*x)))*h_ind;
+end
+
+vd2x = dyadn(2*x,20);
+if (vd2x(1)==0) mT2x = T0;, else mT2x = T1; end  
+for (i = 2:length(vd2x))
+  if (vd2x(ii)==0) mT2x = mT2x*T0,; else mT2x = mT2x*T1; end
+end
+vxn = mT2x*ones(2*N-1,1)/(2*N-1);
+vu'*vxn
+
+[PHI,PSI,XVAL] = wavefun('db2',20);
+XVAL(471900)
+PHI(471900)
+PSI(471900)
+
+
+function phiv = phi.n(x,n,h)
+  if (x<=0 || x>length(h)-1)
+    d = 0;
+  else
+    k = 1;
+    y = x;
+    while (y>=0)
+      if
+      
+
+    end
+    
+  end
+end
+
+
