@@ -48,6 +48,7 @@ def plot_3d_fts(
     domain = f_domain
     T = time_index
     image = [df.iloc[:,col] for col in range(df.shape[1])]
+    # image = df.to_numpy()
 
     fig = go.Figure(data=[go.Surface(
         x=domain, 

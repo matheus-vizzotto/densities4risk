@@ -66,21 +66,74 @@ def ts_to_df(
 
     return df_wide
 
-def calc_returns(
-        df : pd.DataFrame, 
-        y : str) -> pd.DataFrame:
-    """Adds percantual and log returns columns to the original dataframe.
-
-    Args:
-        df (pd.DataFrame): _description_
-        y (str): _description_
-
-    Returns:
-        pd.DataFrame: _description_
+def add_return_cols(
+        df: pd.DataFrame, 
+        y:  str,
+        dropna: bool=True
+        ) -> pd.DataFrame:
     """
+    Calculate simple and logarithmic returns for a financial time series.
+    
+    This function computes both simple percentage returns (R_t) and continuous 
+    logarithmic returns (r_t) for a specified price column in a DataFrame. 
+    Both return types are added as new columns to a copy of the original DataFrame.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input DataFrame containing the financial time series data.
+        Must contain the column specified by `y`.
+    y : str
+        Name of the column containing price/asset values for which returns 
+        should be calculated. This column should typically contain closing 
+        prices or similar financial metrics.
+    dropna : bool, default=True
+        If True, removes rows with NaN values (typically the first row after 
+        calculating returns since it has no previous value for differencing).
+        If False, retains all rows with NaN in the return columns.
+    
+    Returns
+    -------
+    pd.DataFrame
+        A new DataFrame containing all original columns plus two new columns:
+        - 'R_t': Simple percentage returns calculated as pct_change()
+        - 'r_t': Logarithmic returns calculated as log(P_t) - log(P_{t-1})
+    
+    Notes
+    -----
+    - Simple returns (R_t): (P_t - P_{t-1}) / P_{t-1}
+    - Logarithmic returns (r_t): ln(P_t) - ln(P_{t-1}) ≈ ln(1 + R_t)
+    """
+    
+    R_t = df.loc[:,y].pct_change()
+    r_t = np.log(df.loc[:, y]) - np.log(df.loc[:,y].shift(1))
+    
+    df2 = df.copy(deep=True)
+    df2["R_t"] = R_t
+    df2["r_t"] = r_t
 
-    df["R_t"] = df[y].pct_change()
-    df["r_t"] = np.log(df["close"]) - np.log(df["close"].shift(1))
-    df.dropna(inplace=True)
+    if dropna:
+        df2.dropna(inplace=True)
+
+    return df2
+
+
+def build_lags(
+        df : pd.DataFrame,
+        col : str,
+        n_lags : int,
+        dropna : bool = True
+    ) -> pd.DataFrame:
+
+    lags = []
+    for lag in range(n_lags+1):
+        lags.append(df.loc[:, col].shift(lag))
+
+    df = pd.concat(lags, axis=1)
+    df_columns = [f"t-{i}" for i in range(n_lags+1)]
+    df.columns = df_columns
+
+    if dropna:
+        df.dropna(inplace=True)
 
     return df

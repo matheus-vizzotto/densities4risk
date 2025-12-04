@@ -1,0 +1,71 @@
+%{
+nesse código é feito um exemplo simples da estimação da dimensão
+do funcional g(x) = cos(pi*x), onde geramos váriaveis da 
+distribuição Uniforme(0,1) e aplicamos em g(x), sendo estes os
+valores observados do funcional. Aqui, usaremos p=1. O objetivo é
+obter a autofunção e o autovalor do núcleo amostral \hat{M}.
+}%
+
+% gerando uma amostra de tamanho 10 (10 dias) do funcional
+% com 32 observações em cada dia
+u = rand(10,32);
+g = cos(pi*u);
+
+% matriz de cujas linhas terão a decomposição em ondaletas
+% de cada funcional observado (linha da matriz g)
+A = zeros(10,32);
+% essa matriz irá armazenar o número de componentes de cada 
+% nível da decomposição para cada funcional
+Ad = zeros(10,7);
+
+% nessa decomposição, é usada a ondaleta de Haar até o
+% último nível possível de aproximação (um escalar)
+for ii = 1:10
+	[A(ii,:),Ad(ii,:)] = wavedec(g(ii,:),5,'db1');
+end
+
+% esse vetor terá a média de um determinado coeficiente
+% ao longo do n=10 dias
+mu_A = mean(A);
+% o número de componentes em cada nível será o mesmo
+mu_Ad = Ad(1,:);
+
+% matriz com os desvios dos coeficientes em relação à
+% média dos coeficientes num mesmo dia
+C = A - ones(10,1)*mu_A;
+
+% agora será obtida a matriz formada pelos coeficientes das
+% decomposições das observações dos funcionais. Aqui, tomamos
+% p=1, logo k=1 também.
+D = zeros(32,32);
+
+for js = 1:32
+for jss = 1:32
+	for t = 1:(10-1)
+	for s = 1:(10-1)
+		for ls = 1:32
+		D(js,jss) = C(t,js)*C(s,jss)*C(t+1,ls)*C(s+1,ls);
+		end
+	end	
+	end
+end
+end
+
+D = D/((10-1)^2);
+
+% após obter D, calculamos os autovetores e autovalores da mesma.
+[B,L] = eig(D);
+% nesse exemplo, só um autovalor é diferente de zero, logo seu
+% autovetor correspondente será utilizado como o vetor b
+vb = B(:,32);
+lb = L(32,32);
+
+% uma vez obtido o vetor b, este será a decomposição na base de
+% de ondaletas de Haar da autofunção do núcleo \hat{M}
+psi =  wrcoef('a',vb',mu_Ad,'db1',0);
+
+subplot(3,1,1); plot(g(1,:));
+subplot(3,1,2); plot(mu_A);
+subplot(3,1,3); plot(psi);
+
+

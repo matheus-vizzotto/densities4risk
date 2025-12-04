@@ -140,7 +140,7 @@ for ticker in tickers:
         title = f'{path}/{ticker_formatted}_{interval}_{extraction_time}'
         df.to_parquet(f'{title}.parquet')
 
-print('Extrações concluídas.')
+print('Extrações concluídas. Iniciando tratamento inicial de dados.')
 
 
 ###############################################################################

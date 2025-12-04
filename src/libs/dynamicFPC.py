@@ -534,9 +534,10 @@ class K_dFPC:
 
         plt.figure()
         for i in range(self.etahat.shape[0]):
-            plt.plot(self.etahat[i, :], alpha=0.6)
+            plt.plot(self.etahat[i, :], alpha=0.6, label=f"η_{i+1}")
 
         plt.title("KLE-based temporal scores $\\hat{\\eta}$")
+        plt.legend()
         plt.show()
 
     # ------------------------------------------------------------

@@ -1,0 +1,13 @@
+In case 3 we use the weight 1, which corresponds to
+Bathia's method.
+
+p = 5;  % lag máximo utilizado
+alpha = .05;  % nível de significância do teste bootstrap
+vw = [1]'; % vetor de pesos
+nt = 500;  % número de pontos para cada dia
+
+
+The number of replications for d=2 was 200, with 200 bootstraps
+The number of replications for d=4 was 200, with 200 bootstraps
+The number of replications for d=2 was 200, with 200 bootstraps
+
