@@ -360,7 +360,8 @@ def lqd2dens(
 def obtain_densities_from_lqd(
         df : pd.DataFrame, 
         lqdSup_ : np.array, 
-        c_ : np.array):
+        c_ : np.array,
+        verbose=False):
     """_summary_
 
     Args:
@@ -378,7 +379,7 @@ def obtain_densities_from_lqd(
     i=0
     for col in cols:
         lqd = df.loc[:, col]
-        backward_support, backward_density = lqd2dens(lqd, lqdSup_, c = c_[i])
+        backward_support, backward_density = lqd2dens(lqd, lqdSup_, c = c_[i], verbose=verbose)
         supports.append(pd.Series(backward_support))
         densities.append(pd.Series(backward_density))
         i += 1

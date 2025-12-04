@@ -116,3 +116,24 @@ def add_return_cols(
         df2.dropna(inplace=True)
 
     return df2
+
+
+def build_lags(
+        df : pd.DataFrame,
+        col : str,
+        n_lags : int,
+        dropna : bool = True
+    ) -> pd.DataFrame:
+
+    lags = []
+    for lag in range(n_lags+1):
+        lags.append(df.loc[:, col].shift(lag))
+
+    df = pd.concat(lags, axis=1)
+    df_columns = [f"t-{i}" for i in range(n_lags+1)]
+    df.columns = df_columns
+
+    if dropna:
+        df.dropna(inplace=True)
+
+    return df
