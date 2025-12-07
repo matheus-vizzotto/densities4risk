@@ -364,74 +364,74 @@ class K_dFPC:
 
         return self.Ybar + self.psihat @ etahat_values
 
-    def forecast_scores(self, h=1, max_var_lag=3, var_type="c"):
-        """
-        Forecast the next functional observation using ARIMA (if d0=1)
-        or VAR (if d0>1), following the logic of the original R code.
+    # def forecast_scores(self, h=1, max_var_lag=3, var_type="c"):
+    #     """
+    #     Forecast the next functional observation using ARIMA (if d0=1)
+    #     or VAR (if d0>1), following the logic of the original R code.
 
-        Parameters
-        ----------
-        h : int, default=1
-            Forecast horizon.
-        max_var_lag : int, default=3
-            Maximum lag for VAR model.
-        var_type : {"const", "none", "trend", "both"}
-            Equivalent to R's VAR type. Automatically translated
-            to statsmodels-compatible trend codes.
+    #     Parameters
+    #     ----------
+    #     h : int, default=1
+    #         Forecast horizon.
+    #     max_var_lag : int, default=3
+    #         Maximum lag for VAR model.
+    #     var_type : {"const", "none", "trend", "both"}
+    #         Equivalent to R's VAR type. Automatically translated
+    #         to statsmodels-compatible trend codes.
 
-        Returns
-        -------
-        etahat_pred_val : ndarray (d0, h)
-            Forecasted score vectors.
-        Yhat_future : ndarray (m, h)
-            Forecasted functional curves.
-        """
+    #     Returns
+    #     -------
+    #     etahat_pred_val : ndarray (d0, h)
+    #         Forecasted score vectors.
+    #     Yhat_future : ndarray (m, h)
+    #         Forecasted functional curves.
+    #     """
 
-        import numpy as np
-        from statsmodels.tsa.arima.model import ARIMA
-        from statsmodels.tsa.api import VAR
+    #     import numpy as np
+    #     from statsmodels.tsa.arima.model import ARIMA
+    #     from statsmodels.tsa.api import VAR
 
-        if self.etahat is None:
-            raise ValueError("Model must be fitted before forecasting.")
+    #     if self.etahat is None:
+    #         raise ValueError("Model must be fitted before forecasting.")
 
-        score_object = self.etahat
-        d0, T = score_object.shape
+    #     score_object = self.etahat
+    #     d0, T = score_object.shape
 
-        # -------------------------------------------------------
-        # Case 1: Univariate ARIMA
-        # -------------------------------------------------------
-        if d0 == 1:
-            series = score_object.flatten()
-            model = ARIMA(series, order=(1, 0, 0))
-            fitted = model.fit()
-            forecast_vals = fitted.forecast(steps=h)
-            etahat_pred_val = forecast_vals.reshape(1, h)
+    #     # -------------------------------------------------------
+    #     # Case 1: Univariate ARIMA
+    #     # -------------------------------------------------------
+    #     if d0 == 1:
+    #         series = score_object.flatten()
+    #         model = ARIMA(series, order=(1, 0, 0))
+    #         fitted = model.fit()
+    #         forecast_vals = fitted.forecast(steps=h)
+    #         etahat_pred_val = forecast_vals.reshape(1, h)
 
-        # -------------------------------------------------------
-        # Case 2: Multivariate VAR
-        # -------------------------------------------------------
-        else:
-            score_Td = score_object.T  # shape: T × d0
+    #     # -------------------------------------------------------
+    #     # Case 2: Multivariate VAR
+    #     # -------------------------------------------------------
+    #     else:
+    #         score_Td = score_object.T  # shape: T × d0
 
-            var_model = VAR(score_Td)
-            sel = var_model.select_order(maxlags=max_var_lag)
+    #         var_model = VAR(score_Td)
+    #         sel = var_model.select_order(maxlags=max_var_lag)
 
-            chosen_lag = sel.selected_orders["aic"]
-            if chosen_lag is None:
-                chosen_lag = 1
-            chosen_lag = min(chosen_lag, max_var_lag)
+    #         chosen_lag = sel.selected_orders["aic"]
+    #         if chosen_lag is None:
+    #             chosen_lag = 1
+    #         chosen_lag = min(chosen_lag, max_var_lag)
 
-            var_fit = var_model.fit(maxlags=chosen_lag, trend=var_type)
+    #         var_fit = var_model.fit(maxlags=chosen_lag, trend=var_type)
 
-            # FIX: use endog, not y
-            pred = var_fit.forecast(var_fit.endog, steps=h)
+    #         # FIX: use endog, not y
+    #         pred = var_fit.forecast(var_fit.endog, steps=h)
 
-            etahat_pred_val = pred.T
+    #         etahat_pred_val = pred.T
 
-        return etahat_pred_val
+    #     return etahat_pred_val
     
 
-######################## WAVELETS
+######################## WAVELETS ########################
 
 def wavedec_sizes(signal_length, wavelet_name, level):
     """
@@ -454,215 +454,477 @@ def wavedec_sizes(signal_length, wavelet_name, level):
     total = sum(sizes)
     return sizes, total
 
-# DimEstWav/DimEst_boot.m
-def DimEst_boot(Y, NREP, B, p, N, wname):
+
+# split wavelet vector into coeff lists
+def vec2coeffs(vec, sizes):
+    coeffs = []
+    pos = 0
+    for s in sizes:
+        coeffs.append(vec[pos:pos+s])
+        pos += s
+    return coeffs
+
+class W_dFPC:
     """
-    Python translation of MATLAB DimEst_boot.
+    Wavelet dynamic Functional Principal Components (W-dFPC)
 
-    Parameters
-    ----------
-    Y : array (nt x n)
-        Functional observations
-    NREP : int
-        Number of bootstrap replications
-    B : array (J x d0)
-        Eigenvector matrix (wavelet coefficients of estimated eigenfunctions)
-    p : int
-        Maximum lag
-    N : int
-        Wavelet decomposition level
-    wname : str
-        Wavelet name (e.g. 'db2')
+    Implements the Wavelet Dimensionality Estimation procedure described in
+    Fonseca & Pinheiro (2020).
 
-    Returns
-    -------
-    vd0p1_boot : array (NREP,)
-        Bootstrap estimates of eigenvalue_{d0+1}
-    """
+    Given a sample of functional observations Y(t),
+    the procedure computes:
 
-    J, d0 = B.shape
-    nt, n = Y.shape
-
-    vd0p1_boot = np.zeros(NREP)
-    Yhat = np.zeros((nt, n))
-    H = np.zeros((nt, d0))
-    A = np.zeros((J, n))
-    Yboot = np.zeros((nt, n))
-    Aboot = np.zeros((J, n))
-
-    # =====================================================================
-    # Compute wavelet decomposition of Y
-    # =====================================================================
-    # Get coefficient slicing lengths using first column
-    coeffs0 = pywt.wavedec(Y[:, 0], wname, level=N)
-    lengths = [len(c) for c in coeffs0]
-
-    for ii in range(n):
-        coeffs = pywt.wavedec(Y[:, ii], wname, level=N)
-        A[:, ii] = np.concatenate(coeffs)
-
-    mu_A = A.mean(axis=1, keepdims=True)
-    C = A - mu_A
-
-    # =====================================================================
-    # Reconstruct mean function using inverse wavelet transform
-    # =====================================================================
-    def waverec_from_vector(v):
-        out = []
-        idx = 0
-        for L in lengths:
-            out.append(v[idx:idx+L])
-            idx += L
-        return pywt.waverec(out, wname)
-
-    mu_hat = waverec_from_vector(mu_A[:, 0])
-
-    # =====================================================================
-    # Reconstruct eigenfunctions H(:,k)
-    # =====================================================================
-    for ii in range(d0):
-        H[:, ii] = waverec_from_vector(B[:, ii])
-
-    # =====================================================================
-    # Compute fitted curves Yhat
-    # =====================================================================
-    for ii in range(n):
-        Yhat[:, ii] = mu_hat.copy()
-        for k in range(d0):
-            coef = C[:, ii].T @ B[:, k]   # inner product
-            Yhat[:, ii] += coef * H[:, k]
-
-    mEps_hat = Y - Yhat
-
-    # =====================================================================
-    # Bootstrap replications
-    # =====================================================================
-    for jj in range(NREP):
-
-        # Resample residual curves with replacement
-        for ii in range(n):
-            idx = np.random.randint(0, n)
-            Yboot[:, ii] = Yhat[:, ii] + mEps_hat[:, idx]
-
-            coeffs = pywt.wavedec(Yboot[:, ii], wname, level=N)
-            Aboot[:, ii] = np.concatenate(coeffs)
-
-        mu_Aboot = Aboot.mean(axis=1, keepdims=True)
-        Cb = Aboot - mu_Aboot
-
-        C1 = Cb[:, :n-p]
-        D1 = np.zeros((n-p, n-p))
-
-        for k in range(1, p+1):
-            Ct = Cb[:, k:(n-p+k)]
-            D1 += Ct.T @ Ct
-
-        Dboot = C1 @ D1 @ C1.T / ((n - p)**2)
-
-        # eigen-decomposition
-        Lboot, Bboot = np.linalg.eig(Dboot)
-
-        # MATLAB takes Lboot(d0+1,d0+1), but eigenvalues are unordered.
-        # We sort them descending to match MATLAB's behavior.
-        L_sorted = np.sort(Lboot)[::-1]
-
-        vd0p1_boot[jj] = L_sorted[d0]
-
-    return vd0p1_boot
-
-def W_dFPC(
-        Y: np.ndarray,
-        nt: int,
-        N: int = 3,
-        wavelet_: str = 'db2',
-        p = 5
-    ) -> Tuple[np.ndarray, np.ndarray]:
-    """
-    Compute Wavelet-domain Functional Principal Components (WdFPC)
-    for a sample of functional data.
+        - wavelet decomposition coefficients,
+        - mean wavelet coefficients,
+        - wavelet-domain covariance operator,
+        - eigenvalues and eigenfunctions,
+        - scores,
+        - reconstructed sample curves.
 
     Parameters
     ----------
     Y : np.ndarray
-        Functional observations of shape (nt, n), where:
-        - nt is the number of grid points for each curve.
-        - n  is the number of curves.
-        Each column Y[:, i] is one function sampled on a common grid.
+        Functional data matrix of shape (nt, n), where
+        nt = number of time grid points in each curve,
+        n  = number of observed curves.
+        Columns of Y are curves Y_t(u).
 
-    nt : int
-        Number of grid points of the functional domain.
-        Must match Y.shape[0].
-
-    N : int, default=3
-        Wavelet decomposition level used in the discrete wavelet transform
-        (DWT). Higher values give coarser approximations.
-
-    wavelet : str, default='db2'
-        Wavelet family to use for the DWT. Must be any valid PyWavelets
-        wavelet name (e.g., 'db2', 'haar', 'coif1', ...).
-
-    p : int, default=5
-        Number of lags for the covariance operator.
-
-    Returns
-    -------
-    L : np.ndarray
-        Eigenvalues of the estimated covariance operator in the wavelet
-        domain, sorted in decreasing order. Shape: (J,).
-
-    B : np.ndarray
-        Corresponding eigenvectors (principal directions) in the wavelet
-        coefficient space. Shape: (J, J), where J is the total number of
-        stacked wavelet coefficients.
-
-    Notes
-    -----
-    - The function uses the **stacked wavelet coefficients** of each curve
-      as features, following the methodology of wavelet-domain PCA.
-
-    - The sample size `n` is inferred from `Y.shape[1]`.
-
-    - The returned eigenvectors B span the wavelet coefficient space, not
-      the original functional domain.
-
-    - The temporal dependence structure is incorporated by forming a
-      lagged autocovariance estimator using p=5 lags.
-
-    - The function assumes Y has no missing values and is properly aligned
-      on a common grid.
+    Example
+    ----------
+    n  = 100
+    d  = 2
+    nt = 256
+    u  = np.linspace(0.01, 0.99, nt)[:, None]
+    Y (nt X T)
+    N = 3
+    wavelet = 'db2'
+    p = 5
+    dimensions = 10
+    model = W_dFPC(Y)  
+    model.fit(
+        nt=nt,
+        N=N,
+        wavelet=wavelet,
+        p=p,
+        d=dimensions)
+    model.plot_hm(shared=True)
+    model.plot_scores(shared=False)
+    t = 0
+    fitted_scores = model.scores[:, t]
+    predicted_Y = model.predict(fitted_scores)
     """
+
+    def __init__(self, Y):
+        """
+        Construct the estimator.
+
+        Parameters
+        ----------
+        Y : np.ndarray
+            Functional data of shape (nt, n). Each column is one curve.
+        """
+        self.Y = Y
+        self.m, self.T = Y.shape
+
+        #Filled after fit()
+        self.Ybar      = None
+        self.H         = None
+        self.L         = None
+        self.B         = None
+        self.scores    = None
+        self.Yhat      = None
+
+    def fit(self,
+        # Y :      np.ndarray,
+        nt:      np.ndarray,
+        N :      int         = 3,
+        wavelet: str         = 'db2',
+        p :      int         = 5,
+        d :      int         = 3
+        ):
+        """
+        Estimate Wavelet FPComponents.
+
+        Parameters
+        ----------
+        nt : int
+            Number of grid points in each curve (same as Y.shape[0]).
+        N : int, optional
+            Wavelet decomposition depth (default = 3).
+        wavelet : str, optional
+            PyWavelets wavelet name, e.g. 'db2'.
+        p : int, optional
+            Number of lags used to estimate the lagged covariance
+            operator in wavelet domain (default = 5).
+        d : int, optional
+            Number of principal components to retain (default = 3).
+
+        Returns
+        -------
+        self : W_dFPC
+            Instance containing:
+                - H eigenfunctions (nt X T)
+                - scores (d X T)
+                - eigenvalues L (nt X 1)
+                - eigenvectors B (nt X nt)
+                - reconstructed functional sample Yhat (nt X T)
+                - mean function Ybar (nt X 1)
+        """
+
+        n = self.T
+        sizes, J = wavedec_sizes(nt, wavelet, N)
         
-    n = Y.shape[1]  # infer sample size from data
+        # ----- "A" matrix -----
+        A = np.zeros((J, n))
 
-    # compute total number of stacked DWT coefficients
-    sizes, total = wavedec_sizes(nt, wavelet_, N)
-    J = total
+        for ii in range(n):
+            coeffs = pywt.wavedec(Y[:, ii], wavelet=wavelet, level=N)
+            A[:, ii] = np.concatenate(coeffs)
 
-    # matrix of DWT coefficient vectors
-    A = np.zeros((J, n))
+        # ----- mean coeffs -----
+        mu_A = np.mean(A, axis=1, keepdims=True)
+        C = A - mu_A
 
-    for ii in range(n):
-        coeffs = pywt.wavedec(Y[:, ii], wavelet=wavelet_, level=N)
-        A[:, ii] = np.concatenate(coeffs)
+        # ----- lagged covariance D -----
+        C1 = C[:, :n - p]
+        D1 = np.zeros((n - p, n - p))
 
-    # mean-adjust coefficients
-    mu_A = np.mean(A, axis=1, keepdims=True)
-    C = A - mu_A
+        for k in range(1, p + 1):
+            Ct = C[:, k:(n - p + k)]
+            D1 += Ct.T @ Ct
 
-    # compute lagged covariance operator estimate
-    C1 = C[:, :n - p]
-    D1 = np.zeros((n - p, n - p))
+        D = C1 @ D1 @ C1.T / ((n - p) ** 2)
 
-    for k in range(1, p + 1):
-        Ct = C[:, k:(n - p + k)]
-        D1 += Ct.T @ Ct
+        # eigendecomposition (+ ordering)
+        L, B = np.linalg.eig(D)
+        idx = np.argsort(-L)
 
-    D = C1 @ D1 @ C1.T / ((n - p) ** 2)
+        L = L[idx]
+        B = B[:, idx]
+        
+        mu_hat = pywt.waverec(vec2coeffs(mu_A[:, 0], sizes), wavelet)
 
-    # eigendecomposition
-    L, B = np.linalg.eig(D)
+        # ----- reconstruct eigenfunctions h_m -----
+        H = np.zeros((nt, d))
+        for m in range(d):
+            coeffs_m = vec2coeffs(B[:, m], sizes)
+            H[:, m] = pywt.waverec(coeffs_m, wavelet)
 
-    # sort eigenvalues descending
-    idx = np.argsort(-L)
+        # ----- compute scores -----
+        scores = B[:, :d].T @ C      # shape (d, n)
 
-    return L[idx], B[:, idx]
+        # ----- reconstruct curves -----
+        Yhat = np.zeros_like(Y)
+        for t in range(n):
+            Yhat[:, t] = mu_hat + H @ scores[:, t]
+
+        # Store results
+        self.Ybar      = mu_hat
+        self.H         = H
+        self.L         = L
+        self.B         = B
+        self.scores    = scores
+        self.Yhat      = Yhat
+
+        return self
+    
+    def plot_hm(self, shared=True):
+        if self.H is None:
+            raise ValueError("Model not fitted yet")
+        
+        d = self.H.shape[1]
+        alpha_ = 1  
+        increment = 1/d
+
+        if shared:
+            plt.figure()
+        
+        for i in range(d):
+            if not shared:
+                plt.figure()
+                plt.plot(self.H[:, i], label=f"$h_{i}$")
+                plt.legend()
+            else:
+                plt.plot(self.H[:, i], label=f"$h_{i}$", alpha=alpha_)
+            alpha_ -= increment
+
+        plt.title("Wavelet-based decomposition: $\hat{h}$")
+        plt.legend()
+        plt.show()
+
+    def plot_scores(self, shared=True):
+        if self.scores is None:
+            raise ValueError("Model not fitted yet")
+
+        d = self.scores.shape[0]
+        alpha_ = 1  
+        increment = 1/d
+
+        if shared:
+            plt.figure()
+        
+        for i in range(d):
+            if not shared:
+                plt.figure()
+                plt.plot(self.scores[i, :], label=f"$\eta_{i}$")
+                plt.legend()
+            else:
+                plt.plot(self.scores[i, :], label=f"$\eta_{i}$", alpha=alpha_)
+            alpha_ -= increment
+
+        plt.title("Wavelet-based decomposition: $\eta{h}$")
+        plt.legend()
+        plt.show()
+
+    def predict(self, new_scores: np.ndarray) -> np.ndarray:
+        """
+        Reconstruct new functional observations from supplied W-dFPC scores. 
+        Useful for reconstructing curves after forecasting scores.
+
+        Parameters
+        ----------
+        new_scores : np.ndarray
+            Matrix of scores of shape (d, k), where:
+            d = number of retained components
+            k = number of new prediction instants
+
+        Returns
+        -------
+        Ynew : np.ndarray
+            Reconstructed curves of shape (nt, k).
+        """
+        if new_scores.ndim == 1:
+            new_scores = new_scores[:, None]
+        # number of new curves
+        k = new_scores.shape[1]
+
+        # allocate
+        Yhat_predicted = np.zeros((self.Y.shape[0], k))
+
+        for t in range(k):
+            Yhat_predicted[:, t] = self.Ybar + self.H @ new_scores[:, t]
+
+        return Yhat_predicted
+    
+    def eig_proportion(
+            self, 
+            i:int=2) -> float:
+        # proportion of the total eigenvalue mass contained in the first 4 eigenvalues
+        prop = np.linalg.norm(self.L[:i], 1) / np.linalg.norm(self.L, 1)
+        print(f"Proportion of the total eigenvalue mass contained in the first {i} eigenvalues: {prop:.5%}")
+        return prop 
+        
+
+# DimEstWav/DimEst_boot.m
+# def DimEst_boot(Y, NREP, B, p, N, wname):
+#     """
+#     Python translation of MATLAB DimEst_boot.
+
+#     Parameters
+#     ----------
+#     Y : array (nt x n)
+#         Functional observations
+#     NREP : int
+#         Number of bootstrap replications
+#     B : array (J x d0)
+#         Eigenvector matrix (wavelet coefficients of estimated eigenfunctions)
+#     p : int
+#         Maximum lag
+#     N : int
+#         Wavelet decomposition level
+#     wname : str
+#         Wavelet name (e.g. 'db2')
+
+#     Returns
+#     -------
+#     vd0p1_boot : array (NREP,)
+#         Bootstrap estimates of eigenvalue_{d0+1}
+#     """
+
+#     J, d0 = B.shape
+#     nt, n = Y.shape
+
+#     vd0p1_boot = np.zeros(NREP)
+#     Yhat = np.zeros((nt, n))
+#     H = np.zeros((nt, d0))
+#     A = np.zeros((J, n))
+#     Yboot = np.zeros((nt, n))
+#     Aboot = np.zeros((J, n))
+
+#     # =====================================================================
+#     # Compute wavelet decomposition of Y
+#     # =====================================================================
+#     # Get coefficient slicing lengths using first column
+#     coeffs0 = pywt.wavedec(Y[:, 0], wname, level=N)
+#     lengths = [len(c) for c in coeffs0]
+
+#     for ii in range(n):
+#         coeffs = pywt.wavedec(Y[:, ii], wname, level=N)
+#         A[:, ii] = np.concatenate(coeffs)
+
+#     mu_A = A.mean(axis=1, keepdims=True)
+#     C = A - mu_A
+
+#     # =====================================================================
+#     # Reconstruct mean function using inverse wavelet transform
+#     # =====================================================================
+#     def waverec_from_vector(v):
+#         out = []
+#         idx = 0
+#         for L in lengths:
+#             out.append(v[idx:idx+L])
+#             idx += L
+#         return pywt.waverec(out, wname)
+
+#     mu_hat = waverec_from_vector(mu_A[:, 0])
+
+#     # =====================================================================
+#     # Reconstruct eigenfunctions H(:,k)
+#     # =====================================================================
+#     for ii in range(d0):
+#         H[:, ii] = waverec_from_vector(B[:, ii])
+
+#     # =====================================================================
+#     # Compute fitted curves Yhat
+#     # =====================================================================
+#     for ii in range(n):
+#         Yhat[:, ii] = mu_hat.copy()
+#         for k in range(d0):
+#             coef = C[:, ii].T @ B[:, k]   # inner product
+#             Yhat[:, ii] += coef * H[:, k]
+
+#     mEps_hat = Y - Yhat
+
+#     # =====================================================================
+#     # Bootstrap replications
+#     # =====================================================================
+#     for jj in range(NREP):
+
+#         # Resample residual curves with replacement
+#         for ii in range(n):
+#             idx = np.random.randint(0, n)
+#             Yboot[:, ii] = Yhat[:, ii] + mEps_hat[:, idx]
+
+#             coeffs = pywt.wavedec(Yboot[:, ii], wname, level=N)
+#             Aboot[:, ii] = np.concatenate(coeffs)
+
+#         mu_Aboot = Aboot.mean(axis=1, keepdims=True)
+#         Cb = Aboot - mu_Aboot
+
+#         C1 = Cb[:, :n-p]
+#         D1 = np.zeros((n-p, n-p))
+
+#         for k in range(1, p+1):
+#             Ct = Cb[:, k:(n-p+k)]
+#             D1 += Ct.T @ Ct
+
+#         Dboot = C1 @ D1 @ C1.T / ((n - p)**2)
+
+#         # eigen-decomposition
+#         Lboot, Bboot = np.linalg.eig(Dboot)
+
+#         # MATLAB takes Lboot(d0+1,d0+1), but eigenvalues are unordered.
+#         # We sort them descending to match MATLAB's behavior.
+#         L_sorted = np.sort(Lboot)[::-1]
+
+#         vd0p1_boot[jj] = L_sorted[d0]
+
+#     return vd0p1_boot
+
+# def W_dFPC(
+#         Y: np.ndarray,
+#         nt: int,
+#         N: int = 3,
+#         wavelet_: str = 'db2',
+#         p = 5
+#     ) -> Tuple[np.ndarray, np.ndarray]:
+#     """
+#     Compute Wavelet-domain Functional Principal Components (WdFPC)
+#     for a sample of functional data.
+
+#     Parameters
+#     ----------
+#     Y : np.ndarray
+#         Functional observations of shape (nt, n), where:
+#         - nt is the number of grid points for each curve.
+#         - n  is the number of curves.
+#         Each column Y[:, i] is one function sampled on a common grid.
+
+#     nt : int
+#         Number of grid points of the functional domain.
+#         Must match Y.shape[0].
+
+#     N : int, default=3
+#         Wavelet decomposition level used in the discrete wavelet transform
+#         (DWT). Higher values give coarser approximations.
+
+#     wavelet : str, default='db2'
+#         Wavelet family to use for the DWT. Must be any valid PyWavelets
+#         wavelet name (e.g., 'db2', 'haar', 'coif1', ...).
+
+#     p : int, default=5
+#         Number of lags for the covariance operator.
+
+#     Returns
+#     -------
+#     L : np.ndarray
+#         Eigenvalues of the estimated covariance operator in the wavelet
+#         domain, sorted in decreasing order. Shape: (J,).
+
+#     B : np.ndarray
+#         Corresponding eigenvectors (principal directions) in the wavelet
+#         coefficient space. Shape: (J, J), where J is the total number of
+#         stacked wavelet coefficients.
+
+#     Notes
+#     -----
+#     - The function uses the **stacked wavelet coefficients** of each curve
+#       as features, following the methodology of wavelet-domain PCA.
+
+#     - The sample size `n` is inferred from `Y.shape[1]`.
+
+#     - The returned eigenvectors B span the wavelet coefficient space, not
+#       the original functional domain.
+
+#     - The temporal dependence structure is incorporated by forming a
+#       lagged autocovariance estimator using p=5 lags.
+
+#     - The function assumes Y has no missing values and is properly aligned
+#       on a common grid.
+#     """
+        
+#     n = Y.shape[1]  # infer sample size from data
+
+#     # compute total number of stacked DWT coefficients
+#     sizes, total = wavedec_sizes(nt, wavelet_, N)
+#     J = total
+
+#     # matrix of DWT coefficient vectors
+#     A = np.zeros((J, n))
+
+#     for ii in range(n):
+#         coeffs = pywt.wavedec(Y[:, ii], wavelet=wavelet_, level=N)
+#         A[:, ii] = np.concatenate(coeffs)
+
+#     # mean-adjust coefficients
+#     mu_A = np.mean(A, axis=1, keepdims=True)
+#     C = A - mu_A
+
+#     # compute lagged covariance operator estimate
+#     C1 = C[:, :n - p]
+#     D1 = np.zeros((n - p, n - p))
+
+#     for k in range(1, p + 1):
+#         Ct = C[:, k:(n - p + k)]
+#         D1 += Ct.T @ Ct
+
+#     D = C1 @ D1 @ C1.T / ((n - p) ** 2)
+
+#     # eigendecomposition
+#     L, B = np.linalg.eig(D)
+
+#     # sort eigenvalues descending
+#     idx = np.argsort(-L)
+
+#     return L[idx], B[:, idx]
+
