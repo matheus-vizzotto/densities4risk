@@ -7,7 +7,8 @@ from typing import Tuple
 
 ################################ NOVA CLASSE #####################
 
-# TODO: K_dFPC.forecast_scores() gerando erro: IndexError: index 0 is out of bounds for axis 0 with size 0
+# TODO: Unificar notação e termos. Exemplo: Yhat ou fitted_values?
+
 
 # ============================================================
 # Auxiliary Functions
@@ -571,6 +572,7 @@ class W_dFPC:
                 - mean function Ybar (nt X 1)
         """
 
+        Y = self.Y
         n = self.T
         sizes, J = wavedec_sizes(nt, wavelet, N)
         

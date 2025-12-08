@@ -1,2 +1,2 @@
 # Salvar lista de setup do ambiente
-conda env export > environment.yml
+conda env export > C:\Users\user\Downloads\environment.yml
