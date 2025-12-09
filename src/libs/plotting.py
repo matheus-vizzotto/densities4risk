@@ -80,3 +80,45 @@ def plot_3d_fts(
     elif output_path:
         fig.show()
         fig.write_image(output_path, width=1200, height=800, scale=2) # png
+
+def set_plotting_configs():
+    plt.rcParams.update({
+
+        # ---- Figure layout ----
+        "figure.figsize": (12, 5),       # Nice default for time-series
+        "figure.dpi": 110,
+        "axes.spines.top": False,
+        "axes.spines.right": False,
+
+        # ---- Background colors ----
+        "axes.facecolor": "#f7f7f7",
+        "figure.facecolor": "#ffffff",
+        "savefig.facecolor": "#ffffff",
+
+        # ---- Grids ----
+        "axes.grid": True,
+        "grid.color": "0.85",
+        "grid.linestyle": "--",
+        "grid.linewidth": 0.7,
+
+        # ---- Fonts ----
+        "font.size": 12,
+        "axes.titlesize": 15,
+        "axes.labelsize": 13,
+
+        # ---- Lines ----
+        "lines.linewidth": 1,
+
+        # ---- Ticks ----
+        "xtick.major.size": 0,
+        "ytick.major.size": 0,
+
+        # ---- Legend ----
+        "legend.frameon": False,
+    })
+
+    # Optional: nicer color cycle (using seaborn palette)
+
+    import seaborn as sns
+    colors = sns.color_palette("deep")
+    plt.rcParams["axes.prop_cycle"] = plt.cycler(color=colors)
