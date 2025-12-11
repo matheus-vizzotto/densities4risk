@@ -72,6 +72,80 @@ def obtain_densities(
     return df_supports, df_densities
 
 def dens2lqd(dens, dSup, lqdSup=None, t0=None, verbose=True):
+    """
+    ----------------------------------------------------------------------
+    Mathematic Background
+    ----------------------------------------------------------------------
+    Let f be a density supported on an interval [a, b], with cumulative
+    distribution function (CDF):
+
+        F(x) = ∫_a^x f(s) ds.
+
+    Define the quantile function:
+
+        Q(u) = F^{-1}(u),     u ∈ [0, 1].
+
+    The *quantile-density function* is:
+
+        q(u) = Q'(u) = 1 / f(Q(u)).
+s
+    The *log-quantile-density transform* is
+
+        L(u) = -log f(Q(u)) = log q(u).                    (1)
+
+    As shown in Kokoszka & Reimherr (2019), the LQD map:
+
+        f  ↦  L
+
+    takes densities from a nonlinear manifold into an (approximately) 
+    linear Hilbert space L^2[0,1], enabling classical FDA tools.
+
+    Parameters
+    ----------
+    dens : array_like
+        A 1D array of density values. Must be non-negative.  
+        If the integral is not 1, the function renormalizes it.
+
+    dSup : array_like
+        The support points corresponding to `dens`. Must be strictly increasing.
+
+    lqdSup : array_like, optional
+        Desired evaluation grid for the LQD, assumed to lie in `[0,1]`.  
+        If not provided, defaults to a uniform grid of the same size as `dSup`.  
+        If the grid does not span `[0,1]`, it is replaced by the default.
+
+    t0 : float, optional
+        A reference location in the original support where the CDF-based
+        constant `c` is evaluated.  
+        If not inside `dSup`, it is replaced by the closest support value.  
+        Default is the lower boundary `dSup[0]`.
+
+    verbose : bool, default=True
+        Whether to print warnings about renormalization, support truncation,
+        and boundary corrections.
+
+    Returns
+    -------
+    lqdSup : ndarray
+        The LQD support grid (in `[0,1]`).
+
+    lqd : ndarray
+        The log-quantile-density values evaluated on `lqdSup`.
+
+    c : float
+        A constant equal to the CDF evaluated at `t0`, i.e.
+        `c = ∫_{dSup[0]}^{t0} dens(s) ds`.
+
+    Notes
+    -----
+    - Zero density values cause the support to be truncated to ensure
+      strictly positive densities, as the LQD is undefined at zeros.
+    - CDF monotonicity issues (often appearing in KDE-based estimates)
+      are corrected by discarding duplicated CDF entries to ensure
+      a valid interpolation grid.
+    - If the transformed LQD has infinite values at boundaries, interpolation
+      is performed excluding those endpoints, which are assigned `+inf`.
+    """
     dens = np.asarray(dens)
     dSup = np.asarray(dSup)
 
@@ -226,7 +300,39 @@ def lqd2dens(
     verbose=True
 ):
     """
-    Python translation of the R function `lqd2dens`.
+    Reconstruct a probability density function from its Log–Quantile–Density
+    (LQD) transform. This is the inverse of `dens2lqd`.
+
+    This implementation follows the mathematical framework used in
+    Kokoszka & Reimherr (2017, 2019) for functional transformations of 
+    probability density functions.
+
+    ----------------------------------------------------------------------
+    Inverting the Transform
+    ----------------------------------------------------------------------
+    The goal is to reconstruct f from L.
+
+    Step 1 — Recover the quantile density:
+        q(u) = exp(L(u)).                                 (2)
+
+    Step 2 — Recover the quantile function via integration:
+        Q(u) = t0 + ∫_0^u q(s) ds  −  constant.            (3)
+
+    The required constant is chosen so that
+        Q(c) = t0,
+    where c = F(t0).
+
+    This ensures that the recovered quantile aligns with the required
+    probability level c.
+
+    Step 3 — The density is obtained by the identity:
+        f(x) = 1 / q(F(x)).                                (4)
+
+    Numerically, we compute dtemp = Q(u) and dens_temp = exp(-L(u)).
+    Then we interpolate
+        dens(x) = dens_temp(Q^{-1}(x)).
+
+    Finally, density is renormalized to integrate to 1.
 
     Parameters
     ----------
@@ -246,11 +352,16 @@ def lqd2dens(
     verbose : bool
         Print messages?
 
+
+    ----------------------------------------------------------------------
     Returns
-    -------
-    dict with:
-        - dSup : density support
-        - dens : density values
+    ----------------------------------------------------------------------
+    dSup : ndarray
+        Support grid for the reconstructed density. Equal to the 
+        reconstructed quantile Q(u) after monotonicity correction.
+
+    dens : ndarray
+        Reconstructed density f(x). Renormalized to integrate to 1.
     """
 
     lqd = np.asarray(lqd)
@@ -385,6 +496,8 @@ def obtain_densities_from_lqd(
         i += 1
 
     df_backward_supports = pd.concat(supports, axis=1) 
+    df_backward_supports.columns = cols
     df_backward_densities = pd.concat(densities, axis=1)
+    df_backward_densities.columns = cols
 
     return df_backward_supports, df_backward_densities
