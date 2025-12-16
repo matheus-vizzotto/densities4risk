@@ -420,3 +420,188 @@ def get_metrics(
     }
 
     return metrics_dict
+
+def overall_KLD(
+        X : pd.DataFrame,
+        Y : pd.DataFrame,
+        n_test : int
+    ):
+    """
+    Compute the overall symmetric Kullback–Leibler divergence between
+    two sequences of discretized density functions.
+
+    For each evaluation index, this function computes the Kullback–Leibler
+    divergence between the observed density and its forecast in both
+    directions, KL(f || f̂) and KL(f̂ || f). The resulting divergences are
+    then averaged over the evaluation sample and summed, yielding the
+    time-averaged Jeffreys divergence as an overall measure of density
+    forecast accuracy.
+
+    Parameters
+    ----------
+    X : pandas.DataFrame
+        Observed densities evaluated on a common grid. Each column
+        corresponds to a time index (or forecast origin), and each
+        column is assumed to represent a discrete probability density
+        function.
+
+    Y : pandas.DataFrame
+        Forecast densities evaluated on the same grids as `X`.
+        Must have the same shape and column ordering as `X`.
+
+    n_test : int
+        Number of evaluation points (columns) over which the divergence
+        is computed.
+
+    Returns
+    -------
+    summary : float
+        Overall density forecast error measured as the average symmetric
+        Kullback–Leibler divergence (Jeffreys divergence) across the
+        evaluation period.
+
+    Notes
+    -----
+    * Divergences are computed independently for each column (time index).
+    * The function `KLdiv` is assumed to compute KL(p || q) for two
+      discrete densities p and q.
+    * The final summary is given by
+        (1 / n_test) * sum_t [ KL(f_t || f̂_t) + KL(f̂_t || f_t) ],
+      where f_t and f̂_t denote the observed and forecast densities at
+      time t.
+    * The resulting measure is symmetric but is not itself a proper
+      scoring rule.
+    """
+    
+    measures = np.full((n_test, 2), np.nan)
+    for p in range(n_test):
+        p_true = X.iloc[:, p]
+        p_fc = Y.iloc[:, p]
+        measures[p, 0] = KLdiv(p_true, p_fc)
+        measures[p, 1] = KLdiv(p_fc, p_true)
+
+    summary = np.round(np.nanmean(measures, axis=0).sum(), 4)
+
+    return summary
+
+def overall_JSD(
+        X: pd.DataFrame,
+        Y: pd.DataFrame,
+        n_test: int
+    ) -> float:
+    """
+    Compute the overall Jensen–Shannon divergence between two sequences
+    of discretized density functions using the arithmetic mean mixture.
+
+    For each evaluation index, the Jensen–Shannon divergence between the
+    observed and forecast densities is computed. The resulting values
+    are then summed over the evaluation sample to obtain an overall
+    measure of density forecast accuracy.
+
+    Parameters
+    ----------
+    X : pandas.DataFrame
+        Observed densities evaluated on a common grid. Each column
+        corresponds to a time index.
+
+    Y : pandas.DataFrame
+        Forecast densities evaluated on the same grid as `X`.
+        Must have the same shape and column ordering as `X`.
+
+    n_test : int
+        Number of evaluation points (columns).
+
+    Returns
+    -------
+    summary : float
+        Overall Jensen–Shannon divergence summed over the evaluation
+        period.
+
+    Notes
+    -----
+    * The Jensen–Shannon divergence is computed as
+          JSD(f_t, f̂_t) =
+          0.5 * KL(f_t || m_t) + 0.5 * KL(f̂_t || m_t),
+      where m_t = 0.5 * (f_t + f̂_t).
+    * Divergences are computed independently for each time index and
+      aggregated by summation, matching the original R implementation.
+    * The resulting measure is symmetric, finite, and bounded above
+      by log(2) when natural logarithms are used.
+
+    See Also
+    --------
+    KLdiv : Kullback–Leibler divergence for discrete densities.
+    JSdiv : Jensen–Shannon divergence for discrete densities.
+    """
+
+    jsd = np.full(n_test, np.nan)
+
+    for t in range(n_test):
+        p_true = X.iloc[:, t].to_numpy()
+        p_fc   = Y.iloc[:, t].to_numpy()
+
+        jsd[t] = JSdiv(p_true, p_fc)
+
+    summary = np.round(np.nansum(jsd), 4)
+
+    return summary
+
+def overall_Lnorm(
+        X: pd.DataFrame,
+        Y: pd.DataFrame,
+        n_test: int,
+        norm: str = "L1"
+    ) -> float:
+    """
+    Compute the overall L^p-type norm between observed and forecast
+    density functions over an evaluation sample.
+
+    Parameters
+    ----------
+    X : pandas.DataFrame
+        Observed densities evaluated on a common grid.
+        Each column corresponds to a time index.
+
+    Y : pandas.DataFrame
+        Forecast densities evaluated on the same grid as `X`.
+
+    n_test : int
+        Number of evaluation points (columns).
+
+    norm : {"L1", "L2", "LINF"}, optional
+        Type of norm to compute:
+        - "L1"   : sum of absolute deviations
+        - "L2"   : square root of sum of squared deviations
+        - "LINF" : maximum absolute deviation
+
+    Returns
+    -------
+    summary : float
+        Mean norm value over the evaluation period, rounded to 4 decimals.
+
+    Notes
+    -----
+    - Norms are computed pointwise for each time index and then averaged
+      over the evaluation sample.
+    - This function reproduces the aggregation used in the original R
+      implementation exactly.
+    """
+
+    values = np.full(n_test, np.nan)
+
+    for t in range(n_test):
+        diff = X.iloc[:, t].to_numpy() - Y.iloc[:, t].to_numpy()
+
+        if norm.upper() == "L1":
+            values[t] = np.sum(np.abs(diff))
+
+        elif norm.upper() == "L2":
+            values[t] = np.sqrt(np.sum(diff ** 2))
+
+        elif norm.upper() == "LINF":
+            values[t] = np.max(np.abs(diff))
+
+        else:
+            raise ValueError("norm must be one of {'L1', 'L2', 'LINF'}")
+
+    return np.round(np.nanmean(values), 4)
