@@ -63,13 +63,71 @@ def forecast_var(res, steps: int = 1) -> np.ndarray:
     """
     return res.forecast(res.endog[-res.k_ar:], steps=steps)
 
+class dynamics_forecaster:
+    def __init__(
+            self, 
+            Y : pd.DataFrame
+            ):
+        self.Y = Y
+
+        self.fitted_model = None
+    
+    def select_order_ic(self,
+        maxlags: int = 10,
+        criteria: str = 'bic'
+        ) -> Dict[str, int]:
+        """
+        Select lag order using AIC and BIC from statsmodels VAR.select_order.
+        Returns dict with keys 'aic', 'bic', 'hqic' (if available).
+        """
+        model = VAR(self.Y)
+        sel = model.select_order(maxlags)
+        # statsmodels returns object with attributes aic, bic, hqic that are integers (lags)
+        criteria_dict = {'aic': int(sel.aic), 'bic': int(sel.bic), 'hqic': int(sel.hqic)}
+
+        return criteria_dict[criteria]
+    
+    def fit_var(self, 
+                nlags: int
+                ) -> VAR:
+        """
+        Fit a VAR model and return the fitted results object.
+        """
+        model = VAR(self.Y)
+        res = model.fit(nlags)
+
+        self.fitted_model = res
+
+    def forecast(self,
+                 h: int
+                ):
+        """
+        Forecast using a fitted statsmodels VARResults object.
+        Returns the format expected by the the dFPC: (eta X T)
+        Returns a numpy array (steps x k).
+        """
+        model = self.fitted_model
+        fc_h  = model.forecast(model.endog[-model.k_ar:], steps=h)
+
+        return fc_h.T
 
 
 
+def run_forecaster(
+        scores    : np.array,
+        maxlags_  : int,
+        criteria_ : str,
+        h_        : int
+        ):
+    
+    forecaster = dynamics_forecaster(scores)
+    selected_nlags = forecaster.select_order_ic(
+                                    maxlags_,
+                                    criteria=criteria_)
+    forecaster.fit_var(nlags=selected_nlags)
+    fc = forecaster.forecast(h=h_)
 
-
-
-
+    return fc
 
 ############################################################################################
 ##################################### ACCURACY METRICS #####################################

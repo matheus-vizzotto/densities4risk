@@ -504,3 +504,67 @@ def obtain_densities_from_lqd(
     df_backward_densities.columns = cols
 
     return df_backward_supports, df_backward_densities
+
+
+class mLQDT:
+    """
+    bovespa_mLQDT = mLQDT(
+                    df_densities,
+                    df_densities_supports
+                )
+    bovespa_mLQDT.densities_to_lqdensities()
+    """
+    def __init__(
+            self, 
+            densities : pd.DataFrame,
+            densities_supports : pd.DataFrame
+            ):
+        
+        # Data
+        self.Y         = densities
+        self.Y_support = densities_supports
+
+        # Metadata
+        self.columns  = densities.columns
+        self.Y_n_rows = densities.shape[0]
+        self.Y_n_cols = densities.shape[1]
+
+        # Results 
+        self.lqd_support = None
+        self.lqd         = None
+        self.c           = None
+
+
+    def densities_to_lqdensities(self, 
+                                 lqd_support=None,
+                                 verbose=True):
+        lqdSup, df_lqds, c = obtain_lqds(
+                                        self.Y_support, 
+                                        self.Y,
+                                        lqd_sup = lqd_support,
+                                        verbose_=verbose)
+        
+        self.lqd_support = lqdSup
+        self.lqd         = df_lqds
+        self.c           = c
+
+    def lqdensities_to_densities(self, 
+                                 adhoc_lqd_support,
+                                 adhoc_lqds,
+                                 adhoc_c=None,
+                                 verbose=True
+                                ):
+        
+        if adhoc_c is not None:
+            if verbose:
+                print("'c' was not provided. Using original fitted values.")
+            adhoc_c = self.c
+
+        densities_supports, densities = obtain_densities_from_lqd(
+                                                            adhoc_lqds,
+                                                            adhoc_lqd_support,
+                                                            c=adhoc_c,
+                                                            verbose = True
+                                        )
+        
+        return [densities_supports, densities]
