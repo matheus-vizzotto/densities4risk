@@ -246,7 +246,8 @@ s
 def obtain_lqds(
         df_supports  : pd.DataFrame,
         df_densities : pd.DataFrame, 
-        lqd_sup_M=None):
+        lqd_sup=None,
+        verbose_=True):
     """_summary_
 
     Args:
@@ -260,11 +261,11 @@ def obtain_lqds(
 
     Example: lqdSup, df_lqds, c = obtain_lqds(df_supports, df_densities) 
     """
-    if lqd_sup_M:
-        M = lqd_sup_M
+    if lqd_sup is not None:
+        M = lqd_sup.shape[0]
     else:
         M = df_densities.shape[0]
-    lqdSup_ = np.linspace(0,1, M)
+        lqd_sup = np.linspace(0,1, M)
 
     # lqds_sup = []
     lqds = []
@@ -277,8 +278,10 @@ def obtain_lqds(
         lqdsup, lqd, c = dens2lqd(
                                 dens = density, 
                                 dSup = density_support, 
-                                lqdSup=lqdSup_, 
-                                t0 = t0_)
+                                lqdSup=lqd_sup, 
+                                t0 = t0_,
+                                verbose=verbose_
+                                )
         # lqds_sup.append(lqdSup) # no need since the image of the LQDT is shared by all densities by construction
         lqds.append(pd.Series(lqd))
         cs.append(c)
@@ -286,7 +289,7 @@ def obtain_lqds(
     df_lqds = pd.concat(lqds, axis=1)
     df_lqds.columns = cols
     
-    return lqdSup_, df_lqds, cs
+    return lqdsup, df_lqds, cs
 
 
 def lqd2dens(
@@ -472,7 +475,7 @@ def obtain_densities_from_lqd(
         df : pd.DataFrame, 
         lqdSup_ : np.array, 
         c_ : np.array,
-        verbose=False):
+        verbose=True):
     """_summary_
 
     Args:
