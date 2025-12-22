@@ -166,7 +166,7 @@ def train_test_split(
 
     return Y_train_support, Y_train, Y_test_support, Y_test
 
-
+# CROSS VALIDATION
 def expanding_window_cv(
         T: int, 
         h: int =1, 
@@ -185,6 +185,7 @@ def expanding_window_cv(
         splits.append((train_idx, test_idx))
 
     return splits
+
 
 ############################################################################################
 ##################################### ACCURACY METRICS #####################################
@@ -595,7 +596,7 @@ def overall_KLD(
         measures[p, 0] = KLdiv(p_true, p_fc)
         measures[p, 1] = KLdiv(p_fc, p_true)
 
-    summary = np.round(np.nanmean(measures, axis=0).sum(), 4)
+    summary = np.round(np.nanmean(measures, axis=0).sum(), 6)
 
     return summary
 
@@ -657,7 +658,7 @@ def overall_JSD(
 
         jsd[t] = JSdiv(p_true, p_fc)
 
-    summary = np.round(np.nansum(jsd), 4)
+    summary = np.round(np.nansum(jsd), 6)
 
     return summary
 
@@ -719,4 +720,19 @@ def overall_Lnorm(
         else:
             raise ValueError("norm must be one of {'L1', 'L2', 'LINF'}")
 
-    return np.round(np.nanmean(values), 4)
+    return np.round(np.nanmean(values), 6)
+
+def overall_measures(
+    test: pd.DataFrame,
+    forecast: pd.DataFrame,
+) -> pd.DataFrame:
+
+    n = forecast.shape[1]
+
+    measures = {
+        "KLD": overall_KLD(test, forecast, n),
+        "JSD": overall_JSD(test, forecast, n),
+        "Lnorm": overall_Lnorm(test, forecast, n, "LINF"),
+    }
+
+    return measures
