@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-from typing import Dict
+from typing import Dict, Union
 import numpy as np
 
 from statsmodels.tsa.api import VAR
@@ -128,6 +128,63 @@ def run_forecaster(
     fc = forecaster.forecast(h=h_)
 
     return fc
+
+def train_test_split(
+    Y: pd.DataFrame,
+    Y_support : pd.DataFrame,
+    train_size: Union[float, int]
+    ):
+    """
+    Parameters
+    ----------
+    Y : pd.DataFrame
+        Columns correspond to time (e.g. dates).
+    train_size : float or int
+        - float in (0, 1]: fraction of data used for training
+        - int >= 1: number of observations in the test set
+    """
+
+    n_obs = Y.shape[1]
+
+    if isinstance(train_size, float):
+        if not (0 < train_size < 1):
+            raise ValueError("train_size as float must be in (0, 1)")
+        train_index = int(n_obs * train_size)
+
+    elif isinstance(train_size, int):
+        if train_size <= 0 or train_size >= n_obs:
+            raise ValueError("train_size as int must be between 1 and n_obs-1")
+        train_index = n_obs - train_size
+
+    else:
+        raise TypeError("train_size must be float or int")
+
+    Y_train = Y.iloc[:, :train_index]
+    Y_train_support = Y_support.iloc[:, :train_index]
+    Y_test = Y.iloc[:, train_index:]
+    Y_test_support = Y_support.iloc[:, train_index:]
+
+    return Y_train_support, Y_train, Y_test_support, Y_test
+
+
+def expanding_window_cv(
+        T: int, 
+        h: int =1, 
+        initial_window:int = 50
+        ):
+    """
+    T: FTS length (number of curves)
+    h: forecast horizon
+    initial_window: minimum training size
+    """
+
+    splits = []
+    for t in range(initial_window, T - h + 1):
+        train_idx = np.arange(0, t)
+        test_idx = np.arange(t, t + h)
+        splits.append((train_idx, test_idx))
+
+    return splits
 
 ############################################################################################
 ##################################### ACCURACY METRICS #####################################
