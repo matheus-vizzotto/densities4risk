@@ -1,6 +1,15 @@
 import numpy as np
 from scipy.stats import norm
 
+def generate_coeffs(d):
+    c = []
+    for l0 in range(d):
+        l = l0 + 1
+        c0 = (-1)**l * (0.9 - ((0.5*l)/d))
+        # print(c0, "\n")
+        c.append(c0)
+    return c
+
 def simulate_curves(
         n: int,           # number of time points
         nt: int,          # grid size
@@ -36,7 +45,8 @@ def simulate_curves(
     # --- simulate latent scores xi_k(t)
     Xi = np.zeros((K, n))
     for k in range(K):
-        eps = np.random.normal(scale=np.sqrt(variances[k]), size=n)
+        # eps = np.random.normal(scale=np.sqrt(variances[k]), size=n)
+        eps = np.random.normal(scale=variances[k], size=n)
         for t in range(1, n):
             Xi[k, t] = phis[k] * Xi[k, t - 1] + eps[t]
 
