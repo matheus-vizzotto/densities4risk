@@ -10,6 +10,8 @@ import pandas as pd
 import numpy as np
 from scipy.stats import gaussian_kde
 
+from typing import Tuple
+
 
 # Raw data to densities
 def obtain_densities(
@@ -475,6 +477,7 @@ def obtain_densities_from_lqd(
         df : pd.DataFrame, 
         lqdSup_ : np.array, 
         c_ : np.array,
+        cut : Tuple[int,int] = (0,0),
         verbose=True):
     """_summary_
 
@@ -493,7 +496,7 @@ def obtain_densities_from_lqd(
     i=0
     for col in cols:
         lqd = df.loc[:, col]
-        backward_support, backward_density = lqd2dens(lqd, lqdSup_, c = c_[i], verbose=verbose)
+        backward_support, backward_density = lqd2dens(lqd, lqdSup_, c = c_[i], verbose=verbose, cut=cut)
         supports.append(pd.Series(backward_support))
         densities.append(pd.Series(backward_density))
         i += 1

@@ -20,8 +20,6 @@ def align_and_normalize_density(x_obs, f_obs, x_hat, f_hat,
         lo = min(np.nanmin(x_obs), np.nanmin(x_hat))
         hi = max(np.nanmax(x_obs), np.nanmax(x_hat))
         x_common = np.linspace(lo, hi, n_points)
-    
-
 
     # safe interpolation: fill outside range with 0
     interp_obs = interp1d(x_obs, f_obs, kind=interp_kind,
