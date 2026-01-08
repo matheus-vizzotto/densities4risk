@@ -3,6 +3,7 @@ import numpy as np
 from scipy.interpolate import interp1d, PchipInterpolator
 import matplotlib.pyplot as plt
 from typing import Tuple, List
+from scipy.integrate import trapezoid
 
 
 def align_and_normalize_density(x_obs, f_obs, x_hat, f_hat,
@@ -136,3 +137,49 @@ def align_densities(
         df_fhat.loc[:,col] = f_hat_col
     
     return df_supp, df_f, df_fhat
+
+
+def weigh_norm_densities(
+        df_densities: pd.DataFrame, 
+        support: np.array, 
+        norm:int ='area'
+        ) -> pd.DataFrame:
+    """
+    Reweight and normalize a collection of discretized density functions.
+
+    Each density is multiplied pointwise by the cross-sectional mean density
+    and then normalized either to unit integral or by a user-specified constant.
+
+    Parameters
+    ----------
+    df_densities : pd.DataFrame
+        DataFrame of shape (m, n) where each column represents a density
+        evaluated on a common grid.
+    support : np.array
+        One-dimensional grid corresponding to the rows of `df_densities`,
+        used for numerical integration.
+    norm : {'area', int}, default='area'
+        Normalization method. If 'area', densities are normalized to integrate
+        to one using the trapezoidal rule. Otherwise, `norm` is treated as a
+        fixed normalization constant.
+
+    Returns
+    -------
+    pd.DataFrame
+        DataFrame of reweighted and normalized densities with the same shape
+        as `df_densities`.
+    """
+    df2 = df_densities.copy()
+    for col in df2.columns:
+        # Calculate the transformed density
+        transformed = df_densities.loc[:,col] * df_densities.mean(axis=1)
+        
+        if norm == 'area':
+            # Normalize by area to integrate to 1
+            area = trapezoid(transformed, support)
+            df2.loc[:,col] = transformed / area
+        else:
+            # Normalize by given constant
+            df2.loc[:,col] = transformed / norm
+
+    return df2

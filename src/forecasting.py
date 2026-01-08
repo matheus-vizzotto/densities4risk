@@ -725,7 +725,7 @@ def overall_Lnorm(
 def overall_measures(
     test: pd.DataFrame,
     forecast: pd.DataFrame,
-) -> pd.DataFrame:
+) -> Dict:
 
     n = forecast.shape[1]
 
