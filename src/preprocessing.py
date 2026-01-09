@@ -50,7 +50,7 @@ def align_and_normalize_density(x_obs, f_obs, x_hat, f_hat,
     f_obs_c = f_obs_c / area_obs
     f_hat_c = f_hat_c / area_hat
 
-    return x_common, f_obs_c, f_hat_c
+    return x_common.copy(), f_obs_c.copy(), f_hat_c.copy()
 
 
 def align_densities(
