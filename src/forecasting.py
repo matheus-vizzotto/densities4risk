@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-from typing import Dict, Union
+from typing import Dict, Union, List, Tuple
 import numpy as np
 
 from statsmodels.tsa.api import VAR
@@ -168,14 +168,35 @@ def train_test_split(
 
 # CROSS VALIDATION
 def expanding_window_cv(
-        T: int, 
-        h: int =1, 
-        initial_window:int = 50
-        ):
+    T: int, 
+    h: int = 1, 
+    initial_window: int = 50
+) -> List[Tuple[np.ndarray, np.ndarray]]:
     """
-    T: FTS length (number of curves)
-    h: forecast horizon
-    initial_window: minimum training size
+    Generate expanding window cross-validation splits for time series data.
+    
+    This function creates training/testing index pairs for time series cross-validation
+    using an expanding window approach, where the training set grows while maintaining
+    a fixed forecast horizon.
+    
+    Parameters
+    ----------
+    T : int
+        Total number of time series observations (length of the dataset).
+    h : int, default=1
+        Forecast horizon (number of steps to predict ahead).
+    initial_window : int, default=50
+        Minimum number of observations required for the initial training window.
+        Must be less than T - h.
+    
+    Returns
+    -------
+    List[Tuple[np.ndarray, np.ndarray]]
+        List of (train_indices, test_indices) tuples, where each tuple contains:
+        - train_indices : np.ndarray
+            Array of indices for the training set (0 to t-1)
+        - test_indices : np.ndarray
+            Array of indices for the test set (t to t+h-1)
     """
 
     splits = []
@@ -185,6 +206,14 @@ def expanding_window_cv(
         splits.append((train_idx, test_idx))
 
     return splits
+
+def slice_fold(Y, Y_support, train_idx, test_idx):
+    return {
+        "Y_train": Y.iloc[:, train_idx],
+        "Y_support_train": Y_support.iloc[:, train_idx],
+        "Y_test":  Y.iloc[:, test_idx],
+        "Y_support_test":  Y_support.iloc[:, test_idx],
+    }
 
 
 ############################################################################################
@@ -732,7 +761,9 @@ def overall_measures(
     measures = {
         "KLD": overall_KLD(test, forecast, n),
         "JSD": overall_JSD(test, forecast, n),
-        "Lnorm": overall_Lnorm(test, forecast, n, "LINF"),
+        "L_1": overall_Lnorm(test, forecast, n, "L1"),
+        "L_2": overall_Lnorm(test, forecast, n, "L2"),
+        "L_INFTY": overall_Lnorm(test, forecast, n, "LINF"),
     }
 
     return measures
