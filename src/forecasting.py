@@ -73,18 +73,27 @@ class dynamics_forecaster:
         self.fitted_model = None
     
     def select_order_ic(self,
-        maxlags: int = 10,
-        criteria: str = 'bic'
+        maxlags:int          = 10,
+        criteria:str         = 'bic',
+        prevent_zero_lag:bool = False
         ) -> Dict[str, int]:
         """
         Select lag order using AIC and BIC from statsmodels VAR.select_order.
         Returns dict with keys 'aic', 'bic', 'hqic' (if available).
         """
         model = VAR(self.Y)
-        sel = model.select_order(maxlags)
+        sel = model.select_order(maxlags)   
         # statsmodels returns object with attributes aic, bic, hqic that are integers (lags)
         criteria_dict = {'aic': int(sel.aic), 'bic': int(sel.bic), 'hqic': int(sel.hqic)}
 
+        selected_n_lags = criteria_dict[criteria] 
+
+        if prevent_zero_lag:
+            selected_n_lags = np.max(1,selected_n_lags)
+        else:
+            if selected_n_lags == 0:
+                print("Number of selected lags is zero. Forecast with mean.")    
+        
         return criteria_dict[criteria]
     
     def fit_var(self, 
@@ -124,8 +133,12 @@ def run_forecaster(
     selected_nlags = forecaster.select_order_ic(
                                     maxlags_,
                                     criteria=criteria_)
-    forecaster.fit_var(nlags=selected_nlags)
-    fc = forecaster.forecast(h=h_)
+    if selected_nlags == 0:
+        mean_vec = scores.mean(axis=0)
+        fc = np.tile(mean_vec, (h_, 1)).T
+    else:
+        forecaster.fit_var(nlags=selected_nlags)
+        fc = forecaster.forecast(h=h_)
 
     return fc
 
