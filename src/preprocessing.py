@@ -251,7 +251,7 @@ def rule_of_thumb_bandwidth(
     else:
         raise ValueError("rule must be 'silverman' or 'scott'")
     
-class FDA_KDE:
+class KernelDensityEstimation:
     """
     Description
     ---------
@@ -267,6 +267,10 @@ class FDA_KDE:
 
     >>>kde = FDA_KDE(kernel="gaussian", bandwidth=0.3)
     >>>density = kde.fit_transform(x1, grid)
+    >>>density_grid = kde.grid
+
+    >>>t_kde = FDA_KDE(kernel="t_student", bandwidth='scott', df = 3)
+    >>>t_density = t_kde.fit_transform(t_samples, adaptive=True)
     """
 
     def __init__(
