@@ -1,11 +1,13 @@
 import pandas as pd
 import numpy as np
 from scipy.interpolate import interp1d, PchipInterpolator
+from sklearn.model_selection import GridSearchCV, LeaveOneOut
 import matplotlib.pyplot as plt
 from typing import Tuple, List
 from scipy.integrate import trapezoid
 from scipy.stats import norm, t
 
+from sklearn.neighbors import KernelDensity
 
 def align_and_normalize_density(x_obs, f_obs, x_hat, f_hat,
                                 x_common=None, n_points=256,
@@ -190,15 +192,30 @@ def weigh_norm_densities(
 ######################## DENSITY ESTIMATION ############################ 
 ########################################################################
 
+
+# Kernel-dependent constants for bandwidth selection
+KERNEL_CONSTANTS = {
+    "gaussian": {
+        "scott": 1.06,
+        "silverman": 0.9,
+    },
+    "epanechnikov": {
+        "scott": 2.34,
+        # scaled to preserve Silverman/Gaussian ratio
+        "silverman": 0.9 * 2.34 / 1.06,
+    },
+}
+
 def rule_of_thumb_bandwidth(
-        x, 
-        rule="silverman"
+    x,
+    rule="silverman",
+    kernel="gaussian"
     ) -> float:
     """
-    Estimate bandwidth using a rule-of-thumb method.
+    Rule-of-thumb bandwidth selector for univariate KDE.
 
-    Implements Scott's rule and Silverman's rule for
-    univariate kernel density estimation.
+    Supports Scott and Silverman rules with kernel-dependent
+    AMISE constants.
 
     Parameters
     ----------
@@ -206,6 +223,8 @@ def rule_of_thumb_bandwidth(
         One-dimensional sample.
     rule : {"silverman", "scott"}, default="silverman"
         Bandwidth selection rule.
+    kernel : {"gaussian", "epanechnikov"}, default="gaussian"
+        Kernel used in KDE.
 
     Returns
     -------
@@ -214,20 +233,15 @@ def rule_of_thumb_bandwidth(
 
     Notes
     -----
-    Scott's rule:
-        h = sigma * n^{-1/5}
+    General form:
+        h = C(K) * s * n^{-1/5}
 
-    Silverman's rule:
-        h = 0.9 * min(sigma, IQR / 1.34) * n^{-1/5}
+    where:
+        s = sigma              (Scott)
+        s = min(sigma, IQR/1.34) (Silverman)
 
-    where sigma is the sample standard deviation and IQR is the
-    interquartile range.
-
-    References
-    ----------
-    Scott, D. W. (1992). Multivariate Density Estimation.
-    Silverman, B. W. (1986). Density Estimation for Statistics
-    and Data Analysis.
+    Kernel constants C(K) are derived from AMISE
+    under a normal reference density.
     """
     x = np.asarray(x, dtype=float)
     if x.ndim != 1:
@@ -239,18 +253,90 @@ def rule_of_thumb_bandwidth(
 
     sigma = np.std(x, ddof=1)
 
-    if rule.lower() == "scott":
-        return sigma * n ** (-1 / 5)
+    kernel = kernel.lower()
+    rule = rule.lower()
 
-    elif rule.lower() == "silverman":
+    if kernel not in KERNEL_CONSTANTS:
+        raise ValueError("Unsupported kernel")
+
+    if rule not in ("scott", "silverman"):
+        raise ValueError("rule must be 'silverman' or 'scott'")
+
+    if rule == "scott":
+        scale = sigma
+    else:
         q75, q25 = np.percentile(x, [75, 25])
         iqr = q75 - q25
         scale = min(sigma, iqr / 1.34)
-        return 0.9 * scale * n ** (-1 / 5)
 
-    else:
-        raise ValueError("rule must be 'silverman' or 'scott'")
+    C = KERNEL_CONSTANTS[kernel][rule]
+    return C * scale * n ** (-1 / 5)
     
+def choose_h_cv(
+    X,
+    bandwidths=None,
+    ) -> float:
+    """
+    Select the KDE bandwidth using leave-one-out likelihood cross-validation.
+
+    This function performs a grid search over candidate bandwidths and
+    selects the value that maximizes the leave-one-out log-likelihood
+    of a Gaussian kernel density estimator.
+
+    Parameters
+    ----------
+    X : array-like, shape (n_samples,)
+        One-dimensional sample used to estimate the density.
+    bandwidths : array-like, optional
+        Grid of positive bandwidth values to search over.
+        If None, a default logarithmic grid
+        10 ** np.linspace(-1, 1, 100) is used.
+
+    Returns
+    -------
+    h : float
+        Bandwidth that maximizes the leave-one-out log-likelihood.
+
+    Notes
+    -----
+    The selected bandwidth minimizes the Kullback--Leibler divergence
+    between the true density and the estimated density, rather than
+    the mean integrated squared error (MISE).
+
+    This method is commonly referred to as likelihood cross-validation
+    (LCV) in the kernel density estimation literature.
+
+    References
+    ----------
+    Silverman, B. W. (1986). Density Estimation for Statistics and
+    Data Analysis.
+    Scott, D. W. (1992). Multivariate Density Estimation.
+    Wand, M. P., and Jones, M. C. (1995). Kernel Smoothing.
+    """
+    X = np.asarray(X, dtype=float)
+    if X.ndim != 1:
+        raise ValueError("X must be one-dimensional")
+
+    n = len(X)
+    if n < 2:
+        raise ValueError("At least two observations are required")
+
+    if bandwidths is None:
+        bandwidths = 10 ** np.linspace(-1, 1, 100)
+
+    grid = GridSearchCV(
+        estimator=KernelDensity(kernel="gaussian"),
+        param_grid={"bandwidth": bandwidths},
+        cv=LeaveOneOut(),
+        n_jobs=-1,
+    )
+
+    grid.fit(X[:, None])
+
+    h = grid.best_params_["bandwidth"]
+
+    return h
+
 class KernelDensityEstimation:
     """
     Description
@@ -277,6 +363,8 @@ class KernelDensityEstimation:
             self, 
             kernel="gaussian", 
             bandwidth=1.0, 
+            adaptive=False,
+            df=None,
             **kernel_params
             ):
         """
@@ -293,6 +381,8 @@ class KernelDensityEstimation:
         self.kernel = kernel
         self.bandwidth = bandwidth
         self.kernel_params = kernel_params
+        self.adaptive = adaptive
+        self.df = df
 
         # Kernel registry (instance-level, extensible)
         self._kernel_map = {
@@ -335,7 +425,10 @@ class KernelDensityEstimation:
         
         # Step 1: global bandwidth
         if isinstance(self.bandwidth, str):
-            h0 = rule_of_thumb_bandwidth(X, self.bandwidth)
+            if self.bandwidth == 'cv':
+                h0 = choose_h_cv(X)
+            else:
+                h0 = rule_of_thumb_bandwidth(X, self.bandwidth)
         else:
             h0 = float(self.bandwidth)
 
@@ -381,15 +474,15 @@ class KernelDensityEstimation:
     def fit_transform(
             self, 
             X : np.array, 
-            m : int = 256,
-            adaptive : bool = False):
+            m : int = 256
+        ):
         """
         Fit the model and evaluate the KDE on a grid.
         """
         grid = np.linspace(X.min(), X.max(), m)
 
         self.grid = grid
-        return self.fit(X, adaptive=adaptive).transform(grid)
+        return self.fit(X, adaptive=self.adaptive).transform(grid)
 
     # ------------------------------------------------------------------
     # Kernel evaluation
@@ -413,7 +506,7 @@ class KernelDensityEstimation:
         """
         return t.pdf(u, df=df)
     
-    def _epanechnikov_kernel(u):
+    def _epanechnikov_kernel(self, u):
         """
         Epanechnikov kernel.
         """
