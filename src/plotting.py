@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
+import plotly.express as px
 
 # TODO: plot_3d_ts traz domínio da função invertido
 
@@ -122,3 +123,32 @@ def set_plotting_configs():
     import seaborn as sns
     colors = sns.color_palette("deep")
     plt.rcParams["axes.prop_cycle"] = plt.cycler(color=colors)
+
+
+def px_select_menu(fig):
+    fig.update_layout(
+        updatemenus=[
+            dict(
+                type="buttons",
+                direction="left",
+                buttons=list([
+                    dict(
+                        args=["visible", "legendonly"],
+                        label="Deselect All",
+                        method="restyle"
+                    ),
+                    dict(
+                        args=["visible", True],
+                        label="Select All",
+                        method="restyle"
+                    )
+                ]),
+                pad={"r": 10, "t": 10},
+                showactive=False,
+                x=1,
+                xanchor="right",
+                y=1.1,
+                yanchor="top"
+            ),
+        ]
+    )

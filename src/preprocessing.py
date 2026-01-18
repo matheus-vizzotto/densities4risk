@@ -364,7 +364,7 @@ class KernelDensityEstimation:
             kernel="gaussian", 
             bandwidth=1.0, 
             adaptive=False,
-            df=None,
+            # df=None,
             **kernel_params
             ):
         """
@@ -382,7 +382,7 @@ class KernelDensityEstimation:
         self.bandwidth = bandwidth
         self.kernel_params = kernel_params
         self.adaptive = adaptive
-        self.df = df
+        # self.df = df
 
         # Kernel registry (instance-level, extensible)
         self._kernel_map = {
@@ -612,3 +612,26 @@ class KernelDensityEstimation:
         g = np.exp(np.mean(np.log(f_pilot)))
 
         return h * (f_pilot / g) ** (-0.5)
+    
+
+def fit_kde_model(
+        samples, 
+        params
+        ):
+    """
+    Fit a KDE model given a parameter dictionary.
+
+    Example
+    --------
+    >>>t_samples = np.random.standard_t(df=3, size=100)
+    >>>params = {'adaptive': True, 'bandwidth': 'silverman', 'kernel': 'gaussian'}
+    >>>kde, density = fit_kde_model(t_samples, params)
+    """
+
+    kde = KernelDensityEstimation(
+        **params
+    )
+
+    density = kde.fit_transform(samples)
+    
+    return kde, density
