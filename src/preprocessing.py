@@ -469,7 +469,7 @@ class KernelDensityEstimation:
         pdf = self._evaluate_kernel(u)
 
         # KDE: mean_j K(u_ij) / h_j
-        density = np.mean(pdf / self.h_[None, :], axis=1)
+        density = np.mean(pdf / self.h_[None, :], axis=1).astype(float)
 
         return density
 
@@ -638,13 +638,18 @@ def fit_kde_model(samples, params, grid=None):
 def df_to_densities(
         X:pd.DataFrame,
         params:dict,
-        m:int=256
+        m:int=256,
+        verbose=False
     ):
     grid_ = np.linspace(X.min().min(), X.max().max(), m)
-    df_densities = pd.DataFrame(index=grid_, columns = X.columns)
-    for t in X.columns:
+    df_densities = pd.DataFrame(index=grid_, columns = X.columns, dtype='float')
+    df_grid = pd.DataFrame(index=grid_, columns = X.columns, dtype='float')
+    for i, t in enumerate(X.columns):
+        if verbose:
+            print(f"Estimating curve {i}/{len(X.columns)}")
         f_t = X.loc[:,t]
         kde, density = fit_kde_model(f_t, params, grid=grid_)
         df_densities.loc[:,t] = density
+        df_grid.loc[:,t] = kde.grid
 
-    return kde.grid, df_densities
+    return df_grid, df_densities
