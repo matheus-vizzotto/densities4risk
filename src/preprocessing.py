@@ -639,6 +639,7 @@ def df_to_densities(
         X:pd.DataFrame,
         params:dict,
         m:int=256,
+        normalize_densities:bool=False,
         verbose=False
     ):
     grid_ = np.linspace(X.min().min(), X.max().max(), m)
@@ -651,5 +652,8 @@ def df_to_densities(
         kde, density = fit_kde_model(f_t, params, grid=grid_)
         df_densities.loc[:,t] = density
         df_grid.loc[:,t] = kde.grid
+
+    if normalize_densities:
+        df_densities = weigh_norm_densities(df_densities, grid_)
 
     return df_grid, df_densities
