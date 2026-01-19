@@ -355,8 +355,9 @@ class KernelDensityEstimation:
     >>>density = kde.fit_transform(x1, grid)
     >>>density_grid = kde.grid
 
-    >>>t_kde = FDA_KDE(kernel="t_student", bandwidth='scott', df = 3)
-    >>>t_density = t_kde.fit_transform(t_samples, adaptive=True)
+    >>>params = {"kernel": "t_student", "bandwidth": "scorr", "df": 3, "adaptive": True}
+    >>>t_kde = FDA_KDE(**params)
+    >>>t_density = t_kde.fit_transform(x2)
     """
 
     def __init__(
@@ -382,6 +383,7 @@ class KernelDensityEstimation:
         self.bandwidth = bandwidth
         self.kernel_params = kernel_params
         self.adaptive = adaptive
+        self.model_name = f"kernel: {self.kernel} | bandwidth: {self.bandwidth} | adaptive: {self.adaptive}"
         # self.df = df
 
         # Kernel registry (instance-level, extensible)
@@ -474,12 +476,14 @@ class KernelDensityEstimation:
     def fit_transform(
             self, 
             X : np.array, 
-            m : int = 256
+            m : int = 256,
+            grid=None
         ):
         """
         Fit the model and evaluate the KDE on a grid.
         """
-        grid = np.linspace(X.min(), X.max(), m)
+        if grid is None:
+            grid = np.linspace(X.min(), X.max(), m)
 
         self.grid = grid
         return self.fit(X, adaptive=self.adaptive).transform(grid)
@@ -614,24 +618,33 @@ class KernelDensityEstimation:
         return h * (f_pilot / g) ** (-0.5)
     
 
-def fit_kde_model(
-        samples, 
-        params
-        ):
+def fit_kde_model(samples, params, grid=None):
     """
     Fit a KDE model given a parameter dictionary.
-
-    Example
-    --------
-    >>>t_samples = np.random.standard_t(df=3, size=100)
-    >>>params = {'adaptive': True, 'bandwidth': 'silverman', 'kernel': 'gaussian'}
-    >>>kde, density = fit_kde_model(t_samples, params)
     """
 
     kde = KernelDensityEstimation(
         **params
     )
 
-    density = kde.fit_transform(samples)
+    if grid is None:
+        density = kde.fit_transform(samples)
+    else:
+        density = kde.fit_transform(X=samples, grid=grid)
     
     return kde, density
+
+
+def df_to_densities(
+        X:pd.DataFrame,
+        params:dict,
+        m:int=256
+    ):
+    grid_ = np.linspace(X.min().min(), X.max().max(), m)
+    df_densities = pd.DataFrame(index=grid_, columns = X.columns)
+    for t in X.columns:
+        f_t = X.loc[:,t]
+        kde, density = fit_kde_model(f_t, params, grid=grid_)
+        df_densities.loc[:,t] = density
+
+    return kde.grid, df_densities
