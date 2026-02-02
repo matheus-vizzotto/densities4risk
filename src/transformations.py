@@ -12,6 +12,43 @@ from scipy.stats import gaussian_kde
 
 from typing import Tuple
 
+def duplicated_tol(x, tol=1e-10, from_last=False):
+    """
+    Tolerance-aware version of R's duplicated().
+
+    Parameters
+    ----------
+    x : array-like
+        Input array.
+    tol : float
+        Absolute tolerance for equality.
+    from_last : bool
+        If True, mark duplicates keeping the *last* occurrence
+        (equivalent to duplicated(..., fromLast = TRUE) in R).
+
+    Returns
+    -------
+    dup : ndarray of bool
+        True where values are duplicates.
+    """
+    x = np.asarray(x)
+    n = len(x)
+    dup = np.zeros(n, dtype=bool)
+
+    seen = []
+
+    if from_last:
+        it = range(n - 1, -1, -1)
+    else:
+        it = range(n)
+
+    for i in it:
+        if any(abs(x[i] - s) < tol for s in seen):
+            dup[i] = True
+        else:
+            seen.append(x[i])
+
+    return dup
 
 # Raw data to densities
 def obtain_densities(
@@ -435,37 +472,56 @@ def lqd2dens(
     #     CORRECT R-LIKE DUPLICATE REMOVAL (NO ERRORS)
     # =====================================================
 
+    # mid = M // 2
+
+    # # ----- Left half: duplicated(..., fromLast = TRUE) -----
+    # left = dtemp[:mid]
+    # indL = np.zeros(len(left), dtype=bool)
+    # seen = set()
+    # for i in range(len(left) - 1, -1, -1):
+    #     if left[i] in seen:
+    #         indL[i] = True
+    #     seen.add(left[i])
+
+    # # ----- Right half: duplicated(..., fromLast = FALSE) -----
+    # right = dtemp[mid:]
+    # indR = np.zeros(len(right), dtype=bool)
+    # seen = set()
+    # for i in range(len(right)):
+    #     if right[i] in seen:
+    #         indR[i] = True
+    #     seen.add(right[i])
+
+    # # Combine to full-length M mask
+    # keep = ~(np.concatenate([indL, indR]))
+    # dtemp = dtemp[keep]
+    # dens_temp = np.exp(-lqd[keep])
     mid = M // 2
 
-    # ----- Left half: duplicated(..., fromLast = TRUE) -----
-    left = dtemp[:mid]
-    indL = np.zeros(len(left), dtype=bool)
-    seen = set()
-    for i in range(len(left) - 1, -1, -1):
-        if left[i] in seen:
-            indL[i] = True
-        seen.add(left[i])
+    # R-equivalent duplicate removal with tolerance
+    indL = duplicated_tol(dtemp[:mid], tol=1e-10, from_last=True)
+    indR = duplicated_tol(dtemp[mid:], tol=1e-10, from_last=False)
 
-    # ----- Right half: duplicated(..., fromLast = FALSE) -----
-    right = dtemp[mid:]
-    indR = np.zeros(len(right), dtype=bool)
-    seen = set()
-    for i in range(len(right)):
-        if right[i] in seen:
-            indR[i] = True
-        seen.add(right[i])
-
-    # Combine to full-length M mask
     keep = ~(np.concatenate([indL, indR]))
+
     dtemp = dtemp[keep]
     dens_temp = np.exp(-lqd[keep])
+
 
     # =====================================================
     #              Interpolate & Normalize
     # =====================================================
 
-    dSup = np.linspace(dtemp[0], dtemp[-1], len(dtemp))
-    dens = np.interp(dSup, dtemp, dens_temp)
+    # dSup = np.linspace(dtemp[0], dtemp[-1], len(dtemp))
+    dSup = np.linspace(dtemp[0], dtemp[-1], M)
+    # dens = np.interp(dSup, dtemp, dens_temp) # try and fix backwards boundary mismatch (doesn't smoothly reach the end of the original grid)
+    dens = np.interp(
+        dSup,
+        dtemp,
+        dens_temp,
+        left=dens_temp[0],
+        right=dens_temp[-1]
+    )
 
     # Normalize density to integrate to 1 * boundary length
     area = np.trapezoid(dens, dSup)
