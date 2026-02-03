@@ -309,6 +309,7 @@ def obtain_lqds(
     # lqds_sup = []
     lqds = []
     cs = []
+    t0s = []
     cols = df_densities.columns
     for col in cols:
         density_support = df_supports.loc[:,col]
@@ -324,11 +325,12 @@ def obtain_lqds(
         # lqds_sup.append(lqdSup) # no need since the image of the LQDT is shared by all densities by construction
         lqds.append(pd.Series(lqd))
         cs.append(c)
+        t0s.append(t0_)
     
     df_lqds = pd.concat(lqds, axis=1)
     df_lqds.columns = cols
     
-    return lqdsup, df_lqds, cs
+    return lqdsup, df_lqds, cs, t0s
 
 
 def lqd2dens(
@@ -533,6 +535,7 @@ def obtain_densities_from_lqd(
         df : pd.DataFrame, 
         lqdSup_ : np.array, 
         c_ : np.array,
+        t_ : np.array,
         cut : Tuple[int,int] = (0,0),
         verbose=True):
     """_summary_
@@ -552,7 +555,7 @@ def obtain_densities_from_lqd(
     i=0
     for col in cols:
         lqd = df.loc[:, col]
-        backward_support, backward_density = lqd2dens(lqd, lqdSup_, c = c_[i], verbose=verbose, cut=cut)
+        backward_support, backward_density = lqd2dens(lqd, lqdSup_, c = c_[i], t0=t_[i], verbose=verbose, cut=cut)
         supports.append(pd.Series(backward_support))
         densities.append(pd.Series(backward_density))
         i += 1
@@ -592,12 +595,13 @@ class mLQDT:
         self.lqd_support = None
         self.lqd         = None
         self.c           = None
+        self.t           = None
 
 
     def densities_to_lqdensities(self, 
                                  lqd_support=None,
                                  verbose=True):
-        lqdSup, df_lqds, c = obtain_lqds(
+        lqdSup, df_lqds, c, t = obtain_lqds(
                                         self.Y_support, 
                                         self.Y,
                                         lqd_sup = lqd_support,
@@ -606,6 +610,7 @@ class mLQDT:
         self.lqd_support = lqdSup
         self.lqd         = df_lqds
         self.c           = c
+        self.t           = t
 
     def lqdensities_to_densities(self, 
                                  adhoc_lqd_support,
