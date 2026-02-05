@@ -10,7 +10,7 @@ from scipy.stats import norm, t
 from sklearn.neighbors import KernelDensity
 
 def align_and_normalize_density(x_obs, f_obs, x_hat, f_hat,
-                                x_common=None, n_points=256,
+                                x_common=None, n_points=5001,
                                 interp_kind='linear', eps=1e-12):
     """
     Interpolate two density curves onto a common grid, clip negatives,
@@ -41,8 +41,8 @@ def align_and_normalize_density(x_obs, f_obs, x_hat, f_hat,
     f_hat_c = np.maximum(f_hat_c, 0.0)
 
     # renormalize each to integrate to 1
-    area_obs = np.trapz(f_obs_c, x_common)
-    area_hat = np.trapz(f_hat_c, x_common)
+    area_obs = np.trapezoid(f_obs_c, x_common)
+    area_hat = np.trapezoid(f_hat_c, x_common)
 
     # avoid division by zero
     if area_obs <= eps:

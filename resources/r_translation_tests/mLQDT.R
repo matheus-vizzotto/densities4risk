@@ -106,7 +106,7 @@ dens2lqd = function(dens, dSup, lqdSup = seq(0, 1, length.out = length(dSup)), t
   return(list('lqdSup',  lqdSup, 'lqd' = lqd, 'c' = c))
 }
 
-kernel = "epanechnikov"
+kernel = "gaussian"
 m = 5001
 # Sample size
 N = nrow(data)
@@ -264,7 +264,7 @@ for(i in 1:n){
   cut[[i]] = c(0, 0)
   cut[[i]][1] = sum(lqd[1:15,i] > 7)
   cut[[i]][2] = sum(lqd[(M-14):M, i] > 7)
-  res2[[i]] = lqd2dens(lqd = lqd[,i], lqdSup = t, t0 = t0, c = c[i], cut = cut[[i]], useSplines = FALSE, verbose = FALSE)
+  res2[[i]] = lqd2dens(lqd = lqd[,i], lqdSup = t, t0 = t0, c = c[i], cut = c(1,1), useSplines = FALSE, verbose = FALSE)
 }
 dens2 = sapply(res2, function(r){
   approx(x = r$dSup, y = r$dens, xout = u, yleft = 0, yright = 0)$y
@@ -307,11 +307,17 @@ dens_t <- bovespa_t$density
 t = seq(0, 1, length.out = M)
 lqdensity <- dens2lqd(dens = dens_t, dSup = u, lqdSup = t, t0 = t0, verbose = FALSE)
 plot(t, lqdensity$lqd, type='l')
+length(lqdensity$lqd)
+
+lqdensity$lqd[5001] <- 0
+lqdensity$lqd[5001]
+
 dens1 <- lqd2dens(lqd = lqdensity$lqd, lqdSup = t, t0 = t0, c = lqdensity$c, useSplines = FALSE, verbose = FALSE)
 plot(dens1$dSup, dens1$dens, type='l', col='red')
 dens2 <- approx(x = dens1$dSup, y = dens1$dens, xout = u, yleft = 0, yright = 0)$y
 par(mfrow = c(1, 1))
 plot(u, dens2, type='l', col='red')
 lines(u, dens_t, type='l', col='black')
+
 bovespa_t$backwards_density <- dens2
 write_xlsx(x = bovespa_t, path = "/Users/vizzotto/Documents/GitHub/densities4risk/data/processed/r_transformation_bovespa_t.xlsx")

@@ -14,6 +14,9 @@ from typing import Tuple
 # Fixed M to better approximate functions. Smaller M (like 256) generates worse approximations.
 # M = 5001
 
+#---------------------------------------------------------------------
+#----------------------------- UTILITIES -----------------------------
+#---------------------------------------------------------------------
 def duplicated_tol(x, tol=1e-10, from_last=False):
     """
     Tolerance-aware version of R's duplicated().
@@ -51,6 +54,74 @@ def duplicated_tol(x, tol=1e-10, from_last=False):
             seen.append(x[i])
 
     return dup
+
+def compute_lqd_cut(
+        lqd_curve: np.array,
+        k: int = 15,
+        threshold: float = 7.0,
+        max_frac: float = 0.1,
+        cut_nan: bool = False
+    ) -> Tuple[int, int]:
+    """
+    Compute adaptive boundary cuts for a single LQD curve that has problematic values (extreme or nan).
+
+    Parameters
+    ----------
+    lqd_curve : array-like, shape (M,)
+        One LQD realization.
+    k : int
+        Number of boundary points to inspect on each side.
+    threshold : float
+        LQD value above which points are considered unstable.
+    cut_nan : bool
+        Include cutting NaN values that appear in the left or right endpoints of the support
+
+    Returns
+    -------
+    (left_cut, right_cut) : tuple of ints
+    """
+    arr = np.asarray(lqd_curve)
+    M = arr.shape[0]
+
+    nan_left = 0
+    nan_right = 0
+
+    # ------------------------------
+    # Optional NaN trimming
+    # ------------------------------
+    if cut_nan:
+        finite = np.isfinite(arr)
+
+        if not finite.any():
+            raise ValueError("All LQD values are invalid.")
+
+        nan_left = int(np.argmax(finite))
+        nan_right = int(np.argmax(finite[::-1]))
+
+        if nan_left > 0 or nan_right > 0:
+            warnings.warn(
+                f"LQD contained NaN/inf at boundaries — cutting "
+                f"{nan_left} left and {nan_right} right points.",
+                RuntimeWarning,
+                stacklevel=2
+            )
+
+    # ------------------------------
+    # Threshold trimming AFTER NaNs
+    # ------------------------------
+    left_slice = arr[nan_left:nan_left + k]
+    right_slice = arr[M - nan_right - k:M - nan_right]
+
+    left_thr = int(np.sum(left_slice > threshold))
+    right_thr = int(np.sum(right_slice > threshold))
+
+    left = nan_left + left_thr
+    right = nan_right + right_thr
+
+    # Safety cap
+    max_cut = int(max_frac * M)
+
+    return min(left, max_cut), min(right, max_cut)
 
 # # Raw data to densities
 # def obtain_densities(
@@ -111,6 +182,10 @@ def duplicated_tol(x, tol=1e-10, from_last=False):
 #         df_densities.columns = cols
 
 #     return df_supports, df_densities
+
+#---------------------------------------------------------------------
+#----------------------- TRANSFORMATIONS -----------------------------
+#---------------------------------------------------------------------
 
 def dens2lqd(dens, dSup, lqdSup=None, t0=None, verbose=True):
     """
