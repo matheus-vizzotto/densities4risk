@@ -62,7 +62,7 @@ def align_densities(
         fc_densities_support : pd.DataFrame,
         fc_densities : pd.DataFrame,
         cols : List,
-        n : int = 256
+        n : int = 5001
     ) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """
     Align observed and forecast density functions onto a common grid
@@ -638,8 +638,9 @@ def fit_kde_model(samples, params, grid=None):
 def df_to_densities(
         X:pd.DataFrame,
         params:dict,
-        m:int=256,
+        m:int=5001,
         normalize_densities:bool=False,
+        ensure_integral_constraint: bool=True,
         verbose=False
     ):
     grid_ = np.linspace(X.min().min(), X.max().max(), m)
@@ -650,6 +651,9 @@ def df_to_densities(
             print(f"Estimating curve {i}/{len(X.columns)}")
         f_t = X.loc[:,t]
         kde, density = fit_kde_model(f_t, params, grid=grid_)
+        if ensure_integral_constraint:
+            # print('ensuring integral constraint.')
+            density /= np.trapezoid(density, x=kde.grid, axis=0)
         df_densities.loc[:,t] = density
         df_grid.loc[:,t] = kde.grid
 

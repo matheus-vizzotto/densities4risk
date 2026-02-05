@@ -419,8 +419,8 @@ def JSdiv(
     JSdiv(y.Uniform, y.Normal) 
     JSdiv(y.t, y.Normal) # more similar than Uniform and Normal
     """
-    p = np.asarray(p, dtype=float)
-    q = np.asarray(q, dtype=float)
+    p = np.asarray(p, dtype=float).copy()
+    q = np.asarray(q, dtype=float).copy()
 
     # Threshold to avoid log(0)
     p[p < eps] = eps

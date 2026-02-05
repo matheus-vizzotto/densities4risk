@@ -527,11 +527,11 @@ def lqd2dens(
     return dSup, dens
 
 def obtain_densities_from_lqd(
-        df : pd.DataFrame, 
-        lqdSup_ : np.array, 
-        c_ : np.array,
-        t_ : np.array,
-        cut : Tuple[int,int] = (0,0),
+        df: pd.DataFrame, 
+        lqdSup_: np.array, 
+        c_: np.array,
+        t_: np.array,
+        cut_invalid: bool=True,
         verbose=True):
     """_summary_
 
@@ -550,6 +550,10 @@ def obtain_densities_from_lqd(
     i=0
     for col in cols:
         lqd = df.loc[:, col]
+        if cut_invalid:
+            cut = compute_lqd_cut(lqd, cut_nan=True)
+        else:
+            cut = (0,0)
         backward_support, backward_density = lqd2dens(
                                                     lqd, 
                                                     lqdSup_, 
