@@ -123,66 +123,6 @@ def compute_lqd_cut(
 
     return min(left, max_cut), min(right, max_cut)
 
-# # Raw data to densities
-# def obtain_densities(
-#         df: pd.DataFrame, 
-#         M: int, 
-#         common_density_support=False):
-#     """Transform an nxT matrix (dataframe) into an MxT densities matrix, where
-#         n: number of observations in each input column (period)
-#         T: number of functional data objects
-#         M: output number of grid points where densities are estimated
-
-#     Args:
-#         df (pd.DataFrame): nxT matrix
-#         M (int): grid points for density evaluation
-#         common_density_support (bool, optional): Uses a common grid to evaluate densities by taking
-#         global minimum and maximum -- this is not advised for the LQDT since it can generate infinite
-#         boundary values because of values very close to zero. Defaults to False.
-
-#     Returns:
-#         _type_: returns one dataframe of supports and another of estimated densities, where the order
-#         of the columns on each are synchronized.
-
-#     Example: df_supports, df_densities = obtain_densities(df_returns, M=3000)
-#     """
-#     cols = df.columns
-
-#     if common_density_support:
-#         # 1) Global support
-#         global_min = df.min().min()
-#         global_max = df.max().max()
-#         u = np.linspace(global_min, global_max, M)
-
-#         # 2) Prepare density matrix (m × T)
-#         df_densities = pd.DataFrame(index=u, columns=cols)
-
-#         # 3) KDE for each day evaluated on a common support
-#         for t in cols:
-#             kde = gaussian_kde(df[t])
-#             df_densities[t] = kde(u)
-
-#         df_supports = u
-
-#     if not common_density_support:
-#         supports  = []
-#         densities = []
-#         for col in cols:
-#             data = df.loc[:, col]
-#             kde = gaussian_kde(data)
-#             left_endpoint = data.min()
-#             right_endpoint = data.max()
-#             x_grid = np.linspace(left_endpoint, right_endpoint, M)
-#             supports.append(pd.Series(x_grid))
-#             y_kde = kde(x_grid)
-#             densities.append(pd.Series(y_kde))
-#         df_supports = pd.concat(supports, axis=1)
-#         df_supports.columns = cols
-#         df_densities = pd.concat(densities, axis=1)
-#         df_densities.columns = cols
-
-#     return df_supports, df_densities
-
 #---------------------------------------------------------------------
 #----------------------- TRANSFORMATIONS -----------------------------
 #---------------------------------------------------------------------
@@ -551,30 +491,6 @@ def lqd2dens(
     #     CORRECT R-LIKE DUPLICATE REMOVAL (NO ERRORS)
     # =====================================================
 
-    # mid = M // 2
-
-    # # ----- Left half: duplicated(..., fromLast = TRUE) -----
-    # left = dtemp[:mid]
-    # indL = np.zeros(len(left), dtype=bool)
-    # seen = set()
-    # for i in range(len(left) - 1, -1, -1):
-    #     if left[i] in seen:
-    #         indL[i] = True
-    #     seen.add(left[i])
-
-    # # ----- Right half: duplicated(..., fromLast = FALSE) -----
-    # right = dtemp[mid:]
-    # indR = np.zeros(len(right), dtype=bool)
-    # seen = set()
-    # for i in range(len(right)):
-    #     if right[i] in seen:
-    #         indR[i] = True
-    #     seen.add(right[i])
-
-    # # Combine to full-length M mask
-    # keep = ~(np.concatenate([indL, indR]))
-    # dtemp = dtemp[keep]
-    # dens_temp = np.exp(-lqd[keep])
     mid = M // 2
 
     indL = duplicated_tol(dtemp[:mid], tol=1e-10, from_last=True)
@@ -634,7 +550,14 @@ def obtain_densities_from_lqd(
     i=0
     for col in cols:
         lqd = df.loc[:, col]
-        backward_support, backward_density = lqd2dens(lqd, lqdSup_, c = c_[i], t0=t_[i], verbose=verbose, cut=cut)
+        backward_support, backward_density = lqd2dens(
+                                                    lqd, 
+                                                    lqdSup_, 
+                                                    c = c_[i], 
+                                                    t0=t_[i], 
+                                                    cut=cut,
+                                                    verbose=verbose
+                                                    )
         supports.append(pd.Series(backward_support))
         densities.append(pd.Series(backward_density))
         i += 1
