@@ -134,7 +134,7 @@ class K_dFPC:
 
     # ------------------------------------------------------------
 
-    def fit(self, lag_max, B, alpha, du, p, m, u,
+    def fit(self, p, u, du=0.05,  lag_max=5, B=1_000, alpha=0.05, 
             select_ncomp=False, dimension=None):
         """
         Fit the dynamic KLE model.
@@ -174,8 +174,10 @@ class K_dFPC:
             The fitted model.
         """
         Y = self.Y
+        m = self.m
         n = N = Y.shape[1]
         self.u = u
+        
 
         # Mean and deviations
         Ybar = np.mean(Y, axis=1, keepdims=True)

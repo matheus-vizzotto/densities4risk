@@ -9,69 +9,123 @@ from scipy.integrate import cumulative_trapezoid, quad, trapezoid
 import pandas as pd
 import numpy as np
 from scipy.stats import gaussian_kde
-
 from typing import Tuple
 
+# Fixed M to better approximate functions. Smaller M (like 256) generates worse approximations.
+# M = 5001
 
-# Raw data to densities
-def obtain_densities(
-        df: pd.DataFrame, 
-        M: int, 
-        common_density_support=False):
-    """Transform an nxT matrix (dataframe) into an MxT densities matrix, where
-        n: number of observations in each input column (period)
-        T: number of functional data objects
-        M: output number of grid points where densities are estimated
-
-    Args:
-        df (pd.DataFrame): nxT matrix
-        M (int): grid points for density evaluation
-        common_density_support (bool, optional): Uses a common grid to evaluate densities by taking
-        global minimum and maximum -- this is not advised for the LQDT since it can generate infinite
-        boundary values because of values very close to zero. Defaults to False.
-
-    Returns:
-        _type_: returns one dataframe of supports and another of estimated densities, where the order
-        of the columns on each are synchronized.
-
-    Example: df_supports, df_densities = obtain_densities(df_returns, M=3000)
+#---------------------------------------------------------------------
+#----------------------------- UTILITIES -----------------------------
+#---------------------------------------------------------------------
+def duplicated_tol(x, tol=1e-10, from_last=False):
     """
-    cols = df.columns
+    Tolerance-aware version of R's duplicated().
 
-    if common_density_support:
-        # 1) Global support
-        global_min = df.min().min()
-        global_max = df.max().max()
-        u = np.linspace(global_min, global_max, M)
+    Parameters
+    ----------
+    x : array-like
+        Input array.
+    tol : float
+        Absolute tolerance for equality.
+    from_last : bool
+        If True, mark duplicates keeping the *last* occurrence
+        (equivalent to duplicated(..., fromLast = TRUE) in R).
 
-        # 2) Prepare density matrix (m × T)
-        df_densities = pd.DataFrame(index=u, columns=cols)
+    Returns
+    -------
+    dup : ndarray of bool
+        True where values are duplicates.
+    """
+    x = np.asarray(x)
+    n = len(x)
+    dup = np.zeros(n, dtype=bool)
 
-        # 3) KDE for each day evaluated on a common support
-        for t in cols:
-            kde = gaussian_kde(df[t])
-            df_densities[t] = kde(u)
+    seen = []
 
-        df_supports = u
+    if from_last:
+        it = range(n - 1, -1, -1)
+    else:
+        it = range(n)
 
-    if not common_density_support:
-        supports  = []
-        densities = []
-        for col in cols:
-            data = df.loc[:, col]
-            kde = gaussian_kde(data)
-            left_endpoint = data.min()
-            right_endpoint = data.max()
-            x_grid = np.linspace(left_endpoint, right_endpoint, M)
-            supports.append(pd.Series(x_grid))
-            y_kde = kde(x_grid)
-            densities.append(pd.Series(y_kde))
-        df_supports = pd.concat(supports, axis=1)
-        df_supports.columns = cols
-        df_densities = pd.concat(densities, axis=1)
-        df_densities.columns = cols
+    for i in it:
+        if any(abs(x[i] - s) < tol for s in seen):
+            dup[i] = True
+        else:
+            seen.append(x[i])
 
-    return df_supports, df_densities
+    return dup
+
+def compute_lqd_cut(
+        lqd_curve: np.array,
+        k: int = 15,
+        threshold: float = 7.0,
+        max_frac: float = 0.1,
+        cut_nan: bool = False
+    ) -> Tuple[int, int]:
+    """
+    Compute adaptive boundary cuts for a single LQD curve that has problematic values (extreme or nan).
+
+    Parameters
+    ----------
+    lqd_curve : array-like, shape (M,)
+        One LQD realization.
+    k : int
+        Number of boundary points to inspect on each side.
+    threshold : float
+        LQD value above which points are considered unstable.
+    cut_nan : bool
+        Include cutting NaN values that appear in the left or right endpoints of the support
+
+    Returns
+    -------
+    (left_cut, right_cut) : tuple of ints
+    """
+    arr = np.asarray(lqd_curve)
+    M = arr.shape[0]
+
+    nan_left = 0
+    nan_right = 0
+
+    # ------------------------------
+    # Optional NaN trimming
+    # ------------------------------
+    if cut_nan:
+        finite = np.isfinite(arr)
+
+        if not finite.any():
+            raise ValueError("All LQD values are invalid.")
+
+        nan_left = int(np.argmax(finite))
+        nan_right = int(np.argmax(finite[::-1]))
+
+        if nan_left > 0 or nan_right > 0:
+            warnings.warn(
+                f"LQD contained NaN/inf at boundaries — cutting "
+                f"{nan_left} left and {nan_right} right points.",
+                RuntimeWarning,
+                stacklevel=2
+            )
+
+    # ------------------------------
+    # Threshold trimming AFTER NaNs
+    # ------------------------------
+    left_slice = arr[nan_left:nan_left + k]
+    right_slice = arr[M - nan_right - k:M - nan_right]
+
+    left_thr = int(np.sum(left_slice > threshold))
+    right_thr = int(np.sum(right_slice > threshold))
+
+    left = nan_left + left_thr
+    right = nan_right + right_thr
+
+    # Safety cap
+    max_cut = int(max_frac * M)
+
+    return min(left, max_cut), min(right, max_cut)
+
+#---------------------------------------------------------------------
+#----------------------- TRANSFORMATIONS -----------------------------
+#---------------------------------------------------------------------
 
 def dens2lqd(dens, dSup, lqdSup=None, t0=None, verbose=True):
     """
@@ -272,6 +326,7 @@ def obtain_lqds(
     # lqds_sup = []
     lqds = []
     cs = []
+    t0s = []
     cols = df_densities.columns
     for col in cols:
         density_support = df_supports.loc[:,col]
@@ -287,11 +342,12 @@ def obtain_lqds(
         # lqds_sup.append(lqdSup) # no need since the image of the LQDT is shared by all densities by construction
         lqds.append(pd.Series(lqd))
         cs.append(c)
+        t0s.append(t0_)
     
     df_lqds = pd.concat(lqds, axis=1)
     df_lqds.columns = cols
     
-    return lqdsup, df_lqds, cs
+    return lqdsup, df_lqds, cs, t0s
 
 
 def lqd2dens(
@@ -437,47 +493,45 @@ def lqd2dens(
 
     mid = M // 2
 
-    # ----- Left half: duplicated(..., fromLast = TRUE) -----
-    left = dtemp[:mid]
-    indL = np.zeros(len(left), dtype=bool)
-    seen = set()
-    for i in range(len(left) - 1, -1, -1):
-        if left[i] in seen:
-            indL[i] = True
-        seen.add(left[i])
+    indL = duplicated_tol(dtemp[:mid], tol=1e-10, from_last=True)
+    indR = duplicated_tol(dtemp[mid:], tol=1e-10, from_last=False)
 
-    # ----- Right half: duplicated(..., fromLast = FALSE) -----
-    right = dtemp[mid:]
-    indR = np.zeros(len(right), dtype=bool)
-    seen = set()
-    for i in range(len(right)):
-        if right[i] in seen:
-            indR[i] = True
-        seen.add(right[i])
-
-    # Combine to full-length M mask
     keep = ~(np.concatenate([indL, indR]))
+
+    # ---- SAVE ORIGINAL ENDPOINTS (CRITICAL FIX) ----
+    d0 = dtemp[0]
+    d1 = dtemp[-1]
+
     dtemp = dtemp[keep]
     dens_temp = np.exp(-lqd[keep])
 
     # =====================================================
-    #              Interpolate & Normalize
+    # Interpolate & Normalize  (R faithful)
     # =====================================================
 
-    dSup = np.linspace(dtemp[0], dtemp[-1], len(dtemp))
-    dens = np.interp(dSup, dtemp, dens_temp)
+    # Build support from ORIGINAL endpoints, not shortened dtemp
+    dSup = np.linspace(d0, d1, M)
 
-    # Normalize density to integrate to 1 * boundary length
+    dens = np.interp(
+        dSup,
+        dtemp,
+        dens_temp,
+        left=dens_temp[0],
+        right=dens_temp[-1]
+    )
+
+    # Normalize density
     area = np.trapezoid(dens, dSup)
     dens = dens / area * (lqdSup[-1] - lqdSup[0])
-
+    
     return dSup, dens
 
 def obtain_densities_from_lqd(
-        df : pd.DataFrame, 
-        lqdSup_ : np.array, 
-        c_ : np.array,
-        cut : Tuple[int,int] = (0,0),
+        df: pd.DataFrame, 
+        lqdSup_: np.array, 
+        c_: np.array,
+        t_: np.array,
+        cut_invalid: bool=True,
         verbose=True):
     """_summary_
 
@@ -496,7 +550,18 @@ def obtain_densities_from_lqd(
     i=0
     for col in cols:
         lqd = df.loc[:, col]
-        backward_support, backward_density = lqd2dens(lqd, lqdSup_, c = c_[i], verbose=verbose, cut=cut)
+        if cut_invalid:
+            cut = compute_lqd_cut(lqd, cut_nan=True)
+        else:
+            cut = (0,0)
+        backward_support, backward_density = lqd2dens(
+                                                    lqd, 
+                                                    lqdSup_, 
+                                                    c = c_[i], 
+                                                    t0=t_[i], 
+                                                    cut=cut,
+                                                    verbose=verbose
+                                                    )
         supports.append(pd.Series(backward_support))
         densities.append(pd.Series(backward_density))
         i += 1
@@ -536,12 +601,13 @@ class mLQDT:
         self.lqd_support = None
         self.lqd         = None
         self.c           = None
+        self.t           = None
 
 
     def densities_to_lqdensities(self, 
                                  lqd_support=None,
                                  verbose=True):
-        lqdSup, df_lqds, c = obtain_lqds(
+        lqdSup, df_lqds, c, t = obtain_lqds(
                                         self.Y_support, 
                                         self.Y,
                                         lqd_sup = lqd_support,
@@ -550,6 +616,7 @@ class mLQDT:
         self.lqd_support = lqdSup
         self.lqd         = df_lqds
         self.c           = c
+        self.t           = t
 
     def lqdensities_to_densities(self, 
                                  adhoc_lqd_support,

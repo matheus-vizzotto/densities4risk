@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-from typing import Dict, Union
+from typing import Dict, Union, List, Tuple
 import numpy as np
 
 from statsmodels.tsa.api import VAR
@@ -73,18 +73,27 @@ class dynamics_forecaster:
         self.fitted_model = None
     
     def select_order_ic(self,
-        maxlags: int = 10,
-        criteria: str = 'bic'
+        maxlags:int          = 10,
+        criteria:str         = 'bic',
+        prevent_zero_lag:bool = False
         ) -> Dict[str, int]:
         """
         Select lag order using AIC and BIC from statsmodels VAR.select_order.
         Returns dict with keys 'aic', 'bic', 'hqic' (if available).
         """
         model = VAR(self.Y)
-        sel = model.select_order(maxlags)
+        sel = model.select_order(maxlags)   
         # statsmodels returns object with attributes aic, bic, hqic that are integers (lags)
         criteria_dict = {'aic': int(sel.aic), 'bic': int(sel.bic), 'hqic': int(sel.hqic)}
 
+        selected_n_lags = criteria_dict[criteria] 
+
+        if prevent_zero_lag:
+            selected_n_lags = np.max(1,selected_n_lags)
+        else:
+            if selected_n_lags == 0:
+                print("Number of selected lags is zero. Forecast with mean.")    
+        
         return criteria_dict[criteria]
     
     def fit_var(self, 
@@ -124,8 +133,12 @@ def run_forecaster(
     selected_nlags = forecaster.select_order_ic(
                                     maxlags_,
                                     criteria=criteria_)
-    forecaster.fit_var(nlags=selected_nlags)
-    fc = forecaster.forecast(h=h_)
+    if selected_nlags == 0:
+        mean_vec = scores.mean(axis=0)
+        fc = np.tile(mean_vec, (h_, 1)).T
+    else:
+        forecaster.fit_var(nlags=selected_nlags)
+        fc = forecaster.forecast(h=h_)
 
     return fc
 
@@ -168,14 +181,35 @@ def train_test_split(
 
 # CROSS VALIDATION
 def expanding_window_cv(
-        T: int, 
-        h: int =1, 
-        initial_window:int = 50
-        ):
+    T: int, 
+    h: int = 1, 
+    initial_window: int = 50
+) -> List[Tuple[np.ndarray, np.ndarray]]:
     """
-    T: FTS length (number of curves)
-    h: forecast horizon
-    initial_window: minimum training size
+    Generate expanding window cross-validation splits for time series data.
+    
+    This function creates training/testing index pairs for time series cross-validation
+    using an expanding window approach, where the training set grows while maintaining
+    a fixed forecast horizon.
+    
+    Parameters
+    ----------
+    T : int
+        Total number of time series observations (length of the dataset).
+    h : int, default=1
+        Forecast horizon (number of steps to predict ahead).
+    initial_window : int, default=50
+        Minimum number of observations required for the initial training window.
+        Must be less than T - h.
+    
+    Returns
+    -------
+    List[Tuple[np.ndarray, np.ndarray]]
+        List of (train_indices, test_indices) tuples, where each tuple contains:
+        - train_indices : np.ndarray
+            Array of indices for the training set (0 to t-1)
+        - test_indices : np.ndarray
+            Array of indices for the test set (t to t+h-1)
     """
 
     splits = []
@@ -185,6 +219,14 @@ def expanding_window_cv(
         splits.append((train_idx, test_idx))
 
     return splits
+
+def slice_fold(Y, Y_support, train_idx, test_idx):
+    return {
+        "Y_train": Y.iloc[:, train_idx],
+        "Y_support_train": Y_support.iloc[:, train_idx],
+        "Y_test":  Y.iloc[:, test_idx],
+        "Y_support_test":  Y_support.iloc[:, test_idx],
+    }
 
 
 ############################################################################################
@@ -377,8 +419,8 @@ def JSdiv(
     JSdiv(y.Uniform, y.Normal) 
     JSdiv(y.t, y.Normal) # more similar than Uniform and Normal
     """
-    p = np.asarray(p, dtype=float)
-    q = np.asarray(q, dtype=float)
+    p = np.asarray(p, dtype=float).copy()
+    q = np.asarray(q, dtype=float).copy()
 
     # Threshold to avoid log(0)
     p[p < eps] = eps
@@ -732,7 +774,9 @@ def overall_measures(
     measures = {
         "KLD": overall_KLD(test, forecast, n),
         "JSD": overall_JSD(test, forecast, n),
-        "Lnorm": overall_Lnorm(test, forecast, n, "LINF"),
+        "L_1": overall_Lnorm(test, forecast, n, "L1"),
+        "L_2": overall_Lnorm(test, forecast, n, "L2"),
+        "L_INFTY": overall_Lnorm(test, forecast, n, "LINF"),
     }
 
     return measures

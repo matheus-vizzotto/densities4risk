@@ -1,13 +1,16 @@
 import pandas as pd
 import numpy as np
 from scipy.interpolate import interp1d, PchipInterpolator
+from sklearn.model_selection import GridSearchCV, LeaveOneOut
 import matplotlib.pyplot as plt
 from typing import Tuple, List
 from scipy.integrate import trapezoid
+from scipy.stats import norm, t
 
+from sklearn.neighbors import KernelDensity
 
 def align_and_normalize_density(x_obs, f_obs, x_hat, f_hat,
-                                x_common=None, n_points=256,
+                                x_common=None, n_points=5001,
                                 interp_kind='linear', eps=1e-12):
     """
     Interpolate two density curves onto a common grid, clip negatives,
@@ -38,8 +41,8 @@ def align_and_normalize_density(x_obs, f_obs, x_hat, f_hat,
     f_hat_c = np.maximum(f_hat_c, 0.0)
 
     # renormalize each to integrate to 1
-    area_obs = np.trapz(f_obs_c, x_common)
-    area_hat = np.trapz(f_hat_c, x_common)
+    area_obs = np.trapezoid(f_obs_c, x_common)
+    area_hat = np.trapezoid(f_hat_c, x_common)
 
     # avoid division by zero
     if area_obs <= eps:
@@ -59,7 +62,7 @@ def align_densities(
         fc_densities_support : pd.DataFrame,
         fc_densities : pd.DataFrame,
         cols : List,
-        n : int = 256
+        n : int = 5001
     ) -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """
     Align observed and forecast density functions onto a common grid
@@ -183,3 +186,478 @@ def weigh_norm_densities(
             df2.loc[:,col] = transformed / norm
 
     return df2
+
+
+########################################################################
+######################## DENSITY ESTIMATION ############################ 
+########################################################################
+
+
+# Kernel-dependent constants for bandwidth selection
+KERNEL_CONSTANTS = {
+    "gaussian": {
+        "scott": 1.06,
+        "silverman": 0.9,
+    },
+    "epanechnikov": {
+        "scott": 2.34,
+        # scaled to preserve Silverman/Gaussian ratio
+        "silverman": 0.9 * 2.34 / 1.06,
+    },
+}
+
+def rule_of_thumb_bandwidth(
+    x,
+    rule="silverman",
+    kernel="gaussian"
+    ) -> float:
+    """
+    Rule-of-thumb bandwidth selector for univariate KDE.
+
+    Supports Scott and Silverman rules with kernel-dependent
+    AMISE constants.
+
+    Parameters
+    ----------
+    x : array-like, shape (n_samples,)
+        One-dimensional sample.
+    rule : {"silverman", "scott"}, default="silverman"
+        Bandwidth selection rule.
+    kernel : {"gaussian", "epanechnikov"}, default="gaussian"
+        Kernel used in KDE.
+
+    Returns
+    -------
+    h : float
+        Estimated bandwidth.
+
+    Notes
+    -----
+    General form:
+        h = C(K) * s * n^{-1/5}
+
+    where:
+        s = sigma              (Scott)
+        s = min(sigma, IQR/1.34) (Silverman)
+
+    Kernel constants C(K) are derived from AMISE
+    under a normal reference density.
+    """
+    x = np.asarray(x, dtype=float)
+    if x.ndim != 1:
+        raise ValueError("x must be one-dimensional")
+
+    n = len(x)
+    if n < 2:
+        raise ValueError("At least two observations are required")
+
+    sigma = np.std(x, ddof=1)
+
+    kernel = kernel.lower()
+    rule = rule.lower()
+
+    if kernel not in KERNEL_CONSTANTS:
+        raise ValueError("Unsupported kernel")
+
+    if rule not in ("scott", "silverman"):
+        raise ValueError("rule must be 'silverman' or 'scott'")
+
+    if rule == "scott":
+        scale = sigma
+    else:
+        q75, q25 = np.percentile(x, [75, 25])
+        iqr = q75 - q25
+        scale = min(sigma, iqr / 1.34)
+
+    C = KERNEL_CONSTANTS[kernel][rule]
+    return C * scale * n ** (-1 / 5)
+    
+def choose_h_cv(
+    X,
+    bandwidths=None,
+    ) -> float:
+    """
+    Select the KDE bandwidth using leave-one-out likelihood cross-validation.
+
+    This function performs a grid search over candidate bandwidths and
+    selects the value that maximizes the leave-one-out log-likelihood
+    of a Gaussian kernel density estimator.
+
+    Parameters
+    ----------
+    X : array-like, shape (n_samples,)
+        One-dimensional sample used to estimate the density.
+    bandwidths : array-like, optional
+        Grid of positive bandwidth values to search over.
+        If None, a default logarithmic grid
+        10 ** np.linspace(-1, 1, 100) is used.
+
+    Returns
+    -------
+    h : float
+        Bandwidth that maximizes the leave-one-out log-likelihood.
+
+    Notes
+    -----
+    The selected bandwidth minimizes the Kullback--Leibler divergence
+    between the true density and the estimated density, rather than
+    the mean integrated squared error (MISE).
+
+    This method is commonly referred to as likelihood cross-validation
+    (LCV) in the kernel density estimation literature.
+
+    References
+    ----------
+    Silverman, B. W. (1986). Density Estimation for Statistics and
+    Data Analysis.
+    Scott, D. W. (1992). Multivariate Density Estimation.
+    Wand, M. P., and Jones, M. C. (1995). Kernel Smoothing.
+    """
+    X = np.asarray(X, dtype=float)
+    if X.ndim != 1:
+        raise ValueError("X must be one-dimensional")
+
+    n = len(X)
+    if n < 2:
+        raise ValueError("At least two observations are required")
+
+    if bandwidths is None:
+        bandwidths = 10 ** np.linspace(-1, 1, 100)
+
+    grid = GridSearchCV(
+        estimator=KernelDensity(kernel="gaussian"),
+        param_grid={"bandwidth": bandwidths},
+        cv=LeaveOneOut(),
+        n_jobs=-1,
+    )
+
+    grid.fit(X[:, None])
+
+    h = grid.best_params_["bandwidth"]
+
+    return h
+
+class KernelDensityEstimation:
+    """
+    Description
+    ---------
+    Kernel Density Estimation for (functional) data.
+
+    Supports multiple kernels and observation-specific bandwidths.
+
+    Example
+    ---------
+    >>>x1 = np.random.randn(200)
+    >>>x2 = np.random.standard_t(df=3, size=200)
+    >>>grid = np.linspace(-4, 4, 400)
+
+    >>>kde = FDA_KDE(kernel="gaussian", bandwidth=0.3)
+    >>>density = kde.fit_transform(x1, grid)
+    >>>density_grid = kde.grid
+
+    >>>params = {"kernel": "t_student", "bandwidth": "scorr", "df": 3, "adaptive": True}
+    >>>t_kde = FDA_KDE(**params)
+    >>>t_density = t_kde.fit_transform(x2)
+    """
+
+    def __init__(
+            self, 
+            kernel="gaussian", 
+            bandwidth=1.0, 
+            adaptive=False,
+            # df=None,
+            **kernel_params
+            ):
+        """
+        Parameters
+        ----------
+        kernel : str
+            Kernel name. Available: 'gaussian', 't_student', 'epanechnikov'.
+        bandwidth : float or array-like
+            Scalar or observation-specific bandwidth(s).
+        **kernel_params :
+            Additional parameters passed to the kernel
+            (e.g., df for Student-t kernel).
+        """
+        self.kernel = kernel
+        self.bandwidth = bandwidth
+        self.kernel_params = kernel_params
+        self.adaptive = adaptive
+        self.model_name = f"kernel: {self.kernel} | bandwidth: {self.bandwidth} | adaptive: {self.adaptive}"
+        # self.df = df
+
+        # Kernel registry (instance-level, extensible)
+        self._kernel_map = {
+            "gaussian": self._gaussian_kernel,
+            "t_student": self._t_student_kernel,
+            "epanechnikov": self._epanechnikov_kernel,
+        }
+
+        # Attributes set after fitting
+        self.X_   = None
+        self.h_   = None
+        self.grid = None
+
+    # ------------------------------------------------------------------
+    # Public API
+    # ------------------------------------------------------------------
+
+    def fit(
+            self, 
+            X,
+            adaptive:bool
+        ):
+        """
+        Store training data and validate bandwidth.
+
+        Parameters
+        ----------
+        X : array-like, shape (n_samples,)
+            Training observations.
+
+        Returns
+        -------
+        self
+        """
+        X = np.asarray(X, dtype=float)
+        if X.ndim != 1:
+            raise ValueError("X must be one-dimensional")
+        
+        self.X_ = X
+        
+        # Step 1: global bandwidth
+        if isinstance(self.bandwidth, str):
+            if self.bandwidth == 'cv':
+                h0 = choose_h_cv(X)
+            else:
+                h0 = rule_of_thumb_bandwidth(X, self.bandwidth)
+        else:
+            h0 = float(self.bandwidth)
+
+        # Step 2: adaptive adjustment (optional)
+        if adaptive:
+            self.h_ = self._adaptive_bandwidth(X, h0)
+        else:
+            self.h_ = np.full_like(X, h0)
+
+        return self
+
+    def transform(
+            self, 
+            grid
+        ):
+        """
+        Evaluate the KDE on a given grid.
+
+        Parameters
+        ----------
+        grid : array-like, shape (n_grid,)
+            Evaluation points.
+
+        Returns
+        -------
+        density : ndarray, shape (n_grid,)
+            Estimated density values.
+        """
+        self._check_is_fitted()
+
+        grid = np.asarray(grid, dtype=float)
+
+        # Standardized distances: u_ij = (grid_i - X_j) / h_j
+        u = (grid[:, None] - self.X_[None, :]) / self.h_[None, :]
+
+        pdf = self._evaluate_kernel(u)
+
+        # KDE: mean_j K(u_ij) / h_j
+        density = np.mean(pdf / self.h_[None, :], axis=1).astype(float)
+
+        return density
+
+    def fit_transform(
+            self, 
+            X : np.array, 
+            m : int = 5001,
+            grid=None
+        ):
+        """
+        Fit the model and evaluate the KDE on a grid.
+        """
+        if grid is None:
+            grid = np.linspace(X.min(), X.max(), m)
+
+        self.grid = grid
+        return self.fit(X, adaptive=self.adaptive).transform(grid)
+
+    # ------------------------------------------------------------------
+    # Kernel evaluation
+    # ------------------------------------------------------------------
+
+
+    def _gaussian_kernel(self, u):
+        """
+        Gaussian kernel.
+        """
+        return norm.pdf(u)
+
+    def _t_student_kernel(self, u, df=5):
+        """
+        Student-t kernel.
+
+        Parameters
+        ----------
+        df : int
+            Degrees of freedom.
+        """
+        return t.pdf(u, df=df)
+    
+    def _epanechnikov_kernel(self, u):
+        """
+        Epanechnikov kernel.
+        """
+        return 0.75 * (1 - u**2) * (np.abs(u) <= 1)
+ 
+    def _evaluate_kernel(
+            self, 
+            u : np.array
+        ) -> np.array:
+        """
+        Evaluate the selected kernel on standardized distances.
+
+        This method dispatches the evaluation of the kernel function
+        specified by ``self.kernel`` using the internal kernel registry.
+        The kernel is evaluated pointwise on the standardized distances
+
+            u_ij = (x_i - X_j) / h_j,
+
+        where ``x_i`` are evaluation points, ``X_j`` are training
+        observations, and ``h_j`` are observation-specific bandwidths.
+
+        Parameters
+        ----------
+        u : ndarray, shape (n_grid, n_samples)
+            Matrix of standardized distances between evaluation points
+            and training observations.
+
+        Returns
+        -------
+        pdf : ndarray, shape (n_grid, n_samples)
+            Kernel values evaluated at ``u``.
+
+        Raises
+        ------
+        ValueError
+            If ``self.kernel`` is not a recognized kernel name.
+
+        Notes
+        -----
+        This method assumes that the selected kernel integrates to one.
+        Bandwidth scaling is applied outside this function when computing
+        the KDE estimator.
+        """
+        try:
+            kernel_fn = self._kernel_map[self.kernel]
+        except KeyError:
+            raise ValueError(
+                f"Unknown kernel '{self.kernel}'. "
+                f"Available kernels: {list(self._kernel_map)}"
+            )
+
+        kde = kernel_fn(u, **self.kernel_params)
+        
+        return kde
+
+    # ------------------------------------------------------------------
+    # Utilities
+    # ------------------------------------------------------------------
+
+    @staticmethod
+    def _validate_bandwidth(bandwidth, X):
+        """
+        Validate and broadcast bandwidth to match X.
+        """
+        h = np.asarray(bandwidth, dtype=float)
+
+        if h.ndim == 0:
+            h = np.full_like(X, h)
+
+        if h.ndim != 1 or len(h) != len(X):
+            raise ValueError(
+                "bandwidth must be a scalar or an array with "
+                "the same length as X"
+            )
+
+        if np.any(h <= 0):
+            raise ValueError("bandwidth values must be positive")
+
+        return h
+
+    def _check_is_fitted(self):
+        if self.X_ is None or self.h_ is None:
+            raise RuntimeError("The estimator is not fitted yet.")
+        
+    def _pilot_density(self, X, h):
+        """
+        Compute pilot density estimate at sample points.
+        """
+        u = (X[:, None] - X[None, :]) / h
+        pdf = self._gaussian_kernel(u)  # pilot is Gaussian by convention
+        return np.mean(pdf / h, axis=1)
+        
+    def _adaptive_bandwidth(self, X, h):
+        """
+        Compute adaptive (Abramson) bandwidths.
+        """
+        f_pilot = self._pilot_density(X, h)
+
+        # Numerical safety
+        eps = np.finfo(float).eps
+        f_pilot = np.maximum(f_pilot, eps)
+
+        g = np.exp(np.mean(np.log(f_pilot)))
+
+        return h * (f_pilot / g) ** (-0.5)
+    
+
+def fit_kde_model(samples, params, grid=None):
+    """
+    Fit a KDE model given a parameter dictionary.
+    """
+
+    kde = KernelDensityEstimation(
+        **params
+    )
+
+    if grid is None:
+        density = kde.fit_transform(samples)
+    else:
+        density = kde.fit_transform(X=samples, grid=grid)
+    
+    return kde, density
+
+
+def df_to_densities(
+        X:pd.DataFrame,
+        params:dict,
+        m:int=5001,
+        normalize_densities:bool=False,
+        ensure_integral_constraint: bool=True,
+        verbose=False
+    ):
+    grid_ = np.linspace(X.min().min(), X.max().max(), m)
+    df_densities = pd.DataFrame(index=grid_, columns = X.columns, dtype='float')
+    df_grid = pd.DataFrame(index=grid_, columns = X.columns, dtype='float')
+    for i, t in enumerate(X.columns):
+        if verbose:
+            print(f"Estimating curve {i}/{len(X.columns)}")
+        f_t = X.loc[:,t]
+        kde, density = fit_kde_model(f_t, params, grid=grid_)
+        if ensure_integral_constraint:
+            # print('ensuring integral constraint.')
+            density /= np.trapezoid(density, x=kde.grid, axis=0)
+        df_densities.loc[:,t] = density
+        df_grid.loc[:,t] = kde.grid
+
+    if normalize_densities:
+        df_densities = weigh_norm_densities(df_densities, grid_)
+
+    return df_grid, df_densities
