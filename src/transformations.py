@@ -9,8 +9,10 @@ from scipy.integrate import cumulative_trapezoid, quad, trapezoid
 import pandas as pd
 import numpy as np
 from scipy.stats import gaussian_kde
-
 from typing import Tuple
+
+# Fixed M to better approximate functions. Smaller M (like 256) generates worse approximations.
+# M = 5001
 
 def duplicated_tol(x, tol=1e-10, from_last=False):
     """
@@ -50,65 +52,65 @@ def duplicated_tol(x, tol=1e-10, from_last=False):
 
     return dup
 
-# Raw data to densities
-def obtain_densities(
-        df: pd.DataFrame, 
-        M: int, 
-        common_density_support=False):
-    """Transform an nxT matrix (dataframe) into an MxT densities matrix, where
-        n: number of observations in each input column (period)
-        T: number of functional data objects
-        M: output number of grid points where densities are estimated
+# # Raw data to densities
+# def obtain_densities(
+#         df: pd.DataFrame, 
+#         M: int, 
+#         common_density_support=False):
+#     """Transform an nxT matrix (dataframe) into an MxT densities matrix, where
+#         n: number of observations in each input column (period)
+#         T: number of functional data objects
+#         M: output number of grid points where densities are estimated
 
-    Args:
-        df (pd.DataFrame): nxT matrix
-        M (int): grid points for density evaluation
-        common_density_support (bool, optional): Uses a common grid to evaluate densities by taking
-        global minimum and maximum -- this is not advised for the LQDT since it can generate infinite
-        boundary values because of values very close to zero. Defaults to False.
+#     Args:
+#         df (pd.DataFrame): nxT matrix
+#         M (int): grid points for density evaluation
+#         common_density_support (bool, optional): Uses a common grid to evaluate densities by taking
+#         global minimum and maximum -- this is not advised for the LQDT since it can generate infinite
+#         boundary values because of values very close to zero. Defaults to False.
 
-    Returns:
-        _type_: returns one dataframe of supports and another of estimated densities, where the order
-        of the columns on each are synchronized.
+#     Returns:
+#         _type_: returns one dataframe of supports and another of estimated densities, where the order
+#         of the columns on each are synchronized.
 
-    Example: df_supports, df_densities = obtain_densities(df_returns, M=3000)
-    """
-    cols = df.columns
+#     Example: df_supports, df_densities = obtain_densities(df_returns, M=3000)
+#     """
+#     cols = df.columns
 
-    if common_density_support:
-        # 1) Global support
-        global_min = df.min().min()
-        global_max = df.max().max()
-        u = np.linspace(global_min, global_max, M)
+#     if common_density_support:
+#         # 1) Global support
+#         global_min = df.min().min()
+#         global_max = df.max().max()
+#         u = np.linspace(global_min, global_max, M)
 
-        # 2) Prepare density matrix (m × T)
-        df_densities = pd.DataFrame(index=u, columns=cols)
+#         # 2) Prepare density matrix (m × T)
+#         df_densities = pd.DataFrame(index=u, columns=cols)
 
-        # 3) KDE for each day evaluated on a common support
-        for t in cols:
-            kde = gaussian_kde(df[t])
-            df_densities[t] = kde(u)
+#         # 3) KDE for each day evaluated on a common support
+#         for t in cols:
+#             kde = gaussian_kde(df[t])
+#             df_densities[t] = kde(u)
 
-        df_supports = u
+#         df_supports = u
 
-    if not common_density_support:
-        supports  = []
-        densities = []
-        for col in cols:
-            data = df.loc[:, col]
-            kde = gaussian_kde(data)
-            left_endpoint = data.min()
-            right_endpoint = data.max()
-            x_grid = np.linspace(left_endpoint, right_endpoint, M)
-            supports.append(pd.Series(x_grid))
-            y_kde = kde(x_grid)
-            densities.append(pd.Series(y_kde))
-        df_supports = pd.concat(supports, axis=1)
-        df_supports.columns = cols
-        df_densities = pd.concat(densities, axis=1)
-        df_densities.columns = cols
+#     if not common_density_support:
+#         supports  = []
+#         densities = []
+#         for col in cols:
+#             data = df.loc[:, col]
+#             kde = gaussian_kde(data)
+#             left_endpoint = data.min()
+#             right_endpoint = data.max()
+#             x_grid = np.linspace(left_endpoint, right_endpoint, M)
+#             supports.append(pd.Series(x_grid))
+#             y_kde = kde(x_grid)
+#             densities.append(pd.Series(y_kde))
+#         df_supports = pd.concat(supports, axis=1)
+#         df_supports.columns = cols
+#         df_densities = pd.concat(densities, axis=1)
+#         df_densities.columns = cols
 
-    return df_supports, df_densities
+#     return df_supports, df_densities
 
 def dens2lqd(dens, dSup, lqdSup=None, t0=None, verbose=True):
     """
@@ -500,23 +502,25 @@ def lqd2dens(
     # dens_temp = np.exp(-lqd[keep])
     mid = M // 2
 
-    # R-equivalent duplicate removal with tolerance
     indL = duplicated_tol(dtemp[:mid], tol=1e-10, from_last=True)
     indR = duplicated_tol(dtemp[mid:], tol=1e-10, from_last=False)
 
     keep = ~(np.concatenate([indL, indR]))
 
+    # ---- SAVE ORIGINAL ENDPOINTS (CRITICAL FIX) ----
+    d0 = dtemp[0]
+    d1 = dtemp[-1]
+
     dtemp = dtemp[keep]
     dens_temp = np.exp(-lqd[keep])
 
-
     # =====================================================
-    #              Interpolate & Normalize
+    # Interpolate & Normalize  (R faithful)
     # =====================================================
 
-    # dSup = np.linspace(dtemp[0], dtemp[-1], len(dtemp))
-    dSup = np.linspace(dtemp[0], dtemp[-1], M)
-    # dens = np.interp(dSup, dtemp, dens_temp) # try and fix backwards boundary mismatch (doesn't smoothly reach the end of the original grid)
+    # Build support from ORIGINAL endpoints, not shortened dtemp
+    dSup = np.linspace(d0, d1, M)
+
     dens = np.interp(
         dSup,
         dtemp,
@@ -525,10 +529,10 @@ def lqd2dens(
         right=dens_temp[-1]
     )
 
-    # Normalize density to integrate to 1 * boundary length
+    # Normalize density
     area = np.trapezoid(dens, dSup)
     dens = dens / area * (lqdSup[-1] - lqdSup[0])
-
+    
     return dSup, dens
 
 def obtain_densities_from_lqd(

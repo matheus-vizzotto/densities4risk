@@ -476,7 +476,7 @@ class KernelDensityEstimation:
     def fit_transform(
             self, 
             X : np.array, 
-            m : int = 256,
+            m : int = 5001,
             grid=None
         ):
         """

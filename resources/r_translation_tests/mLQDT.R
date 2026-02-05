@@ -1,6 +1,7 @@
 install.packages("fdapace")
 install.packages("ftsa")
-
+install.packages("readxl")
+install.packages("writexl")
 
 library("ftsa")
 library("fdapace") # -> trapzRcpp 
@@ -105,7 +106,7 @@ dens2lqd = function(dens, dSup, lqdSup = seq(0, 1, length.out = length(dSup)), t
   return(list('lqdSup',  lqdSup, 'lqd' = lqd, 'c' = c))
 }
 
-kernel = "gaussian"
+kernel = "epanechnikov"
 m = 5001
 # Sample size
 N = nrow(data)
@@ -285,7 +286,6 @@ i = 10
 df_comparison <- data.frame(u = u, 
                      original_dens = dens[,i],
                      backwards_dens = dens2[,i])
-install.packages("writexl")
 library(writexl)
 # Write the data frame to an Excel file
 write_xlsx(x = df_comparison, path = "/Users/vizzotto/Documents/GitHub/densities4risk/data/processed/r_transformation.xlsx")
@@ -293,7 +293,6 @@ write_xlsx(x = df_comparison, path = "/Users/vizzotto/Documents/GitHub/densities
 
 
 # BOVESPA
-install.packages("readxl")
 library(readxl)
 
 bovespa_t <- read_excel("/Users/vizzotto/Documents/GitHub/densities4risk/data/interim/df_for_r.xlsx")
