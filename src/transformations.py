@@ -531,7 +531,8 @@ def obtain_densities_from_lqd(
         lqdSup_: np.array, 
         c_: np.array,
         t_: np.array,
-        cut_invalid: bool=True,
+        cut_invalid_boundaries: bool=True,
+        ensure_integral_constraint: bool=True,
         verbose=True):
     """_summary_
 
@@ -550,7 +551,7 @@ def obtain_densities_from_lqd(
     i=0
     for col in cols:
         lqd = df.loc[:, col]
-        if cut_invalid:
+        if cut_invalid_boundaries:
             cut = compute_lqd_cut(lqd, cut_nan=True)
         else:
             cut = (0,0)
@@ -562,6 +563,9 @@ def obtain_densities_from_lqd(
                                                     cut=cut,
                                                     verbose=verbose
                                                     )
+        if ensure_integral_constraint:
+            # print('ensuring integral constraint.')
+            backward_density /= np.trapezoid(backward_density, x=backward_support, axis=0)
         supports.append(pd.Series(backward_support))
         densities.append(pd.Series(backward_density))
         i += 1

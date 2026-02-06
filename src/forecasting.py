@@ -2,9 +2,16 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from typing import Dict, Union, List, Tuple
 import numpy as np
-
 from statsmodels.tsa.api import VAR
+import pmdarima as pm
 from statsmodels.tsa.stattools import adfuller, kpss#, phillips_perron
+
+from src.preprocessing import align_densities
+from src.transformations import (
+                            mLQDT,
+                            obtain_densities_from_lqd
+                            )
+from src.dynamicFPC import K_dFPC
 
 def adf_test(x):
     res = adfuller(x, autolag='AIC')
@@ -778,5 +785,94 @@ def overall_measures(
         "L_2": overall_Lnorm(test, forecast, n, "L2"),
         "L_INFTY": overall_Lnorm(test, forecast, n, "LINF"),
     }
+
+    return measures
+
+#------------------------------------------------
+#------------ CROSS-VALIDATION ------------------
+#------------------------------------------------
+
+def cv(Y, Y_support, horizon=1, initial_window=100):
+    windows = expanding_window_cv(Y.shape[1], h=horizon, initial_window=initial_window)
+
+    measures = []
+    for fold, window in enumerate(windows):
+        print(f">>> cv {fold+1}/{len(windows)}")
+        idx_train = window[0]
+        idx_test  = window[1]
+        
+        # TRAIN-TEST SPLIT FOR DENSITIES AND SUPPORTS
+        Y_train_support, Y_train = Y_support.iloc[:,idx_train], Y.iloc[:,idx_train]
+        Y_test_support , Y_test = Y_support.iloc[:,idx_test],  Y.iloc[:,idx_test]
+
+        # DENSITIES TO LQDENSITIES
+        bovespa_mLQDT = mLQDT(
+                            Y_train,
+                            Y_train_support
+                        )
+        bovespa_mLQDT.densities_to_lqdensities(verbose=False)
+
+        # L2 EXPANSION
+        df_lqds = bovespa_mLQDT.lqd.copy()
+        df_lqds_support = bovespa_mLQDT.lqd_support.copy()
+        KdFPC_kwargs = {
+            "lag_max": 5,
+            "alpha": 0.10,
+            "du": 0.05,
+            "B": 1000,
+            "p": 5,
+            "u": df_lqds_support,
+            "select_ncomp": False,
+            "dimension": 2
+        }
+        KdFPC_model = K_dFPC(df_lqds.values)
+        KdFPC_model.fit(**KdFPC_kwargs)
+        k_scores = KdFPC_model.etahat.real.T    
+
+        # FORECASTING
+        maxlags_  = 10
+        criteria_ = 'bic'
+        ## SCORES
+        k_etahat_fc = run_forecaster(k_scores, maxlags_, criteria_, horizon)
+        ## c=F(0)
+        model = pm.auto_arima(
+            bovespa_mLQDT.c,                         # univariate series
+            seasonal=False,            # True if SARIMA
+            error_action='ignore',     # ignore non-invertible models
+            suppress_warnings=True,
+            information_criterion='bic',
+            trace=False
+        )
+        c_forecast, conf_int = model.predict(n_periods=horizon, return_conf_int=True)
+        ## RECONSTRUCT FORECASTED CURVES
+        k_curve_forecast = KdFPC_model.predict(k_etahat_fc)
+        df_k_forecast = pd.DataFrame(k_curve_forecast, columns=Y_test.columns)
+
+        # LQDENSITIES TO DENSITIES
+        kle_bkw_supports, kle_bkw_densities = obtain_densities_from_lqd(
+                                                                    df_k_forecast,
+                                                                    bovespa_mLQDT.lqd_support,
+                                                                    c_forecast,
+                                                                    t_=bovespa_mLQDT.t,
+                                                                    verbose=False
+                                                                    )
+        
+        # PUT KDE AND FORECAST INTO THE SAME GRID FOR EVALUATION
+        df_supp, df_f_kle, df_kle_fhat = align_densities(
+                                        Y_test_support, 
+                                        Y_test, 
+                                        kle_bkw_supports, 
+                                        kle_bkw_densities, 
+                                        kle_bkw_densities.columns
+                                        )
+
+        # COMPUTE ACCURACY MEASURES AND STORE THEM
+        oa_measures = overall_measures(test=df_f_kle, forecast=df_kle_fhat)
+        d1 = {
+            "fold": fold,
+            "method": "KLE",
+            }
+        d1.update(oa_measures)
+        measures.append(d1)
 
     return measures
