@@ -792,7 +792,7 @@ def overall_measures(
 #------------ CROSS-VALIDATION ------------------
 #------------------------------------------------
 
-def cv(Y, Y_support, horizon=1, initial_window=100):
+def cv(Y, Y_support, KdFPC_kwargs, horizon=1, initial_window=100):
     windows = expanding_window_cv(Y.shape[1], h=horizon, initial_window=initial_window)
 
     measures = []
@@ -815,16 +815,19 @@ def cv(Y, Y_support, horizon=1, initial_window=100):
         # L2 EXPANSION
         df_lqds = bovespa_mLQDT.lqd.copy()
         df_lqds_support = bovespa_mLQDT.lqd_support.copy()
-        KdFPC_kwargs = {
-            "lag_max": 5,
-            "alpha": 0.10,
-            "du": 0.05,
-            "B": 1000,
-            "p": 5,
-            "u": df_lqds_support,
-            "select_ncomp": False,
-            "dimension": 2
-        }
+        # KdFPC_kwargs = {
+        #     "lag_max": 5,
+        #     "alpha": 0.10,
+        #     "du": 0.05,
+        #     "B": 1000,
+        #     "p": 5,
+        #     "u": df_lqds_support,
+        #     "select_ncomp": False,
+        #     "dimension": 2
+        # }
+        KdFPC_kwargs.update(
+            {"u": df_lqds_support}
+            )
         KdFPC_model = K_dFPC(df_lqds.values)
         KdFPC_model.fit(**KdFPC_kwargs)
         k_scores = KdFPC_model.etahat.real.T    
