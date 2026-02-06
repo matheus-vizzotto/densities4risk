@@ -797,7 +797,7 @@ def cv(Y, Y_support, horizon=1, initial_window=100):
 
     measures = []
     for fold, window in enumerate(windows):
-        print(f">>> cv {fold+1}/{len(windows)}")
+        print(f"\t>>> cv {fold+1}/{len(windows)}")
         idx_train = window[0]
         idx_test  = window[1]
         
