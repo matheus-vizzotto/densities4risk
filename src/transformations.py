@@ -11,6 +11,7 @@ import numpy as np
 from scipy.stats import gaussian_kde
 from typing import Tuple
 
+
 # Fixed M to better approximate functions. Smaller M (like 256) generates worse approximations.
 # M = 5001
 
@@ -270,10 +271,13 @@ s
     lqd = np.zeros(M)
 
     # Handle infinite boundary values
-    temp_first_inf = np.isinf(lqd_temp[0])
-    temp_last_inf = np.isinf(lqd_temp[-1])
+    # Returns True if the value is either NaN or Inf (ADAPTATION FROM R)
+    temp_first_inf = np.isnan(lqd_temp[0]) | np.isinf(lqd_temp[0])
+    temp_last_inf = np.isnan(lqd_temp[-1]) | np.isinf(lqd_temp[-1])
 
     if temp_first_inf or temp_last_inf:
+        
+        print("NaNs detected.")
 
         tmpInd = np.arange(len(qtemp))
         Ind = np.arange(M)
@@ -302,8 +306,10 @@ s
 def obtain_lqds(
         df_supports  : pd.DataFrame,
         df_densities : pd.DataFrame, 
-        lqd_sup=None,
-        verbose_=True):
+        lqd_sup: np.array=None,
+        fill_nan_absurd: float=20,
+        verbose_=True
+        ):
     """_summary_
 
     Args:
@@ -311,6 +317,9 @@ def obtain_lqds(
         df_densities (pd.DataFrame): densities corresponding to the supports
         lqd_sup_M (_type_, optional): support for the LQDT output. Defaults to [0,1] with nrows(df_densities)
             grid points.
+        fill_nan_absurd (bool, optional): this argument substitutes NaN values at the boundaries with an extreme
+            value that is to be cut by the lqd2dens function -- i.e., this only makes sense if lqd2dens outliers
+            at the boundaries.
 
     Returns:
         _type_: returns the LQDT (shared) support, the LQDT dataframe of values and the c=F(0) process
@@ -339,6 +348,12 @@ def obtain_lqds(
                                 t0 = t0_,
                                 verbose=verbose_
                                 )
+        if fill_nan_absurd:
+            if np.isnan(lqd[0]):
+                lqd[0] = fill_nan_absurd
+            if np.isnan(lqd[-1]):
+                lqd[-1] = fill_nan_absurd
+
         # lqds_sup.append(lqdSup) # no need since the image of the LQDT is shared by all densities by construction
         lqds.append(pd.Series(lqd))
         cs.append(c)
