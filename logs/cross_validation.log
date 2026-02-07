@@ -1,0 +1,146 @@
+2026-02-06 21:17:02,637 | INFO | Progress: (1/48) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'silverman', 'kernel': 'gaussian'}
+2026-02-06 21:17:10,211 | INFO | Progress: (2/48) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'silverman', 'kernel': 'epanechnikov'}
+2026-02-06 21:17:16,909 | INFO | Progress: (3/48) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'scott', 'kernel': 'gaussian'}
+2026-02-06 21:17:25,125 | INFO | Progress: (4/48) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'scott', 'kernel': 'epanechnikov'}
+2026-02-06 21:17:33,031 | INFO | Progress: (5/48) | Normalize: True | Params: {'adaptive': False, 'bandwidth': 'silverman', 'kernel': 'gaussian'}
+2026-02-06 21:17:40,460 | INFO | Progress: (6/48) | Normalize: True | Params: {'adaptive': False, 'bandwidth': 'silverman', 'kernel': 'epanechnikov'}
+2026-02-06 21:17:47,937 | INFO | Progress: (7/48) | Normalize: True | Params: {'adaptive': False, 'bandwidth': 'scott', 'kernel': 'gaussian'}
+2026-02-06 21:17:57,026 | INFO | Progress: (8/48) | Normalize: True | Params: {'adaptive': False, 'bandwidth': 'scott', 'kernel': 'epanechnikov'}
+2026-02-06 21:18:04,847 | INFO | Progress: (9/48) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'silverman', 'df': 2, 'kernel': 't_student'}
+2026-02-06 21:18:16,897 | INFO | Progress: (10/48) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'silverman', 'df': 3, 'kernel': 't_student'}
+2026-02-06 21:21:14,715 | INFO | Progress: (1/48) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'silverman', 'kernel': 'gaussian'}
+2026-02-06 21:21:16,213 | INFO | 	Estimation using 2 dimensions.
+2026-02-06 21:21:17,405 | INFO | 	Estimation using 3 dimensions.
+2026-02-06 21:21:18,669 | INFO | 	Estimation using 4 dimensions.
+2026-02-06 21:21:19,843 | INFO | 	Estimation using 5 dimensions.
+2026-02-06 21:21:21,019 | INFO | 	Estimation using 6 dimensions.
+2026-02-06 21:21:22,204 | INFO | Progress: (2/48) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'silverman', 'kernel': 'epanechnikov'}
+2026-02-06 21:21:23,092 | INFO | 	Estimation using 2 dimensions.
+2026-02-06 21:21:24,246 | INFO | 	Estimation using 3 dimensions.
+2026-02-06 21:21:25,400 | INFO | 	Estimation using 4 dimensions.
+2026-02-06 21:21:26,549 | INFO | 	Estimation using 5 dimensions.
+2026-02-06 21:21:27,701 | INFO | 	Estimation using 6 dimensions.
+2026-02-06 21:21:28,849 | INFO | Progress: (3/48) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'scott', 'kernel': 'gaussian'}
+2026-02-06 21:21:30,265 | INFO | 	Estimation using 2 dimensions.
+2026-02-06 21:21:31,593 | INFO | 	Estimation using 3 dimensions.
+2026-02-06 21:21:32,926 | INFO | 	Estimation using 4 dimensions.
+2026-02-06 21:21:34,257 | INFO | 	Estimation using 5 dimensions.
+2026-02-06 21:21:35,583 | INFO | 	Estimation using 6 dimensions.
+2026-02-06 21:21:36,915 | INFO | Progress: (4/48) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'scott', 'kernel': 'epanechnikov'}
+2026-02-06 21:21:37,677 | INFO | 	Estimation using 2 dimensions.
+2026-02-06 21:21:39,082 | INFO | 	Estimation using 3 dimensions.
+2026-02-06 21:21:40,487 | INFO | 	Estimation using 4 dimensions.
+2026-02-06 21:21:41,940 | INFO | 	Estimation using 5 dimensions.
+2026-02-06 21:21:54,288 | INFO | Progress: (1/48) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'silverman', 'kernel': 'gaussian'}
+2026-02-06 21:21:55,755 | INFO | 	Estimation using 2 dimensions.
+2026-02-06 21:21:56,983 | INFO | 	Estimation using 3 dimensions.
+2026-02-06 21:21:58,147 | INFO | 	Estimation using 4 dimensions.
+2026-02-06 21:21:59,316 | INFO | 	Estimation using 5 dimensions.
+2026-02-06 21:22:00,489 | INFO | 	Estimation using 6 dimensions.
+2026-02-06 21:22:01,695 | INFO | Progress: (2/48) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'silverman', 'kernel': 'epanechnikov'}
+2026-02-06 21:22:02,485 | INFO | 	Estimation using 2 dimensions.
+2026-02-06 21:22:03,616 | INFO | 	Estimation using 3 dimensions.
+2026-02-06 21:22:04,757 | INFO | 	Estimation using 4 dimensions.
+2026-02-06 21:22:05,890 | INFO | 	Estimation using 5 dimensions.
+2026-02-06 21:22:07,025 | INFO | 	Estimation using 6 dimensions.
+2026-02-06 21:22:08,161 | INFO | Progress: (3/48) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'scott', 'kernel': 'gaussian'}
+2026-02-06 21:22:09,579 | INFO | 	Estimation using 2 dimensions.
+2026-02-06 21:22:10,924 | INFO | 	Estimation using 3 dimensions.
+2026-02-06 21:22:12,229 | INFO | 	Estimation using 4 dimensions.
+2026-02-06 21:22:13,539 | INFO | 	Estimation using 5 dimensions.
+2026-02-06 21:22:14,856 | INFO | 	Estimation using 6 dimensions.
+2026-02-06 21:22:16,165 | INFO | Progress: (4/48) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'scott', 'kernel': 'epanechnikov'}
+2026-02-06 21:22:16,966 | INFO | 	Estimation using 2 dimensions.
+2026-02-06 21:22:18,412 | INFO | 	Estimation using 3 dimensions.
+2026-02-06 21:22:19,893 | INFO | 	Estimation using 4 dimensions.
+2026-02-06 21:22:40,172 | INFO | Progress: (1/48) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'silverman', 'kernel': 'gaussian'}
+2026-02-06 21:22:41,609 | INFO | 	Estimation using 2 dimensions.
+2026-02-06 21:25:34,388 | INFO | 	Estimation using 3 dimensions.
+2026-02-06 21:26:34,005 | INFO | Progress: (1/240) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'silverman', 'kernel': 'gaussian'}
+2026-02-06 21:26:35,463 | INFO | 	Estimation using 2 dimensions.
+2026-02-06 21:28:39,785 | INFO | Progress: (1/240) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'silverman', 'kernel': 'gaussian'} | Dimensions: 2
+2026-02-06 21:28:39,788 | INFO | 	Estimation using 2 dimensions.
+2026-02-06 21:35:41,819 | INFO | Progress: (1/240) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'silverman', 'kernel': 'gaussian'} | Dimensions: 2
+2026-02-06 21:35:41,823 | INFO | 	Estimation using 2 dimensions.
+2026-02-06 21:35:43,060 | INFO | Progress: (2/240) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'silverman', 'kernel': 'gaussian'} | Dimensions: 3
+2026-02-06 21:35:43,060 | INFO | 	Estimation using 3 dimensions.
+2026-02-06 21:35:44,216 | INFO | Progress: (3/240) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'silverman', 'kernel': 'gaussian'} | Dimensions: 4
+2026-02-06 21:35:44,217 | INFO | 	Estimation using 4 dimensions.
+2026-02-06 21:35:45,378 | INFO | Progress: (4/240) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'silverman', 'kernel': 'gaussian'} | Dimensions: 5
+2026-02-06 21:35:45,378 | INFO | 	Estimation using 5 dimensions.
+2026-02-06 21:35:46,531 | INFO | Progress: (5/240) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'silverman', 'kernel': 'gaussian'} | Dimensions: 6
+2026-02-06 21:35:46,531 | INFO | 	Estimation using 6 dimensions.
+2026-02-06 21:35:48,468 | INFO | Progress: (6/240) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'silverman', 'kernel': 'epanechnikov'} | Dimensions: 2
+2026-02-06 21:35:48,469 | INFO | 	Estimation using 2 dimensions.
+2026-02-06 21:35:49,587 | INFO | Progress: (7/240) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'silverman', 'kernel': 'epanechnikov'} | Dimensions: 3
+2026-02-06 21:35:49,588 | INFO | 	Estimation using 3 dimensions.
+2026-02-06 21:35:50,703 | INFO | Progress: (8/240) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'silverman', 'kernel': 'epanechnikov'} | Dimensions: 4
+2026-02-06 21:35:50,704 | INFO | 	Estimation using 4 dimensions.
+2026-02-06 21:35:51,813 | INFO | Progress: (9/240) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'silverman', 'kernel': 'epanechnikov'} | Dimensions: 5
+2026-02-06 21:35:51,814 | INFO | 	Estimation using 5 dimensions.
+2026-02-06 21:35:52,929 | INFO | Progress: (10/240) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'silverman', 'kernel': 'epanechnikov'} | Dimensions: 6
+2026-02-06 21:35:52,930 | INFO | 	Estimation using 6 dimensions.
+2026-02-06 21:35:55,476 | INFO | Progress: (11/240) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'scott', 'kernel': 'gaussian'} | Dimensions: 2
+2026-02-06 21:35:55,476 | INFO | 	Estimation using 2 dimensions.
+2026-02-06 21:35:56,772 | INFO | Progress: (12/240) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'scott', 'kernel': 'gaussian'} | Dimensions: 3
+2026-02-06 21:35:56,772 | INFO | 	Estimation using 3 dimensions.
+2026-02-06 21:35:58,062 | INFO | Progress: (13/240) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'scott', 'kernel': 'gaussian'} | Dimensions: 4
+2026-02-06 21:35:58,062 | INFO | 	Estimation using 4 dimensions.
+2026-02-06 21:35:59,392 | INFO | Progress: (14/240) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'scott', 'kernel': 'gaussian'} | Dimensions: 5
+2026-02-06 21:35:59,393 | INFO | 	Estimation using 5 dimensions.
+2026-02-06 21:36:00,701 | INFO | Progress: (15/240) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'scott', 'kernel': 'gaussian'} | Dimensions: 6
+2026-02-06 21:36:00,701 | INFO | 	Estimation using 6 dimensions.
+2026-02-06 21:36:02,808 | INFO | Progress: (16/240) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'scott', 'kernel': 'epanechnikov'} | Dimensions: 2
+2026-02-06 21:36:02,808 | INFO | 	Estimation using 2 dimensions.
+2026-02-06 21:36:04,231 | INFO | Progress: (17/240) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'scott', 'kernel': 'epanechnikov'} | Dimensions: 3
+2026-02-06 21:36:04,231 | INFO | 	Estimation using 3 dimensions.
+2026-02-06 21:36:05,599 | INFO | Progress: (18/240) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'scott', 'kernel': 'epanechnikov'} | Dimensions: 4
+2026-02-06 21:36:05,599 | INFO | 	Estimation using 4 dimensions.
+2026-02-06 21:36:06,973 | INFO | Progress: (19/240) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'scott', 'kernel': 'epanechnikov'} | Dimensions: 5
+2026-02-06 21:36:06,974 | INFO | 	Estimation using 5 dimensions.
+2026-02-06 21:36:08,354 | INFO | Progress: (20/240) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'scott', 'kernel': 'epanechnikov'} | Dimensions: 6
+2026-02-06 21:36:08,354 | INFO | 	Estimation using 6 dimensions.
+2026-02-06 21:36:11,290 | INFO | Progress: (21/240) | Normalize: True | Params: {'adaptive': False, 'bandwidth': 'silverman', 'kernel': 'gaussian'} | Dimensions: 2
+2026-02-06 21:36:11,290 | INFO | 	Estimation using 2 dimensions.
+2026-02-06 21:36:12,449 | INFO | Progress: (22/240) | Normalize: True | Params: {'adaptive': False, 'bandwidth': 'silverman', 'kernel': 'gaussian'} | Dimensions: 3
+2026-02-06 21:36:12,450 | INFO | 	Estimation using 3 dimensions.
+2026-02-06 21:36:13,603 | INFO | Progress: (23/240) | Normalize: True | Params: {'adaptive': False, 'bandwidth': 'silverman', 'kernel': 'gaussian'} | Dimensions: 4
+2026-02-06 21:36:13,604 | INFO | 	Estimation using 4 dimensions.
+2026-02-06 21:36:14,773 | INFO | Progress: (24/240) | Normalize: True | Params: {'adaptive': False, 'bandwidth': 'silverman', 'kernel': 'gaussian'} | Dimensions: 5
+2026-02-06 21:36:14,774 | INFO | 	Estimation using 5 dimensions.
+2026-02-06 21:36:15,934 | INFO | Progress: (25/240) | Normalize: True | Params: {'adaptive': False, 'bandwidth': 'silverman', 'kernel': 'gaussian'} | Dimensions: 6
+2026-02-06 21:36:15,934 | INFO | 	Estimation using 6 dimensions.
+2026-02-06 21:36:17,853 | INFO | Progress: (26/240) | Normalize: True | Params: {'adaptive': False, 'bandwidth': 'silverman', 'kernel': 'epanechnikov'} | Dimensions: 2
+2026-02-06 21:36:17,853 | INFO | 	Estimation using 2 dimensions.
+2026-02-06 21:36:19,135 | INFO | Progress: (27/240) | Normalize: True | Params: {'adaptive': False, 'bandwidth': 'silverman', 'kernel': 'epanechnikov'} | Dimensions: 3
+2026-02-06 21:36:19,136 | INFO | 	Estimation using 3 dimensions.
+2026-02-06 21:36:20,412 | INFO | Progress: (28/240) | Normalize: True | Params: {'adaptive': False, 'bandwidth': 'silverman', 'kernel': 'epanechnikov'} | Dimensions: 4
+2026-02-06 21:36:20,412 | INFO | 	Estimation using 4 dimensions.
+2026-02-06 21:36:21,682 | INFO | Progress: (29/240) | Normalize: True | Params: {'adaptive': False, 'bandwidth': 'silverman', 'kernel': 'epanechnikov'} | Dimensions: 5
+2026-02-06 21:36:21,682 | INFO | 	Estimation using 5 dimensions.
+2026-02-06 21:36:22,950 | INFO | Progress: (30/240) | Normalize: True | Params: {'adaptive': False, 'bandwidth': 'silverman', 'kernel': 'epanechnikov'} | Dimensions: 6
+2026-02-06 21:36:22,950 | INFO | 	Estimation using 6 dimensions.
+2026-02-06 21:36:25,640 | INFO | Progress: (31/240) | Normalize: True | Params: {'adaptive': False, 'bandwidth': 'scott', 'kernel': 'gaussian'} | Dimensions: 2
+2026-02-06 21:36:25,641 | INFO | 	Estimation using 2 dimensions.
+2026-02-06 21:36:27,179 | INFO | Progress: (32/240) | Normalize: True | Params: {'adaptive': False, 'bandwidth': 'scott', 'kernel': 'gaussian'} | Dimensions: 3
+2026-02-06 21:36:27,179 | INFO | 	Estimation using 3 dimensions.
+2026-02-06 21:36:28,661 | INFO | Progress: (33/240) | Normalize: True | Params: {'adaptive': False, 'bandwidth': 'scott', 'kernel': 'gaussian'} | Dimensions: 4
+2026-02-06 21:36:28,662 | INFO | 	Estimation using 4 dimensions.
+2026-02-06 21:36:30,133 | INFO | Progress: (34/240) | Normalize: True | Params: {'adaptive': False, 'bandwidth': 'scott', 'kernel': 'gaussian'} | Dimensions: 5
+2026-02-06 21:36:30,133 | INFO | 	Estimation using 5 dimensions.
+2026-02-06 21:36:31,606 | INFO | Progress: (35/240) | Normalize: True | Params: {'adaptive': False, 'bandwidth': 'scott', 'kernel': 'gaussian'} | Dimensions: 6
+2026-02-06 21:36:31,607 | INFO | 	Estimation using 6 dimensions.
+2026-02-06 21:36:33,852 | INFO | Progress: (36/240) | Normalize: True | Params: {'adaptive': False, 'bandwidth': 'scott', 'kernel': 'epanechnikov'} | Dimensions: 2
+2026-02-06 21:36:33,852 | INFO | 	Estimation using 2 dimensions.
+2026-02-06 21:36:35,137 | INFO | Progress: (37/240) | Normalize: True | Params: {'adaptive': False, 'bandwidth': 'scott', 'kernel': 'epanechnikov'} | Dimensions: 3
+2026-02-06 21:36:35,137 | INFO | 	Estimation using 3 dimensions.
+2026-02-06 21:36:36,414 | INFO | Progress: (38/240) | Normalize: True | Params: {'adaptive': False, 'bandwidth': 'scott', 'kernel': 'epanechnikov'} | Dimensions: 4
+2026-02-06 21:36:36,415 | INFO | 	Estimation using 4 dimensions.
+2026-02-06 21:36:37,699 | INFO | Progress: (39/240) | Normalize: True | Params: {'adaptive': False, 'bandwidth': 'scott', 'kernel': 'epanechnikov'} | Dimensions: 5
+2026-02-06 21:36:37,699 | INFO | 	Estimation using 5 dimensions.
+2026-02-06 21:36:38,978 | INFO | Progress: (40/240) | Normalize: True | Params: {'adaptive': False, 'bandwidth': 'scott', 'kernel': 'epanechnikov'} | Dimensions: 6
+2026-02-06 21:36:38,978 | INFO | 	Estimation using 6 dimensions.
+2026-02-06 21:36:44,779 | INFO | Progress: (41/240) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'silverman', 'df': 2, 'kernel': 't_student'} | Dimensions: 2
+2026-02-06 21:36:44,779 | INFO | 	Estimation using 2 dimensions.
+2026-02-06 21:36:46,015 | INFO | Progress: (42/240) | Normalize: True | Params: {'adaptive': True, 'bandwidth': 'silverman', 'df': 2, 'kernel': 't_student'} | Dimensions: 3
+2026-02-06 21:36:46,015 | INFO | 	Estimation using 3 dimensions.

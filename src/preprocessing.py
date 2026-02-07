@@ -262,12 +262,14 @@ def rule_of_thumb_bandwidth(
     if rule not in ("scott", "silverman"):
         raise ValueError("rule must be 'silverman' or 'scott'")
 
-    if rule == "scott":
-        scale = sigma
-    else:
-        q75, q25 = np.percentile(x, [75, 25])
-        iqr = q75 - q25
-        scale = min(sigma, iqr / 1.34)
+    # This code was returning less smooth data, so I matched Kokoszka's (2019) style.
+    # if rule == "scott":
+    #     scale = sigma
+    # else:
+    #     q75, q25 = np.percentile(x, [75, 25])
+    #     iqr = q75 - q25
+    #     scale = min(sigma, iqr / 1.34)
+    scale = sigma
 
     C = KERNEL_CONSTANTS[kernel][rule]
     return C * scale * n ** (-1 / 5)

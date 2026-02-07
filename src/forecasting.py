@@ -797,7 +797,7 @@ def cv(Y, Y_support, KdFPC_kwargs, horizon=1, initial_window=100):
 
     measures = []
     for fold, window in enumerate(windows):
-        print(f"\t>>> cv {fold+1}/{len(windows)}")
+        print(f"\t\t>>> cv {fold+1}/{len(windows)}")
         idx_train = window[0]
         idx_test  = window[1]
         
@@ -828,6 +828,7 @@ def cv(Y, Y_support, KdFPC_kwargs, horizon=1, initial_window=100):
         KdFPC_kwargs.update(
             {"u": df_lqds_support}
             )
+
         KdFPC_model = K_dFPC(df_lqds.values)
         KdFPC_model.fit(**KdFPC_kwargs)
         k_scores = KdFPC_model.etahat.real.T    
