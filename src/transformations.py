@@ -657,3 +657,143 @@ class mLQDT:
                                         )
         
         return [densities_supports, densities]
+    
+
+
+def duplicated_tol_sorted(x, tol=1e-10, from_last=False):
+    """
+    Tolerance-aware version of R's duplicated() for sorted vectors.
+
+    Parameters
+    ----------
+    x : array-like
+        Input array (assumed monotone).
+    tol : float
+        Absolute tolerance for equality.
+    from_last : bool
+        If True, mark duplicates keeping the *last* occurrence.
+
+    Returns
+    -------
+    dup : ndarray of bool
+        True where values are duplicates.
+    """
+    x = np.asarray(x)
+
+    if len(x) == 0:
+        return np.zeros(0, dtype=bool)
+
+    if from_last:
+        dx = np.abs(np.diff(x[::-1])) < tol
+        return np.r_[dx, False][::-1]
+    else:
+        dx = np.abs(np.diff(x)) < tol
+        return np.r_[False, dx]
+
+# OPTIMIZING INVERSE
+def lqd2dens_v2(
+    lqd,
+    lqdSup=None,
+    dSup=None,
+    t0=0.0,
+    c=0.0,
+    useSplines=True,
+    cut=(0, 0),
+    verbose=True
+):
+    """
+    Reconstruct a probability density function from its Log–Quantile–Density
+    (LQD) transform. This is the inverse of `dens2lqd`.
+
+    This implementation follows the mathematical framework used in
+    Kokoszka & Reimherr (2017, 2019) for functional transformations of 
+    probability density functions.
+    """
+
+    lqd = np.asarray(lqd)
+
+    # --- handle lqdSup ---
+    if lqdSup is None:
+        lqdSup = np.linspace(0, 1, len(lqd))
+    else:
+        lqdSup = np.asarray(lqdSup)
+
+    # --- Check support boundaries ---
+    if not np.allclose([lqdSup.min(), lqdSup.max()], [0, 1]):
+        if verbose:
+            print("Problem with LQD domain boundaries — resetting to default.")
+        lqdSup = np.linspace(0, 1, len(lqd))
+
+    M = len(lqd)
+    cut = list(cut)
+
+    # ---- cache exp(lqd) ----
+    exp_lqd = np.exp(lqd)
+
+    # --- find infinite exp(lqd) ---
+    r = np.where(exp_lqd == np.inf)[0]
+    if len(r) > 0:
+        mid = M // 2
+        if np.any(r < mid):
+            cut[0] = max(cut[0], r[r < mid].max())
+        if np.any(r >= mid):
+            cut[1] = max(cut[1], M - r[r >= mid].min() - 1)
+
+    # --- cut boundaries ---
+    lqdSup = lqdSup[cut[0]: M - cut[1]]
+    lqd = lqd[cut[0]: M - cut[1]]
+    exp_lqd = exp_lqd[cut[0]: M - cut[1]]
+    M = len(lqd)
+
+    # --- ensure c is in lqdSup (closest index) ---
+    c_ind = np.argmin(np.abs(lqdSup - c))
+    c = lqdSup[c_ind]
+
+    # --- compute dtemp ---
+    if useSplines:
+        sp = InterpolatedUnivariateSpline(lqdSup, lqd, k=3)
+        q = np.exp(sp(lqdSup))
+
+        Q = cumulative_trapezoid(q, lqdSup, initial=0)
+        dtemp = t0 + Q - Q[c_ind]
+
+    else:
+        Q = cumulative_trapezoid(exp_lqd, lqdSup, initial=0)
+        dtemp = t0 + Q - Q[c_ind]
+
+    # =====================================================
+    #     CORRECT R-LIKE DUPLICATE REMOVAL (NO ERRORS)
+    # =====================================================
+
+    mid = M // 2
+
+    indL = duplicated_tol_sorted(dtemp[:mid], tol=1e-10, from_last=True)
+    indR = duplicated_tol_sorted(dtemp[mid:], tol=1e-10, from_last=False)
+
+    keep = ~(np.concatenate([indL, indR]))
+
+    # ---- SAVE ORIGINAL ENDPOINTS (CRITICAL FIX) ----
+    d0 = dtemp[0]
+    d1 = dtemp[-1]
+
+    dtemp = dtemp[keep]
+    dens_temp = 1.0 / exp_lqd[keep]
+
+    # =====================================================
+    # Interpolate & Normalize  (R faithful)
+    # =====================================================
+
+    dSup = np.linspace(d0, d1, M)
+
+    dens = np.interp(
+        dSup,
+        dtemp,
+        dens_temp,
+        left=dens_temp[0],
+        right=dens_temp[-1]
+    )
+
+    area = np.trapezoid(dens, dSup)
+    dens = dens / area * (lqdSup[-1] - lqdSup[0])
+
+    return dSup, dens
