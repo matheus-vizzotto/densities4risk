@@ -1,6 +1,7 @@
 *.xlsx
 *.parquet
 *.json
+*.html
 
 
 # Allow specific files
