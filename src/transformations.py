@@ -570,7 +570,7 @@ def obtain_densities_from_lqd(
             cut = compute_lqd_cut(lqd, cut_nan=True)
         else:
             cut = (0,0)
-        backward_support, backward_density = lqd2dens(
+        backward_support, backward_density = lqd2dens_v2(
                                                     lqd, 
                                                     lqdSup_, 
                                                     c = c_[i], 
