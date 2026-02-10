@@ -844,7 +844,7 @@ def modes_of_variation(
     psihat: pd.DataFrame,
     thetahat: Iterable[float],
     alphas: Iterable[float]
-) -> Dict[str, pd.DataFrame]:
+) -> pd.DataFrame:
     """
     Compute FPCA modes of variation in L2 space.
 
@@ -870,14 +870,7 @@ def modes_of_variation(
 
     Returns
     -------
-    modes : dict[str, pd.DataFrame]
-        Dictionary where each entry corresponds to one FPCA component.
-        Each DataFrame contains columns:
-
-            alpha_{a}_plus
-            alpha_{a}_minus
-
-        for every alpha supplied.
+    modes : Long DataFrame with [principal_component, alpha_direction, value]
 
     Example
     --------
@@ -892,25 +885,64 @@ def modes_of_variation(
     -----
     These modes live in L2 (transform space). To interpret them as
     densities, they must be mapped back via the inverse mLQD transform.
+    The inverse should use the mean c=F(0) for all.
     """
 
     # Mean function in L2
     mu = df.mean(axis=1)
 
-    modes = {"mean": mu}
+    # List to collect all data rows
+    all_records = []
 
-    for k in range(psihat.shape[1]):
-        psi_k = psihat[:, k]
-        theta_k = thetahat[k]
+    for alpha in alphas:
+        # if alpha == 0.0:
+        #     # Special case for mean: alpha=0
+        #     # We create a record for every point in the x_grid
+        #     for x, val in mu.items():
+        #         all_records.append({
+        #             'index': x,
+        #             'pc': 'mean',
+        #             'alpha': 'alpha_0',
+        #             'value': val
+        #         })
+        # else:
+            # Modes of variation for each Principal Component
+            for k in range(psihat.shape[1]):
+                psi_k = psihat[:, k]
+                theta_k = thetahat[k]
 
-        component_modes = {}
+                if alpha == 0:
+                    mean, _ = _mode_of_variation(mu, psi_k, theta_k, alpha)
+                    for x, val in mean.items():
+                        all_records.append({
+                            'index': x,
+                            'pc': f'PC{k+1}',
+                            'alpha': f'alpha_{alpha}',
+                            'value': val
+                        })
+                else:
+                    plus, minus = _mode_of_variation(mu, psi_k, theta_k, alpha)
+                    
+                    # Add "plus" variation records
+                    for x, val in plus.items():
+                        all_records.append({
+                            'index': x,
+                            'pc': f'PC{k+1}',
+                            'alpha': f'alpha_{alpha}_plus',
+                            'value': val
+                        })
+                    
+                    # Add "minus" variation records
+                    for x, val in minus.items():
+                        all_records.append({
+                            'index': x,
+                            'pc': f'PC{k+1}',
+                            'alpha': f'alpha_{alpha}_minus',
+                            'value': val
+                        })
 
-        for alpha in alphas:
-            plus, minus = _mode_of_variation(mu, psi_k, theta_k, alpha)
-
-            component_modes[f"alpha_{alpha}_plus"] = plus
-            component_modes[f"alpha_{alpha}_minus"] = minus
-
-        modes[f"PC{k+1}"] = pd.DataFrame(component_modes)
-
-    return modes
+    # Create the DataFrame
+    df_long = pd.DataFrame(all_records)
+    # df_long = df_long.set_index('index')
+    
+    return df_long
