@@ -797,3 +797,120 @@ def lqd2dens_v2(
     dens = dens / area * (lqdSup[-1] - lqdSup[0])
 
     return dSup, dens
+
+from typing import Iterable, Tuple, Dict
+import numpy as np
+import pandas as pd
+
+
+def _mode_of_variation(
+    mu: pd.Series,
+    psi: pd.Series,
+    theta: float,
+    alpha: float
+) -> Tuple[pd.Series, pd.Series]:
+    """
+    Construct plus/minus FPCA modes in L2 space.
+
+    Parameters
+    ----------
+    mu : pd.Series
+        Mean function (in transformed L2 space).
+
+    psi : pd.Series
+        Eigenfunction corresponding to a given FPCA component.
+
+    theta : float
+        Eigenvalue associated with `psi`.
+
+    alpha : float
+        Scaling parameter controlling excursion size
+        (typically in multiples of sqrt(theta)).
+
+    Returns
+    -------
+    (mode_plus, mode_minus) : Tuple[pd.Series, pd.Series]
+        Positive and negative perturbations around the mean:
+            mu ± alpha * sqrt(theta) * psi
+    """
+
+    perturbation = alpha * np.sqrt(theta) * psi
+
+    return mu + perturbation, mu - perturbation
+
+
+def modes_of_variation(
+    df: pd.DataFrame,
+    psihat: pd.DataFrame,
+    thetahat: Iterable[float],
+    alphas: Iterable[float]
+) -> Dict[str, pd.DataFrame]:
+    """
+    Compute FPCA modes of variation in L2 space.
+
+    This constructs synthetic curves of the form
+
+        mu ± alpha * sqrt(theta_k) * psi_k
+
+    for each principal component k and each scaling factor alpha.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Original transformed functions (columns = time, rows = grid).
+
+    psihat : pd.DataFrame
+        Estimated eigenfunctions (rows = grid, columns = components).
+
+    thetahat : iterable of float
+        Corresponding eigenvalues.
+
+    alphas : iterable of float
+        Multipliers controlling mode magnitude (e.g. [0.5, 1, 2]).
+
+    Returns
+    -------
+    modes : dict[str, pd.DataFrame]
+        Dictionary where each entry corresponds to one FPCA component.
+        Each DataFrame contains columns:
+
+            alpha_{a}_plus
+            alpha_{a}_minus
+
+        for every alpha supplied.
+
+    Example
+    --------
+    modes = modes_of_variation(
+        df_lqds,
+        KdFPC_model.psihat,
+        KdFPC_model.thetahat,
+        alphas=[0.0, 0.5, 1.0, 1.5, 3.0]
+        )
+
+    Notes
+    -----
+    These modes live in L2 (transform space). To interpret them as
+    densities, they must be mapped back via the inverse mLQD transform.
+    """
+
+    # Mean function in L2
+    mu = df.mean(axis=1)
+
+    modes = {"mean": mu}
+
+    for k in range(psihat.shape[1]):
+        psi_k = psihat[:, k]
+        theta_k = thetahat[k]
+
+        component_modes = {}
+
+        for alpha in alphas:
+            plus, minus = _mode_of_variation(mu, psi_k, theta_k, alpha)
+
+            component_modes[f"alpha_{alpha}_plus"] = plus
+            component_modes[f"alpha_{alpha}_minus"] = minus
+
+        modes[f"PC{k+1}"] = pd.DataFrame(component_modes)
+
+    return modes
