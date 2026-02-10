@@ -792,7 +792,14 @@ def overall_measures(
 #------------ CROSS-VALIDATION ------------------
 #------------------------------------------------
 
-def cv(Y, Y_support, KdFPC_kwargs, horizon=1, initial_window=100):
+def cv(
+        Y, 
+        Y_support, 
+        KdFPC_kwargs, 
+        horizon=1, 
+        initial_window=100,
+        return_curves=False
+        ):
     windows = expanding_window_cv(Y.shape[1], h=horizon, initial_window=initial_window)
 
     measures = []
@@ -877,6 +884,8 @@ def cv(Y, Y_support, KdFPC_kwargs, horizon=1, initial_window=100):
             "method": "KLE",
             }
         d1.update(oa_measures)
+        if return_curves:
+            d1.update({"df_supports": df_supp, "df_kde": df_f_kle, "df_forecast": df_kle_fhat})
         measures.append(d1)
 
     return measures
