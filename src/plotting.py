@@ -232,3 +232,83 @@ def style_modes_of_variation(
     )
     
     return fig
+
+import numpy as np
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+from statsmodels.tsa.stattools import acf, pacf
+
+
+def plot_acf_pacf(
+    series,
+    nlags=10,
+    alpha=0.05,
+    title=None,
+):
+    """
+    Side-by-side ACF and PACF plots.
+    """
+
+    name = getattr(series, "name", "Series")
+
+    y = np.asarray(series).astype(float)
+    y = y[~np.isnan(y)]
+
+    fig = make_subplots(rows=1, cols=2, subplot_titles=(f"ACF of {name}", f"PACF of {name}"))
+
+    # -------- ACF --------
+    acf_array = acf(y, alpha=alpha, nlags=nlags)
+    acf_vals = acf_array[0]
+    acf_lower = acf_array[1][:, 0] - acf_vals
+    acf_upper = acf_array[1][:, 1] - acf_vals
+
+    lags = np.arange(len(acf_vals))
+
+    for x in lags:
+        fig.add_scatter(x=(x, x), y=(0, acf_vals[x]),
+                        mode="lines", line_color="#3f3f3f",
+                        row=1, col=1)
+
+    fig.add_scatter(x=lags, y=acf_vals, mode="markers",
+                    marker_color="#1f77b4", marker_size=10,
+                    row=1, col=1)
+
+    fig.add_scatter(x=lags, y=acf_upper, mode="lines",
+                    line_color="rgba(255,255,255,0)", row=1, col=1)
+
+    fig.add_scatter(x=lags, y=acf_lower, mode="lines",
+                    fill="tonexty", fillcolor="rgba(32,146,230,0.3)",
+                    line_color="rgba(255,255,255,0)", row=1, col=1)
+
+    # -------- PACF --------
+    pacf_array = pacf(y, alpha=alpha, nlags=nlags)
+    pacf_vals = pacf_array[0]
+    pacf_lower = pacf_array[1][:, 0] - pacf_vals
+    pacf_upper = pacf_array[1][:, 1] - pacf_vals
+
+    lags = np.arange(len(pacf_vals))
+
+    for x in lags:
+        fig.add_scatter(x=(x, x), y=(0, pacf_vals[x]),
+                        mode="lines", line_color="#3f3f3f",
+                        row=1, col=2)
+
+    fig.add_scatter(x=lags, y=pacf_vals, mode="markers",
+                    marker_color="#1f77b4", marker_size=10,
+                    row=1, col=2)
+
+    fig.add_scatter(x=lags, y=pacf_upper, mode="lines",
+                    line_color="rgba(255,255,255,0)", row=1, col=2)
+
+    fig.add_scatter(x=lags, y=pacf_lower, mode="lines",
+                    fill="tonexty", fillcolor="rgba(32,146,230,0.3)",
+                    line_color="rgba(255,255,255,0)", row=1, col=2)
+
+    fig.update_traces(showlegend=False)
+    fig.update_yaxes(zerolinecolor="#000000")
+
+    if title is None:
+        title = f"ACF & PACF of {name}"
+
+    fig.update_layout(title=title)
+    fig.show()
