@@ -159,7 +159,8 @@ import re
 def style_modes_of_variation(
         fig, 
         alphas: List[float], 
-        mu_transparency: float=0.2
+        mu_transparency: float=0.2,
+        mu_black:bool=True
         ):
     """
     Styles a Plotly figure to visualize FPCA modes of variation with mathematical labels.
@@ -196,7 +197,11 @@ def style_modes_of_variation(
     def style_traces(trace):
         # --- MEAN CONFIGURATION & LABEL ---
         if trace.name in ["alpha_0", "alpha_0.0", "mean"]:
-            trace.line.update(color=f"rgba(0, 0, 0, {mu_transparency})", width=5, dash="solid")
+            if mu_black:
+                mu_color = f"rgba(0, 0, 0, {mu_transparency})"
+            else:
+                mu_color = f"rgba(255, 255, 255, {mu_transparency})"
+            trace.line.update(color=mu_color, width=5, dash="solid")
             trace.name = "alpha=0"
             trace.hovertemplate = "<b>alpha=0 (Mean)</b><br>x: %{x}<br>y: %{y}<extra></extra>"
             return
@@ -312,3 +317,158 @@ def plot_acf_pacf(
 
     fig.update_layout(title=title)
     fig.show()
+
+import numpy as np
+import plotly.graph_objects as go
+
+
+def plot_ccfs(
+    series1,
+    series2,
+    nlags=20,
+    alpha=0.05,
+    title=None,
+):
+    """
+    Cross-correlation plot between two series with symmetric lags.
+    """
+
+    name1 = getattr(series1, "name", "Series 1")
+    name2 = getattr(series2, "name", "Series 2")
+
+    y1 = np.asarray(series1).astype(float)
+    y2 = np.asarray(series2).astype(float)
+
+    mask = ~np.isnan(y1) & ~np.isnan(y2)
+    y1, y2 = y1[mask], y2[mask]
+
+    # Standardize (important for CCF)
+    y1 = (y1 - y1.mean()) / y1.std()
+    y2 = (y2 - y2.mean()) / y2.std()
+
+    n = len(y1)
+
+    # Full cross-correlation
+    corr_full = np.correlate(y1, y2, mode="full") / n
+    mid = len(corr_full) // 2
+
+    corr = corr_full[mid - nlags : mid + nlags + 1]
+    lags = np.arange(-nlags, nlags + 1)
+
+    # Asymptotic confidence bands
+    z = abs(np.quantile(np.random.standard_normal(200000), 1 - alpha / 2))
+    ci = z / np.sqrt(n)
+
+    upper = np.full_like(corr, ci)
+    lower = -upper
+
+    # -------- Plot --------
+    fig = go.Figure()
+
+    for i, x in enumerate(lags):
+        fig.add_scatter(x=(x, x), y=(0, corr[i]),
+                        mode="lines", line_color="#3f3f3f")
+
+    fig.add_scatter(x=lags, y=corr, mode="markers",
+                    marker_color="#1f77b4", marker_size=10)
+
+    fig.add_scatter(x=lags, y=upper, mode="lines",
+                    line_color="rgba(255,255,255,0)")
+
+    fig.add_scatter(x=lags, y=lower, mode="lines",
+                    fill="tonexty", fillcolor="rgba(32,146,230,0.3)",
+                    line_color="rgba(255,255,255,0)")
+
+    fig.update_traces(showlegend=False)
+    fig.update_yaxes(zerolinecolor="#000000")
+
+    if title is None:
+        title = f"Cross-Correlation of {name1} × {name2}"
+
+    fig.update_layout(title=title)
+    fig.show()
+
+import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
+
+
+def plot_density_timeseries_3d(
+    df: pd.DataFrame,
+    x_range=None,
+    colorscale="Viridis"
+):
+    """
+    3D surface plot of density time series.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        First column = index/grid (x)
+        Remaining columns = dates (y)
+        Values = pdf (z)
+
+    x_range : tuple or None, optional
+        (xmin, xmax) to restrict x-axis domain.
+
+    colorscale : str
+        Plotly colorscale name (e.g. 'Viridis', 'Cividis', 'Plasma', 'Turbo').
+    """
+
+    # x-grid
+    x = df.index
+
+    # optional x-range filtering
+    if x_range is not None:
+        xmin, xmax = x_range
+        mask = (x >= xmin) & (x <= xmax)
+        df = df.loc[mask]
+        x = x[mask]
+
+    # dates
+    y = pd.to_datetime(df.columns[1:])
+
+    # pdf values (transpose for Plotly)
+    z = df.iloc[:, 1:].T.values
+
+    fig = go.Figure(
+        data=[
+            go.Surface(
+                x=x,
+                y=y,
+                z=z,
+                colorscale=colorscale,
+                # contours = dict(
+                # x=dict(show=True, color="black", width=1),
+                # y=dict(show=True, color="black", width=1),
+                # z=dict(show=False)),
+                # opacity=0.9
+
+                )
+        ]
+    )
+
+    fig.update_layout(
+        title="3D Density Time Series",
+        scene=dict(
+            xaxis_title="Index",
+            yaxis_title="Date",
+            zaxis_title="PDF",
+        ),
+        height=700
+    )
+
+    # fig.update_layout(
+    #     scene_camera=dict(
+    #         eye=dict(x=-1.5, y=1.5, z=1.0)
+    #     )
+    # )
+
+    fig.update_layout(
+        scene=dict(
+            xaxis=dict(autorange="reversed")
+        )
+    )
+
+    fig.show()
+
