@@ -1,6 +1,7 @@
 *.xlsx
 *.parquet
 *.json
+.DS_Store
 # *.html
 
 
