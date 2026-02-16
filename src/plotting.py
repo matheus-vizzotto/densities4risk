@@ -396,7 +396,9 @@ import plotly.graph_objects as go
 def plot_density_timeseries_3d(
     df: pd.DataFrame,
     x_range=None,
-    colorscale="Viridis"
+    colorscale="Viridis",
+    camera=None,
+    theme="plotly_white",
 ):
     """
     3D surface plot of density time series.
@@ -413,22 +415,24 @@ def plot_density_timeseries_3d(
 
     colorscale : str
         Plotly colorscale name (e.g. 'Viridis', 'Cividis', 'Plasma', 'Turbo').
+
+    camera : dict or None
+        Plotly camera dictionary, e.g.
+        dict(eye=dict(x=-1.5, y=1.5, z=1.0))
+
+    theme : str
+        Plotly template (e.g. 'plotly_white', 'plotly_dark', 'ggplot2').
     """
 
-    # x-grid
     x = df.index
 
-    # optional x-range filtering
     if x_range is not None:
         xmin, xmax = x_range
         mask = (x >= xmin) & (x <= xmax)
         df = df.loc[mask]
         x = x[mask]
 
-    # dates
     y = pd.to_datetime(df.columns[1:])
-
-    # pdf values (transpose for Plotly)
     z = df.iloc[:, 1:].T.values
 
     fig = go.Figure(
@@ -438,37 +442,27 @@ def plot_density_timeseries_3d(
                 y=y,
                 z=z,
                 colorscale=colorscale,
-                # contours = dict(
-                # x=dict(show=True, color="black", width=1),
-                # y=dict(show=True, color="black", width=1),
-                # z=dict(show=False)),
-                # opacity=0.9
-
-                )
+                cmin=0,
+                cmax=np.percentile(z, 95)
+            )
         ]
     )
 
     fig.update_layout(
         title="3D Density Time Series",
+        template=theme,
         scene=dict(
             xaxis_title="Index",
             yaxis_title="Date",
             zaxis_title="PDF",
+            xaxis=dict(autorange="reversed"),
         ),
-        height=700
+        height=700,
     )
 
-    # fig.update_layout(
-    #     scene_camera=dict(
-    #         eye=dict(x=-1.5, y=1.5, z=1.0)
-    #     )
-    # )
+    if camera is not None:
+        fig.update_layout(scene_camera=camera)
 
-    fig.update_layout(
-        scene=dict(
-            xaxis=dict(autorange="reversed")
-        )
-    )
+    return fig
 
-    fig.show()
 
