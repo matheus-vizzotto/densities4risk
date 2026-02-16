@@ -399,6 +399,8 @@ def plot_density_timeseries_3d(
     colorscale="Viridis",
     camera=None,
     theme="plotly_white",
+    percentile_cut: List[float] = None,
+    title = None
 ):
     """
     3D surface plot of density time series.
@@ -435,6 +437,13 @@ def plot_density_timeseries_3d(
     y = pd.to_datetime(df.columns[1:])
     z = df.iloc[:, 1:].T.values
 
+    if percentile_cut is None:
+        cmin = np.percentile(z,0)
+        cmax = np.percentile(z,100)
+    else:
+        cmin = np.percentile(z,percentile_cut[0])
+        cmax = np.percentile(z,percentile_cut[1])
+
     fig = go.Figure(
         data=[
             go.Surface(
@@ -442,14 +451,14 @@ def plot_density_timeseries_3d(
                 y=y,
                 z=z,
                 colorscale=colorscale,
-                cmin=0,
-                cmax=np.percentile(z, 95)
+                cmin=cmin,
+                cmax=cmax
             )
         ]
     )
 
     fig.update_layout(
-        title="3D Density Time Series",
+        title=title,
         template=theme,
         scene=dict(
             xaxis_title="Index",
