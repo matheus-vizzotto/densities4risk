@@ -5,6 +5,7 @@ import numpy as np
 from statsmodels.tsa.api import VAR
 import pmdarima as pm
 from statsmodels.tsa.stattools import adfuller, kpss#, phillips_perron
+from statsmodels.stats.diagnostic import acorr_ljungbox
 
 from src.preprocessing import align_densities
 from src.transformations import (
@@ -889,3 +890,27 @@ def cv(
         measures.append(d1)
 
     return measures
+
+def check_autocorrelation(
+        series, 
+        name="Series", 
+        lags=10,
+        verbose=False
+        ):
+    # Perform the test
+    results = acorr_ljungbox(series, lags=[lags], return_df=True)
+    p_value = results.lb_pvalue.values[0]
+
+    if verbose:
+        print(f"--- Ljung-Box Test for {name} (Lag {lags}) ---")
+        print(f"P-value: {p_value:.4f}")
+        
+        if p_value < 0.05:
+            print(f"VERDICT: The {name} HAS significant autocorrelation.")
+            print("Reason: P-value is < 0.05. We reject the Null Hypothesis (White Noise).")
+        else:
+            print(f"VERDICT: The {name} does NOT have significant autocorrelation.")
+            print("Reason: P-value is >= 0.05. The series is consistent with White Noise.")
+        print("-" * 40)
+    else:
+        return p_value
