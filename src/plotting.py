@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import plotly.express as px
 from typing import List
+from plotly.subplots import make_subplots
+from statsmodels.tsa.stattools import acf, pacf
 
 # TODO: plot_3d_ts traz domínio da função invertido
 
@@ -238,10 +240,13 @@ def style_modes_of_variation(
     
     return fig
 
+
+
+
 import numpy as np
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
 from statsmodels.tsa.stattools import acf, pacf
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
 
 
 def plot_acf_pacf(
@@ -259,7 +264,13 @@ def plot_acf_pacf(
     y = np.asarray(series).astype(float)
     y = y[~np.isnan(y)]
 
-    fig = make_subplots(rows=1, cols=2, subplot_titles=(f"ACF of {name}", f"PACF of {name}"))
+    # Subplots with simple titles
+    fig = make_subplots(
+        rows=1,
+        cols=2,
+        subplot_titles=("ACF", "PACF"),
+        horizontal_spacing=0.12
+    )
 
     # -------- ACF --------
     acf_array = acf(y, alpha=alpha, nlags=nlags)
@@ -270,20 +281,44 @@ def plot_acf_pacf(
     lags = np.arange(len(acf_vals))
 
     for x in lags:
-        fig.add_scatter(x=(x, x), y=(0, acf_vals[x]),
-                        mode="lines", line_color="#3f3f3f",
-                        row=1, col=1)
+        fig.add_scatter(
+            x=(x, x),
+            y=(0, acf_vals[x]),
+            mode="lines",
+            line_color="#3f3f3f",
+            row=1,
+            col=1
+        )
 
-    fig.add_scatter(x=lags, y=acf_vals, mode="markers",
-                    marker_color="#1f77b4", marker_size=10,
-                    row=1, col=1)
+    fig.add_scatter(
+        x=lags,
+        y=acf_vals,
+        mode="markers",
+        marker_color="#1f77b4",
+        marker_size=9,
+        row=1,
+        col=1
+    )
 
-    fig.add_scatter(x=lags, y=acf_upper, mode="lines",
-                    line_color="rgba(255,255,255,0)", row=1, col=1)
+    fig.add_scatter(
+        x=lags,
+        y=acf_upper,
+        mode="lines",
+        line_color="rgba(255,255,255,0)",
+        row=1,
+        col=1
+    )
 
-    fig.add_scatter(x=lags, y=acf_lower, mode="lines",
-                    fill="tonexty", fillcolor="rgba(32,146,230,0.3)",
-                    line_color="rgba(255,255,255,0)", row=1, col=1)
+    fig.add_scatter(
+        x=lags,
+        y=acf_lower,
+        mode="lines",
+        fill="tonexty",
+        fillcolor="rgba(32,146,230,0.25)",
+        line_color="rgba(255,255,255,0)",
+        row=1,
+        col=1
+    )
 
     # -------- PACF --------
     pacf_array = pacf(y, alpha=alpha, nlags=nlags)
@@ -294,33 +329,60 @@ def plot_acf_pacf(
     lags = np.arange(len(pacf_vals))
 
     for x in lags:
-        fig.add_scatter(x=(x, x), y=(0, pacf_vals[x]),
-                        mode="lines", line_color="#3f3f3f",
-                        row=1, col=2)
+        fig.add_scatter(
+            x=(x, x),
+            y=(0, pacf_vals[x]),
+            mode="lines",
+            line_color="#3f3f3f",
+            row=1,
+            col=2
+        )
 
-    fig.add_scatter(x=lags, y=pacf_vals, mode="markers",
-                    marker_color="#1f77b4", marker_size=10,
-                    row=1, col=2)
+    fig.add_scatter(
+        x=lags,
+        y=pacf_vals,
+        mode="markers",
+        marker_color="#1f77b4",
+        marker_size=9,
+        row=1,
+        col=2
+    )
 
-    fig.add_scatter(x=lags, y=pacf_upper, mode="lines",
-                    line_color="rgba(255,255,255,0)", row=1, col=2)
+    fig.add_scatter(
+        x=lags,
+        y=pacf_upper,
+        mode="lines",
+        line_color="rgba(255,255,255,0)",
+        row=1,
+        col=2
+    )
 
-    fig.add_scatter(x=lags, y=pacf_lower, mode="lines",
-                    fill="tonexty", fillcolor="rgba(32,146,230,0.3)",
-                    line_color="rgba(255,255,255,0)", row=1, col=2)
+    fig.add_scatter(
+        x=lags,
+        y=pacf_lower,
+        mode="lines",
+        fill="tonexty",
+        fillcolor="rgba(32,146,230,0.25)",
+        line_color="rgba(255,255,255,0)",
+        row=1,
+        col=2
+    )
 
-    fig.update_traces(showlegend=False)
+    # Axis styling
     fig.update_yaxes(zerolinecolor="#000000")
+    fig.update_traces(showlegend=False)
 
     if title is None:
         title = f"ACF & PACF of {name}"
 
-    fig.update_layout(title=title)
-    fig.show()
+    fig.update_layout(
+        title=title,
+        title_x=0.5,
+        template="plotly_white",
+        height=450
+    )
 
-import numpy as np
-import plotly.graph_objects as go
-
+    return fig
 
 def plot_ccfs(
     series1,
