@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import plotly.express as px
 from typing import List
+from plotly.subplots import make_subplots
+from statsmodels.tsa.stattools import acf, pacf
 
 # TODO: plot_3d_ts traz domínio da função invertido
 
@@ -238,10 +240,13 @@ def style_modes_of_variation(
     
     return fig
 
+
+
+
 import numpy as np
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
 from statsmodels.tsa.stattools import acf, pacf
+from plotly.subplots import make_subplots
+import plotly.graph_objects as go
 
 
 def plot_acf_pacf(
@@ -259,7 +264,13 @@ def plot_acf_pacf(
     y = np.asarray(series).astype(float)
     y = y[~np.isnan(y)]
 
-    fig = make_subplots(rows=1, cols=2, subplot_titles=(f"ACF of {name}", f"PACF of {name}"))
+    # Subplots with simple titles
+    fig = make_subplots(
+        rows=1,
+        cols=2,
+        subplot_titles=("ACF", "PACF"),
+        horizontal_spacing=0.12
+    )
 
     # -------- ACF --------
     acf_array = acf(y, alpha=alpha, nlags=nlags)
@@ -270,20 +281,44 @@ def plot_acf_pacf(
     lags = np.arange(len(acf_vals))
 
     for x in lags:
-        fig.add_scatter(x=(x, x), y=(0, acf_vals[x]),
-                        mode="lines", line_color="#3f3f3f",
-                        row=1, col=1)
+        fig.add_scatter(
+            x=(x, x),
+            y=(0, acf_vals[x]),
+            mode="lines",
+            line_color="#3f3f3f",
+            row=1,
+            col=1
+        )
 
-    fig.add_scatter(x=lags, y=acf_vals, mode="markers",
-                    marker_color="#1f77b4", marker_size=10,
-                    row=1, col=1)
+    fig.add_scatter(
+        x=lags,
+        y=acf_vals,
+        mode="markers",
+        marker_color="#1f77b4",
+        marker_size=9,
+        row=1,
+        col=1
+    )
 
-    fig.add_scatter(x=lags, y=acf_upper, mode="lines",
-                    line_color="rgba(255,255,255,0)", row=1, col=1)
+    fig.add_scatter(
+        x=lags,
+        y=acf_upper,
+        mode="lines",
+        line_color="rgba(255,255,255,0)",
+        row=1,
+        col=1
+    )
 
-    fig.add_scatter(x=lags, y=acf_lower, mode="lines",
-                    fill="tonexty", fillcolor="rgba(32,146,230,0.3)",
-                    line_color="rgba(255,255,255,0)", row=1, col=1)
+    fig.add_scatter(
+        x=lags,
+        y=acf_lower,
+        mode="lines",
+        fill="tonexty",
+        fillcolor="rgba(32,146,230,0.25)",
+        line_color="rgba(255,255,255,0)",
+        row=1,
+        col=1
+    )
 
     # -------- PACF --------
     pacf_array = pacf(y, alpha=alpha, nlags=nlags)
@@ -294,33 +329,60 @@ def plot_acf_pacf(
     lags = np.arange(len(pacf_vals))
 
     for x in lags:
-        fig.add_scatter(x=(x, x), y=(0, pacf_vals[x]),
-                        mode="lines", line_color="#3f3f3f",
-                        row=1, col=2)
+        fig.add_scatter(
+            x=(x, x),
+            y=(0, pacf_vals[x]),
+            mode="lines",
+            line_color="#3f3f3f",
+            row=1,
+            col=2
+        )
 
-    fig.add_scatter(x=lags, y=pacf_vals, mode="markers",
-                    marker_color="#1f77b4", marker_size=10,
-                    row=1, col=2)
+    fig.add_scatter(
+        x=lags,
+        y=pacf_vals,
+        mode="markers",
+        marker_color="#1f77b4",
+        marker_size=9,
+        row=1,
+        col=2
+    )
 
-    fig.add_scatter(x=lags, y=pacf_upper, mode="lines",
-                    line_color="rgba(255,255,255,0)", row=1, col=2)
+    fig.add_scatter(
+        x=lags,
+        y=pacf_upper,
+        mode="lines",
+        line_color="rgba(255,255,255,0)",
+        row=1,
+        col=2
+    )
 
-    fig.add_scatter(x=lags, y=pacf_lower, mode="lines",
-                    fill="tonexty", fillcolor="rgba(32,146,230,0.3)",
-                    line_color="rgba(255,255,255,0)", row=1, col=2)
+    fig.add_scatter(
+        x=lags,
+        y=pacf_lower,
+        mode="lines",
+        fill="tonexty",
+        fillcolor="rgba(32,146,230,0.25)",
+        line_color="rgba(255,255,255,0)",
+        row=1,
+        col=2
+    )
 
-    fig.update_traces(showlegend=False)
+    # Axis styling
     fig.update_yaxes(zerolinecolor="#000000")
+    fig.update_traces(showlegend=False)
 
     if title is None:
         title = f"ACF & PACF of {name}"
 
-    fig.update_layout(title=title)
-    fig.show()
+    fig.update_layout(
+        title=title,
+        title_x=0.5,
+        template="plotly_white",
+        height=450
+    )
 
-import numpy as np
-import plotly.graph_objects as go
-
+    return fig
 
 def plot_ccfs(
     series1,
@@ -396,7 +458,11 @@ import plotly.graph_objects as go
 def plot_density_timeseries_3d(
     df: pd.DataFrame,
     x_range=None,
-    colorscale="Viridis"
+    colorscale="Viridis",
+    camera=None,
+    theme="plotly_white",
+    percentile_cut: List[float] = None,
+    title = None
 ):
     """
     3D surface plot of density time series.
@@ -413,23 +479,32 @@ def plot_density_timeseries_3d(
 
     colorscale : str
         Plotly colorscale name (e.g. 'Viridis', 'Cividis', 'Plasma', 'Turbo').
+
+    camera : dict or None
+        Plotly camera dictionary, e.g.
+        dict(eye=dict(x=-1.5, y=1.5, z=1.0))
+
+    theme : str
+        Plotly template (e.g. 'plotly_white', 'plotly_dark', 'ggplot2').
     """
 
-    # x-grid
     x = df.index
 
-    # optional x-range filtering
     if x_range is not None:
         xmin, xmax = x_range
         mask = (x >= xmin) & (x <= xmax)
         df = df.loc[mask]
         x = x[mask]
 
-    # dates
     y = pd.to_datetime(df.columns[1:])
-
-    # pdf values (transpose for Plotly)
     z = df.iloc[:, 1:].T.values
+
+    if percentile_cut is None:
+        cmin = np.percentile(z,0)
+        cmax = np.percentile(z,100)
+    else:
+        cmin = np.percentile(z,percentile_cut[0])
+        cmax = np.percentile(z,percentile_cut[1])
 
     fig = go.Figure(
         data=[
@@ -438,37 +513,27 @@ def plot_density_timeseries_3d(
                 y=y,
                 z=z,
                 colorscale=colorscale,
-                # contours = dict(
-                # x=dict(show=True, color="black", width=1),
-                # y=dict(show=True, color="black", width=1),
-                # z=dict(show=False)),
-                # opacity=0.9
-
-                )
+                cmin=cmin,
+                cmax=cmax
+            )
         ]
     )
 
     fig.update_layout(
-        title="3D Density Time Series",
+        title=title,
+        template=theme,
         scene=dict(
             xaxis_title="Index",
             yaxis_title="Date",
             zaxis_title="PDF",
+            xaxis=dict(autorange="reversed"),
         ),
-        height=700
+        height=700,
     )
 
-    # fig.update_layout(
-    #     scene_camera=dict(
-    #         eye=dict(x=-1.5, y=1.5, z=1.0)
-    #     )
-    # )
+    if camera is not None:
+        fig.update_layout(scene_camera=camera)
 
-    fig.update_layout(
-        scene=dict(
-            xaxis=dict(autorange="reversed")
-        )
-    )
+    return fig
 
-    fig.show()
 

@@ -865,3 +865,156 @@ class W_dFPC:
 
 #     return L[idx], B[:, idx]
 
+
+
+
+########################################
+############## COMPARISONS #############
+########################################
+def super_fun(Y, lag_max, B, alpha, du, p, m, u,
+              select_ncomp=False, dimension=None):
+    """
+    Dynamic KLE estimator (no bootstrap version).
+
+    Parameters
+    ----------
+    Y : ndarray (m x n)
+        Functional observations (each column is a curve).
+
+    lag_max, B, alpha :
+        Included for compatibility (not used since bootstrap removed).
+
+    du : float
+        Grid spacing in the domain.
+
+    p : int
+        Time-lag order.
+
+    m : int
+        Number of grid points.
+
+    u : ndarray
+        Grid support.
+
+    select_ncomp : bool
+        If False, uses fixed dimension.
+
+    dimension : int
+        Number of components to extract.
+
+    Returns
+    -------
+    dict
+        Dictionary containing model components.
+    """
+
+    # --------------------------------------------------------
+    # Step 0 — Basic quantities
+    # --------------------------------------------------------
+
+    n = N = Y.shape[1]
+
+    # Mean function
+    Ybar = np.mean(Y, axis=1, keepdims=True)
+
+    # Deviations
+    Ydev = Y - Ybar
+
+    # --------------------------------------------------------
+    # Step 1 — Build core matrices
+    # --------------------------------------------------------
+
+    core = inner_product(Ydev, Ydev, du)
+
+    Kstar_core0 = core[:(n - p), :(n - p)]
+
+    Kstar_core = np.zeros((n - p, n - p, p))
+    for k in range(1, p + 1):
+        Kstar_core[:, :, k - 1] = core[k:(n - (p - k)),
+                                       k:(n - (p - k))]
+
+    Kstar_sum = np.zeros((n - p, n - p))
+    for k in range(p):
+        Kstar_sum += Kstar_core[:, :, k]
+
+    Kstar = (n - p) ** (-2) * (Kstar_sum @ Kstar_core0)
+
+    # --------------------------------------------------------
+    # Step 2 — Eigen-decomposition
+    # --------------------------------------------------------
+
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+
+    eigvals = np.real(eigvals)
+    eigvecs = np.real(eigvecs)
+
+    # Sort descending
+    idx = np.argsort(eigvals)[::-1]
+    thetahat_old = eigvals[idx]
+    gammahat_old = eigvecs[:, idx]
+
+    # --------------------------------------------------------
+    # Step 3 — Select number of components
+    # --------------------------------------------------------
+
+    if not select_ncomp:
+        d0 = dimension
+    else:
+        raise NotImplementedError("Bootstrap selection removed as requested.")
+
+    # --------------------------------------------------------
+    # Step 4 — Final estimation
+    # --------------------------------------------------------
+
+    thetahat = thetahat_old[:d0]
+    gammahat = gammahat_old[:, :d0]
+
+    # Eigenfunctions (root form)
+    psihat_root = Ydev[:, :(n - p)] @ gammahat
+
+    # Normalize
+    psihat = np.zeros((m, d0))
+    for i in range(d0):
+        psihat[:, i] = psihat_root[:, i] / L2norm(psihat_root[:, i], du)
+
+    # Scores
+    etahat = inner_product(psihat, Ydev, du)
+
+    # Reconstruction
+    Yhat = Ybar + psihat @ etahat
+
+    # --------------------------------------------------------
+    # Step 5 — Density correction (exactly as in R)
+    # --------------------------------------------------------
+
+    Yhat_fix = Yhat.copy()
+
+    # Enforce positivity
+    Yhat_fix[Yhat_fix < 0] = 0
+
+    # Renormalize to integrate to 1
+    for t in range(N):
+        integral = np.sum(Yhat_fix[:, t]) * du
+        if integral > 0:
+            Yhat_fix[:, t] /= integral
+
+    # Residuals (same as R: using Yhat, not Yhat_fix)
+    epsilonhat = Y - Yhat
+
+    # --------------------------------------------------------
+    # Return dictionary (R-style list)
+    # --------------------------------------------------------
+
+    return {
+        "Y": Y,
+        "Ybar": Ybar,
+        "thetahat": thetahat,
+        "gammahat": gammahat,
+        "psihat": psihat,
+        "etahat": etahat,
+        "Yhat": Yhat,
+        "Yhat_fix": Yhat_fix,
+        "epsilonhat": epsilonhat,
+        "u": u,
+        "d0": d0
+    }
