@@ -134,17 +134,23 @@ def run_forecaster(
         scores    : np.array,
         maxlags_  : int,
         criteria_ : str,
-        h_        : int
+        h_        : int,
+        selected_nlags : int = None
         ):
     
     forecaster = dynamics_forecaster(scores)
-    selected_nlags = forecaster.select_order_ic(
-                                    maxlags_,
-                                    criteria=criteria_)
+
+    if selected_nlags is None:
+        selected_nlags = forecaster.select_order_ic(
+                                        maxlags_,
+                                        criteria=criteria_)
+        
     if selected_nlags == 0:
         mean_vec = scores.mean(axis=0)
         fc = np.tile(mean_vec, (h_, 1)).T
+
     else:
+        print("lags for VAR:", selected_nlags)
         forecaster.fit_var(nlags=selected_nlags)
         fc = forecaster.forecast(h=h_)
 
@@ -799,7 +805,8 @@ def cv(
         KdFPC_kwargs, 
         horizon=1, 
         initial_window=100,
-        return_curves=False
+        return_curves=False,
+        var_lags: int = None
         ):
     windows = expanding_window_cv(Y.shape[1], h=horizon, initial_window=initial_window)
 
@@ -845,7 +852,7 @@ def cv(
         maxlags_  = 10
         criteria_ = 'bic'
         ## SCORES
-        k_etahat_fc = run_forecaster(k_scores, maxlags_, criteria_, horizon)
+        k_etahat_fc = run_forecaster(k_scores, maxlags_, criteria_, horizon, selected_nlags=var_lags)
         ## c=F(0)
         model = pm.auto_arima(
             bovespa_mLQDT.c,                         # univariate series

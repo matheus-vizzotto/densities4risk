@@ -7954,3 +7954,7 @@ Initiating cross validation...
 2026-02-08 09:40:31,189 | INFO | 	Estimation using 5 dimensions.
 2026-02-08 09:43:14,166 | INFO | Progress: (240/240) | Normalize: False | Params: {'adaptive': False, 'bandwidth': 'scott', 'df': 5, 'kernel': 't_student'} | Dimensions: 6
 2026-02-08 09:43:14,166 | INFO | 	Estimation using 6 dimensions.
+2026-02-24 23:09:46,686 | INFO | Progress: (1/160) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 2
+2026-02-24 23:09:46,686 | INFO | Progress: (1/160) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 2
+2026-02-24 23:09:46,686 | INFO | 	Estimation using 2 dimensions.
+2026-02-24 23:09:46,686 | INFO | 	Estimation using 2 dimensions.

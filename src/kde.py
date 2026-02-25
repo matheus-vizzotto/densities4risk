@@ -563,30 +563,36 @@ def df_to_kde(
         X: pd.DataFrame,
         h: pd.DataFrame,
         kernel: str = "gaussian",
-        m=5001,
-        normalize_densities:bool=False,
-        **kwargs
-        ) -> pd.DataFrame:   
+        m: int = 5001,
+        normalize_densities: bool = False, # It is explicitly defined here...
+        **kwargs                           # ...so it won't be in here.
+    ) -> pd.DataFrame:   
+    
+    # Define your grid
+    base_grid = np.linspace(X.min().min(), X.max().max(), m)
 
-        base_grid = np.linspace(X.min().min(), X.max().max(), m)
+    results = {}
+    results_grids = {}
+    
+    for col_name in X.columns:
+        col = X.loc[:, col_name]
+        h_col = h.loc[:, col_name].values
+        
+        # Now **kwargs only contains things like 'df' for t-student
+        kde = KDE(kernel=kernel, **kwargs) 
+        grid, density = kde.transform(col, h=h_col, grid=base_grid)
+        
+        results_grids[col_name] = grid
+        results[col_name] = density
 
-        results = {}
-        results_grids = {}
-        for col_name in X.columns:
-                col = X.loc[:, col_name]
-                h_col = h.loc[:, col_name].values
-                kde = KDE(kernel=kernel, **kwargs)
-                grid, density = kde.transform(col, h=h_col, grid=base_grid)
-                results_grids[col_name] = grid
-                results[col_name] = density
+    df_grids = pd.DataFrame(results_grids)
+    df_densities = pd.DataFrame(results)
 
-        df_grids = pd.DataFrame(results_grids)
-        df_densities = pd.DataFrame(results)
+    # Use the local variable we "captured"
+    if normalize_densities:
+        df_densities = weigh_norm_densities(df_densities, base_grid)
 
-        if normalize_densities:
-            df_densities = weigh_norm_densities(df_densities, base_grid)
-
-        return df_grids, df_densities
+    return df_grids, df_densities
 
 def weigh_norm_densities(
         df_densities: pd.DataFrame, 
