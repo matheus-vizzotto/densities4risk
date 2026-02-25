@@ -150,7 +150,6 @@ def run_forecaster(
         fc = np.tile(mean_vec, (h_, 1)).T
 
     else:
-        print("lags for VAR:", selected_nlags)
         forecaster.fit_var(nlags=selected_nlags)
         fc = forecaster.forecast(h=h_)
 

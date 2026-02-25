@@ -175,3 +175,146 @@ numpy.linalg.LinAlgError: Array must not contain infs or NaNs
 2026-02-24 23:28:19,029 | INFO | 	Estimation using 5 dimensions.
 2026-02-24 23:28:20,435 | INFO | Progress: (5/160) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 6
 2026-02-24 23:28:20,435 | INFO | 	Estimation using 6 dimensions.
+2026-02-24 23:28:24,942 | INFO | Progress: (6/160) | Normalize: True | KDE model: rot_gaussian | Dimensions: 2
+2026-02-24 23:28:24,942 | INFO | 	Estimation using 2 dimensions.
+2026-02-24 23:28:25,948 | INFO | Progress: (7/160) | Normalize: True | KDE model: rot_gaussian | Dimensions: 3
+2026-02-24 23:28:25,948 | INFO | 	Estimation using 3 dimensions.
+2026-02-24 23:28:26,950 | INFO | Progress: (8/160) | Normalize: True | KDE model: rot_gaussian | Dimensions: 4
+2026-02-24 23:28:26,950 | INFO | 	Estimation using 4 dimensions.
+2026-02-24 23:28:27,927 | INFO | Progress: (9/160) | Normalize: True | KDE model: rot_gaussian | Dimensions: 5
+2026-02-24 23:28:27,927 | INFO | 	Estimation using 5 dimensions.
+2026-02-24 23:28:28,923 | INFO | Progress: (10/160) | Normalize: True | KDE model: rot_gaussian | Dimensions: 6
+2026-02-24 23:28:28,923 | INFO | 	Estimation using 6 dimensions.
+2026-02-24 23:28:31,416 | INFO | Progress: (11/160) | Normalize: True | KDE model: rot_epanechnikov_robust | Dimensions: 2
+2026-02-24 23:28:31,416 | INFO | 	Estimation using 2 dimensions.
+2026-02-24 23:28:32,374 | INFO | Progress: (12/160) | Normalize: True | KDE model: rot_epanechnikov_robust | Dimensions: 3
+2026-02-24 23:28:32,374 | INFO | 	Estimation using 3 dimensions.
+2026-02-24 23:28:33,334 | INFO | Progress: (13/160) | Normalize: True | KDE model: rot_epanechnikov_robust | Dimensions: 4
+2026-02-24 23:28:33,334 | INFO | 	Estimation using 4 dimensions.
+2026-02-24 23:28:34,286 | INFO | Progress: (14/160) | Normalize: True | KDE model: rot_epanechnikov_robust | Dimensions: 5
+2026-02-24 23:28:34,286 | INFO | 	Estimation using 5 dimensions.
+2026-02-24 23:28:35,231 | INFO | Progress: (15/160) | Normalize: True | KDE model: rot_epanechnikov_robust | Dimensions: 6
+2026-02-24 23:28:35,231 | INFO | 	Estimation using 6 dimensions.
+2026-02-24 23:28:37,641 | INFO | Progress: (16/160) | Normalize: True | KDE model: rot_epanechnikov | Dimensions: 2
+2026-02-24 23:28:37,641 | INFO | 	Estimation using 2 dimensions.
+2026-02-24 23:28:38,909 | INFO | Progress: (17/160) | Normalize: True | KDE model: rot_epanechnikov | Dimensions: 3
+2026-02-24 23:28:38,909 | INFO | 	Estimation using 3 dimensions.
+2026-02-24 23:28:40,192 | INFO | Progress: (18/160) | Normalize: True | KDE model: rot_epanechnikov | Dimensions: 4
+2026-02-24 23:28:40,192 | INFO | 	Estimation using 4 dimensions.
+2026-02-24 23:28:41,482 | INFO | Progress: (19/160) | Normalize: True | KDE model: rot_epanechnikov | Dimensions: 5
+2026-02-24 23:28:41,482 | INFO | 	Estimation using 5 dimensions.
+2026-02-24 23:28:42,771 | INFO | Progress: (20/160) | Normalize: True | KDE model: rot_epanechnikov | Dimensions: 6
+2026-02-24 23:28:42,771 | INFO | 	Estimation using 6 dimensions.
+2026-02-24 23:29:08,072 | INFO | Progress: (21/160) | Normalize: True | KDE model: cross_validate_bandwidth_gaussian | Dimensions: 2
+2026-02-24 23:29:08,072 | INFO | 	Estimation using 2 dimensions.
+2026-02-24 23:29:09,309 | INFO | Progress: (22/160) | Normalize: True | KDE model: cross_validate_bandwidth_gaussian | Dimensions: 3
+2026-02-24 23:29:09,309 | INFO | 	Estimation using 3 dimensions.
+2026-02-24 23:29:10,477 | INFO | Progress: (23/160) | Normalize: True | KDE model: cross_validate_bandwidth_gaussian | Dimensions: 4
+2026-02-24 23:29:10,478 | INFO | 	Estimation using 4 dimensions.
+2026-02-24 23:29:11,711 | INFO | Progress: (24/160) | Normalize: True | KDE model: cross_validate_bandwidth_gaussian | Dimensions: 5
+2026-02-24 23:29:11,711 | INFO | 	Estimation using 5 dimensions.
+2026-02-24 23:29:12,878 | INFO | Progress: (25/160) | Normalize: True | KDE model: cross_validate_bandwidth_gaussian | Dimensions: 6
+2026-02-24 23:29:12,878 | INFO | 	Estimation using 6 dimensions.
+2026-02-24 23:29:32,291 | INFO | Progress: (26/160) | Normalize: True | KDE model: cross_validate_bandwidth_epanechnikov | Dimensions: 2
+2026-02-24 23:29:32,291 | INFO | 	Estimation using 2 dimensions.
+2026-02-24 23:29:32,437 | ERROR | 	 ERROR for d=2 and {'cv': 5, 'kernel': 'epanechnikov', 'method': 'cross_validate_bandwidth'} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_8994/3258677170.py", line 41, in <module>
+    cv_measures = cv(df_densities, df_support, KdFPC_kwargs = KdFPC_kwargs, var_lags=d, initial_window=246)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 848, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-02-24 23:29:32,445 | INFO | Progress: (27/160) | Normalize: True | KDE model: cross_validate_bandwidth_epanechnikov | Dimensions: 3
+2026-02-24 23:29:32,445 | INFO | 	Estimation using 3 dimensions.
+2026-02-24 23:29:32,604 | ERROR | 	 ERROR for d=3 and {'cv': 5, 'kernel': 'epanechnikov', 'method': 'cross_validate_bandwidth'} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_8994/3258677170.py", line 41, in <module>
+    cv_measures = cv(df_densities, df_support, KdFPC_kwargs = KdFPC_kwargs, var_lags=d, initial_window=246)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 848, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-02-24 23:29:32,607 | INFO | Progress: (28/160) | Normalize: True | KDE model: cross_validate_bandwidth_epanechnikov | Dimensions: 4
+2026-02-24 23:29:32,607 | INFO | 	Estimation using 4 dimensions.
+2026-02-24 23:29:32,758 | ERROR | 	 ERROR for d=4 and {'cv': 5, 'kernel': 'epanechnikov', 'method': 'cross_validate_bandwidth'} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_8994/3258677170.py", line 41, in <module>
+    cv_measures = cv(df_densities, df_support, KdFPC_kwargs = KdFPC_kwargs, var_lags=d, initial_window=246)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 848, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-02-24 23:29:32,761 | INFO | Progress: (29/160) | Normalize: True | KDE model: cross_validate_bandwidth_epanechnikov | Dimensions: 5
+2026-02-24 23:29:32,761 | INFO | 	Estimation using 5 dimensions.
+2026-02-24 23:29:32,914 | ERROR | 	 ERROR for d=5 and {'cv': 5, 'kernel': 'epanechnikov', 'method': 'cross_validate_bandwidth'} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_8994/3258677170.py", line 41, in <module>
+    cv_measures = cv(df_densities, df_support, KdFPC_kwargs = KdFPC_kwargs, var_lags=d, initial_window=246)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 848, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-02-24 23:29:32,916 | INFO | Progress: (30/160) | Normalize: True | KDE model: cross_validate_bandwidth_epanechnikov | Dimensions: 6
+2026-02-24 23:29:32,916 | INFO | 	Estimation using 6 dimensions.
+2026-02-24 23:29:33,065 | ERROR | 	 ERROR for d=6 and {'cv': 5, 'kernel': 'epanechnikov', 'method': 'cross_validate_bandwidth'} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_8994/3258677170.py", line 41, in <module>
+    cv_measures = cv(df_densities, df_support, KdFPC_kwargs = KdFPC_kwargs, var_lags=d, initial_window=246)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 848, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-02-24 23:29:52,626 | INFO | Progress: (31/160) | Normalize: True | KDE model: cross_validate_bandwidth_tstudent_df2 | Dimensions: 2
+2026-02-24 23:29:52,626 | INFO | 	Estimation using 2 dimensions.
+2026-02-24 23:29:54,122 | INFO | Progress: (32/160) | Normalize: True | KDE model: cross_validate_bandwidth_tstudent_df2 | Dimensions: 3
+2026-02-24 23:29:54,122 | INFO | 	Estimation using 3 dimensions.
+2026-02-24 23:29:55,715 | INFO | Progress: (33/160) | Normalize: True | KDE model: cross_validate_bandwidth_tstudent_df2 | Dimensions: 4
+2026-02-24 23:29:55,715 | INFO | 	Estimation using 4 dimensions.
+2026-02-24 23:29:57,581 | INFO | Progress: (34/160) | Normalize: True | KDE model: cross_validate_bandwidth_tstudent_df2 | Dimensions: 5
+2026-02-24 23:29:57,581 | INFO | 	Estimation using 5 dimensions.
+2026-02-24 23:29:59,025 | INFO | Progress: (35/160) | Normalize: True | KDE model: cross_validate_bandwidth_tstudent_df2 | Dimensions: 6
+2026-02-24 23:29:59,025 | INFO | 	Estimation using 6 dimensions.
+2026-02-24 23:34:54,010 | INFO | 
+Initiating cross validation...
+2026-02-24 23:34:57,156 | INFO | Progress: (1/160) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 2
+2026-02-24 23:34:57,156 | INFO | 	Estimation using 2 dimensions.
+2026-02-24 23:36:14,855 | INFO | 
+Initiating cross validation...
+2026-02-24 23:36:17,817 | INFO | Progress: (1/160) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 2
+2026-02-24 23:36:17,817 | INFO | 	Estimation using 2 dimensions.
