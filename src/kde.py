@@ -564,6 +564,7 @@ def df_to_kde(
         h: pd.DataFrame,
         kernel: str = "gaussian",
         m=5001,
+        normalize_densities:bool=False,
         **kwargs
         ) -> pd.DataFrame:   
 
@@ -582,4 +583,53 @@ def df_to_kde(
         df_grids = pd.DataFrame(results_grids)
         df_densities = pd.DataFrame(results)
 
+        if normalize_densities:
+            df_densities = weigh_norm_densities(df_densities, base_grid)
+
         return df_grids, df_densities
+
+def weigh_norm_densities(
+        df_densities: pd.DataFrame, 
+        support: np.array, 
+        norm:int ='area'
+        ) -> pd.DataFrame:
+    """
+    Reweight and normalize a collection of discretized density functions.
+
+    Each density is multiplied pointwise by the cross-sectional mean density
+    and then normalized either to unit integral or by a user-specified constant.
+
+    Parameters
+    ----------
+    df_densities : pd.DataFrame
+        DataFrame of shape (m, n) where each column represents a density
+        evaluated on a common grid.
+    support : np.array
+        One-dimensional grid corresponding to the rows of `df_densities`,
+        used for numerical integration.
+    norm : {'area', int}, default='area'
+        Normalization method. If 'area', densities are normalized to integrate
+        to one using the trapezoidal rule. Otherwise, `norm` is treated as a
+        fixed normalization constant.
+
+    Returns
+    -------
+    pd.DataFrame
+        DataFrame of reweighted and normalized densities with the same shape
+        as `df_densities`.
+    """
+    df2 = df_densities.copy()
+    for col in df2.columns:
+        # Calculate the transformed density
+        transformed = df_densities.loc[:,col] * df_densities.mean(axis=1)
+        
+        if norm == 'area':
+            from scipy.integrate import trapezoid
+            # Normalize by area to integrate to 1
+            area = trapezoid(transformed, support)
+            df2.loc[:,col] = transformed / area
+        else:
+            # Normalize by given constant
+            df2.loc[:,col] = transformed / norm
+
+    return df2
