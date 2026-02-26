@@ -586,7 +586,8 @@ def df_to_kde(
         results[col_name] = density
 
     df_grids = pd.DataFrame(results_grids)
-    df_densities = pd.DataFrame(results)
+    df_densities = pd.DataFrame(results, index=base_grid)
+    
 
     # Use the local variable we "captured"
     if normalize_densities:
