@@ -115,9 +115,6 @@ class dynamics_forecaster:
 
         self.fitted_model = res
 
-
-
-
     def forecast(self,
                  h: int
                 ):
