@@ -1265,3 +1265,12 @@ numpy.linalg.LinAlgError: Array must not contain infs or NaNs
 2026-02-27 17:19:26,500 | INFO | Progress: (414/640) | Normalize: False | KDE model: crossvalidatebandwidth_t-student_df=2 | Dimensions: 5 | VAR(q): 2
 2026-02-27 17:22:03,004 | INFO | Progress: (415/640) | Normalize: False | KDE model: crossvalidatebandwidth_t-student_df=2 | Dimensions: 5 | VAR(q): 3
 2026-02-27 17:24:37,033 | INFO | Progress: (416/640) | Normalize: False | KDE model: crossvalidatebandwidth_t-student_df=2 | Dimensions: 5 | VAR(q): 4
+2026-02-27 17:27:24,343 | INFO | Progress: (417/640) | Normalize: False | KDE model: crossvalidatebandwidth_t-student_df=2 | Dimensions: 6 | VAR(q): 1
+2026-02-27 17:29:57,726 | INFO | Progress: (418/640) | Normalize: False | KDE model: crossvalidatebandwidth_t-student_df=2 | Dimensions: 6 | VAR(q): 2
+2026-02-27 17:32:41,282 | INFO | Progress: (419/640) | Normalize: False | KDE model: crossvalidatebandwidth_t-student_df=2 | Dimensions: 6 | VAR(q): 3
+2026-02-27 17:35:20,741 | INFO | Progress: (420/640) | Normalize: False | KDE model: crossvalidatebandwidth_t-student_df=2 | Dimensions: 6 | VAR(q): 4
+2026-02-27 17:38:28,820 | INFO | Progress: (421/640) | Normalize: False | KDE model: crossvalidatebandwidth_t-student_df=3 | Dimensions: 2 | VAR(q): 1
+2026-02-27 17:41:01,139 | INFO | Progress: (422/640) | Normalize: False | KDE model: crossvalidatebandwidth_t-student_df=3 | Dimensions: 2 | VAR(q): 2
+2026-02-27 17:43:32,805 | INFO | Progress: (423/640) | Normalize: False | KDE model: crossvalidatebandwidth_t-student_df=3 | Dimensions: 2 | VAR(q): 3
+2026-02-27 17:46:17,227 | INFO | Progress: (424/640) | Normalize: False | KDE model: crossvalidatebandwidth_t-student_df=3 | Dimensions: 2 | VAR(q): 4
+2026-02-27 17:48:45,791 | INFO | Progress: (425/640) | Normalize: False | KDE model: crossvalidatebandwidth_t-student_df=3 | Dimensions: 3 | VAR(q): 1
