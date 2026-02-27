@@ -60,8 +60,8 @@ def fit_var(data: pd.DataFrame, nlags: int) -> VAR:
     """
     Fit a VAR model and return the fitted results object.
     """
-    model = VAR(data)
-    res = model.fit(nlags)
+    model = VAR(data, trend='nc')
+    res = model.fit(nlags, trend='n')
     return res
 
 def forecast_var(res, steps: int = 1) -> np.ndarray:
@@ -111,7 +111,7 @@ class dynamics_forecaster:
         Fit a VAR model and return the fitted results object.
         """
         model = VAR(self.Y)
-        res = model.fit(nlags)
+        res = model.fit(nlags, trend='n')
 
         self.fitted_model = res
 

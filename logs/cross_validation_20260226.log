@@ -1,0 +1,31 @@
+2026-02-26 22:38:34,588 | INFO | 
+Initiating cross validation...
+2026-02-26 22:38:38,721 | INFO | Progress: (2/640) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 2 | VAR(q): 1
+2026-02-26 22:38:40,420 | INFO | Progress: (2/640) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 2 | VAR(q): 2
+2026-02-26 22:38:42,167 | INFO | Progress: (2/640) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 2 | VAR(q): 3
+2026-02-26 22:38:44,006 | INFO | Progress: (2/640) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 2 | VAR(q): 4
+2026-02-26 22:38:46,022 | INFO | Progress: (3/640) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 3 | VAR(q): 1
+2026-02-26 22:38:47,938 | INFO | Progress: (3/640) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 3 | VAR(q): 2
+2026-02-26 22:38:49,716 | INFO | Progress: (3/640) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 3 | VAR(q): 3
+2026-02-26 22:39:09,470 | INFO | 
+Initiating cross validation...
+2026-02-26 22:39:12,871 | INFO | Progress: (2/640) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 2 | VAR(q): 1
+2026-02-26 22:40:38,167 | INFO | 
+Initiating cross validation...
+2026-02-26 22:40:41,482 | INFO | Progress: (2/640) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 2 | VAR(q): 1
+2026-02-26 22:41:27,496 | INFO | 
+Initiating cross validation...
+2026-02-26 22:41:30,407 | INFO | Progress: (1/640) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 2 | VAR(q): 1
+2026-02-26 22:44:08,677 | INFO | Progress: (2/640) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 2 | VAR(q): 2
+2026-02-26 22:46:51,806 | INFO | Progress: (3/640) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 2 | VAR(q): 3
+2026-02-26 22:50:18,597 | INFO | Progress: (4/640) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 2 | VAR(q): 4
+2026-02-26 22:52:34,463 | INFO | Progress: (5/640) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 3 | VAR(q): 1
+2026-02-26 22:54:42,147 | INFO | Progress: (6/640) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 3 | VAR(q): 2
+2026-02-26 22:56:48,471 | INFO | Progress: (7/640) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 3 | VAR(q): 3
+2026-02-26 22:58:55,462 | INFO | Progress: (8/640) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 3 | VAR(q): 4
+2026-02-26 23:01:02,908 | INFO | Progress: (9/640) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 4 | VAR(q): 1
+2026-02-26 23:03:09,187 | INFO | Progress: (10/640) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 4 | VAR(q): 2
+2026-02-26 23:05:15,538 | INFO | Progress: (11/640) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 4 | VAR(q): 3
+2026-02-26 23:07:27,192 | INFO | Progress: (12/640) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 4 | VAR(q): 4
+2026-02-26 23:09:35,762 | INFO | Progress: (13/640) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 5 | VAR(q): 1
+2026-02-26 23:11:45,542 | INFO | Progress: (14/640) | Normalize: True | KDE model: rot_gaussian_robust | Dimensions: 5 | VAR(q): 2
