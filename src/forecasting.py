@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import seaborn as sns
 import pandas as pd
 from typing import Dict, Union, List, Tuple, Optional
 import numpy as np
@@ -43,7 +44,79 @@ def kpss_test(x, regression='c'):
         plt.show()
     print()
 
+def check_autocorrelation(
+        series, 
+        name="Series", 
+        lags=10,
+        verbose=False
+        ):
+    # Perform the test
+    results = acorr_ljungbox(series, lags=[lags], return_df=True)
+    p_value = results.lb_pvalue.values[0]
+
+    if verbose:
+        print(f"--- Ljung-Box Test for {name} (Lag {lags}) ---")
+        print(f"P-value: {p_value:.4f}")
+        
+        if p_value < 0.05:
+            print(f"VERDICT: The {name} HAS significant autocorrelation.")
+            print("Reason: P-value is < 0.05. We reject the Null Hypothesis (White Noise).")
+        else:
+            print(f"VERDICT: The {name} does NOT have significant autocorrelation.")
+            print("Reason: P-value is >= 0.05. The series is consistent with White Noise.")
+        print("-" * 40)
+    else:
+        return p_value
     
+def check_stationarity(
+        series: Union[pd.Series, np.ndarray], 
+        name: str = "Series", 
+        verbose: bool = False
+    ) -> float:
+    """
+    Performs the Augmented Dickey-Fuller (ADF) test for stationarity.
+
+    This test checks the Null Hypothesis (H0) that a unit root is present in 
+    a univariate time series (indicating it is non-stationary). A p-value 
+    below 0.05 suggests the series is stationary.
+
+    Interpretation for your Dissertation:
+    -------------------------------------
+    - P-value < 0.05: The series is stationary. It reverts to a constant mean.
+    - P-value >= 0.05: The series is I(1) or non-stationary. It may exhibit 
+      stochastic drift, making long-term forecasting or fixed-bandwidth 
+      density estimation unreliable.
+
+    Args:
+        series: The time series to test (e.g., daily returns or bandwidth values).
+        name: Label for the series in the printed output.
+        verbose: If True, prints a detailed diagnostic report.
+
+    Returns:
+        float: The p-value of the ADF test.
+    """
+    # dropna is essential for financial data which often has leading/trailing NaNs
+    clean_series = np.asarray(series)
+    clean_series = clean_series[~np.isnan(clean_series)]
+    
+    result = adfuller(clean_series)
+    p_value = float(result[1])
+
+    if verbose:
+        print(f"--- ADF Stationarity Test for {name} ---")
+        print(f"ADF Statistic: {result[0]:.4f}")
+        print(f"P-value: {p_value:.4f}")
+        
+        if p_value < 0.05:
+            print(f"VERDICT: The {name} is STATIONARY.")
+            print("Reason: P-value < 0.05. We reject H0 (Unit Root present).")
+        else:
+            print(f"VERDICT: The {name} is NON-STATIONARY (Unit Root).")
+            print("Reason: P-value >= 0.05. The series behaves like a Random Walk.")
+        print("-" * 45)
+    
+    return p_value
+
 def select_order_ic(
         data: pd.DataFrame, 
         maxlags: int = 10
@@ -898,31 +971,6 @@ def cv(
 
     return measures
 
-def check_autocorrelation(
-        series, 
-        name="Series", 
-        lags=10,
-        verbose=False
-        ):
-    # Perform the test
-    results = acorr_ljungbox(series, lags=[lags], return_df=True)
-    p_value = results.lb_pvalue.values[0]
-
-    if verbose:
-        print(f"--- Ljung-Box Test for {name} (Lag {lags}) ---")
-        print(f"P-value: {p_value:.4f}")
-        
-        if p_value < 0.05:
-            print(f"VERDICT: The {name} HAS significant autocorrelation.")
-            print("Reason: P-value is < 0.05. We reject the Null Hypothesis (White Noise).")
-        else:
-            print(f"VERDICT: The {name} does NOT have significant autocorrelation.")
-            print("Reason: P-value is >= 0.05. The series is consistent with White Noise.")
-        print("-" * 40)
-    else:
-        return p_value
-
-
 #------------------------------------------------
 #------------ STATIONARITY --- ------------------
 #------------------------------------------------
@@ -1014,7 +1062,6 @@ def simulate_stationary_curves(
 
     return pd.DataFrame(densities), grid
 
-
 class FunctionalStationarityTest:
     """
     Implements the Horváth, Kokoszka, and Rice (2014) test for stationarity 
@@ -1077,7 +1124,9 @@ class FunctionalStationarityTest:
             self, 
             mc_rep: int = 1000, 
             kernel_type: int = 2, 
-            h: Optional[float] = None
+            h: Optional[float] = None,
+            d: Optional[int] = None,
+            alpha: float = 0.05
         ) -> Dict[str, Union[float, int]]:
         """
         Executes the pivotal CUSUM-based stationarity test via FPCA and Monte Carlo simulation.
@@ -1113,6 +1162,9 @@ class FunctionalStationarityTest:
             h (float, optional): The bandwidth (lag truncation parameter) for the 
                 long-run covariance estimator. If None, uses the rule of thumb $h = \sqrt{N}$. 
                 Controls the balance between bias and variance in temporal smoothing.
+            d (int, optional): Number of principal components. If None, uses heuristic.
+            alpha (float): Significance level for the test (e.g., 0.05, 0.01). 
+                Determines the critical value and rejection decision.
 
         Returns:
             Dict[str, Union[float, int]]: A dictionary containing:
@@ -1139,31 +1191,39 @@ class FunctionalStationarityTest:
                 gamma_lag = (X[:, lag:] @ X[:, :-lag].T) / N
                 Z += weight * (gamma_lag + gamma_lag.T)
 
-        # 2. Eigen-decomposition (Standardized by grid resolution)
+        # 2. Eigen-decomposition
         eigenvalues, eigenvectors = np.linalg.eigh(Z)
         idx = eigenvalues.argsort()[::-1]
         eigenvalues = eigenvalues[idx] / J
         eigenvectors = eigenvectors[:, idx] * np.sqrt(J)
 
-        # 3. Determine 'd' (Dimension Reduction)
-        exp_var = np.cumsum(eigenvalues) / np.sum(eigenvalues)
-        d: int = int(np.searchsorted(exp_var, self.cumulative_var) + 1)
+        # 3. Determine 'd'
+        if d is not None:
+            d_used = d
+        else:
+            exp_var = np.cumsum(eigenvalues) / np.sum(eigenvalues)
+            d_used = int(np.searchsorted(exp_var, self.cumulative_var) + 1)
         
-        # 4. Compute Test Statistic
-        scores = (X.T @ eigenvectors[:, :d]).T / J
+        # 4. Compute Test Statistic (M_N)
+        scores = (X.T @ eigenvectors[:, :d_used]).T / J
         cusum_process = np.cumsum(scores, axis=1)
         bridge = (1/np.sqrt(N)) * (
             cusum_process - (np.arange(1, N+1)/N) * cusum_process[:, -1:]
         )
-        stat: float = float(np.sum(np.mean(bridge**2, axis=1) / eigenvalues[:d]))
+        stat: float = float(np.sum(np.mean(bridge**2, axis=1) / eigenvalues[:d_used]))
 
         # 5. Monte Carlo Simulation for Null Distribution
+        # The limit distribution is the sum of squared L2 norms of d_used Brownian bridges
         k_grid = np.arange(1, 101)
-        z = np.random.normal(0, 1, (mc_rep, d, 100))
+        z = np.random.normal(0, 1, (mc_rep, d_used, 100))
         simulated_stats = np.sum(
             np.sum(z**2 / (np.pi**2 * k_grid**2), axis=2), axis=1
         )
+        
+        # Calculate P-value and Critical Value for user-defined alpha
         p_val: float = float(np.mean(simulated_stats > stat))
+        critical_value: float = float(np.percentile(simulated_stats, 100 * (1 - alpha)))
+        reject_h0: bool = stat > critical_value
 
         # Estimate Break Point (k*)
         norms = np.linalg.norm(np.cumsum(X, axis=1), axis=0)
@@ -1172,7 +1232,10 @@ class FunctionalStationarityTest:
         self.results = {
             "p_value": p_val, 
             "statistic": stat, 
-            "d": d, 
+            "critical_value": critical_value,
+            "reject_h0": reject_h0,
+            "alpha": alpha,
+            "d": d_used, 
             "k_star": k_star
         }
         return self.results
