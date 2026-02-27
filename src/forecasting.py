@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-from typing import Dict, Union, List, Tuple
+from typing import Dict, Union, List, Tuple, Optional
 import numpy as np
 from statsmodels.tsa.api import VAR
 import pmdarima as pm
@@ -13,6 +13,7 @@ from src.transformations import (
                             obtain_densities_from_lqd
                             )
 from src.dynamicFPC import K_dFPC
+from scipy.stats import norm
 
 def adf_test(x):
     res = adfuller(x, autolag='AIC')
@@ -920,3 +921,349 @@ def check_autocorrelation(
         print("-" * 40)
     else:
         return p_value
+
+
+#------------------------------------------------
+#------------ STATIONARITY --- ------------------
+#------------------------------------------------
+
+def simulate_stationary_curves(
+        n_days=250, 
+        n_grid=5001, 
+        scenario="stationary"
+    ):
+    """
+    Generates synthetic functional data (densities) to validate stationarity tests.
+
+    This utility creates a time series of curves discretization over a spatial grid, 
+    allowing for the simulation of three distinct data-generating processes (DGP) 
+    common in financial functional data analysis.
+
+    Scenarios:
+    ----------
+    1. "stationary":
+       The curves oscillate around a fixed global mean density with stable variance.
+       Used to test for Type I Error (ensuring the test doesn't find a break 
+       where none exists).
+
+    2. "break":
+       Simulates a structural regime shift at t=125 (k*). The distribution jumps 
+       from a low-volatility state (sigma=1.0) to a high-volatility state (sigma=1.5).
+       Used to test for Test Power (ensuring the test correctly identifies 
+       structural changes).
+
+    3. "unit_root":
+       Simulates a Functional Random Walk, or I(1) process. Each day's curve 
+       is the previous day's curve plus a small functional innovation.
+       Used to observe the behavior of CUSUM statistics under non-stationary 
+       stochastic drift, where k* becomes a spurious artifact of the wander.
+
+    Args:
+        n_days: Number of functional observations (time steps/days). Defaults to 250.
+        n_grid: Number of discretization points for each curve. Defaults to 5001.
+        scenario: The DGP to simulate ("stationary", "break", or "unit_root").
+
+    Returns:
+        Tuple[pd.DataFrame, np.ndarray]:
+            - A DataFrame of shape (n_grid, n_days) containing the curves.
+            - A NumPy array containing the spatial grid (x-axis) values.
+
+    Examples
+    ----------
+        >>>df_stat, grid = generate_test_densities(scenario="stationary")
+        >>>df_break, _ = generate_test_densities(scenario="break")
+        >>>df_unitroot, _ = generate_test_densities(scenario="unit_root")
+    """
+    grid = np.linspace(-5, 5, n_grid)
+    densities = np.zeros((n_grid, n_days))
+    
+    np.random.seed(42)
+    
+    if scenario == "stationary":
+        # Mean and Vol remain constant, only small random noise
+        for t in range(n_days):
+            mu = 0 + np.random.normal(0, 0.02)
+            sigma = 1 + np.random.normal(0, 0.02)
+            densities[:, t] = norm.pdf(grid, mu, sigma)
+            
+    elif scenario == "break":
+        # A structural break occurs at Day 125 (k*)
+        # Shift from low volatility to high volatility
+        for t in range(n_days):
+            if t < 125:
+                mu, sigma = 0, 1.0
+            else:
+                mu, sigma = 0, 1.5 # Volatility jump
+            
+            # Add a tiny bit of noise so it's not a perfect step function
+            mu += np.random.normal(0, 0.01)
+            sigma += np.random.normal(0, 0.01)
+            densities[:, t] = norm.pdf(grid, mu, sigma)
+            
+    elif scenario == "unit_root":
+            # Functional I(1): Each day is the previous day + functional noise
+            current_curve = norm.pdf(grid, 0, 1)
+            for t in range(n_days):
+                # Innovation: small random shifts in mean and scale
+                innov_mu = np.random.normal(0, 0.05)
+                innov_sigma = 1 + np.random.normal(0, 0.05)
+                innovation = norm.pdf(grid, innov_mu, innov_sigma) * 0.1
+                
+                current_curve = current_curve + innovation
+                densities[:, t] = current_curve
+
+    return pd.DataFrame(densities), grid
+
+
+class FunctionalStationarityTest:
+    """
+    Implements the Horváth, Kokoszka, and Rice (2014) test for stationarity 
+    in functional time series.
+
+    This class provides tools to test whether a sequence of density functions 
+    (or any functional data) is stationary or contains a structural break. 
+    It uses a pivotal CUSUM-based approach and functional principal component 
+    analysis (FPCA) for dimension reduction.
+
+    Attributes:
+    ---------------
+        sample (np.ndarray): The J x N data matrix.
+        J (int): Number of grid points (discretization level).
+        N (int): Number of functional observations (time points).
+        grid_vals (np.ndarray): The spatial grid for the functional data.
+        cumulative_var (float): Variance threshold for choosing the number of FPCs.
+        results (Dict): Results from the run_test method.
+    """
+
+    def __init__(
+        self, 
+        sample: Union[np.ndarray, pd.DataFrame], 
+        grid_vals: Optional[np.ndarray] = None, 
+        cumulative_var: float = 0.90
+    ) -> None:
+        """
+        Initializes the test with functional data.
+
+        Args:
+            sample: A J x N matrix where columns are functions and rows are grid points.
+            grid_vals: The x-axis values for the functions. Defaults to [0, 1].
+            cumulative_var: Fraction of variance (0.0 to 1.0) to retain in FPCA.
+        Example:
+        ---------------
+            >>>df_break, grid = generate_test_densities(scenario="break")
+            >>>tester = FunctionalStationarityTest(df_stat, grid_vals=grid)
+            >>>tester.run_test(mc_rep=2000)
+            >>>tester.get_summary()
+            >>>tester.plot_cusum()
+        """
+        self.sample: np.ndarray = np.asarray(sample)
+        self.J, self.N = self.sample.shape
+        self.grid_vals: np.ndarray = (
+            grid_vals if grid_vals is not None else np.linspace(0, 1, self.J)
+        )
+        self.cumulative_var: float = cumulative_var
+        
+        self.results: Dict[str, Union[float, int]] = {}
+        self.mean_density: np.ndarray = np.mean(self.sample, axis=1, keepdims=True)
+        self.centered_data: np.ndarray = self.sample - self.mean_density
+
+    def _get_kernel_weight(self, x: float, kernel_type: int = 2) -> float:
+        """Computes Bartlett-type kernel weights for long-run covariance."""
+        if kernel_type == 1:
+            return float(np.maximum(0, np.minimum(1, 1.1 - np.abs(x))))
+        return float(np.maximum(0, np.minimum(1, 2 - 2 * np.abs(x))))
+
+    def run_test(
+            self, 
+            mc_rep: int = 1000, 
+            kernel_type: int = 2, 
+            h: Optional[float] = None
+        ) -> Dict[str, Union[float, int]]:
+        """
+        Executes the pivotal CUSUM-based stationarity test via FPCA and Monte Carlo simulation.
+
+        This method implements the statistical framework of Horváth, Kokoszka, and Rice (2014)
+        to test the null hypothesis (H0) that the functional time series is stationary. 
+        The test is 'pivotal' because the limit distribution of the test statistic does 
+        not depend on unknown parameters, allowing for robust p-value estimation.
+
+        Mathematical Procedure:
+        -----------------------
+        1. Long-Run Covariance Estimation: 
+           Estimates the operator $C$ using a Newey-West type kernel estimator to 
+           account for temporal dependence between curves.
+        2. Dimension Reduction (FPCA): 
+           Projects the J-dimensional functional data into a d-dimensional subspace 
+           defined by the eigenfunctions of the long-run covariance operator.
+        3. CUSUM Process Calculation: 
+           Constructs a CUSUM bridge for the scores of each principal component.
+        4. Test Statistic ($\hat{M}_N$): 
+           Calculates the squared $L^2$ norm of the CUSUM bridge, weighted by the 
+           reciprocal of the eigenvalues.
+        5. Monte Carlo P-Value: 
+           Simulates the distribution of $\sum_{j=1}^d \lambda_j \int B_j^2(t)dt$ 
+           where $B_j$ are independent Brownian bridges to determine significance.
+
+        Args:
+            mc_rep (int): Number of Monte Carlo replications. Higher values improve 
+                p-value precision but increase computational load. Defaults to 1000.
+            kernel_type (int): Type of weight function for the long-run covariance.
+                - 1: Flat-top kernel (Ker1).
+                - 2: Bartlett-type kernel (Ker2/Trapezoidal). Defaults to 2.
+            h (float, optional): The bandwidth (lag truncation parameter) for the 
+                long-run covariance estimator. If None, uses the rule of thumb $h = \sqrt{N}$. 
+                Controls the balance between bias and variance in temporal smoothing.
+
+        Returns:
+            Dict[str, Union[float, int]]: A dictionary containing:
+                - 'p_value': Probability of observing the statistic under H0.
+                - 'statistic': The calculated CUSUM-based test statistic.
+                - 'd': Number of functional principal components (FPCs) retained 
+                  to explain the specified 'cumulative_var'.
+                - 'k_star': The estimated time index of the most likely structural 
+                  break (location of the CUSUM maximum).
+
+        Notes:
+            A rejection (p < 0.05) suggests that the mean or covariance structure of the 
+            densities has shifted, indicating either a structural break or an I(1) process.
+        """
+        N, J = self.N, self.J
+        h_val: float = h if h is not None else N**0.5
+        X: np.ndarray = self.centered_data
+
+        # 1. Estimate Long-Run Covariance Matrix (Z)
+        Z: np.ndarray = (X @ X.T) / N
+        for lag in range(1, int(h_val) + 1):
+            weight = self._get_kernel_weight(lag / h_val, kernel_type)
+            if weight > 0:
+                gamma_lag = (X[:, lag:] @ X[:, :-lag].T) / N
+                Z += weight * (gamma_lag + gamma_lag.T)
+
+        # 2. Eigen-decomposition (Standardized by grid resolution)
+        eigenvalues, eigenvectors = np.linalg.eigh(Z)
+        idx = eigenvalues.argsort()[::-1]
+        eigenvalues = eigenvalues[idx] / J
+        eigenvectors = eigenvectors[:, idx] * np.sqrt(J)
+
+        # 3. Determine 'd' (Dimension Reduction)
+        exp_var = np.cumsum(eigenvalues) / np.sum(eigenvalues)
+        d: int = int(np.searchsorted(exp_var, self.cumulative_var) + 1)
+        
+        # 4. Compute Test Statistic
+        scores = (X.T @ eigenvectors[:, :d]).T / J
+        cusum_process = np.cumsum(scores, axis=1)
+        bridge = (1/np.sqrt(N)) * (
+            cusum_process - (np.arange(1, N+1)/N) * cusum_process[:, -1:]
+        )
+        stat: float = float(np.sum(np.mean(bridge**2, axis=1) / eigenvalues[:d]))
+
+        # 5. Monte Carlo Simulation for Null Distribution
+        k_grid = np.arange(1, 101)
+        z = np.random.normal(0, 1, (mc_rep, d, 100))
+        simulated_stats = np.sum(
+            np.sum(z**2 / (np.pi**2 * k_grid**2), axis=2), axis=1
+        )
+        p_val: float = float(np.mean(simulated_stats > stat))
+
+        # Estimate Break Point (k*)
+        norms = np.linalg.norm(np.cumsum(X, axis=1), axis=0)
+        k_star: int = int(np.argmax(norms))
+
+        self.results = {
+            "p_value": p_val, 
+            "statistic": stat, 
+            "d": d, 
+            "k_star": k_star
+        }
+        return self.results
+
+    def plot_cusum(self, n_lines: int = 10) -> None:
+        """
+        Visualizes the Functional CUSUM process to diagnose structural instability.
+
+        The plot renders snapshots of the Brownian Bridge-like process over time. 
+        Each curve represents the accumulated discrepancy between the densities 
+        up to that day and the global mean density of the entire period.
+
+        Interpretation:
+        ---------------------------------------
+        1. Curve Amplitude: High peaks or deep valleys indicate regions of the 
+           return grid where the local distribution significantly deviates from 
+           the 250-day average (e.g., higher peaks = lower local volatility).
+           
+        2. Temporal Convergence: 
+           - If the final curves (darker colors) remain far from the zero-axis, 
+             it visually confirms a 'Permanent Structural Break'.
+           - If the curves 'bloom' outward and then collapse back toward zero, 
+             it indicates a 'Temporary Volatility Shock'.
+             
+        3. Shape of the Bridge: A consistent 'bulge' in the center suggests 
+           changes in the mean or variance, while 'wiggles' in the far ends 
+           suggest instability in the tail-risk (heavy tails).
+
+        Args:
+            n_lines (int): Number of snapshots to plot across the time horizon.
+        """
+        if not self.results:
+            print("Warning: Run .run_test() first for an accurate plot title.")
+            
+        bridge = (1 / np.sqrt(self.N)) * np.cumsum(self.centered_data, axis=1)
+        plot_indices = np.linspace(0, self.N - 1, n_lines, dtype=int)
+
+        plt.figure(figsize=(10, 6))
+        colors = sns.color_palette("rocket", n_lines)
+        
+        for i, day in enumerate(plot_indices):
+            plt.plot(self.grid_vals, bridge[:, day], color=colors[i], 
+                     label=f"Day {day}", alpha=0.7)
+            
+        plt.axhline(0, color='black', lw=1, ls='--')
+        p_val_str = f"{self.results.get('p_value', 'N/A')}"
+        plt.title(f"Functional CUSUM (p-value: {p_val_str})")
+        plt.xlabel("Grid (e.g., Financial Returns)")
+        plt.ylabel("Cumulative Deviation")
+        plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', title="Time Step")
+        plt.grid(alpha=0.2)
+        plt.tight_layout()
+        plt.show()
+
+    def plot_regime_comparison(self) -> None:
+        """
+        Plots the average functional signal before and after the detected break k*.
+        This is the most direct way to visualize a permanent shift in shape.
+        """
+        if "k_star" not in self.results:
+            self.analyze_persistence()
+            
+        k = self.results['k_star']
+        mean_pre = np.mean(self.sample[:, :k], axis=1)
+        mean_post = np.mean(self.sample[:, k:], axis=1)
+        
+        plt.figure(figsize=(10, 6))
+        plt.plot(self.grid_vals, mean_pre, label=f"Mean: Day 1 to {k}", color='steelblue', lw=2)
+        plt.plot(self.grid_vals, mean_post, label=f"Mean: Day {k} to {self.N}", color='crimson', lw=2, ls='--')
+        
+        plt.title(f"Regime Shift Visualization")
+        plt.xlabel("Grid Values")
+        plt.ylabel("Functional Value")
+        plt.legend()
+        plt.grid(alpha=0.3)
+        plt.show()
+
+    def get_summary(self) -> str:
+        """
+        Returns a formatted summary string of the test results.
+        """
+        res = self.results
+        if not res:
+            return "No results found. Please call .run_test() first."
+            
+        status = "REJECTED" if res['p_value'] < 0.05 else "NOT REJECTED"
+        print (
+            f"--- Functional Stationarity Analysis ---\n"
+            f"Null Hypothesis (H0): Series is stationary\n"
+            f"Result: {status} (p = {res['p_value']:.4f})\n"
+            f"Components (d): {res['d']} FPCs\n"
+            f"Detected Break (k*): Day {res['k_star']}\n"
+            f"----------------------------------------"
+        )
