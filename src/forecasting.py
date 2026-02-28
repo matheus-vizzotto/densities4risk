@@ -1457,3 +1457,121 @@ class FunctionalStationarityTest:
             f"Detected Break (k*): Day {res['k_star']}\n"
             f"----------------------------------------"
         )
+
+
+###############################################
+############ Horta & Ziegelman (2018) #########
+###############################################
+
+from src.dynamicFPC import super_fun
+def reconstruct_curves(etahat_pred, psihat, Ybar, du, enforce_density=False):
+    """
+    Reconstruct functional curves from predicted FPC scores.
+
+    Parameters
+    ----------
+    etahat_pred : ndarray (d0 x T_pred)
+        Predicted FPC scores.
+
+    psihat : ndarray (m x d0)
+        Estimated eigenfunctions.
+
+    Ybar : ndarray (m x 1)
+        Mean function.
+
+    du : float
+        Grid spacing.
+
+    enforce_density : bool
+        If True, enforces positivity and renormalizes to integrate to 1.
+
+    Returns
+    -------
+    Yhat_pred : ndarray (m x T_pred)
+        Reconstructed curves.
+    """
+
+    # Linear reconstruction
+    Yhat_pred = Ybar + psihat @ etahat_pred
+
+    if enforce_density:
+        Yhat_fix = Yhat_pred.copy()
+
+        # Enforce positivity
+        Yhat_fix[Yhat_fix < 0] = 0
+
+        # Renormalize each curve
+        for t in range(Yhat_fix.shape[1]):
+            integral = np.sum(Yhat_fix[:, t]) * du
+            if integral > 0:
+                Yhat_fix[:, t] /= integral
+
+        return Yhat_fix
+
+    return Yhat_pred
+
+def cv_dfpc_horta_zieg(
+        Y, 
+        Y_support, 
+        KdFPC_kwargs, 
+        horizon=1, 
+        initial_window=100,
+        return_curves=False,
+        var_lags: int = None
+        ):
+    windows = expanding_window_cv(Y.shape[1], h=horizon, initial_window=initial_window)
+
+    measures = []
+    for fold, window in enumerate(windows):
+        print(f"\t\t>>> cv {fold+1}/{len(windows)}")
+        idx_train = window[0]
+        idx_test  = window[1]
+        
+        # TRAIN-TEST SPLIT FOR DENSITIES AND SUPPORTS
+        Y_train_support, Y_train = Y_support.iloc[:,idx_train], Y.iloc[:,idx_train]
+        Y_test_support , Y_test = Y_support.iloc[:,idx_test],   Y.iloc[:,idx_test]
+
+        sp = super_fun(
+            Y=Y_train.values,
+            lag_max=KdFPC_kwargs["lag_max"],
+            B=KdFPC_kwargs["B"],
+            p=KdFPC_kwargs["p"],
+            m=Y_train_support.shape[0],
+            du=0.05,
+            dimension=KdFPC_kwargs["dimension"],
+            alpha=0.05,
+            u=Y_train_support.iloc[:,0]
+        ) 
+        k_scores = pd.DataFrame(sp["etahat"].T)
+
+        # FORECASTING
+        maxlags_  = 10
+        criteria_ = 'bic'
+        ## SCORES
+        k_etahat_fc = run_forecaster(k_scores, maxlags_, criteria_, horizon, selected_nlags=3)
+
+        ## RECONSTRUCT FORECASTED CURVES
+        # k_curve_forecast = KdFPC_model.predict(k_etahat_fc)
+        k_curve_forecast = reconstruct_curves(k_etahat_fc, sp["psihat"], sp["Ybar"], du=0.05)
+        df_k_forecast = pd.DataFrame(k_curve_forecast, columns=Y_test.columns)
+        
+        # PUT KDE AND FORECAST INTO THE SAME GRID FOR EVALUATION
+        df_supp, df_f_kle, df_kle_fhat = align_densities(
+                                        Y_test_support, 
+                                        Y_test, 
+                                        Y_test_support, 
+                                        df_k_forecast, 
+                                        Y_test_support.columns
+                                        )
+
+        # COMPUTE ACCURACY MEASURES AND STORE THEM
+        oa_measures = overall_measures(test=df_f_kle, forecast=df_kle_fhat)
+        d1 = {
+            "fold": fold,
+            "method": "KLE",
+            }
+        d1.update(oa_measures)
+        d1.update({"df_supports": df_supp, "df_kde": df_f_kle, "df_forecast": df_kle_fhat})
+        measures.append(d1)
+    
+    return pd.DataFrame(measures)
