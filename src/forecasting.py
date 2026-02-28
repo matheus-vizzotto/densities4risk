@@ -1,11 +1,14 @@
 import matplotlib.pyplot as plt
+import seaborn as sns
 import pandas as pd
-from typing import Dict, Union, List, Tuple
+from typing import Dict, Union, List, Tuple, Optional
 import numpy as np
 from statsmodels.tsa.api import VAR
+from statsmodels.tsa.vector_ar.var_model import VARResults
 import pmdarima as pm
 from statsmodels.tsa.stattools import adfuller, kpss#, phillips_perron
 from statsmodels.stats.diagnostic import acorr_ljungbox
+from statsmodels.graphics.tsaplots import plot_acf
 
 from src.preprocessing import align_densities
 from src.transformations import (
@@ -13,6 +16,7 @@ from src.transformations import (
                             obtain_densities_from_lqd
                             )
 from src.dynamicFPC import K_dFPC
+from scipy.stats import norm
 
 def adf_test(x):
     res = adfuller(x, autolag='AIC')
@@ -42,7 +46,79 @@ def kpss_test(x, regression='c'):
         plt.show()
     print()
 
+def check_autocorrelation(
+        series, 
+        name="Series", 
+        lags=10,
+        verbose=False
+        ):
+    # Perform the test
+    results = acorr_ljungbox(series, lags=[lags], return_df=True)
+    p_value = results.lb_pvalue.values[0]
+
+    if verbose:
+        print(f"--- Ljung-Box Test for {name} (Lag {lags}) ---")
+        print(f"P-value: {p_value:.4f}")
+        
+        if p_value < 0.05:
+            print(f"VERDICT: The {name} HAS significant autocorrelation.")
+            print("Reason: P-value is < 0.05. We reject the Null Hypothesis (White Noise).")
+        else:
+            print(f"VERDICT: The {name} does NOT have significant autocorrelation.")
+            print("Reason: P-value is >= 0.05. The series is consistent with White Noise.")
+        print("-" * 40)
+    else:
+        return p_value
     
+def check_stationarity(
+        series: Union[pd.Series, np.ndarray], 
+        name: str = "Series", 
+        verbose: bool = False
+    ) -> float:
+    """
+    Performs the Augmented Dickey-Fuller (ADF) test for stationarity.
+
+    This test checks the Null Hypothesis (H0) that a unit root is present in 
+    a univariate time series (indicating it is non-stationary). A p-value 
+    below 0.05 suggests the series is stationary.
+
+    Interpretation for your Dissertation:
+    -------------------------------------
+    - P-value < 0.05: The series is stationary. It reverts to a constant mean.
+    - P-value >= 0.05: The series is I(1) or non-stationary. It may exhibit 
+      stochastic drift, making long-term forecasting or fixed-bandwidth 
+      density estimation unreliable.
+
+    Args:
+        series: The time series to test (e.g., daily returns or bandwidth values).
+        name: Label for the series in the printed output.
+        verbose: If True, prints a detailed diagnostic report.
+
+    Returns:
+        float: The p-value of the ADF test.
+    """
+    # dropna is essential for financial data which often has leading/trailing NaNs
+    clean_series = np.asarray(series)
+    clean_series = clean_series[~np.isnan(clean_series)]
+    
+    result = adfuller(clean_series)
+    p_value = float(result[1])
+
+    if verbose:
+        print(f"--- ADF Stationarity Test for {name} ---")
+        print(f"ADF Statistic: {result[0]:.4f}")
+        print(f"P-value: {p_value:.4f}")
+        
+        if p_value < 0.05:
+            print(f"VERDICT: The {name} is STATIONARY.")
+            print("Reason: P-value < 0.05. We reject H0 (Unit Root present).")
+        else:
+            print(f"VERDICT: The {name} is NON-STATIONARY (Unit Root).")
+            print("Reason: P-value >= 0.05. The series behaves like a Random Walk.")
+        print("-" * 45)
+    
+    return p_value
+
 def select_order_ic(
         data: pd.DataFrame, 
         maxlags: int = 10
@@ -60,8 +136,8 @@ def fit_var(data: pd.DataFrame, nlags: int) -> VAR:
     """
     Fit a VAR model and return the fitted results object.
     """
-    model = VAR(data)
-    res = model.fit(nlags)
+    model = VAR(data, trend='nc')
+    res = model.fit(nlags, trend='n')
     return res
 
 def forecast_var(res, steps: int = 1) -> np.ndarray:
@@ -72,78 +148,208 @@ def forecast_var(res, steps: int = 1) -> np.ndarray:
     return res.forecast(res.endog[-res.k_ar:], steps=steps)
 
 class dynamics_forecaster:
-    def __init__(
-            self, 
-            Y : pd.DataFrame
-            ):
-        self.Y = Y
-
-        self.fitted_model = None
+    """
+    A wrapper class for Vector Autoregression (VAR) modeling of FPCA scores.
     
-    def select_order_ic(self,
-        maxlags:int          = 10,
-        criteria:str         = 'bic',
-        prevent_zero_lag:bool = False
-        ) -> Dict[str, int]:
+    This class facilitates the modeling and forecasting of the dynamics underlying 
+    functional data, typically used to model the temporal evolution of density 
+    functions via their score components.
+
+    Attributes:
+        Y (pd.DataFrame): Time series data where columns are FPCA scores.
+        fitted_model (VARResults): The statsmodels VAR results object after fitting.
+    """
+
+    def __init__(self, Y: pd.DataFrame):
         """
-        Select lag order using AIC and BIC from statsmodels VAR.select_order.
-        Returns dict with keys 'aic', 'bic', 'hqic' (if available).
+        Initializes the forecaster with the score matrix.
+
+        Args:
+            Y (pd.DataFrame): T x K dataframe of scores (T time points, K components).
+        """
+        self.Y = Y
+        self.fitted_model: Optional[VARResults] = None
+    
+    def select_order_ic(
+        self,
+        maxlags: int = 10,
+        criteria: str = 'bic',
+        prevent_zero_lag: bool = False
+    ) -> int:
+        """
+        Selects the optimal lag order based on Information Criteria.
+
+        Args:
+            maxlags (int): Maximum number of lags to check.
+            criteria (str): 'aic', 'bic', or 'hqic'.
+            prevent_zero_lag (bool): If True, forces the lag to be at least 1.
+
+        Returns:
+            int: The selected number of lags.
         """
         model = VAR(self.Y)
         sel = model.select_order(maxlags)   
-        # statsmodels returns object with attributes aic, bic, hqic that are integers (lags)
-        criteria_dict = {'aic': int(sel.aic), 'bic': int(sel.bic), 'hqic': int(sel.hqic)}
+        criteria_dict = {
+            'aic': int(sel.aic), 
+            'bic': int(sel.bic), 
+            'hqic': int(sel.hqic)
+        }
 
         selected_n_lags = criteria_dict[criteria] 
 
         if prevent_zero_lag:
-            selected_n_lags = np.max(1,selected_n_lags)
-        else:
-            if selected_n_lags == 0:
-                print("Number of selected lags is zero. Forecast with mean.")    
+            selected_n_lags = max(1, selected_n_lags)
         
-        return criteria_dict[criteria]
+        if selected_n_lags == 0:
+            print("Warning: Selected lag is zero. Forecast will default to the mean.")    
+        
+        return selected_n_lags
     
-    def fit_var(self, 
-                nlags: int
-                ) -> VAR:
+    def fit_var(self, nlags: int) -> VARResults:
         """
-        Fit a VAR model and return the fitted results object.
+        Fits the VAR model to the scores using the specified lag order.
+
+        Args:
+            nlags (int): Number of lags to include in the model.
+
+        Returns:
+            VARResults: The fitted statsmodels results object.
         """
         model = VAR(self.Y)
-        res = model.fit(nlags)
-
+        # Fitting without trend ('n') as scores are typically centered
+        res = model.fit(nlags, trend='n')
         self.fitted_model = res
+        return res
 
-    def forecast(self,
-                 h: int
-                ):
+    def forecast(self, h: int) -> np.ndarray:
         """
-        Forecast using a fitted statsmodels VARResults object.
-        Returns the format expected by the the dFPC: (eta X T)
-        Returns a numpy array (steps x k).
+        Produces out-of-sample forecasts for the scores.
+
+        Args:
+            h (int): The forecast horizon (number of steps ahead).
+
+        Returns:
+            np.ndarray: K x h matrix of forecasted scores, transposed for 
+                compatibility with dFPC reconstruction.
         """
+        if self.fitted_model is None:
+            raise ValueError("Model must be fitted via 'fit_var' before forecasting.")
+            
         model = self.fitted_model
-        fc_h  = model.forecast(model.endog[-model.k_ar:], steps=h)
+        # Use the last 'k_ar' observations from the endogenous data to start forecast
+        fc_h = model.forecast(model.endog[-model.k_ar:], steps=h)
 
         return fc_h.T
 
+    def residual_diagnostics(
+            self, 
+            nlags: int = 10, 
+            plot: bool = False
+        ) -> Dict[str, Union[float, bool]]:
+        """
+        Performs multivariate diagnostic tests on the VAR residuals.
 
+        Tests for Whiteness (Portmanteau), Normality (Jarque-Bera), and 
+        Mathematical Stability (Unit Root check).
+
+        Args:
+            nlags (int): Lags to use for the Portmanteau whiteness test.
+            plot (bool): If True, displays ACF and Histogram/KDE plots for each score.
+
+        Returns:
+            Dict[str, Union[float, bool]]: P-values for tests and stability status.
+        """
+        if self.fitted_model is None:
+            raise ValueError("Model must be fitted before running diagnostics.")
+        
+        res = self.fitted_model
+        residuals = np.asarray(res.resid) 
+        n_scores = residuals.shape[1]
+        
+        # --- 1. Statistical Tests ---
+        white_test = res.test_whiteness(nlags=nlags)
+        norm_test = res.test_normality()
+        is_stable = res.is_stable(verbose=False)
+        
+        # --- 2. Descriptive Print ---
+        header = "VAR RESIDUAL DIAGNOSTICS"
+        print(f"\n{'='*50}\n{header.center(50)}\n{'='*50}")
+        
+        w_status = "PASSED" if white_test.pvalue > 0.05 else "FAILED"
+        print(f"Whiteness P-value: {white_test.pvalue:.4f} -> [{w_status}]")
+        print(f"Description: Residual series {'is White Noise' if w_status == 'PASSED' else 'is NOT White Noise'}.")
+        
+        print("-" * 50)
+        
+        n_status = "PASSED" if norm_test.pvalue > 0.05 else "FAILED"
+        print(f"Normality P-value: {norm_test.pvalue:.4f} -> [{n_status}]")
+        print(f"Description: Residual distribution {'is Gaussian' if n_status == 'PASSED' else 'is NOT Gaussian'}.")
+        
+        print("-" * 50)
+        
+        s_status = "STABLE" if is_stable else "UNSTABLE"
+        print(f"Model Stability:   {s_status}")
+        print(f"Description: System {'is stationary and forecastable' if is_stable else 'is non-stationary'}.")
+        print("="*50)
+
+        # --- 3. Visualization ---
+        if plot:
+            fig, axes = plt.subplots(n_scores, 2, figsize=(12, 3 * n_scores))
+            
+            # Ensure axes is 2D even if n_scores == 1
+            if n_scores == 1:
+                axes = np.expand_dims(axes, axis=0)
+
+            for i in range(n_scores):
+                # Column 0: ACF
+                plot_acf(residuals[:, i], ax=axes[i, 0], lags=nlags)
+                axes[i, 0].set_title(f"ACF: Score {i+1}")
+                
+                # Column 1: Distribution (Blue Histogram with Red KDE)
+                sns.histplot(
+                    residuals[:, i], 
+                    ax=axes[i, 1], 
+                    color='#8ac926', # Light green bars
+                    stat='density',
+                    alpha=0.6
+                )
+                sns.kdeplot(
+                    residuals[:, i],
+                    ax=axes[i, 1],
+                    color='red',
+                    lw=2,
+                    label='KDE'
+                )
+                axes[i, 1].set_title(f"Distribution: Score {i+1}")
+                
+            plt.tight_layout()
+            plt.show()
+        
+        return {
+            'whiteness_p': float(white_test.pvalue),
+            'normality_p': float(norm_test.pvalue),
+            'is_stable': bool(is_stable)
+        }
 
 def run_forecaster(
         scores    : np.array,
         maxlags_  : int,
         criteria_ : str,
-        h_        : int
+        h_        : int,
+        selected_nlags : int = None
         ):
     
     forecaster = dynamics_forecaster(scores)
-    selected_nlags = forecaster.select_order_ic(
-                                    maxlags_,
-                                    criteria=criteria_)
+
+    if selected_nlags is None:
+        selected_nlags = forecaster.select_order_ic(
+                                        maxlags_,
+                                        criteria=criteria_)
+        
     if selected_nlags == 0:
         mean_vec = scores.mean(axis=0)
         fc = np.tile(mean_vec, (h_, 1)).T
+
     else:
         forecaster.fit_var(nlags=selected_nlags)
         fc = forecaster.forecast(h=h_)
@@ -799,7 +1005,8 @@ def cv(
         KdFPC_kwargs, 
         horizon=1, 
         initial_window=100,
-        return_curves=False
+        return_curves=False,
+        var_lags: int = None
         ):
     windows = expanding_window_cv(Y.shape[1], h=horizon, initial_window=initial_window)
 
@@ -845,7 +1052,7 @@ def cv(
         maxlags_  = 10
         criteria_ = 'bic'
         ## SCORES
-        k_etahat_fc = run_forecaster(k_scores, maxlags_, criteria_, horizon)
+        k_etahat_fc = run_forecaster(k_scores, maxlags_, criteria_, horizon, selected_nlags=var_lags)
         ## c=F(0)
         model = pm.auto_arima(
             bovespa_mLQDT.c,                         # univariate series
@@ -891,26 +1098,480 @@ def cv(
 
     return measures
 
-def check_autocorrelation(
-        series, 
-        name="Series", 
-        lags=10,
-        verbose=False
-        ):
-    # Perform the test
-    results = acorr_ljungbox(series, lags=[lags], return_df=True)
-    p_value = results.lb_pvalue.values[0]
+#------------------------------------------------
+#------------ STATIONARITY --- ------------------
+#------------------------------------------------
 
-    if verbose:
-        print(f"--- Ljung-Box Test for {name} (Lag {lags}) ---")
-        print(f"P-value: {p_value:.4f}")
+def simulate_stationary_curves(
+        n_days=250, 
+        n_grid=5001, 
+        scenario="stationary"
+    ):
+    """
+    Generates synthetic functional data (densities) to validate stationarity tests.
+
+    This utility creates a time series of curves discretization over a spatial grid, 
+    allowing for the simulation of three distinct data-generating processes (DGP) 
+    common in financial functional data analysis.
+
+    Scenarios:
+    ----------
+    1. "stationary":
+       The curves oscillate around a fixed global mean density with stable variance.
+       Used to test for Type I Error (ensuring the test doesn't find a break 
+       where none exists).
+
+    2. "break":
+       Simulates a structural regime shift at t=125 (k*). The distribution jumps 
+       from a low-volatility state (sigma=1.0) to a high-volatility state (sigma=1.5).
+       Used to test for Test Power (ensuring the test correctly identifies 
+       structural changes).
+
+    3. "unit_root":
+       Simulates a Functional Random Walk, or I(1) process. Each day's curve 
+       is the previous day's curve plus a small functional innovation.
+       Used to observe the behavior of CUSUM statistics under non-stationary 
+       stochastic drift, where k* becomes a spurious artifact of the wander.
+
+    Args:
+        n_days: Number of functional observations (time steps/days). Defaults to 250.
+        n_grid: Number of discretization points for each curve. Defaults to 5001.
+        scenario: The DGP to simulate ("stationary", "break", or "unit_root").
+
+    Returns:
+        Tuple[pd.DataFrame, np.ndarray]:
+            - A DataFrame of shape (n_grid, n_days) containing the curves.
+            - A NumPy array containing the spatial grid (x-axis) values.
+
+    Examples
+    ----------
+        >>>df_stat, grid = generate_test_densities(scenario="stationary")
+        >>>df_break, _ = generate_test_densities(scenario="break")
+        >>>df_unitroot, _ = generate_test_densities(scenario="unit_root")
+    """
+    grid = np.linspace(-5, 5, n_grid)
+    densities = np.zeros((n_grid, n_days))
+    
+    np.random.seed(42)
+    
+    if scenario == "stationary":
+        # Mean and Vol remain constant, only small random noise
+        for t in range(n_days):
+            mu = 0 + np.random.normal(0, 0.02)
+            sigma = 1 + np.random.normal(0, 0.02)
+            densities[:, t] = norm.pdf(grid, mu, sigma)
+            
+    elif scenario == "break":
+        # A structural break occurs at Day 125 (k*)
+        # Shift from low volatility to high volatility
+        for t in range(n_days):
+            if t < 125:
+                mu, sigma = 0, 1.0
+            else:
+                mu, sigma = 0, 1.5 # Volatility jump
+            
+            # Add a tiny bit of noise so it's not a perfect step function
+            mu += np.random.normal(0, 0.01)
+            sigma += np.random.normal(0, 0.01)
+            densities[:, t] = norm.pdf(grid, mu, sigma)
+            
+    elif scenario == "unit_root":
+            # Functional I(1): Each day is the previous day + functional noise
+            current_curve = norm.pdf(grid, 0, 1)
+            for t in range(n_days):
+                # Innovation: small random shifts in mean and scale
+                innov_mu = np.random.normal(0, 0.05)
+                innov_sigma = 1 + np.random.normal(0, 0.05)
+                innovation = norm.pdf(grid, innov_mu, innov_sigma) * 0.1
+                
+                current_curve = current_curve + innovation
+                densities[:, t] = current_curve
+
+    return pd.DataFrame(densities), grid
+
+class FunctionalStationarityTest:
+    """
+    Implements the Horváth, Kokoszka, and Rice (2014) test for stationarity 
+    in functional time series.
+
+    This class provides tools to test whether a sequence of density functions 
+    (or any functional data) is stationary or contains a structural break. 
+    It uses a pivotal CUSUM-based approach and functional principal component 
+    analysis (FPCA) for dimension reduction.
+
+    Attributes:
+    ---------------
+        sample (np.ndarray): The J x N data matrix.
+        J (int): Number of grid points (discretization level).
+        N (int): Number of functional observations (time points).
+        grid_vals (np.ndarray): The spatial grid for the functional data.
+        cumulative_var (float): Variance threshold for choosing the number of FPCs.
+        results (Dict): Results from the run_test method.
+    """
+
+    def __init__(
+        self, 
+        sample: Union[np.ndarray, pd.DataFrame], 
+        grid_vals: Optional[np.ndarray] = None, 
+        cumulative_var: float = 0.90
+    ) -> None:
+        """
+        Initializes the test with functional data.
+
+        Args:
+            sample: A J x N matrix where columns are functions and rows are grid points.
+            grid_vals: The x-axis values for the functions. Defaults to [0, 1].
+            cumulative_var: Fraction of variance (0.0 to 1.0) to retain in FPCA.
+        Example:
+        ---------------
+            >>>df_break, grid = generate_test_densities(scenario="break")
+            >>>tester = FunctionalStationarityTest(df_stat, grid_vals=grid)
+            >>>tester.run_test(mc_rep=2000)
+            >>>tester.get_summary()
+            >>>tester.plot_cusum()
+        """
+        self.sample: np.ndarray = np.asarray(sample)
+        self.J, self.N = self.sample.shape
+        self.grid_vals: np.ndarray = (
+            grid_vals if grid_vals is not None else np.linspace(0, 1, self.J)
+        )
+        self.cumulative_var: float = cumulative_var
         
-        if p_value < 0.05:
-            print(f"VERDICT: The {name} HAS significant autocorrelation.")
-            print("Reason: P-value is < 0.05. We reject the Null Hypothesis (White Noise).")
+        self.results: Dict[str, Union[float, int]] = {}
+        self.mean_density: np.ndarray = np.mean(self.sample, axis=1, keepdims=True)
+        self.centered_data: np.ndarray = self.sample - self.mean_density
+
+    def _get_kernel_weight(self, x: float, kernel_type: int = 2) -> float:
+        """Computes Bartlett-type kernel weights for long-run covariance."""
+        if kernel_type == 1:
+            return float(np.maximum(0, np.minimum(1, 1.1 - np.abs(x))))
+        return float(np.maximum(0, np.minimum(1, 2 - 2 * np.abs(x))))
+
+    def run_test(
+            self, 
+            mc_rep: int = 1000, 
+            kernel_type: int = 2, 
+            h: Optional[float] = None,
+            d: Optional[int] = None,
+            alpha: float = 0.05
+        ) -> Dict[str, Union[float, int]]:
+        """
+        Executes the pivotal CUSUM-based stationarity test via FPCA and Monte Carlo simulation.
+
+        This method implements the statistical framework of Horváth, Kokoszka, and Rice (2014)
+        to test the null hypothesis (H0) that the functional time series is stationary. 
+        The test is 'pivotal' because the limit distribution of the test statistic does 
+        not depend on unknown parameters, allowing for robust p-value estimation.
+
+        Mathematical Procedure:
+        -----------------------
+        1. Long-Run Covariance Estimation: 
+           Estimates the operator $C$ using a Newey-West type kernel estimator to 
+           account for temporal dependence between curves.
+        2. Dimension Reduction (FPCA): 
+           Projects the J-dimensional functional data into a d-dimensional subspace 
+           defined by the eigenfunctions of the long-run covariance operator.
+        3. CUSUM Process Calculation: 
+           Constructs a CUSUM bridge for the scores of each principal component.
+        4. Test Statistic ($\hat{M}_N$): 
+           Calculates the squared $L^2$ norm of the CUSUM bridge, weighted by the 
+           reciprocal of the eigenvalues.
+        5. Monte Carlo P-Value: 
+           Simulates the distribution of $\sum_{j=1}^d \lambda_j \int B_j^2(t)dt$ 
+           where $B_j$ are independent Brownian bridges to determine significance.
+
+        Args:
+            mc_rep (int): Number of Monte Carlo replications. Higher values improve 
+                p-value precision but increase computational load. Defaults to 1000.
+            kernel_type (int): Type of weight function for the long-run covariance.
+                - 1: Flat-top kernel (Ker1).
+                - 2: Bartlett-type kernel (Ker2/Trapezoidal). Defaults to 2.
+            h (float, optional): The bandwidth (lag truncation parameter) for the 
+                long-run covariance estimator. If None, uses the rule of thumb $h = \sqrt{N}$. 
+                Controls the balance between bias and variance in temporal smoothing.
+            d (int, optional): Number of principal components. If None, uses heuristic.
+            alpha (float): Significance level for the test (e.g., 0.05, 0.01). 
+                Determines the critical value and rejection decision.
+
+        Returns:
+            Dict[str, Union[float, int]]: A dictionary containing:
+                - 'p_value': Probability of observing the statistic under H0.
+                - 'statistic': The calculated CUSUM-based test statistic.
+                - 'd': Number of functional principal components (FPCs) retained 
+                  to explain the specified 'cumulative_var'.
+                - 'k_star': The estimated time index of the most likely structural 
+                  break (location of the CUSUM maximum).
+
+        Notes:
+            A rejection (p < 0.05) suggests that the mean or covariance structure of the 
+            densities has shifted, indicating either a structural break or an I(1) process.
+        """
+        N, J = self.N, self.J
+        h_val: float = h if h is not None else N**0.5
+        X: np.ndarray = self.centered_data
+
+        # 1. Estimate Long-Run Covariance Matrix (Z)
+        Z: np.ndarray = (X @ X.T) / N
+        for lag in range(1, int(h_val) + 1):
+            weight = self._get_kernel_weight(lag / h_val, kernel_type)
+            if weight > 0:
+                gamma_lag = (X[:, lag:] @ X[:, :-lag].T) / N
+                Z += weight * (gamma_lag + gamma_lag.T)
+
+        # 2. Eigen-decomposition
+        eigenvalues, eigenvectors = np.linalg.eigh(Z)
+        idx = eigenvalues.argsort()[::-1]
+        eigenvalues = eigenvalues[idx] / J
+        eigenvectors = eigenvectors[:, idx] * np.sqrt(J)
+
+        # 3. Determine 'd'
+        if d is not None:
+            d_used = d
         else:
-            print(f"VERDICT: The {name} does NOT have significant autocorrelation.")
-            print("Reason: P-value is >= 0.05. The series is consistent with White Noise.")
-        print("-" * 40)
-    else:
-        return p_value
+            exp_var = np.cumsum(eigenvalues) / np.sum(eigenvalues)
+            d_used = int(np.searchsorted(exp_var, self.cumulative_var) + 1)
+        
+        # 4. Compute Test Statistic (M_N)
+        scores = (X.T @ eigenvectors[:, :d_used]).T / J
+        cusum_process = np.cumsum(scores, axis=1)
+        bridge = (1/np.sqrt(N)) * (
+            cusum_process - (np.arange(1, N+1)/N) * cusum_process[:, -1:]
+        )
+        stat: float = float(np.sum(np.mean(bridge**2, axis=1) / eigenvalues[:d_used]))
+
+        # 5. Monte Carlo Simulation for Null Distribution
+        # The limit distribution is the sum of squared L2 norms of d_used Brownian bridges
+        k_grid = np.arange(1, 101)
+        z = np.random.normal(0, 1, (mc_rep, d_used, 100))
+        simulated_stats = np.sum(
+            np.sum(z**2 / (np.pi**2 * k_grid**2), axis=2), axis=1
+        )
+        
+        # Calculate P-value and Critical Value for user-defined alpha
+        p_val: float = float(np.mean(simulated_stats > stat))
+        critical_value: float = float(np.percentile(simulated_stats, 100 * (1 - alpha)))
+        reject_h0: bool = stat > critical_value
+
+        # Estimate Break Point (k*)
+        norms = np.linalg.norm(np.cumsum(X, axis=1), axis=0)
+        k_star: int = int(np.argmax(norms))
+
+        self.results = {
+            "p_value": p_val, 
+            "statistic": stat, 
+            "critical_value": critical_value,
+            "reject_h0": reject_h0,
+            "alpha": alpha,
+            "d": d_used, 
+            "k_star": k_star
+        }
+        return self.results
+
+    def plot_cusum(self, n_lines: int = 10) -> None:
+        """
+        Visualizes the Functional CUSUM process to diagnose structural instability.
+
+        The plot renders snapshots of the Brownian Bridge-like process over time. 
+        Each curve represents the accumulated discrepancy between the densities 
+        up to that day and the global mean density of the entire period.
+
+        Interpretation:
+        ---------------------------------------
+        1. Curve Amplitude: High peaks or deep valleys indicate regions of the 
+           return grid where the local distribution significantly deviates from 
+           the 250-day average (e.g., higher peaks = lower local volatility).
+           
+        2. Temporal Convergence: 
+           - If the final curves (darker colors) remain far from the zero-axis, 
+             it visually confirms a 'Permanent Structural Break'.
+           - If the curves 'bloom' outward and then collapse back toward zero, 
+             it indicates a 'Temporary Volatility Shock'.
+             
+        3. Shape of the Bridge: A consistent 'bulge' in the center suggests 
+           changes in the mean or variance, while 'wiggles' in the far ends 
+           suggest instability in the tail-risk (heavy tails).
+
+        Args:
+            n_lines (int): Number of snapshots to plot across the time horizon.
+        """
+        if not self.results:
+            print("Warning: Run .run_test() first for an accurate plot title.")
+            
+        bridge = (1 / np.sqrt(self.N)) * np.cumsum(self.centered_data, axis=1)
+        plot_indices = np.linspace(0, self.N - 1, n_lines, dtype=int)
+
+        plt.figure(figsize=(10, 6))
+        colors = sns.color_palette("rocket", n_lines)
+        
+        for i, day in enumerate(plot_indices):
+            plt.plot(self.grid_vals, bridge[:, day], color=colors[i], 
+                     label=f"Day {day}", alpha=0.7)
+            
+        plt.axhline(0, color='black', lw=1, ls='--')
+        p_val_str = f"{self.results.get('p_value', 'N/A')}"
+        plt.title(f"Functional CUSUM (p-value: {p_val_str})")
+        plt.xlabel("Grid (e.g., Financial Returns)")
+        plt.ylabel("Cumulative Deviation")
+        plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', title="Time Step")
+        plt.grid(alpha=0.2)
+        plt.tight_layout()
+        plt.show()
+
+    def plot_regime_comparison(self) -> None:
+        """
+        Plots the average functional signal before and after the detected break k*.
+        This is the most direct way to visualize a permanent shift in shape.
+        """
+        if "k_star" not in self.results:
+            self.analyze_persistence()
+            
+        k = self.results['k_star']
+        mean_pre = np.mean(self.sample[:, :k], axis=1)
+        mean_post = np.mean(self.sample[:, k:], axis=1)
+        
+        plt.figure(figsize=(10, 6))
+        plt.plot(self.grid_vals, mean_pre, label=f"Mean: Day 1 to {k}", color='steelblue', lw=2)
+        plt.plot(self.grid_vals, mean_post, label=f"Mean: Day {k} to {self.N}", color='crimson', lw=2, ls='--')
+        
+        plt.title(f"Regime Shift Visualization")
+        plt.xlabel("Grid Values")
+        plt.ylabel("Functional Value")
+        plt.legend()
+        plt.grid(alpha=0.3)
+        plt.show()
+
+    def get_summary(self) -> str:
+        """
+        Returns a formatted summary string of the test results.
+        """
+        res = self.results
+        if not res:
+            return "No results found. Please call .run_test() first."
+            
+        status = "REJECTED" if res['p_value'] < 0.05 else "NOT REJECTED"
+        print (
+            f"--- Functional Stationarity Analysis ---\n"
+            f"Null Hypothesis (H0): Series is stationary\n"
+            f"Result: {status} (p = {res['p_value']:.4f})\n"
+            f"Components (d): {res['d']} FPCs\n"
+            f"Detected Break (k*): Day {res['k_star']}\n"
+            f"----------------------------------------"
+        )
+
+
+###############################################
+############ Horta & Ziegelman (2018) #########
+###############################################
+
+from src.dynamicFPC import super_fun
+def reconstruct_curves(etahat_pred, psihat, Ybar, du, enforce_density=False):
+    """
+    Reconstruct functional curves from predicted FPC scores.
+
+    Parameters
+    ----------
+    etahat_pred : ndarray (d0 x T_pred)
+        Predicted FPC scores.
+
+    psihat : ndarray (m x d0)
+        Estimated eigenfunctions.
+
+    Ybar : ndarray (m x 1)
+        Mean function.
+
+    du : float
+        Grid spacing.
+
+    enforce_density : bool
+        If True, enforces positivity and renormalizes to integrate to 1.
+
+    Returns
+    -------
+    Yhat_pred : ndarray (m x T_pred)
+        Reconstructed curves.
+    """
+
+    # Linear reconstruction
+    Yhat_pred = Ybar + psihat @ etahat_pred
+
+    if enforce_density:
+        Yhat_fix = Yhat_pred.copy()
+
+        # Enforce positivity
+        Yhat_fix[Yhat_fix < 0] = 0
+
+        # Renormalize each curve
+        for t in range(Yhat_fix.shape[1]):
+            integral = np.sum(Yhat_fix[:, t]) * du
+            if integral > 0:
+                Yhat_fix[:, t] /= integral
+
+        return Yhat_fix
+
+    return Yhat_pred
+
+def cv_dfpc_horta_zieg(
+        Y, 
+        Y_support, 
+        KdFPC_kwargs, 
+        horizon=1, 
+        initial_window=100,
+        return_curves=False,
+        var_lags: int = None
+        ):
+    windows = expanding_window_cv(Y.shape[1], h=horizon, initial_window=initial_window)
+
+    measures = []
+    for fold, window in enumerate(windows):
+        print(f"\t\t>>> cv {fold+1}/{len(windows)}")
+        idx_train = window[0]
+        idx_test  = window[1]
+        
+        # TRAIN-TEST SPLIT FOR DENSITIES AND SUPPORTS
+        Y_train_support, Y_train = Y_support.iloc[:,idx_train], Y.iloc[:,idx_train]
+        Y_test_support , Y_test = Y_support.iloc[:,idx_test],   Y.iloc[:,idx_test]
+
+        sp = super_fun(
+            Y=Y_train.values,
+            lag_max=KdFPC_kwargs["lag_max"],
+            B=KdFPC_kwargs["B"],
+            p=KdFPC_kwargs["p"],
+            m=Y_train_support.shape[0],
+            du=0.05,
+            dimension=KdFPC_kwargs["dimension"],
+            alpha=0.05,
+            u=Y_train_support.iloc[:,0]
+        ) 
+        k_scores = pd.DataFrame(sp["etahat"].T)
+
+        # FORECASTING
+        maxlags_  = 10
+        criteria_ = 'bic'
+        ## SCORES
+        k_etahat_fc = run_forecaster(k_scores, maxlags_, criteria_, horizon, selected_nlags=3)
+
+        ## RECONSTRUCT FORECASTED CURVES
+        # k_curve_forecast = KdFPC_model.predict(k_etahat_fc)
+        k_curve_forecast = reconstruct_curves(k_etahat_fc, sp["psihat"], sp["Ybar"], du=0.05)
+        df_k_forecast = pd.DataFrame(k_curve_forecast, columns=Y_test.columns)
+        
+        # PUT KDE AND FORECAST INTO THE SAME GRID FOR EVALUATION
+        df_supp, df_f_kle, df_kle_fhat = align_densities(
+                                        Y_test_support, 
+                                        Y_test, 
+                                        Y_test_support, 
+                                        df_k_forecast, 
+                                        Y_test_support.columns
+                                        )
+
+        # COMPUTE ACCURACY MEASURES AND STORE THEM
+        oa_measures = overall_measures(test=df_f_kle, forecast=df_kle_fhat)
+        d1 = {
+            "fold": fold,
+            "method": "KLE",
+            }
+        d1.update(oa_measures)
+        d1.update({"df_supports": df_supp, "df_kde": df_f_kle, "df_forecast": df_kle_fhat})
+        measures.append(d1)
+    
+    return pd.DataFrame(measures)
