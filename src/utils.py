@@ -123,3 +123,13 @@ def mark_repeated_columns(df, threshold=10, dropna=True):
     bad_cols = mask[mask].index.tolist()
 
     return bad_cols, mask
+
+def read_hdfstore(file_path, name):
+    with pd.HDFStore(file_path) as store:
+        db = {
+            "df_h": store[f"{name}/df_h"],
+            "df_grids": store[f"{name}/df_grids"],
+            "df_densities": store[f"{name}/df_densities"]
+        }
+
+        return db
