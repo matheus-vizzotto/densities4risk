@@ -501,7 +501,8 @@ def KLdiv_matrix(object, eps=1e-4, overlap=True):
 
 def KLdiv(
         p : np.array, 
-        q : np.array, 
+        q : np.array,
+        symmetric: bool=True, 
         eps=1e-4, 
         overlap=True) -> np.float64:
     """
@@ -517,6 +518,8 @@ def KLdiv(
     overlap : bool
         If False, requires positive overlap between p and q
         (same logic as the original R code).
+    symmetric : bool, default True
+            Whether to return the symmetric divergence.
 
     Returns
     -------
@@ -553,9 +556,15 @@ def KLdiv(
     if overlap and not np.any(ok):
         return np.nan
     
-    kld = np.sum(p * (np.log(p) - np.log(q)))
+    kl_pq = np.sum(p * (np.log(p) - np.log(q)), axis=0)
 
-    return kld
+    if symmetric:
+            # Calculate KL(Q || P)
+            kl_qp = np.sum(q * (np.log(q) - np.log(p)), axis=0)
+            # Average of the sum across all test observations
+            return np.round(np.nanmean(kl_pq + kl_qp), 6)
+
+    return np.round(np.nanmean(kl_pq), 6)
 
 def JSdiv(
         p: np.array,
