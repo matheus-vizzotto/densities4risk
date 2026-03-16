@@ -2,6 +2,7 @@
 *.parquet
 *.json
 .DS_Store
+*.jbl
 # *.html
 
 

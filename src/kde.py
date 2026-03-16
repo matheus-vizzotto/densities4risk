@@ -3,8 +3,15 @@ import numpy as np
 from sklearn.model_selection import GridSearchCV, LeaveOneOut, KFold
 from typing import List, Union, Optional, Iterable, Any
 from scipy.stats import norm, t
+from scipy.integrate import trapezoid
 from sklearn.neighbors import KernelDensity
+from KDEpy.bw_selection import improved_sheather_jones
+from rpy2.robjects import r, FloatVector
 import warnings
+
+
+
+
 
 def get_rot_bandwidth_ck():
     # Kernel-dependent constants for bandwidth selection
@@ -210,7 +217,45 @@ class BandwidthSelector:
 
         return bandwidth
     
-    def adaptive_bandwidth(
+    def dpi(
+            self, 
+            improved = True,
+            weights = None,
+            return_list: bool=True,
+            ) -> float:
+        """
+        Direct Plug In (Sheater & Jones), from R, and Improved Sheater Jones (Botev et al), from the KDEpy package.
+
+        Parameters
+        ----------
+        data: array-like
+            The data points. Data must have shape (obs, 1).
+        weights: array-like, optional
+            One weight per data point. Must have shape (obs,). If None is
+            passed, uniform weights are u
+        """
+        base_data = self.X
+        if improved:
+            data = base_data.values.reshape(-1,1) if base_data.ndim == 1 and isinstance(base_data, pd.Series) else self.X
+
+            if self.kernel != "gaussian":
+                warnings.warn(
+                    f"ISJ used with non-gaussian kernel.", 
+                    UserWarning
+                )
+            
+            bandwidth = improved_sheather_jones(data=data, weights=weights)
+        else:
+            data_r = FloatVector(base_data.values)
+            bandwidth = r['bw.SJ'](data_r)[0]
+
+        if return_list:
+            bandwidth = np.full(self.n, bandwidth)
+
+        return bandwidth
+
+    
+    def adaptive(
             self,
             h: Union[str,float] = "silverman",
             alpha=0.5
@@ -275,7 +320,7 @@ class BandwidthSelector:
 
         return bandwidths
         
-    def cross_validate_bandwidth(
+    def cross_validate(
             self,
             bandwidths_grid: Optional[Iterable[float]] = None,
             cv: Union[int, str] = 5,
@@ -598,45 +643,84 @@ def df_to_kde(
 def weigh_norm_densities(
         df_densities: pd.DataFrame, 
         support: np.array, 
-        norm:int ='area'
-        ) -> pd.DataFrame:
+        norm: str | float = 'area',
+        mean_mode: str = 'full',
+        window: int | None = None
+    ) -> pd.DataFrame:
     """
-    Reweight and normalize a collection of discretized density functions.
+    Reweight and normalize densities using various cross-sectional mean strategies.
 
-    Each density is multiplied pointwise by the cross-sectional mean density
-    and then normalized either to unit integral or by a user-specified constant.
+    Each density (column) is multiplied pointwise by a 'reference mean density' 
+    determined by the mean_mode, then re-normalized. This is mathematically 
+    analogous to a logarithmic pooling or a Bayesian update where the 
+    reference mean acts as a prior.
 
     Parameters
     ----------
     df_densities : pd.DataFrame
-        DataFrame of shape (m, n) where each column represents a density
-        evaluated on a common grid.
+        DataFrame of shape (m, n) where rows (m) are grid points (support) 
+        and columns (n) are individual density functions.
     support : np.array
-        One-dimensional grid corresponding to the rows of `df_densities`,
-        used for numerical integration.
-    norm : {'area', int}, default='area'
-        Normalization method. If 'area', densities are normalized to integrate
-        to one using the trapezoidal rule. Otherwise, `norm` is treated as a
-        fixed normalization constant.
+        The 1D grid coordinates used for integration (e.g., return values).
+    norm : {'area', float}, default='area'
+        If 'area', integrates to 1.0. If float, scales density to that constant.
+    mean_mode : {'full', 'expanding', 'fixed_left', 'rolling'}, default='full'
+        - 'full': Use the mean of all columns (Warning: Look-ahead bias).
+        - 'expanding': For column i, use the mean of columns [0...i].
+        - 'rolling': Use mean of the most recent `window` columns.
+    window : int, optional
+        Required index/offset for 'fixed_left' or 'rolling' modes.
 
     Returns
     -------
     pd.DataFrame
-        DataFrame of reweighted and normalized densities with the same shape
-        as `df_densities`.
-    """
-    df2 = df_densities.copy()
-    for col in df2.columns:
-        # Calculate the transformed density
-        transformed = df_densities.loc[:,col] * df_densities.mean(axis=1)
-        
-        if norm == 'area':
-            from scipy.integrate import trapezoid
-            # Normalize by area to integrate to 1
-            area = trapezoid(transformed, support)
-            df2.loc[:,col] = transformed / area
-        else:
-            # Normalize by given constant
-            df2.loc[:,col] = transformed / norm
+        The transformed and normalized densities.
 
-    return df2
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> import numpy as np
+    >>> # Create a simple support and two "densities" (triangular)
+    >>> x = np.linspace(-1, 1, 5)
+    >>> d1 = np.array([0, 0.5, 1.0, 0.5, 0]) # Peak at 0
+    >>> d2 = np.array([0, 0, 0.5, 1.0, 0.5]) # Peak at 0.5
+    >>> df = pd.DataFrame({'T1': d1, 'T2': d2})
+    >>> # Apply expanding reweighting
+    >>> weighed_df = weigh_norm_densities(df, x, mean_mode='expanding')
+    >>> # T2 in weighed_df is now shifted toward T1's consensus
+    >>> print(weighed_df)
+    """
+    
+    df_result = pd.DataFrame(index=df_densities.index, columns=df_densities.columns)
+    
+    for i, col in enumerate(df_densities.columns):
+        
+        # 1. Determine the Reference Mean (The "Prior")
+        if mean_mode == 'full':
+            ref_mean = df_densities.mean(axis=1)
+            
+        elif mean_mode == 'expanding':
+            ref_mean = df_densities.iloc[:, :i+1].mean(axis=1)
+            
+        elif mean_mode == 'rolling':
+            if window is None: 
+                raise ValueError("Window size required for 'rolling'.")
+            start = max(0, i - window + 1)
+            ref_mean = df_densities.iloc[:, start : i+1].mean(axis=1)
+            
+        else:
+            raise ValueError(f"Unknown mean_mode: {mean_mode}")
+
+        # 2. Pointwise Multiplication
+        # This sharpens the density where both the observation and mean agree
+        transformed = df_densities[col] * ref_mean
+        
+        # 3. Normalization
+        if norm == 'area':
+            area = trapezoid(transformed, support)
+            # Avoid division by zero if densities are disjoint
+            df_result[col] = transformed / area if area > 0 else 0.0
+        else:
+            df_result[col] = transformed / norm
+
+    return df_result
