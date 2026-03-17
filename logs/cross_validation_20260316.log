@@ -6374,3 +6374,751 @@ Initiating cross validation...
 2026-03-16 22:12:39,910 | INFO | Progress: (1/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 1
 2026-03-16 22:13:24,782 | INFO | Progress: (2/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 2
 2026-03-16 22:14:09,907 | INFO | Progress: (3/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 3
+2026-03-16 22:14:53,815 | INFO | Progress: (4/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 4
+2026-03-16 22:15:38,111 | INFO | Progress: (5/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 1
+2026-03-16 22:16:22,939 | INFO | Progress: (6/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 2
+2026-03-16 22:17:07,619 | INFO | Progress: (7/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 3
+2026-03-16 22:17:51,684 | INFO | Progress: (8/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 4
+2026-03-16 22:18:36,138 | INFO | Progress: (9/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 1
+2026-03-16 22:19:20,426 | INFO | Progress: (10/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 2
+2026-03-16 22:20:03,780 | INFO | Progress: (11/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 3
+2026-03-16 22:20:47,449 | INFO | Progress: (12/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 4
+2026-03-16 22:21:30,800 | INFO | Progress: (13/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 1
+2026-03-16 22:22:14,250 | INFO | Progress: (14/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 2
+2026-03-16 22:22:57,917 | INFO | Progress: (15/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 3
+2026-03-16 22:23:43,540 | INFO | Progress: (16/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 4
+2026-03-16 22:24:27,286 | INFO | Progress: (17/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 1
+2026-03-16 22:25:11,194 | INFO | Progress: (18/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 2
+2026-03-16 22:25:54,694 | INFO | Progress: (19/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 3
+2026-03-16 22:26:38,336 | INFO | Progress: (20/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 4
+2026-03-16 22:27:22,053 | INFO | Progress: (21/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 1
+2026-03-16 22:28:27,144 | INFO | Progress: (22/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 2
+2026-03-16 22:29:31,336 | INFO | Progress: (23/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 3
+2026-03-16 22:30:35,441 | INFO | Progress: (24/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 4
+2026-03-16 22:31:40,041 | INFO | Progress: (25/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 3 | VAR(q): 1
+2026-03-16 22:32:44,712 | INFO | Progress: (26/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 3 | VAR(q): 2
+2026-03-16 22:33:49,237 | INFO | Progress: (27/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 3 | VAR(q): 3
+2026-03-16 22:34:53,836 | INFO | Progress: (28/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 3 | VAR(q): 4
+2026-03-16 22:35:58,491 | INFO | Progress: (29/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 4 | VAR(q): 1
+2026-03-16 22:37:03,170 | INFO | Progress: (30/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 4 | VAR(q): 2
+2026-03-16 22:38:07,797 | INFO | Progress: (31/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 4 | VAR(q): 3
+2026-03-16 22:39:12,518 | INFO | Progress: (32/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 4 | VAR(q): 4
+2026-03-16 22:40:16,991 | INFO | Progress: (33/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 5 | VAR(q): 1
+2026-03-16 22:41:21,776 | INFO | Progress: (34/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 5 | VAR(q): 2
+2026-03-16 22:42:26,441 | INFO | Progress: (35/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 5 | VAR(q): 3
+2026-03-16 22:43:31,070 | INFO | Progress: (36/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 5 | VAR(q): 4
+2026-03-16 22:44:35,796 | INFO | Progress: (37/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 6 | VAR(q): 1
+2026-03-16 22:45:40,553 | INFO | Progress: (38/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 6 | VAR(q): 2
+2026-03-16 22:46:45,212 | INFO | Progress: (39/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 6 | VAR(q): 3
+2026-03-16 22:47:49,814 | INFO | Progress: (40/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 6 | VAR(q): 4
+2026-03-16 22:48:54,556 | INFO | Progress: (41/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 2 | VAR(q): 1
+2026-03-16 22:49:52,075 | INFO | Progress: (42/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 2 | VAR(q): 2
+2026-03-16 22:50:49,804 | INFO | Progress: (43/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 2 | VAR(q): 3
+2026-03-16 22:51:46,722 | INFO | Progress: (44/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 2 | VAR(q): 4
+2026-03-16 22:52:43,790 | INFO | Progress: (45/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 3 | VAR(q): 1
+2026-03-16 22:53:41,193 | INFO | Progress: (46/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 3 | VAR(q): 2
+2026-03-16 22:54:38,099 | INFO | Progress: (47/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 3 | VAR(q): 3
+2026-03-16 22:55:36,656 | INFO | Progress: (48/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 3 | VAR(q): 4
+2026-03-16 22:56:33,889 | INFO | Progress: (49/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 4 | VAR(q): 1
+2026-03-16 22:57:31,518 | INFO | Progress: (50/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 4 | VAR(q): 2
+2026-03-16 22:58:28,622 | INFO | Progress: (51/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 4 | VAR(q): 3
+2026-03-16 22:59:25,633 | INFO | Progress: (52/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 4 | VAR(q): 4
+2026-03-16 23:00:22,481 | INFO | Progress: (53/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 5 | VAR(q): 1
+2026-03-16 23:01:19,017 | INFO | Progress: (54/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 5 | VAR(q): 2
+2026-03-16 23:02:15,289 | INFO | Progress: (55/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 5 | VAR(q): 3
+2026-03-16 23:03:11,655 | INFO | Progress: (56/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 5 | VAR(q): 4
+2026-03-16 23:04:08,340 | INFO | Progress: (57/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 6 | VAR(q): 1
+2026-03-16 23:05:07,398 | INFO | Progress: (58/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 6 | VAR(q): 2
+2026-03-16 23:06:06,237 | INFO | Progress: (59/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 6 | VAR(q): 3
+2026-03-16 23:07:02,954 | INFO | Progress: (60/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 6 | VAR(q): 4
+2026-03-16 23:07:59,807 | INFO | Progress: (61/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 2 | VAR(q): 1
+2026-03-16 23:07:59,836 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:07:59,838 | INFO | Progress: (62/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 2 | VAR(q): 2
+2026-03-16 23:07:59,867 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:07:59,868 | INFO | Progress: (63/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 2 | VAR(q): 3
+2026-03-16 23:07:59,898 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:07:59,898 | INFO | Progress: (64/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 2 | VAR(q): 4
+2026-03-16 23:07:59,929 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:07:59,930 | INFO | Progress: (65/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 3 | VAR(q): 1
+2026-03-16 23:07:59,959 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:07:59,959 | INFO | Progress: (66/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 3 | VAR(q): 2
+2026-03-16 23:07:59,987 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:07:59,987 | INFO | Progress: (67/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 3 | VAR(q): 3
+2026-03-16 23:08:00,016 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,016 | INFO | Progress: (68/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 3 | VAR(q): 4
+2026-03-16 23:08:00,045 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,046 | INFO | Progress: (69/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 4 | VAR(q): 1
+2026-03-16 23:08:00,074 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,074 | INFO | Progress: (70/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 4 | VAR(q): 2
+2026-03-16 23:08:00,103 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,104 | INFO | Progress: (71/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 4 | VAR(q): 3
+2026-03-16 23:08:00,132 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,132 | INFO | Progress: (72/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 4 | VAR(q): 4
+2026-03-16 23:08:00,161 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,161 | INFO | Progress: (73/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 5 | VAR(q): 1
+2026-03-16 23:08:00,189 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,189 | INFO | Progress: (74/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 5 | VAR(q): 2
+2026-03-16 23:08:00,217 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,217 | INFO | Progress: (75/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 5 | VAR(q): 3
+2026-03-16 23:08:00,245 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,245 | INFO | Progress: (76/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 5 | VAR(q): 4
+2026-03-16 23:08:00,273 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,274 | INFO | Progress: (77/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 6 | VAR(q): 1
+2026-03-16 23:08:00,302 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,302 | INFO | Progress: (78/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 6 | VAR(q): 2
+2026-03-16 23:08:00,330 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,330 | INFO | Progress: (79/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 6 | VAR(q): 3
+2026-03-16 23:08:00,359 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,360 | INFO | Progress: (80/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 6 | VAR(q): 4
+2026-03-16 23:08:00,388 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,514 | INFO | Progress: (81/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 2 | VAR(q): 1
+2026-03-16 23:08:00,542 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,542 | INFO | Progress: (82/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 2 | VAR(q): 2
+2026-03-16 23:08:00,571 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,571 | INFO | Progress: (83/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 2 | VAR(q): 3
+2026-03-16 23:08:00,599 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,599 | INFO | Progress: (84/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 2 | VAR(q): 4
+2026-03-16 23:08:00,627 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,627 | INFO | Progress: (85/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 3 | VAR(q): 1
+2026-03-16 23:08:00,655 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,655 | INFO | Progress: (86/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 3 | VAR(q): 2
+2026-03-16 23:08:00,683 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,683 | INFO | Progress: (87/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 3 | VAR(q): 3
+2026-03-16 23:08:00,711 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,712 | INFO | Progress: (88/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 3 | VAR(q): 4
+2026-03-16 23:08:00,739 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,739 | INFO | Progress: (89/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 4 | VAR(q): 1
+2026-03-16 23:08:00,767 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,767 | INFO | Progress: (90/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 4 | VAR(q): 2
+2026-03-16 23:08:00,795 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,795 | INFO | Progress: (91/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 4 | VAR(q): 3
+2026-03-16 23:08:00,823 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,823 | INFO | Progress: (92/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 4 | VAR(q): 4
+2026-03-16 23:08:00,850 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,851 | INFO | Progress: (93/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 5 | VAR(q): 1
+2026-03-16 23:08:00,879 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,879 | INFO | Progress: (94/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 5 | VAR(q): 2
+2026-03-16 23:08:00,908 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,909 | INFO | Progress: (95/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 5 | VAR(q): 3
+2026-03-16 23:08:00,938 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,938 | INFO | Progress: (96/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 5 | VAR(q): 4
+2026-03-16 23:08:00,966 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,966 | INFO | Progress: (97/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 6 | VAR(q): 1
+2026-03-16 23:08:00,994 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:00,994 | INFO | Progress: (98/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 6 | VAR(q): 2
+2026-03-16 23:08:01,022 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:01,023 | INFO | Progress: (99/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 6 | VAR(q): 3
+2026-03-16 23:08:01,051 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:01,051 | INFO | Progress: (100/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 6 | VAR(q): 4
+2026-03-16 23:08:01,079 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_47380/3937098953.py", line 55, in <module>
+    cv_measures = cv(
+                  ^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting.py", line 1061, in cv
+    KdFPC_model.fit(**KdFPC_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/dynamicFPC.py", line 204, in fit
+    eigvals, eigvecs = np.linalg.eig(Kstar)
+                       ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-16 23:08:01,730 | INFO | Progress: (101/1300) | KDE: gaussian_rot | PP: False | Dim: 2 | VAR(q): 1
+2026-03-16 23:08:48,027 | INFO | Progress: (102/1300) | KDE: gaussian_rot | PP: False | Dim: 2 | VAR(q): 2
+2026-03-16 23:09:35,389 | INFO | Progress: (103/1300) | KDE: gaussian_rot | PP: False | Dim: 2 | VAR(q): 3
+2026-03-16 23:10:19,987 | INFO | Progress: (104/1300) | KDE: gaussian_rot | PP: False | Dim: 2 | VAR(q): 4
+2026-03-16 23:11:05,189 | INFO | Progress: (105/1300) | KDE: gaussian_rot | PP: False | Dim: 3 | VAR(q): 1
+2026-03-16 23:11:50,516 | INFO | Progress: (106/1300) | KDE: gaussian_rot | PP: False | Dim: 3 | VAR(q): 2
+2026-03-16 23:12:35,286 | INFO | Progress: (107/1300) | KDE: gaussian_rot | PP: False | Dim: 3 | VAR(q): 3
+2026-03-16 23:13:20,087 | INFO | Progress: (108/1300) | KDE: gaussian_rot | PP: False | Dim: 3 | VAR(q): 4
+2026-03-16 23:14:04,642 | INFO | Progress: (109/1300) | KDE: gaussian_rot | PP: False | Dim: 4 | VAR(q): 1
+2026-03-16 23:14:50,309 | INFO | Progress: (110/1300) | KDE: gaussian_rot | PP: False | Dim: 4 | VAR(q): 2
+2026-03-16 23:15:35,570 | INFO | Progress: (111/1300) | KDE: gaussian_rot | PP: False | Dim: 4 | VAR(q): 3
+2026-03-16 23:16:20,765 | INFO | Progress: (112/1300) | KDE: gaussian_rot | PP: False | Dim: 4 | VAR(q): 4
+2026-03-16 23:17:06,807 | INFO | Progress: (113/1300) | KDE: gaussian_rot | PP: False | Dim: 5 | VAR(q): 1
+2026-03-16 23:17:51,090 | INFO | Progress: (114/1300) | KDE: gaussian_rot | PP: False | Dim: 5 | VAR(q): 2
+2026-03-16 23:18:35,417 | INFO | Progress: (115/1300) | KDE: gaussian_rot | PP: False | Dim: 5 | VAR(q): 3
+2026-03-16 23:19:19,946 | INFO | Progress: (116/1300) | KDE: gaussian_rot | PP: False | Dim: 5 | VAR(q): 4
+2026-03-16 23:20:05,117 | INFO | Progress: (117/1300) | KDE: gaussian_rot | PP: False | Dim: 6 | VAR(q): 1
+2026-03-16 23:20:49,566 | INFO | Progress: (118/1300) | KDE: gaussian_rot | PP: False | Dim: 6 | VAR(q): 2
+2026-03-16 23:21:33,460 | INFO | Progress: (119/1300) | KDE: gaussian_rot | PP: False | Dim: 6 | VAR(q): 3
+2026-03-16 23:22:17,540 | INFO | Progress: (120/1300) | KDE: gaussian_rot | PP: False | Dim: 6 | VAR(q): 4
+2026-03-16 23:23:02,123 | INFO | Progress: (121/1300) | KDE: gaussian_rot | PP: expanding | Dim: 2 | VAR(q): 1
+2026-03-16 23:23:58,114 | INFO | Progress: (122/1300) | KDE: gaussian_rot | PP: expanding | Dim: 2 | VAR(q): 2
+2026-03-16 23:24:54,116 | INFO | Progress: (123/1300) | KDE: gaussian_rot | PP: expanding | Dim: 2 | VAR(q): 3
+2026-03-16 23:25:49,422 | INFO | Progress: (124/1300) | KDE: gaussian_rot | PP: expanding | Dim: 2 | VAR(q): 4
+2026-03-16 23:26:44,910 | INFO | Progress: (125/1300) | KDE: gaussian_rot | PP: expanding | Dim: 3 | VAR(q): 1
+2026-03-16 23:27:39,974 | INFO | Progress: (126/1300) | KDE: gaussian_rot | PP: expanding | Dim: 3 | VAR(q): 2
+2026-03-16 23:28:35,127 | INFO | Progress: (127/1300) | KDE: gaussian_rot | PP: expanding | Dim: 3 | VAR(q): 3
+2026-03-16 23:29:30,530 | INFO | Progress: (128/1300) | KDE: gaussian_rot | PP: expanding | Dim: 3 | VAR(q): 4
+2026-03-16 23:30:26,895 | INFO | Progress: (129/1300) | KDE: gaussian_rot | PP: expanding | Dim: 4 | VAR(q): 1
+2026-03-16 23:31:22,218 | INFO | Progress: (130/1300) | KDE: gaussian_rot | PP: expanding | Dim: 4 | VAR(q): 2
+2026-03-16 23:32:18,162 | INFO | Progress: (131/1300) | KDE: gaussian_rot | PP: expanding | Dim: 4 | VAR(q): 3
+2026-03-16 23:33:19,393 | INFO | Progress: (132/1300) | KDE: gaussian_rot | PP: expanding | Dim: 4 | VAR(q): 4
+2026-03-16 23:34:18,027 | INFO | Progress: (133/1300) | KDE: gaussian_rot | PP: expanding | Dim: 5 | VAR(q): 1
+2026-03-16 23:35:15,469 | INFO | Progress: (134/1300) | KDE: gaussian_rot | PP: expanding | Dim: 5 | VAR(q): 2
+2026-03-16 23:36:13,103 | INFO | Progress: (135/1300) | KDE: gaussian_rot | PP: expanding | Dim: 5 | VAR(q): 3
+2026-03-16 23:37:12,168 | INFO | Progress: (136/1300) | KDE: gaussian_rot | PP: expanding | Dim: 5 | VAR(q): 4
+2026-03-16 23:38:09,010 | INFO | Progress: (137/1300) | KDE: gaussian_rot | PP: expanding | Dim: 6 | VAR(q): 1
+2026-03-16 23:39:05,459 | INFO | Progress: (138/1300) | KDE: gaussian_rot | PP: expanding | Dim: 6 | VAR(q): 2
+2026-03-16 23:40:02,037 | INFO | Progress: (139/1300) | KDE: gaussian_rot | PP: expanding | Dim: 6 | VAR(q): 3
+2026-03-16 23:40:59,965 | INFO | Progress: (140/1300) | KDE: gaussian_rot | PP: expanding | Dim: 6 | VAR(q): 4
+2026-03-16 23:41:59,331 | INFO | Progress: (141/1300) | KDE: gaussian_rot | PP: rolling_w5 | Dim: 2 | VAR(q): 1
+2026-03-16 23:42:38,565 | INFO | Progress: (142/1300) | KDE: gaussian_rot | PP: rolling_w5 | Dim: 2 | VAR(q): 2
+2026-03-16 23:43:17,931 | INFO | Progress: (143/1300) | KDE: gaussian_rot | PP: rolling_w5 | Dim: 2 | VAR(q): 3
+2026-03-16 23:43:56,739 | INFO | Progress: (144/1300) | KDE: gaussian_rot | PP: rolling_w5 | Dim: 2 | VAR(q): 4
+2026-03-16 23:44:35,942 | INFO | Progress: (145/1300) | KDE: gaussian_rot | PP: rolling_w5 | Dim: 3 | VAR(q): 1
+2026-03-16 23:45:14,557 | INFO | Progress: (146/1300) | KDE: gaussian_rot | PP: rolling_w5 | Dim: 3 | VAR(q): 2
+2026-03-16 23:45:53,548 | INFO | Progress: (147/1300) | KDE: gaussian_rot | PP: rolling_w5 | Dim: 3 | VAR(q): 3
+2026-03-16 23:46:34,156 | INFO | Progress: (148/1300) | KDE: gaussian_rot | PP: rolling_w5 | Dim: 3 | VAR(q): 4
+2026-03-16 23:47:13,252 | INFO | Progress: (149/1300) | KDE: gaussian_rot | PP: rolling_w5 | Dim: 4 | VAR(q): 1
+2026-03-16 23:47:51,725 | INFO | Progress: (150/1300) | KDE: gaussian_rot | PP: rolling_w5 | Dim: 4 | VAR(q): 2
+2026-03-16 23:48:30,831 | INFO | Progress: (151/1300) | KDE: gaussian_rot | PP: rolling_w5 | Dim: 4 | VAR(q): 3

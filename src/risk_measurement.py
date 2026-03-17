@@ -1,0 +1,491 @@
+import numpy as np
+import pandas as pd
+import statsmodels.formula.api as smf
+from scipy.integrate import simpson
+import matplotlib.pyplot as plt
+from statsmodels.nonparametric.kernel_regression import KernelReg
+from sklearn.preprocessing import PolynomialFeatures
+
+def simulate_rv_series(
+        n_days=1000, 
+        seed=42
+        ) -> pd.Series:
+    """
+    Simulates a Realized Volatility (RV) time series using a latent AR(1) Log-Volatility process.
+    
+    The simulation mimics the stylized facts of financial volatility, including high 
+    persistence, positivity, and occasional jumps. This provides a robust dataset for 
+    testing Median Regression and forecasting models in heavy-tailed scenarios.
+
+    Parameters
+    ----------
+    n_days : int, default 1000
+        The number of business days to simulate.
+    seed : int, default 42
+        The random seed for reproducibility of the Monte Carlo simulation.
+
+    Returns
+    -------
+    pd.Series
+        A pandas Series containing the simulated Realized Volatility levels, 
+        indexed by business day dates starting from 2020-01-01.
+
+    Notes
+    -----
+    The process is modeled as:
+        log(RV_t) = mu + phi * (log(RV_{t-1}) - mu) + epsilon_t + Jump_t
+    where epsilon_t ~ N(0, sigma_v) and Jump_t is a Bernoulli-driven outlier.
+    """
+    np.random.seed(seed)
+    
+    # Parameters for the Log-RV process
+    # Financial RV is highly persistent (phi close to 1)
+    phi = 0.95 
+    mu = -9.0    # Long-run mean of log-volatility
+    sigma_v = 0.2 # Volatility of volatility (vov)
+    
+    log_rv = np.zeros(n_days)
+    log_rv[0] = mu
+    
+    # Generate the AR(1) process in log-space
+    for t in range(1, n_days):
+        # We add some occasional "jumps" (heavy tails) using a t-distribution 
+        # or Bernoulli-Gaussian to make Median Regression relevant
+        jump = 2.0 if np.random.rand() > 0.98 else 0.0
+        
+        log_rv[t] = mu + phi * (log_rv[t-1] - mu) + np.random.normal(0, sigma_v) + jump
+
+    # Convert back to levels (Exponential)
+    rv_series = np.exp(log_rv)
+    
+    # Create a time index (Business days)
+    dates = pd.date_range(start='2020-01-01', periods=n_days, freq='B')
+    
+    y = pd.Series(rv_series, index=dates, name='Realized_Volatility')
+
+    return y
+
+
+def prepare_har_data(rv_series):
+    """
+    Constructs the feature matrix for the Heterogeneous Autoregressive (HAR) model.
+    
+    This function transforms a daily Realized Volatility (RV) series into a 
+    multi-component dataset representing the daily, weekly (5-day), and 
+    monthly (22-day) average volatility components, as proposed by Corsi (2009).
+
+    Parameters
+    ----------
+    rv_series : pd.Series
+        A time series of daily realized volatility levels.
+
+    Returns
+    -------
+    pd.DataFrame
+        A DataFrame containing the lagged components ('RV_d', 'RV_w', 'RV_m') 
+        and the lead target variable ('Target'), with NaNs removed.
+
+    Notes
+    -----
+    The HAR model assumes that agents with different time horizons (speculators, 
+    institutional investors, and central banks) perceive and react to 
+    volatility differently, leading to the cascaded structure of the components.
+    """
+    df = pd.DataFrame({'RV_d': rv_series})
+    # Create the weekly (5-day) and monthly (22-day) averages
+    df['RV_w'] = df['RV_d'].rolling(window=5).mean()
+    df['RV_m'] = df['RV_d'].rolling(window=22).mean()
+    
+    # Target is the next day's RV
+    df['Target'] = df['RV_d'].shift(-1)
+    return df.dropna()
+
+def forecast_strategy_ben1(train_df, next_day_features):
+    """
+    Implements Strategy Ben1: Log-HAR model with Median Regression.
+    
+    train_df: DataFrame containing 'Target', 'RV_d', 'RV_w', 'RV_m'
+    next_day_features: Series/Dict containing the RV components for the forecast date n
+    """
+    
+    # 1. Fit the Log-HAR using Quantile Regression (q=0.5 is Median)
+    # Using np.log directly in the formula string
+    formula = 'np.log(Target) ~ np.log(RV_d) + np.log(RV_w) + np.log(RV_m)'
+    model = smf.quantreg(formula, data=train_df)
+    res = model.fit(q=0.5)
+    
+    # 2. Extract coefficients (ahat_0, ahat_1, ahat_2, ahat_3)
+    intercept = res.params['Intercept']
+    a1 = res.params['np.log(RV_d)']
+    a2 = res.params['np.log(RV_w)']
+    a3 = res.params['np.log(RV_m)']
+    
+    # 3. Calculate the forecast for n + 1 (Equation 22)
+    # log_forecast = a0 + a1*log(RV_d_n) + a2*log(RV_w_n) + a3*log(RV_m_n)
+    log_pred = (intercept + 
+                a1 * np.log(next_day_features['RV_d']) + 
+                a2 * np.log(next_day_features['RV_w']) + 
+                a3 * np.log(next_day_features['RV_m']))
+    
+    # 4. Transform back to original scale
+    forecast_n_plus_1 = np.exp(log_pred)
+    
+    return forecast_n_plus_1
+
+
+def forecast_har_strategy(
+        rv_series, 
+        h=1, 
+        train_size=0.8,
+        plot = True
+        ):
+    """
+    Constructs HAR components, splits data, and forecasts using Median Regression.
+    
+    Parameters:
+    - rv_series: pd.Series of Realized Volatility
+    - h: Forecast horizon (days ahead)
+    - train_size: Fraction of data for initial training
+    """
+    df = rv_series.to_frame(name='Target')
+    
+    # 1. Create HAR components (daily, weekly, monthly averages)
+    df['RV_d'] = df['Target'].shift(h)
+    df['RV_w'] = df['Target'].shift(h).rolling(window=5).mean()
+    df['RV_m'] = df['Target'].shift(h).rolling(window=22).mean()
+    
+    # Drop rows where we don't have enough history for the monthly component
+    df = df.dropna()
+    
+    # 2. Split indices
+    n = len(df)
+    split_idx = int(n * train_size)
+    
+    actuals = []
+    forecasts = []
+    dates = []
+
+    # 3. Expanding Window Walk-Forward
+    # We iterate through the 'test' portion of the data
+    for i in range(split_idx, n):
+        train_sub = df.iloc[:i]
+        test_row = df.iloc[i]
+        
+        # Fit Strategy Ben1 (Median Regression on Logs)
+        # Note: np.log() is applied within the formula
+        res = smf.quantreg('np.log(Target) ~ np.log(RV_d) + np.log(RV_w) + np.log(RV_m)', 
+                           data=train_sub).fit(q=0.5)
+        
+        # Forecast for date n+h using Equation 22 logic
+        # Predict uses the features available at the current index i
+        log_pred = res.predict(test_row[['RV_d', 'RV_w', 'RV_m']])
+        pred = np.exp(log_pred.values[0])
+        
+        forecasts.append(pred)
+        actuals.append(test_row['Target'])
+        dates.append(df.index[i])
+
+    # 4. Results and Plotting
+    results = pd.DataFrame({'Actual': actuals, 'Forecast': forecasts}, index=dates)
+    
+    if plot:
+        plt.figure(figsize=(12, 6))
+        plt.plot(results['Actual'], label='Actual RV', alpha=0.6, color='gray')
+        plt.plot(results['Forecast'], label=f'HAR-Median Forecast (h={h})', color='red', linestyle='--')
+        plt.title(f'Strategy Ben1: Realized Volatility Forecasting (h={h})')
+        plt.legend()
+        plt.yscale('log') # Log scale is often better for visualizing volatility
+        plt.show()
+    
+    return results
+
+class Ben1Model:
+    """
+    Implements a Log-HAR model estimated via Median Regression (q=0.5).
+    
+    This class handles the transformation of daily realized volatility into 
+        daily, weekly, and monthly components and provides a one-step-ahead 
+        forecast using a robust median-based estimator.
+
+    Examples
+    --------
+    >>> import pandas as pd
+    >>> import numpy as np
+    >>> # Simulate some RV data
+    >>> dates = pd.date_range('2026-01-01', periods=50, freq='B')
+    >>> rv_data = pd.Series(np.random.lognormal(-9, 0.2, 50), index=dates)
+    >>> 
+    >>> # Initialize and fit the model
+    >>> forecaster = HARMedianForecaster()
+    >>> forecaster.fit(rv_data)
+    >>> 
+    >>> # Forecast the next day using the tail of the history
+    >>> next_rv = forecaster.predict(rv_history=rv_data)
+    >>> print(f"Forecasted RV: {next_rv:.6f}")
+    """
+
+    def __init__(self):
+        self.model_fitted = None
+        self.formula = 'np.log(Target) ~ np.log(RV_d) + np.log(RV_w) + np.log(RV_m)'
+
+    def prepare_har_data(self, rv_series):
+        """
+        Transforms a daily RV series into the HAR component structure.
+        """
+        df = pd.DataFrame({'RV_d': rv_series})
+        df['RV_w'] = df['RV_d'].rolling(window=5).mean()
+        df['RV_m'] = df['RV_d'].rolling(window=22).mean()
+        df['Target'] = df['RV_d'].shift(-1)
+        return df.dropna()
+
+    def fit(self, rv_series):
+        """
+        Prepares the data and estimates the HAR coefficients.
+        
+        Parameters
+        ----------
+        rv_series : pd.Series
+            The historical realized volatility levels used for training.
+        """
+        train_df = self.prepare_har_data(rv_series)
+        model = smf.quantreg(self.formula, data=train_df)
+        self.model_fitted = model.fit(q=0.5)
+
+    def predict(self, rv_history=None, next_day_features=None):
+        """
+        Generates a one-step-ahead forecast for RV_{n+1}.
+
+        Parameters
+        ----------
+        rv_history : pd.Series, optional
+            A series of past RV values. If provided, the function will 
+            extract the most recent day, week, and month averages.
+        next_day_features : dict or pd.Series, optional
+            Pre-computed HAR components. Used if rv_history is not provided.
+        """
+        if self.model_fitted is None:
+            raise ValueError("Model must be fitted before calling predict.")
+
+        # Logic to determine feature source
+        if next_day_features is None:
+            if rv_history is None:
+                raise ValueError("Must provide either 'rv_history' or 'next_day_features'.")
+            
+            # Use the tail of the history to compute current HAR components (at time n)
+            next_day_features = {
+                'RV_d': rv_history.iloc[-1],
+                'RV_w': rv_history.iloc[-5:].mean(),
+                'RV_m': rv_history.iloc[-22:].mean()
+            }
+
+        params = self.model_fitted.params
+        log_pred = (params['Intercept'] + 
+                    params['np.log(RV_d)'] * np.log(next_day_features['RV_d']) + 
+                    params['np.log(RV_w)'] * np.log(next_day_features['RV_w']) + 
+                    params['np.log(RV_m)'] * np.log(next_day_features['RV_m']))
+
+        return np.exp(log_pred)
+    
+
+############################################################################################
+###################################### FcstV1 ##############################################
+############################################################################################
+
+def _calculate_density_mean(
+        u_grid: np.array, 
+        density: np.array
+        ) -> float:
+    """
+    Calculates the first raw moment: mu = integral(u * f(u) du)
+    """
+    mean = simpson(y=u_grid * density, x=u_grid)
+
+    return mean
+
+def _calculate_density_variance(
+        u_grid: np.array, 
+        density: np.array
+        ) -> float:
+    """
+    Calculates the second central moment: Var = integral((u - mu)^2 * f(u) du)
+    """
+    mu = _calculate_density_mean(u_grid, density)
+    
+    # Calculate (u - mu)^2
+    squared_deviation = (u_grid - mu)**2
+    
+    # Integrate squared deviation weighted by the density
+    variance = simpson(y=squared_deviation * density, x=u_grid)
+    
+    return variance
+
+def calculate_volatility_forecast(
+        variance : float, 
+        n_next : int
+        ) -> float:
+    """
+    Implements one-step ahead variance forecast
+        sigma^2_{n+1|n} = n_{n+1} * Var(f_{n+1|n})
+    where n_{n+1} is the (scalar) sample size for day d+1.
+    """
+    variance_t_next = n_next * variance
+
+    return variance_t_next
+
+    import numpy as np
+from scipy.integrate import simpson
+
+class Fcst1VModel:
+    """
+    Implements the FcstV1 volatility forecasting model based on density moments.
+    
+    This model maps a forecasted functional density curve back to a scalar 
+    volatility estimate by scaling the density's variance by the 
+    intraday sample size.
+    """
+    
+    def __init__(self, u_grid):
+        """
+        Parameters
+        ----------
+        u_grid : np.array
+            The common grid of evaluation points (e.g., log-returns) 
+            used for the functional data.
+        """
+        self.u_grid = u_grid
+
+    def forecast(self, forecasted_density, n_observations):
+        """
+        Generates the scalar volatility forecast.
+
+        Parameters
+        ----------
+        forecasted_density : np.array
+            The 1D forecasted density curve (e.g., from FPCA or KDE).
+        n_observations : int
+            The number of intraday observations (n_{n+1}) for the target day.
+
+        Returns
+        -------
+        float
+            The forecasted realized volatility (sigma^2).
+        """
+        # Extract the variance of the forecasted density
+        f_var = _calculate_density_variance(forecasted_density)
+        
+        # Apply the scaling factor
+        sigma_sq_hat = n_observations * f_var
+        
+        return sigma_sq_hat
+
+class Fcst2VForecaster:
+    """
+    Implements Strategies Fcst2V and Fcst2H using Non-parametric Kernel Regression.
+    
+    This model estimates the relationship log(sigma^2) = m(eta) + epsilon 
+    using a Nadaraya-Watson or Local Linear estimator.
+    """
+
+    def __init__(self, reg_type='lc', bw='cv_ls'):
+        """
+        Parameters
+        ----------
+        reg_type : str, default 'lc'
+            Type of regression: 'lc' for Local Constant (Nadaraya-Watson) 
+            or 'll' for Local Linear.
+        bw : str or array_like, default 'cv_ls'
+            Bandwidth selection method. 'cv_ls' uses least-squares cross-validation.
+        """
+        self.reg_type = reg_type
+        self.bw = bw
+        self.model = None
+
+    def fit(self, eta_train, rv_train):
+        """
+        Fits the non-parametric regression m(eta).
+
+        Parameters
+        ----------
+        eta_train : np.array or pd.DataFrame
+            The predictors derived from functional objects (e.g., FPC scores).
+        rv_train : np.array or pd.Series
+            The observed realized volatility levels.
+        """
+        # We model the LOG of RV to match the dissertation equation
+        log_rv = np.log(rv_train)
+        
+        # Initialize KernelReg. 
+        # 'c' indicates the predictors are continuous. 
+        # For multiple predictors, use 'ccc' for three continuous variables.
+        var_types = 'c' * (eta_train.ndim if eta_train.ndim > 1 else 1)
+        
+        self.model = KernelReg(endog=log_rv, exog=eta_train, 
+                               var_type=var_types, reg_type=self.reg_type, 
+                               bw=self.bw)
+
+    def forecast(self, eta_next):
+        """
+        Generates the one-step-ahead forecast using the exponential of the 
+        non-parametric estimate.
+        """
+        if self.model is None:
+            raise ValueError("Model must be fitted before forecasting.")
+
+        # 1. Obtain the non-parametric estimate m_hat(eta_next)
+        # Returns (mean_estimate, marginal_effects)
+        m_hat_log, _ = self.model.fit(eta_next)
+        
+        # 2. Apply the exponential transformation to return to sigma^2 levels
+        return np.exp(m_hat_log)
+    
+class Fcst3VForecaster:
+    """
+    Implements Strategies Fcst3V and Fcst3H.
+    
+    Estimates log(sigma^2) = m(eta) + error, where m is a second-degree 
+    polynomial on eta, estimated via Median Regression (q=0.5).
+    """
+
+    def __init__(self, degree=2):
+        self.degree = degree
+        self.poly = PolynomialFeatures(degree=self.degree, include_bias=False)
+        self.model_fitted = None
+
+    def _prepare_features(self, eta):
+        """Generates polynomial terms: [eta1, eta2, eta1^2, eta1*eta2, eta2^2]"""
+        eta_poly = self.poly.fit_transform(eta)
+        feature_names = [f'feat_{i}' for i in range(eta_poly.shape[1])]
+        return pd.DataFrame(eta_poly, columns=feature_names)
+
+    def fit(self, eta_train, rv_train):
+        """
+        Fits the polynomial median regression.
+        """
+        # 1. Prepare polynomial predictors
+        X = self._prepare_features(eta_train)
+        
+        # 2. Prepare target: log(sigma_t^2)
+        X['log_target'] = np.log(rv_train)
+        
+        # 3. Construct formula: log_target ~ feat_0 + feat_1 + ...
+        formula = "log_target ~ " + " + ".join(X.columns[:-1])
+        
+        # 4. Fit Median Regression (Quantile Regression at q=0.5)
+        model = smf.quantreg(formula, data=X)
+        self.model_fitted = model.fit(q=0.5)
+
+    def forecast(self, eta_next):
+        """
+        Generates the forecast using the exponential of the polynomial estimate.
+        """
+        if self.model_fitted is None:
+            raise ValueError("Model must be fitted before forecasting.")
+
+        # 1. Transform next-day features to polynomial space
+        X_next = self._prepare_features(eta_next)
+        
+        # 2. Get prediction in log-space
+        log_pred = self.model_fitted.predict(X_next)
+        
+        # 3. Final forecast: exp(m_hat)
+        return np.exp(log_pred.iloc[0])
