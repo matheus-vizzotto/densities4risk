@@ -724,3 +724,16 @@ def weigh_norm_densities(
             df_result[col] = transformed / norm
 
     return df_result
+
+
+def integrates_one(
+        u_grid:  np.array,
+        density: np.array,
+        tol:     float = 1e-4
+    ) -> bool:
+    from scipy.integrate import simpson
+
+    integral = simpson(y=density, x=u_grid)
+    is_normalized = np.isclose(integral, 1.0, atol=tol)
+    
+    return is_normalized

@@ -332,51 +332,70 @@ def calculate_volatility_forecast(
 
     return variance_t_next
 
-    import numpy as np
 from scipy.integrate import simpson
 
-class Fcst1VModel:
-    """
-    Implements the FcstV1 volatility forecasting model based on density moments.
+# class Fcst1VModel:
+#     """
+#     Implements the FcstV1 volatility forecasting model based on density moments.
     
-    This model maps a forecasted functional density curve back to a scalar 
-    volatility estimate by scaling the density's variance by the 
-    intraday sample size.
-    """
+#     This model maps a forecasted functional density curve back to a scalar 
+#     volatility estimate by scaling the density's variance by the 
+#     intraday sample size.
+#     """
     
-    def __init__(self, u_grid):
-        """
-        Parameters
-        ----------
-        u_grid : np.array
-            The common grid of evaluation points (e.g., log-returns) 
-            used for the functional data.
-        """
-        self.u_grid = u_grid
+#     def __init__(self):
+#         """
+#         Parameters
+#         ----------
 
-    def forecast(self, forecasted_density, n_observations):
-        """
-        Generates the scalar volatility forecast.
+#         """
+#         self.u_grid = None
 
-        Parameters
-        ----------
-        forecasted_density : np.array
-            The 1D forecasted density curve (e.g., from FPCA or KDE).
-        n_observations : int
-            The number of intraday observations (n_{n+1}) for the target day.
+#     def forecast(self, forecasted_density, n_observations):
+#         """
+#         Generates the scalar volatility forecast.
 
-        Returns
-        -------
-        float
-            The forecasted realized volatility (sigma^2).
-        """
-        # Extract the variance of the forecasted density
-        f_var = _calculate_density_variance(forecasted_density)
+#         Parameters
+#         ----------
+#         forecasted_density : np.array
+#             The 1D forecasted density curve (e.g., from FPCA or KDE).
+#         n_observations : int
+#             The number of intraday observations (n_{n+1}) for the target day.
+#         u_grid : np.array
+#             The common grid of evaluation points (e.g., log-returns) 
+#             used for the functional data.
+
+#         Returns
+#         -------
+#         float
+#             The forecasted realized volatility (sigma^2).
+#         """
+#         # Extract the variance of the forecasted density
+#         f_var = _calculate_density_variance(forecasted_density)
         
-        # Apply the scaling factor
-        sigma_sq_hat = n_observations * f_var
+#         # Apply the scaling factor
+#         sigma_sq_hat = n_observations * f_var
         
-        return sigma_sq_hat
+#         return sigma_sq_hat
+    
+def Fcst1VModel(
+        u_grid: np.array, 
+        forecasted_density: pd.Series, 
+        n_observations: int
+        ) -> float:
+    """
+    Maps a forecasted functional density curve to a scalar volatility estimate.
+    """
+    f_var = _calculate_density_variance(
+                            u_grid=u_grid, 
+                            density=forecasted_density
+                            )
+    rv_tp1 = n_observations * f_var # realized volatility forecast at t+1
+
+    return rv_tp1
+
+import numpy as np
+from statsmodels.nonparametric.kernel_regression import KernelReg
 
 class Fcst2VForecaster:
     """
@@ -411,32 +430,65 @@ class Fcst2VForecaster:
         rv_train : np.array or pd.Series
             The observed realized volatility levels.
         """
+        eta_train = np.asarray(eta_train)
+        rv_train = np.asarray(rv_train)
+
+        # Ensure 2D shape for exog (KernelReg requirement)
+        if eta_train.ndim == 1:
+            eta_train = eta_train.reshape(-1, 1)
+
         # We model the LOG of RV to match the dissertation equation
-        log_rv = np.log(rv_train)
+        # Add epsilon for numerical stability (avoid log(0))
+        eps = 1e-10
+        log_rv = np.log(rv_train + eps)
         
         # Initialize KernelReg. 
         # 'c' indicates the predictors are continuous. 
         # For multiple predictors, use 'ccc' for three continuous variables.
-        var_types = 'c' * (eta_train.ndim if eta_train.ndim > 1 else 1)
+        var_types = 'c' * eta_train.shape[1]
         
-        self.model = KernelReg(endog=log_rv, exog=eta_train, 
-                               var_type=var_types, reg_type=self.reg_type, 
-                               bw=self.bw)
+        self.model = KernelReg(
+            endog=log_rv,
+            exog=eta_train, 
+            var_type=var_types, 
+            reg_type=self.reg_type, 
+            bw=self.bw
+        )
 
     def forecast(self, eta_next):
         """
         Generates the one-step-ahead forecast using the exponential of the 
         non-parametric estimate.
+
+        Example
+        -------
+        >>> # Simulated training data
+        >>> eta_train = np.random.randn(100, 2)  # 2-dimensional scores
+        >>> rv_train = np.exp(np.random.randn(100))  # positive RV values
+        >>>
+        >>> model = Fcst2VForecaster(reg_type='lc', bw='cv_ls')
+        >>> model.fit(eta_train, rv_train)
+        >>>
+        >>> # Forecast using a new eta vector
+        >>> eta_next = np.array([0.1, -0.2])
+        >>> forecast = model.forecast(eta_next)
+        >>> print(forecast)
         """
         if self.model is None:
             raise ValueError("Model must be fitted before forecasting.")
+
+        eta_next = np.asarray(eta_next)
+
+        # Ensure correct shape (1, d)
+        if eta_next.ndim == 1:
+            eta_next = eta_next.reshape(1, -1)
 
         # 1. Obtain the non-parametric estimate m_hat(eta_next)
         # Returns (mean_estimate, marginal_effects)
         m_hat_log, _ = self.model.fit(eta_next)
         
         # 2. Apply the exponential transformation to return to sigma^2 levels
-        return np.exp(m_hat_log)
+        return float(np.exp(m_hat_log[0]))
     
 class Fcst3VForecaster:
     """
