@@ -502,25 +502,43 @@ class Fcst3VForecaster:
         self.degree = degree
         self.poly = PolynomialFeatures(degree=self.degree, include_bias=False)
         self.model_fitted = None
+        self.feature_names_ = None
 
-    def _prepare_features(self, eta):
-        """Generates polynomial terms: [eta1, eta2, eta1^2, eta1*eta2, eta2^2]"""
-        eta_poly = self.poly.fit_transform(eta)
-        feature_names = [f'feat_{i}' for i in range(eta_poly.shape[1])]
-        return pd.DataFrame(eta_poly, columns=feature_names)
+    def _prepare_features(self, eta, fit=False):
+        """
+        Generates polynomial terms: [eta1, eta2, eta1^2, eta1*eta2, eta2^2]
+        """
+        eta = np.asarray(eta)
+
+        # Ensure 2D shape
+        if eta.ndim == 1:
+            eta = eta.reshape(1, -1)
+
+        if fit:
+            eta_poly = self.poly.fit_transform(eta)
+            self.feature_names_ = [f'feat_{i}' for i in range(eta_poly.shape[1])]
+        else:
+            eta_poly = self.poly.transform(eta)
+
+        return pd.DataFrame(eta_poly, columns=self.feature_names_)
 
     def fit(self, eta_train, rv_train):
         """
         Fits the polynomial median regression.
         """
+        eta_train = np.asarray(eta_train)
+        rv_train = np.asarray(rv_train)
+
         # 1. Prepare polynomial predictors
-        X = self._prepare_features(eta_train)
+        X = self._prepare_features(eta_train, fit=True)
         
         # 2. Prepare target: log(sigma_t^2)
-        X['log_target'] = np.log(rv_train)
+        # Add epsilon for numerical stability
+        eps = 1e-10
+        X['log_target'] = np.log(rv_train + eps)
         
         # 3. Construct formula: log_target ~ feat_0 + feat_1 + ...
-        formula = "log_target ~ " + " + ".join(X.columns[:-1])
+        formula = "log_target ~ " + " + ".join(self.feature_names_)
         
         # 4. Fit Median Regression (Quantile Regression at q=0.5)
         model = smf.quantreg(formula, data=X)
@@ -529,15 +547,67 @@ class Fcst3VForecaster:
     def forecast(self, eta_next):
         """
         Generates the forecast using the exponential of the polynomial estimate.
+
+        Parameters
+        ----------
+        eta_next : np.array
+            The next-period predictor vector (e.g., forecasted FPC scores),
+            of shape (d,) or (1, d).
+
+        Returns
+        -------
+        float
+            The one-step-ahead forecast of sigma^2.
+
+        Example
+        -------
+        >>> eta_train = np.random.randn(100, 2)
+        >>> rv_train = np.exp(np.random.randn(100))
+        >>>
+        >>> model = Fcst3VForecaster(degree=2)
+        >>> model.fit(eta_train, rv_train)
+        >>>
+        >>> eta_next = np.array([0.1, -0.2])
+        >>> forecast = model.forecast(eta_next)
+        >>> print(forecast)
         """
         if self.model_fitted is None:
             raise ValueError("Model must be fitted before forecasting.")
 
         # 1. Transform next-day features to polynomial space
-        X_next = self._prepare_features(eta_next)
+        X_next = self._prepare_features(eta_next, fit=False)
         
         # 2. Get prediction in log-space
         log_pred = self.model_fitted.predict(X_next)
         
         # 3. Final forecast: exp(m_hat)
-        return np.exp(log_pred.iloc[0])
+        return float(np.exp(log_pred.iloc[0]))
+
+
+def qlike_loss(rv, sigma2_hat, eps=1e-10):
+    """
+    Computes QLIKE loss.
+
+    Parameters
+    ----------
+    rv : array-like
+        Realized variance
+    sigma2_hat : array-like
+        Forecasted variance
+    eps : float
+        Small constant for numerical stability
+
+    Returns
+    -------
+    np.ndarray
+        QLIKE loss values
+    """
+    rv = np.asarray(rv)
+    sigma2_hat = np.asarray(sigma2_hat)
+
+    ratio = (rv + eps) / (sigma2_hat + eps)
+    return ratio - np.log(ratio) - 1
+
+
+def mse(x, y):
+    return np.mean(np.square(x-y))
