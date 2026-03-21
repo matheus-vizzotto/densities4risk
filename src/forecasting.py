@@ -15,7 +15,7 @@ from src.transformations import (
                             mLQDT,
                             obtain_densities_from_lqd
                             )
-from src.dynamicFPC import K_dFPC
+from src.dynamicFPC import K_dFPC, K_dFPC_HZ
 from scipy.stats import norm
 
 def adf_test(x):
@@ -1651,7 +1651,7 @@ class DensityForecaster:
 
     def predict(self, horizon, var_lags=None):
         # 1. Forecast Scores
-        k_scores = self.model_kdfpc.etahat.real.T
+        k_scores = self.model_kdfpc.etahat.values.real
         k_etahat_fc = run_forecaster(
             k_scores, self.maxlags, self.criteria, horizon, selected_nlags=var_lags
         )
@@ -1672,9 +1672,64 @@ class DensityForecaster:
                                     )
         
         return {
-                "future_eigenvalues": k_etahat_fc,
+                "future_scores": k_etahat_fc,
                 "future_cs": c_forecast,
                 "future_supports": df_supports,
-                "futue_densities": df_densities
+                "future_densities": df_densities
         }
-    
+
+class DensityForecaster_HZ:
+    """
+    A pipeline for forecasting functional curves using K_dFPC_HZ.
+    Matches the DensityForecaster blueprint.
+    """
+    def __init__(self, kdfpc_kwargs=None, maxlags=10, criteria='AIC'):
+        self.kdfpc_kwargs = kdfpc_kwargs or {}
+        self.maxlags = maxlags
+        self.criteria = criteria
+        
+        self.model_kdfpc = None
+        self.u = None
+        self.du = None
+
+    def fit(self, Y_train, df_support):
+        # 1. Prepare Support
+        self.u = df_support.iloc[:, 0]
+        self.du = self.u[1] - self.u[0]
+        
+        # 2. Update model parameters
+        self.kdfpc_kwargs.update({
+            "u": self.u,
+            "du": self.du
+        })
+        
+        # 3. Fit K_dFPC_HZ
+        self.model_kdfpc = K_dFPC_HZ(Y_train.values)
+        self.model_kdfpc.fit(**self.kdfpc_kwargs)
+        
+        return self
+
+    def predict(self, horizon, var_lags=2):
+        """
+        Generate future curve forecasts. 
+        Matches blueprint signature: predict(horizon, var_lags)
+        """
+        # 1. Forecast Scores (etahat)
+        k_etahat_fc = run_forecaster(
+            self.model_kdfpc.etahat, 
+            maxlags_=self.maxlags, 
+            criteria_=self.criteria, 
+            h_=horizon, 
+            selected_nlags=var_lags
+        )
+        
+        # 2. Reconstruct curves from forecasted scores
+        k_curve_forecast = self.model_kdfpc.predict(k_etahat_fc)
+        
+        # 3. Return a dictionary similar to the blueprint
+        # We return the raw reconstruction; alignment happens outside
+        return {
+            "future_scores": k_etahat_fc,
+            "future_curves": pd.DataFrame(k_curve_forecast),
+            "support": self.u
+        }

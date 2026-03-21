@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 import pywt
 from typing import Tuple
@@ -281,6 +282,7 @@ class K_dFPC:
             psihat[:, i] = psihat_root[:, i] / L2norm(psihat_root[:, i], du)
 
         etahat = inner_product(psihat, Ydev, du)
+
         Yhat = Ybar + np.dot(psihat, etahat)
         epsilonhat = Y - Yhat
 
@@ -288,14 +290,14 @@ class K_dFPC:
         self.Ybar = Ybar
         self.thetahat = thetahat
         self.gammahat = gammahat
-        self.psihat = psihat
-        self.etahat = etahat
+        self.psihat = pd.DataFrame(psihat, columns=[f"basis_{i}" for i in range(1,d0+1)])
+        self.etahat = pd.DataFrame(etahat.T, columns=[f"scores_{i}" for i in range(1,d0+1)])
         self.Yhat = Yhat
         self.epsilonhat = epsilonhat
         self.d0 = d0
 
         # Prediction storage (Ybar + ψ * η_pred_)
-        self.fitted_values = self.Ybar + self.psihat @ self.etahat
+        self.fitted_values = Ybar + psihat @ etahat
 
         return self
 
@@ -1018,3 +1020,108 @@ def super_fun(Y, lag_max, B, alpha, du, p, m, u,
         "u": u,
         "d0": d0
     }
+
+class K_dFPC_HZ:
+    """
+    Implements the estimation of a KLE-based dynamic factor model
+    for functional time series Y(u, t), with density normalization.
+
+    This class takes as input a matrix Y of shape (m, T), where:
+        m = number of grid points
+        T = number of time points (curves)
+
+    After calling `.fit(...)`, the class computes and stores:
+        - Ybar          : mean curve
+        - psihat        : estimated spatial basis functions
+        - etahat        : temporal score series
+        - thetahat      : eigenvalues
+        - gammahat      : eigenvectors of the K* operator
+        - Yhat          : fitted reconstruction (raw)
+        - Yhat_fix      : fitted reconstruction (normalized/positive)
+        - epsilonhat    : residual curves
+        - d0            : selected dimension
+
+    Methods
+    -------
+    fit(...)
+        Fit the dynamic KLE model with density correction.
+
+    predict(etahat_values)
+        Reconstruct curves from arbitrary scores.
+    
+    Example
+    -------
+    model = K_dFPC_Density(Y)
+    model.fit(p=5, u=u_grid, du=0.05, dimension=10)
+    """
+
+    def __init__(self, Y):
+        """
+        Initialize the model with data.
+
+        Parameters
+        ----------
+        Y : ndarray (m, T)
+            Functional time series sample evaluated on an m-point grid.
+        """
+        self.Y = Y
+        self.m, self.T = Y.shape
+
+        # Filled after fit()
+        self.Ybar = None
+        self.thetahat = None
+        self.gammahat = None
+        self.psihat = None
+        self.etahat = None
+        self.Yhat = None
+        self.Yhat_fix = None
+        self.epsilonhat = None
+        self.d0 = None
+        self.u = None
+
+    # ------------------------------------------------------------
+
+    # def fit(self, p, u, du=0.05, lag_max=5, B=1000, alpha=0.05, 
+    #         select_ncomp=False, dimension=None):
+    def fit(self, **kwargs):
+        """
+        Fit the dynamic KLE model by passing arguments to super_fun.
+        
+        Parameters
+        ----------
+        **kwargs : 
+            Arguments like lag_max, B, alpha, du, p, u, select_ncomp, dimension.
+        """
+        # Check for bootstrap selection early as per super_fun logic
+        if kwargs.get('select_ncomp', False):
+            raise NotImplementedError("Bootstrap selection removed as requested.")
+
+        # Call the standalone function using the unpacked dictionary
+        # We include m=self.m automatically since it's stored in the class
+        sp = super_fun(
+            Y=self.Y,
+            m=self.m,
+            **kwargs
+        )
+
+        # Store results directly from the returned dictionary
+        self.Ybar        = sp["Ybar"]
+        self.thetahat    = sp["thetahat"]
+        self.gammahat    = sp["gammahat"]
+        self.d0          = sp["d0"]
+        self.psihat      = pd.DataFrame(sp["psihat"], columns=[f"basis_{i}" for i in range(1,self.d0+1)])
+        self.etahat      = pd.DataFrame(sp["etahat"].T, columns=[f"scores_{i}" for i in range(1,self.d0+1)])
+        self.Yhat        = sp["Yhat"]
+        self.Yhat_fix    = sp["Yhat_fix"]
+        self.epsilonhat  = sp["epsilonhat"]
+        self.u           = sp["u"]
+
+        return self
+
+    # ------------------------------------------------------------
+
+    def predict(self, etahat_values):
+        """
+        Reconstruct curves from arbitrary scores.
+        """
+        return self.Ybar + self.psihat @ etahat_values
