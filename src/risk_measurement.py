@@ -5,6 +5,9 @@ from scipy.integrate import simpson
 import matplotlib.pyplot as plt
 from statsmodels.nonparametric.kernel_regression import KernelReg
 from sklearn.preprocessing import PolynomialFeatures
+import statsmodels.api as sm
+from statsmodels.regression.quantile_regression import QuantReg
+
 
 def simulate_rv_series(
         n_days=1000, 
@@ -112,7 +115,7 @@ def forecast_strategy_ben1(train_df, next_day_features):
     # Using np.log directly in the formula string
     formula = 'np.log(Target) ~ np.log(RV_d) + np.log(RV_w) + np.log(RV_m)'
     model = smf.quantreg(formula, data=train_df)
-    res = model.fit(q=0.5)
+    res = model.fit(q=0.5, max_iter=2000)
     
     # 2. Extract coefficients (ahat_0, ahat_1, ahat_2, ahat_3)
     intercept = res.params['Intercept']
@@ -684,3 +687,97 @@ class Fcst2VOLS:
         # 2. Return to sigma^2 levels via exponential
         # If input was a single point, return a float
         return float(np.exp(m_hat_log[0]))
+
+def forecast_reg1(rv_train, scores_train, current_score):
+    """
+    Implements Strategy Reg1: log(varsigma^2_t) = m(eta_{t-1}) + error
+    
+    Parameters:
+    rv_train: Array of realized variances (varsigma^2) for t=2...n
+    scores_train: Array of lagged scores (eta) for t=1...n-1
+    current_score: The score at time n (eta_n) to produce forecast for n+1
+    """
+    
+    # 1. Prepare target: log of realized variance
+    log_rv = np.log(rv_train)
+    
+    # 2. Fit the nonparametric regression: m(eta_{t-1})
+    # 'c' indicates a continuous variable for the score
+    model = KernelReg(endog=log_rv, exog=scores_train, var_type='c')
+    
+    # 3. Predict m(eta_n)
+    # The predict method returns (mean, marginal_effects)
+    m_hat_n, _ = model.fit([current_score])
+    
+    # 4. Apply Strategy Reg1 forecast equation (Eq 24): exp{m_hat(eta_n)}
+    forecast_n_plus_1 = np.exp(m_hat_n[0])
+    
+    return forecast_n_plus_1
+
+# Example Usage with your data structure:
+# scores = objects["mdfpc"]["scores_fitted"]["scores_1"]
+# rv = rv_train.values
+
+# Ensure alignment: rv[t] is regressed on scores[t-1]
+# y = rv[1:] (t=2...n)
+# X = scores[:-1] (t=1...n-1)
+# current_eta = scores[-1] (t=n)
+
+class Reg1Forecaster(Fcst2VForecaster):
+    """
+    Implements Strategy Reg1 by regressing current RV on LAGGED scores.
+    """
+    def fit(self, eta_history, rv_history):
+        # Align data: rv[t] depends on eta[t-1]
+        # We drop the first RV observation and the last eta observation
+        y = rv_history[1:]    # t=2 to n
+        X = eta_history[:-1]  # t=1 to n-1
+        
+        # Use the parent fit method with aligned data
+        super().fit(X, y)
+
+    def forecast(self, eta_current):
+        # Here, eta_current is eta_n (the most recent observed score)
+        # This produces the forecast for n+1 directly.
+        return super().forecast(eta_current)
+    
+class Reg2Forecaster:
+    """
+    Implements Strategy Reg2: log(varsigma^2_t) = m(eta_{t-1}) + error
+    where m is a second-degree polynomial estimated via Median Regression.
+    """
+    def __init__(self, degree=2):
+        self.poly = PolynomialFeatures(degree=degree, include_bias=True)
+        self.model_result = None
+
+    def _prepare_features(self, eta):
+        eta = np.asarray(eta)
+        if eta.ndim == 1:
+            eta = eta.reshape(-1, 1)
+        # Generates [1, n1, n2, n1^2, n1*n2, n2^2]
+        return self.poly.fit_transform(eta)
+
+    def fit(self, eta_history, rv_history):
+        # Align: rv[t] depends on eta[t-1]
+        y = np.log(rv_history[1:])
+        X_raw = eta_history[:-1]
+        
+        # Transform scores into polynomial features
+        X_poly = self._prepare_features(X_raw)
+        
+        # Fit Median Regression (Quantile = 0.5)
+        quant_mod = QuantReg(y, X_poly)
+        self.model_result = quant_mod.fit(q=0.5, max_iter=2000)
+
+    def forecast(self, eta_current):
+        if self.model_result is None:
+            raise ValueError("Model must be fitted before forecasting.")
+        
+        # Transform current score (eta_n) to polynomial features
+        X_next = self._prepare_features(eta_current)
+        
+        # Predict m_hat(eta_n)
+        m_hat_n = self.model_result.predict(X_next)
+        
+        # Forecast for n+1: exp{m_hat(eta_n)}
+        return float(np.exp(m_hat_n[0]))

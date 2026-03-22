@@ -1725,7 +1725,18 @@ class DensityForecaster_HZ:
         
         # 2. Reconstruct curves from forecasted scores
         k_curve_forecast = self.model_kdfpc.predict(k_etahat_fc)
-        
+        # Yhat_fc = k_curve_forecast.copy()
+        # A. Enforce positivity: Replace negative "probabilities" with 0
+        k_curve_forecast[k_curve_forecast < 0] = 0
+        # B. Renormalize: Iterate through columns by positional index
+        for t in range(k_curve_forecast.shape[1]):
+            # Use .iloc to access the t-th column by position
+            current_col = k_curve_forecast.iloc[:, t]
+            integral = current_col.sum() * self.du
+            if integral > 0:
+                # Update the column in-place using .iloc
+                k_curve_forecast.iloc[:, t] = current_col / integral
+
         # 3. Return a dictionary similar to the blueprint
         # We return the raw reconstruction; alignment happens outside
         return {
