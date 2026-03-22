@@ -611,3 +611,76 @@ def qlike_loss(rv, sigma2_hat, eps=1e-10):
 
 def mse(x, y):
     return np.mean(np.square(x-y))
+
+class Fcst2VOLS:
+    """
+    Implements a parametric OLS version of the Fcst2V strategy.
+    
+    This model estimates the relationship log(sigma^2) = beta * eta + epsilon 
+    using Ordinary Least Squares.
+    """
+
+    def __init__(self, add_constant=True):
+        """
+        Parameters
+        ----------
+        add_constant : bool, default True
+            Whether to include an intercept (alpha) in the regression.
+        """
+        self.add_constant = add_constant
+        self.model = None
+        self.params = None
+
+    def fit(self, eta_train, rv_train):
+        """
+        Fits the OLS regression on the log-transformed RV.
+
+        Parameters
+        ----------
+        eta_train : np.array or pd.DataFrame
+            The predictors (e.g., FPC scores).
+        rv_train : np.array or pd.Series
+            The observed realized volatility levels.
+        """
+        eta_train = np.asarray(eta_train)
+        rv_train = np.asarray(rv_train)
+
+        if eta_train.ndim == 1:
+            eta_train = eta_train.reshape(-1, 1)
+
+        # Log transform for the target variable
+        log_rv = np.log(rv_train + 1e-10)
+
+        # Handle the constant (intercept)
+        X = eta_train
+        if self.add_constant:
+            X = sm.add_constant(X, has_constant='add')
+
+        # Fit the OLS model
+        self.model = sm.OLS(log_rv, X).fit()
+        self.params = self.model.params
+
+    def forecast(self, eta_next):
+        """
+        Generates the forecast using the linear model and exponential transformation.
+        """
+        if self.model is None:
+            raise ValueError("Model must be fitted before forecasting.")
+
+        eta_next = np.asarray(eta_next)
+
+        # Ensure correct shape (1, d)
+        if eta_next.ndim == 1:
+            eta_next = eta_next.reshape(1, -1)
+
+        # Add constant to prediction input if necessary
+        X_next = eta_next
+        if self.add_constant:
+            X_next = np.hstack([np.ones((X_next.shape[0], 1)), X_next])
+
+        # 1. Predict in log-space: log(sigma^2)_hat = X * beta
+        m_hat_log = self.model.predict(X_next)
+        
+        # 2. Return to sigma^2 levels via exponential
+        # If input was a single point, return a float
+        return float(np.exp(m_hat_log[0]))
