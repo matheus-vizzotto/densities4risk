@@ -11,7 +11,7 @@ def generate_coeffs(d):
     return c
 
 def simulate_curves(
-        n: int,           # number of time points
+        n: int,           # number of curves
         nt: int,          # grid size
         u: np.ndarray,    # nt x 1 grid over [0,1]
         phis,             # list of AR parameters for xi_k

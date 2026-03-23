@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.model_selection import GridSearchCV, LeaveOneOut, KFold
 from typing import List, Union, Optional, Iterable, Any
 from scipy.stats import norm, t
-from scipy.integrate import trapezoid
+from scipy.integrate import trapezoid, simpson
 from sklearn.neighbors import KernelDensity
 from KDEpy.bw_selection import improved_sheather_jones
 from rpy2.robjects import r, FloatVector
@@ -737,3 +737,23 @@ def integrates_one(
     is_normalized = np.isclose(integral, 1.0, atol=tol)
     
     return is_normalized
+
+
+def verify_density_area(x, f_x, method='simpson'):
+    """
+    Verifies the area under f(x) using the chosen numerical method.
+    
+    Args:
+        x (array): The domain (e.g., Bitcoin returns).
+        f_x (array): The density values.
+        method (str): 'simpson' or 'trapezoid'.
+    """
+    if method.lower() == 'simpson':
+        area = simpson(y=f_x, x=x)
+    elif method.lower() == 'trapezoid':
+        area = trapezoid(y=f_x, x=x)
+    else:
+        raise ValueError("Method must be 'simpson' or 'trapezoid'")
+        
+    print(f"[{method.capitalize()}] Total Area: {area:.8f}")
+    return area

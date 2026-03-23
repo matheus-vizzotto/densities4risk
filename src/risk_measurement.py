@@ -252,7 +252,7 @@ class Ben1Model:
         """
         train_df = self.prepare_har_data(rv_series)
         model = smf.quantreg(self.formula, data=train_df)
-        self.model_fitted = model.fit(q=0.5)
+        self.model_fitted = model.fit(q=0.5, max_iter=2000)
 
     def predict(self, rv_history=None, next_day_features=None):
         """
@@ -545,7 +545,7 @@ class Fcst3VForecaster:
         
         # 4. Fit Median Regression (Quantile Regression at q=0.5)
         model = smf.quantreg(formula, data=X)
-        self.model_fitted = model.fit(q=0.5)
+        self.model_fitted = model.fit(q=0.5, max_iter=2000)
 
     def forecast(self, eta_next):
         """
