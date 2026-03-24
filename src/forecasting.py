@@ -1059,7 +1059,7 @@ def cv(
 
         KdFPC_model = K_dFPC(df_lqds.values)
         KdFPC_model.fit(**KdFPC_kwargs)
-        k_scores = KdFPC_model.etahat.real.T    
+        k_scores = KdFPC_model.etahat.values    
 
         # FORECASTING
         maxlags_  = 10
