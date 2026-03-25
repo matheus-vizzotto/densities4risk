@@ -1,5 +1,5 @@
 import numpy as np
-from scipy.stats import norm, t 
+from scipy.stats import norm, t, norminvgauss, levy_stable, genpareto
 from scipy.integrate import cumulative_trapezoid
 
 #---------------------------------------------
@@ -244,6 +244,82 @@ def t_mixture_density(x, weights, dfs, locs, scales, normalize=True):
         
     return pdf
 
+# 1. Skew-Student-t (Azzalini Implementation)
+def skew_t_pdf(x, df, alpha, loc=0, scale=1):
+    z = (x - loc) / scale
+    # Standard t-distribution components
+    pdf_t = t.pdf(z, df)
+    # The 'skewing' part using the CDF of a t-distribution
+    # We use np.sqrt for element-wise operations on the array x
+    cdf_t = t.cdf(alpha * z * np.sqrt((df + 1) / (df + z**2)), df + 1)
+    return 2 * pdf_t * cdf_t / scale
+
+# 2. Merton Jump-Diffusion Density (Corrected)
+def merton_jump_pdf(x, mu, sigma, lamb, muj, sigmaj, n_max=10):
+    pdf_total = np.zeros_like(x)
+    for n in range(n_max):
+        # Use math.factorial for the scalar n, and np.exp for the array
+        weight = (np.exp(-lamb) * (lamb**n)) / math.factorial(n)
+        mu_n = mu + n * muj
+        sigma_n = np.sqrt(sigma**2 + n * sigmaj**2)
+        pdf_total += weight * norm.pdf(x, loc=mu_n, scale=sigma_n)
+    return pdf_total
+
+def spliced_normal_gpd(x, mu=0, sigma=1, u=2.0, xi=0.2):
+    """
+    Spliced density: Normal in the bulk, GPD in the tails.
+    u: threshold (absolute value for symmetry)
+    xi: shape parameter for GPD (xi > 0 for heavy tails)
+    """
+    # 1. Calculate the probability mass in the tails of the Normal distribution
+    # This ensures the GPD takes over exactly where the Normal leaves off
+    phi = norm.cdf(-u, loc=mu, scale=sigma)
+    
+    # Scale parameter for GPD to ensure continuity at the threshold u
+    # beta = f_norm(u) / ( (1/sigma_gpd) * (1 + 0)**... ) -> simplified:
+    # We match the height of the GPD to the height of the Normal at x = u
+    f_u = norm.pdf(u, loc=mu, scale=sigma)
+    beta = phi / f_u # Simplified scaling for integration
+    
+    pdf = np.zeros_like(x)
+    
+    # Masking for three regions
+    mask_left = x < -u
+    mask_mid = (x >= -u) & (x <= u)
+    mask_right = x > u
+    
+    # Central Bulk: Normal
+    pdf[mask_mid] = norm.pdf(x[mask_mid], loc=mu, scale=sigma)
+    
+    # Right Tail: GPD
+    # Note: genpareto in scipy uses 'c' for xi
+    pdf[mask_right] = genpareto.pdf(x[mask_right] - u, c=xi, loc=0, scale=beta) * phi
+    
+    # Left Tail: Reflected GPD
+    pdf[mask_left] = genpareto.pdf(-x[mask_left] - u, c=xi, loc=0, scale=beta) * phi
+    
+    # Normalize to ensure area = 1 (due to discrete sampling)
+    return pdf / np.trapezoid(pdf, x)
+
+def sample_from_density(x, y, n_samples=1000):
+    # 1. Compute the numerical CDF using the trapezoidal rule
+    # initial=0 ensures the resulting array has the same length as x and y
+    cdf = cumulative_trapezoid(y, x, initial=0)
+    
+    # 2. Normalize to handle any tiny integration residuals 
+    # (Ensures the max value is exactly 1.0)
+    cdf /= cdf[-1]
+    
+    # 3. Generate uniform random numbers
+    u = np.random.uniform(0, 1, n_samples)
+    
+    # 4. Inverse transform: map U back to the X support
+    return np.interp(u, cdf, x)
+
+#---------------------------------------------
+#------------- Processes ---------------------
+#---------------------------------------------
+
 def simulate_dependent_densities(n_days, lqd_template, phis, sigma=0.1):
     """
     Simulates a sequence of LQD curves with temporal dependence.
@@ -280,17 +356,3 @@ def simulate_dependent_densities(n_days, lqd_template, phis, sigma=0.1):
     
     return simulated_lqds, scores
 
-def sample_from_density(x, y, n_samples=1000):
-    # 1. Compute the numerical CDF using the trapezoidal rule
-    # initial=0 ensures the resulting array has the same length as x and y
-    cdf = cumulative_trapezoid(y, x, initial=0)
-    
-    # 2. Normalize to handle any tiny integration residuals 
-    # (Ensures the max value is exactly 1.0)
-    cdf /= cdf[-1]
-    
-    # 3. Generate uniform random numbers
-    u = np.random.uniform(0, 1, n_samples)
-    
-    # 4. Inverse transform: map U back to the X support
-    return np.interp(u, cdf, x)
