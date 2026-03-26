@@ -1077,7 +1077,7 @@ def cv(
         )
         c_forecast, conf_int = model.predict(n_periods=horizon, return_conf_int=True)
         ## RECONSTRUCT FORECASTED CURVES
-        k_curve_forecast = KdFPC_model.predict(k_etahat_fc)
+        k_curve_forecast = KdFPC_model.predict(k_etahat_fc).values
         df_k_forecast = pd.DataFrame(k_curve_forecast, columns=Y_test.columns)
 
         # LQDENSITIES TO DENSITIES
