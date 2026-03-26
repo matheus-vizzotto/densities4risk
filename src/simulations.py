@@ -303,6 +303,9 @@ def spliced_normal_gpd(x, mu=0, sigma=1, u=2.0, xi=0.2):
     return pdf / np.trapezoid(pdf, x)
 
 def sample_from_density(x, y, n_samples=1000):
+    """
+    Inverse Transform Sampling tailored for KDEs.
+    """
     # 1. Compute the numerical CDF using the trapezoidal rule
     # initial=0 ensures the resulting array has the same length as x and y
     cdf = cumulative_trapezoid(y, x, initial=0)
