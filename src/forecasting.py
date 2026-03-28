@@ -1672,6 +1672,7 @@ class DensityForecaster:
                                     )
         
         return {
+                "future_L2_curves": k_curve_forecast,
                 "future_scores": k_etahat_fc,
                 "future_cs": c_forecast,
                 "future_supports": df_supports,

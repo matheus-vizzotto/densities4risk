@@ -644,7 +644,7 @@ class mLQDT:
                                  verbose=True
                                 ):
         
-        if adhoc_c is not None:
+        if adhoc_c is None:
             if verbose:
                 print("'c' was not provided. Using original fitted values.")
             adhoc_c = self.c
