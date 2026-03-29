@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
 from src.fda.dfpc import K_dFPC
-from src.forecasting.multivariate import run_forecaster
-from src.fda.transformations.lqdt import MLQDT
+from src.forecasting.models import run_forecaster
+from src.fda.transformations.lqdt import mLQDT
 from typing import List, Tuple, Union
 
 
