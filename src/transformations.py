@@ -335,17 +335,17 @@ def obtain_lqds(
     # lqds_sup = []
     lqds = []
     cs = []
-    t0s = []
+    t0 = 0
     cols = df_densities.columns
     for col in cols:
         density_support = df_supports.loc[:,col]
         density = df_densities.loc[:,col]
-        t0_ = density_support.iloc[np.argmin(np.abs(density_support))] #closes value to 0
+        t0 = density_support.iloc[np.argmin(np.abs(density_support))] #closes value to 0
         lqdsup, lqd, c = dens2lqd(
                                 dens = density, 
                                 dSup = density_support, 
                                 lqdSup=lqd_sup, 
-                                t0 = t0_,
+                                t0 = t0,
                                 verbose=verbose_
                                 )
         if fill_nan_absurd:
@@ -357,12 +357,12 @@ def obtain_lqds(
         # lqds_sup.append(lqdSup) # no need since the image of the LQDT is shared by all densities by construction
         lqds.append(pd.Series(lqd))
         cs.append(c)
-        t0s.append(t0_)
+        # t0s.append(t0_)
     
     df_lqds = pd.concat(lqds, axis=1)
     df_lqds.columns = cols
     
-    return lqdsup, df_lqds, cs, t0s
+    return lqdsup, df_lqds, cs, t0
 
 
 def lqd2dens(
@@ -545,7 +545,7 @@ def obtain_densities_from_lqd(
         df: pd.DataFrame, 
         lqdSup_: np.array, 
         c_: np.array,
-        t_: np.array,
+        t_: float,
         cut_invalid_boundaries: bool=True,
         ensure_integral_constraint: bool=True,
         verbose=True):
@@ -574,7 +574,8 @@ def obtain_densities_from_lqd(
                                                     lqd, 
                                                     lqdSup_, 
                                                     c = c_[i], 
-                                                    t0=t_[i], 
+                                                    # t0=t_[i],
+                                                    t0=t_, 
                                                     cut=cut,
                                                     verbose=verbose
                                                     )
@@ -593,70 +594,70 @@ def obtain_densities_from_lqd(
     return df_backward_supports, df_backward_densities
 
 
-class mLQDT:
-    """
-    bovespa_mLQDT = mLQDT(
-                    df_densities,
-                    df_densities_supports
-                )
-    bovespa_mLQDT.densities_to_lqdensities()
-    """
-    def __init__(
-            self, 
-            densities : pd.DataFrame,
-            densities_supports : pd.DataFrame
-            ):
+# class mLQDT:
+#     """
+#     bovespa_mLQDT = mLQDT(
+#                     df_densities,
+#                     df_densities_supports
+#                 )
+#     bovespa_mLQDT.densities_to_lqdensities()
+#     """
+#     def __init__(
+#             self, 
+#             densities : pd.DataFrame,
+#             densities_supports : pd.DataFrame
+#             ):
         
-        # Data
-        self.Y         = densities
-        self.Y_support = densities_supports
+#         # Data
+#         self.Y         = densities
+#         self.Y_support = densities_supports
 
-        # Metadata
-        self.columns  = densities.columns
-        self.Y_n_rows = densities.shape[0]
-        self.Y_n_cols = densities.shape[1]
+#         # Metadata
+#         self.columns  = densities.columns
+#         self.Y_n_rows = densities.shape[0]
+#         self.Y_n_cols = densities.shape[1]
 
-        # Results 
-        self.lqd_support = None
-        self.lqd         = None
-        self.c           = None
-        self.t           = None
+#         # Results 
+#         self.lqd_support = None
+#         self.lqd         = None
+#         self.c           = None
+#         self.t           = None
 
 
-    def densities_to_lqdensities(self, 
-                                 lqd_support=None,
-                                 verbose=True):
-        lqdSup, df_lqds, c, t = obtain_lqds(
-                                        self.Y_support, 
-                                        self.Y,
-                                        lqd_sup = lqd_support,
-                                        verbose_=verbose)
+#     def densities_to_lqdensities(self, 
+#                                  lqd_support=None,
+#                                  verbose=True):
+#         lqdSup, df_lqds, c, t = obtain_lqds(
+#                                         self.Y_support, 
+#                                         self.Y,
+#                                         lqd_sup = lqd_support,
+#                                         verbose_=verbose)
         
-        self.lqd_support = lqdSup
-        self.lqd         = df_lqds
-        self.c           = c
-        self.t           = t
+#         self.lqd_support = lqdSup
+#         self.lqd         = df_lqds
+#         self.c           = c
+#         self.t           = t
 
-    def lqdensities_to_densities(self, 
-                                 adhoc_lqd_support,
-                                 adhoc_lqds,
-                                 adhoc_c=None,
-                                 verbose=True
-                                ):
+#     def lqdensities_to_densities(self, 
+#                                  adhoc_lqd_support,
+#                                  adhoc_lqds,
+#                                  adhoc_c=None,
+#                                  verbose=True
+#                                 ):
         
-        if adhoc_c is None:
-            if verbose:
-                print("'c' was not provided. Using original fitted values.")
-            adhoc_c = self.c
+#         if adhoc_c is None:
+#             if verbose:
+#                 print("'c' was not provided. Using original fitted values.")
+#             adhoc_c = self.c
 
-        densities_supports, densities = obtain_densities_from_lqd(
-                                                            adhoc_lqds,
-                                                            adhoc_lqd_support,
-                                                            c=adhoc_c,
-                                                            verbose = True
-                                        )
+#         densities_supports, densities = obtain_densities_from_lqd(
+#                                                             adhoc_lqds,
+#                                                             adhoc_lqd_support,
+#                                                             c=adhoc_c,
+#                                                             verbose = True
+#                                         )
         
-        return [densities_supports, densities]
+#         return [densities_supports, densities]
     
 
 
@@ -798,151 +799,201 @@ def lqd2dens_v2(
 
     return dSup, dens
 
-from typing import Iterable, Tuple, Dict
-import numpy as np
-import pandas as pd
-
-
-def _mode_of_variation(
-    mu: pd.Series,
-    psi: pd.Series,
-    theta: float,
-    alpha: float
-) -> Tuple[pd.Series, pd.Series]:
+class LQDRepresentation:
     """
-    Construct plus/minus FPCA modes in L2 space.
+    Container for the Log–Quantile–Density (LQD) representation of a
+    collection of probability density functions.
 
+    This object stores all curve-specific quantities required to
+    reconstruct densities via the inverse LQD transform.
+
+    ------------------------------------------------------------------
     Parameters
-    ----------
-    mu : pd.Series
-        Mean function (in transformed L2 space).
+    ------------------------------------------------------------------
+    lqd : pandas.DataFrame or ndarray
+        LQD values for each curve evaluated on a common grid.
+        Shape (M, T), where:
+            M = number of grid points in [0,1]
+            T = number of curves (e.g., time points)
 
-    psi : pd.Series
-        Eigenfunction corresponding to a given FPCA component.
+    lqd_support : ndarray
+        Grid in [0,1] where the LQD is evaluated.
 
-    theta : float
-        Eigenvalue associated with `psi`.
+    c : array-like
+        Array of CDF values at the reference points t0 for each curve.
+        Shape (T,).
 
-    alpha : float
-        Scaling parameter controlling excursion size
-        (typically in multiples of sqrt(theta)).
+    t0 : float
+        Reference point in the original support such that
+            c = F(t0)
 
-    Returns
-    -------
-    (mode_plus, mode_minus) : Tuple[pd.Series, pd.Series]
-        Positive and negative perturbations around the mean:
-            mu ± alpha * sqrt(theta) * psi
-    """
+    ------------------------------------------------------------------
+    Attributes
+    ------------------------------------------------------------------
+    lqd : pandas.DataFrame or ndarray
+    lqd_support : ndarray
+    c : ndarray
+    t0 : float
 
-    perturbation = alpha * np.sqrt(theta) * psi
-
-    return mu + perturbation, mu - perturbation
-
-
-def modes_of_variation(
-    df: pd.DataFrame,
-    psihat: pd.DataFrame,
-    thetahat: Iterable[float],
-    alphas: Iterable[float]
-) -> pd.DataFrame:
-    """
-    Compute FPCA modes of variation in L2 space.
-
-    This constructs synthetic curves of the form
-
-        mu ± alpha * sqrt(theta_k) * psi_k
-
-    for each principal component k and each scaling factor alpha.
-
-    Parameters
-    ----------
-    df : pd.DataFrame
-        Original transformed functions (columns = time, rows = grid).
-
-    psihat : pd.DataFrame
-        Estimated eigenfunctions (rows = grid, columns = components).
-
-    thetahat : iterable of float
-        Corresponding eigenvalues.
-
-    alphas : iterable of float
-        Multipliers controlling mode magnitude (e.g. [0.5, 1, 2]).
-
-    Returns
-    -------
-    modes : Long DataFrame with [principal_component, alpha_direction, value]
-
-    Example
-    --------
-    modes = modes_of_variation(
-        df_lqds,
-        KdFPC_model.psihat,
-        KdFPC_model.thetahat,
-        alphas=[0.0, 0.5, 1.0, 1.5, 3.0]
-        )
-
+    ------------------------------------------------------------------
     Notes
-    -----
-    These modes live in L2 (transform space). To interpret them as
-    densities, they must be mapped back via the inverse mLQD transform.
-    The inverse should use the mean c=F(0) for all.
+    ------------------------------------------------------------------
+    - This object is intentionally self-contained: all information needed
+      for inverse transformation is stored here.
     """
+    def __init__(self, lqd, lqd_support, c, t0):
+        self.lqd         : pd.DataFrame = lqd
+        self.lqd_support : np.array     = lqd_support
+        self.c           : np.array     = c
+        self.t0          : np.array     = t0
+        self.du          : float        = lqd_support[1] - lqd_support[0]
 
-    # Mean function in L2
-    mu = df.mean(axis=1)
+class mLQDT:
+    """
+    Log–Quantile–Density Transformation (LQDT) operator.
 
-    # List to collect all data rows
-    all_records = []
+    This class implements the forward and inverse transformations between
+    probability density functions and their Log–Quantile–Density (LQD)
+    representations, as described in Kokoszka (2019).
 
-    for alpha in alphas:
-        # if alpha == 0.0:
-        #     # Special case for mean: alpha=0
-        #     # We create a record for every point in the x_grid
-        #     for x, val in mu.items():
-        #         all_records.append({
-        #             'index': x,
-        #             'pc': 'mean',
-        #             'alpha': 'alpha_0',
-        #             'value': val
-        #         })
-        # else:
-            # Modes of variation for each Principal Component
-            for k in range(psihat.shape[1]):
-                psi_k = psihat[:, k]
-                theta_k = thetahat[k]
+    ------------------------------------------------------------------
+    Overview
+    ------------------------------------------------------------------
+    The transformation maps densities from a nonlinear space into an
+    approximately linear Hilbert space:
 
-                if alpha == 0:
-                    mean, _ = _mode_of_variation(mu, psi_k, theta_k, alpha)
-                    for x, val in mean.items():
-                        all_records.append({
-                            'index': x,
-                            'pc': f'PC{k+1}',
-                            'alpha': f'alpha_{alpha}',
-                            'value': val
-                        })
-                else:
-                    plus, minus = _mode_of_variation(mu, psi_k, theta_k, alpha)
-                    
-                    # Add "plus" variation records
-                    for x, val in plus.items():
-                        all_records.append({
-                            'index': x,
-                            'pc': f'PC{k+1}',
-                            'alpha': f'alpha_{alpha}_plus',
-                            'value': val
-                        })
-                    
-                    # Add "minus" variation records
-                    for x, val in minus.items():
-                        all_records.append({
-                            'index': x,
-                            'pc': f'PC{k+1}',
-                            'alpha': f'alpha_{alpha}_minus',
-                            'value': val
-                        })
+        f(x)  →  L(u)
 
-    # Create the DataFrame
-    df_long = pd.DataFrame(all_records)
-    # df_long = df_long.set_index('index')
-    
-    return df_long
+    enabling the application of Functional Data Analysis (FDA) tools.
+
+    The inverse transformation reconstructs densities from their LQD
+    representation.
+
+    ------------------------------------------------------------------
+    Methods
+    ------------------------------------------------------------------
+    transform(...)
+        Converts a collection of densities into an LQDRepresentation.
+
+    inverse_transform(...)
+        Reconstructs densities from an LQDRepresentation.
+
+    ------------------------------------------------------------------
+    Design
+    ------------------------------------------------------------------
+    - All curve-specific quantities (LQD, c, t0) are stored in the
+      LQDRepresentation object.
+    - Supports DataFrame-based workflows where:
+        columns = curves (e.g., dates)
+        index   = support/grid values
+    """
+    def __init__(self):
+        pass
+
+    def transform(
+            self,
+            densities          : pd.DataFrame,
+            densities_supports : pd.DataFrame,
+            lqd_support        : np.array      = None,
+            verbose            : bool          = True
+            ):
+        """
+        Apply the Log–Quantile–Density transformation to a collection
+        of densities.
+
+        ------------------------------------------------------------------
+        Parameters
+        ------------------------------------------------------------------
+        densities : pandas.DataFrame
+            Density values. Each column corresponds to a curve.
+
+        densities_supports : pandas.DataFrame
+            Support values corresponding to each density curve.
+            Must have the same shape and column structure as `densities`.
+
+        lqd_support : ndarray, optional
+            Grid in [0,1] where the LQD will be evaluated.
+            If None, a default uniform grid is used.
+
+        verbose : bool, default=True
+            Whether to print warnings from the underlying transformation.
+
+        ------------------------------------------------------------------
+        Returns
+        ------------------------------------------------------------------
+        LQDRepresentation
+            Object containing:
+                - LQD values
+                - LQD support grid
+                - c values
+                - reference point t0
+
+        ------------------------------------------------------------------
+        Notes
+        ------------------------------------------------------------------
+        - Each curve is transformed independently.
+        - The output grid is shared across curves.
+        """
+        lqd_support, df_lqds, cs, t0 = obtain_lqds(
+                                        densities_supports, 
+                                        densities,
+                                        lqd_sup = lqd_support,
+                                        verbose_=verbose
+                                        )
+
+        return LQDRepresentation(
+                            lqd         = df_lqds, 
+                            lqd_support = lqd_support, 
+                            c           = cs, 
+                            t0          = t0
+                            )
+
+    def inverse_transform(
+                        self, 
+                        lqd_obj: LQDRepresentation,
+                        verbose: bool=True
+                                ):
+        """
+        Reconstruct probability density functions from their
+        Log–Quantile–Density representation.
+
+        ------------------------------------------------------------------
+        Parameters
+        ------------------------------------------------------------------
+        lqd_obj : LQDRepresentation
+            Object containing LQD values and all necessary metadata
+            (lqd_support, c, t0).
+
+        verbose : bool, default=True
+            Whether to print warnings during reconstruction.
+
+        ------------------------------------------------------------------
+        Returns
+        ------------------------------------------------------------------
+        densities_supports : pandas.DataFrame or ndarray
+            Reconstructed support grids for each curve.
+
+        densities : pandas.DataFrame or ndarray
+            Reconstructed density values.
+
+        ------------------------------------------------------------------
+        Notes
+        ------------------------------------------------------------------
+        - Reconstruction is performed independently for each curve.
+        - The resulting densities are normalized to integrate to 1.
+        - The original support is recovered via the quantile function.
+        """
+        lqds = lqd_obj.lqd
+        lqd_support = lqd_obj.lqd_support
+        cs = lqd_obj.c
+        t0s = lqd_obj.t0
+
+        densities_supports, densities = obtain_densities_from_lqd(
+                                                            df      =   lqds,
+                                                            lqdSup_ =   lqd_support,
+                                                            c_      =   cs,
+                                                            t_      =   t0s,
+                                                            verbose = verbose
+                                        )
+        
+        return densities_supports, densities
