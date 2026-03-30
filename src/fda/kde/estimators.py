@@ -19,7 +19,6 @@ def get_rot_bandwidth_ck():
         "gaussian": {
             "silverman":          CK_GAUSSIAN_SILVERMAN,
             "silverman_adjusted": CK_GAUSSIAN_SILVERMAN_ADJUSTED,
-
         },
         "epanechnikov": {
             "silverman":          CK_EPANECHNIKOV_SILVERMAN,
@@ -249,7 +248,6 @@ class BandwidthSelector:
             bandwidth = np.full(self.n, bandwidth)
 
         return bandwidth
-
     
     def adaptive(
             self,
