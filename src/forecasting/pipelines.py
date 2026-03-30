@@ -212,11 +212,29 @@ class DensityForecaster_HZ:
         
         return self
 
-    def predict(self, horizon, var_lags=2):
+    def predict(self, 
+                horizon, 
+                var_lags=2,
+                forecast_index=None
+                ):
         """
         Generate future curve forecasts. 
         Matches blueprint signature: predict(horizon, var_lags)
         """
+        if forecast_index is not None:
+            if len(forecast_index) != horizon:
+                raise ValueError(f"forecast_index length ({len(forecast_index)}) "
+                                f"must match horizon ({horizon})")
+            future_dates = forecast_index
+        elif self.index_freq is not None:
+            # Automatic generation if freq was caught in .fit()
+            future_dates = pd.date_range(start=self.last_date, 
+                                        periods=horizon + 1, 
+                                        freq=self.index_freq)[1:]
+        else:
+            # Fallback to integer steps if no dates are available
+            future_dates = np.arange(horizon)
+
         # 1. Forecast Scores (etahat)
         k_etahat_fc = run_multivariate_forecaster(
             self.model_kdfpc.etahat, 
@@ -231,6 +249,7 @@ class DensityForecaster_HZ:
         # Yhat_fc = k_curve_forecast.copy()
         # A. Enforce positivity: Replace negative "probabilities" with 0
         k_curve_forecast[k_curve_forecast < 0] = 0
+        k_curve_forecast.columns = forecast_index
         # B. Renormalize: Iterate through columns by positional index
         for t in range(k_curve_forecast.shape[1]):
             # Use .iloc to access the t-th column by position
@@ -242,8 +261,10 @@ class DensityForecaster_HZ:
 
         # 3. Return a dictionary similar to the blueprint
         # We return the raw reconstruction; alignment happens outside
+        df_support = self.u.copy()
+        df_support.name = forecast_index[0]
         return {
-            "future_scores": k_etahat_fc,
-            "future_curves": pd.DataFrame(k_curve_forecast),
-            "support": self.u
+            "future_scores":    k_etahat_fc,
+            "future_support":   df_support,
+            "future_curves":    pd.DataFrame(k_curve_forecast)
         }

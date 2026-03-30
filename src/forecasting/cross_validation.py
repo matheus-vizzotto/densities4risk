@@ -4,6 +4,7 @@ from src.fda.dfpc import K_dFPC
 from src.forecasting.pipelines import run_multivariate_forecaster
 from src.fda.transformations.lqdt import mLQDT
 import src.fda.utils             as fdaUtils
+import src.fda.dfpc              as dfpc
 import src.forecasting.pipelines as fp
 import src.forecasting.accuracy  as acc 
 
@@ -154,4 +155,72 @@ def cv(
             temp_df.set_index(["fold", "date", "support"], inplace=True)
             curves_hist.append(temp_df) 
         
+    return measures, pd.concat(curves_hist)
+
+
+
+
+
+def cv_dfpc(
+        Y, 
+        Y_support, 
+        KdFPC_kwargs, 
+        horizon=1, 
+        initial_window=100,
+        return_curves=False,
+        var_lags: int = None
+        ):
+    windows = expanding_window_cv(Y.shape[1], h=horizon, initial_window=initial_window)
+
+    curves_hist = []
+    measures = []
+    for fold, window in enumerate(windows):
+        print(f"\t\t>>> cv {fold+1}/{len(windows)}")
+        idx_train = window[0]
+        idx_test  = window[1]
+        
+        # TRAIN-TEST SPLIT FOR DENSITIES AND SUPPORTS
+        Y_train_support, Y_train = Y_support.iloc[:,idx_train], Y.iloc[:,idx_train]
+        Y_test_support , Y_test = Y_support.iloc[:,idx_test],   Y.iloc[:,idx_test]
+
+        # initialize class
+        forecaster = fp.DensityForecaster_HZ(kdfpc_kwargs=KdFPC_kwargs, maxlags=10)
+        # fit model
+        forecaster.fit(Y_train, Y_train_support)
+        # forecast dict
+        dfpc_fc = forecaster.predict(horizon=1, var_lags=3, forecast_index=Y_test.columns)
+        dfpc_fc_dens = dfpc_fc["future_curves"]
+        dfpc_fc_supp = dfpc_fc["future_support"].to_frame()
+        
+        # PUT KDE AND FORECAST INTO THE SAME GRID FOR EVALUATION
+        df_supp, df_kde, df_fc = fdaUtils.align_densities(
+                                        Y_test_support, 
+                                        Y_test, 
+                                        dfpc_fc_supp, 
+                                        dfpc_fc_dens, 
+                                        Y_test_support.columns
+                                        )
+
+        # COMPUTE ACCURACY MEASURES AND STORE THEM
+        oa_measures = acc.overall_measures(test=df_kde, forecast=df_fc)
+        d1 = {
+            "fold": fold,
+            "method": "KLE",
+            }
+        d1.update(oa_measures)
+        d1.update({"df_supports": df_supp, "df_kde": df_kde, "df_forecast": df_fc})
+        measures.append(d1)
+
+
+        if return_curves:
+            temp_df = pd.DataFrame({
+                    "support":  df_supp.iloc[:, 0].values,
+                    "actual":   df_kde.iloc[:, 0].values,
+                    "forecast": df_fc.iloc[:, 0].values,
+                    "date":     df_fc.columns[0],
+                    "fold":     fold
+                    })
+            temp_df.set_index(["fold", "date", "support"], inplace=True)
+            curves_hist.append(temp_df) 
+    
     return measures, pd.concat(curves_hist)

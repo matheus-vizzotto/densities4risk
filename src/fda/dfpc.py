@@ -634,6 +634,51 @@ class W_dFPC:
 ########################################
 ############## COMPARISONS #############
 ########################################
+def reconstruct_curves(etahat_pred, psihat, Ybar, du, enforce_density=False):
+    """
+    Reconstruct functional curves from predicted FPC scores.
+
+    Parameters
+    ----------
+    etahat_pred : ndarray (d0 x T_pred)
+        Predicted FPC scores.
+
+    psihat : ndarray (m x d0)
+        Estimated eigenfunctions.
+
+    Ybar : ndarray (m x 1)
+        Mean function.
+
+    du : float
+        Grid spacing.
+
+    enforce_density : bool
+        If True, enforces positivity and renormalizes to integrate to 1.
+
+    Returns
+    -------
+    Yhat_pred : ndarray (m x T_pred)
+        Reconstructed curves.
+    """
+
+    # Linear reconstruction
+    Yhat_pred = Ybar + psihat @ etahat_pred
+
+    if enforce_density:
+        Yhat_fix = Yhat_pred.copy()
+
+        # Enforce positivity
+        Yhat_fix[Yhat_fix < 0] = 0
+
+        # Renormalize each curve
+        for t in range(Yhat_fix.shape[1]):
+            integral = np.sum(Yhat_fix[:, t]) * du
+            if integral > 0:
+                Yhat_fix[:, t] /= integral
+
+        return Yhat_fix
+
+    return Yhat_pred
 
 def super_fun(Y, lag_max, B, alpha, du, p, m, u,
               select_ncomp=False, dimension=None):
