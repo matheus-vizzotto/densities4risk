@@ -180,3 +180,70 @@ class DensityForecaster:
                 "future_supports":  df_supports,
                 "future_densities": df_densities
         }
+
+class DensityForecaster_HZ:
+    """
+    A pipeline for forecasting functional curves using K_dFPC_HZ.
+    Matches the DensityForecaster blueprint.
+    """
+    def __init__(self, kdfpc_kwargs=None, maxlags=10, criteria='AIC'):
+        self.kdfpc_kwargs = kdfpc_kwargs or {}
+        self.maxlags = maxlags
+        self.criteria = criteria
+        
+        self.model_kdfpc = None
+        self.u = None
+        self.du = None
+
+    def fit(self, Y_train, df_support):
+        # 1. Prepare Support
+        self.u = df_support.iloc[:, 0]
+        self.du = self.u[1] - self.u[0]
+        
+        # 2. Update model parameters
+        self.kdfpc_kwargs.update({
+            "u": self.u,
+            "du": self.du
+        })
+        
+        # 3. Fit K_dFPC_HZ
+        self.model_kdfpc = dfpc.K_dFPC_HZ(Y_train.values)
+        self.model_kdfpc.fit(**self.kdfpc_kwargs)
+        
+        return self
+
+    def predict(self, horizon, var_lags=2):
+        """
+        Generate future curve forecasts. 
+        Matches blueprint signature: predict(horizon, var_lags)
+        """
+        # 1. Forecast Scores (etahat)
+        k_etahat_fc = run_multivariate_forecaster(
+            self.model_kdfpc.etahat, 
+            maxlags_       = self.maxlags, 
+            criteria_      = self.criteria, 
+            h_             = horizon, 
+            selected_nlags = var_lags
+        )
+        
+        # 2. Reconstruct curves from forecasted scores
+        k_curve_forecast = self.model_kdfpc.predict(k_etahat_fc)
+        # Yhat_fc = k_curve_forecast.copy()
+        # A. Enforce positivity: Replace negative "probabilities" with 0
+        k_curve_forecast[k_curve_forecast < 0] = 0
+        # B. Renormalize: Iterate through columns by positional index
+        for t in range(k_curve_forecast.shape[1]):
+            # Use .iloc to access the t-th column by position
+            current_col = k_curve_forecast.iloc[:, t]
+            integral = current_col.sum() * self.du
+            if integral > 0:
+                # Update the column in-place using .iloc
+                k_curve_forecast.iloc[:, t] = current_col / integral
+
+        # 3. Return a dictionary similar to the blueprint
+        # We return the raw reconstruction; alignment happens outside
+        return {
+            "future_scores": k_etahat_fc,
+            "future_curves": pd.DataFrame(k_curve_forecast),
+            "support": self.u
+        }
