@@ -184,6 +184,11 @@ def cv_dfpc(
         Y_test_support , Y_test = Y_support.iloc[:,idx_test],   Y.iloc[:,idx_test]
 
         # initialize class
+        KdFPC_kwargs.update({
+            'lag_max': 5, 
+            'B': 1000,
+            'alpha': 0.01
+        })
         forecaster = fp.DensityForecaster_HZ(kdfpc_kwargs=KdFPC_kwargs, maxlags=10)
         # fit model
         forecaster.fit(Y_train, Y_train_support)

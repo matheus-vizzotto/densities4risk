@@ -102,7 +102,9 @@ class DensityForecaster:
         mlqdt = lqdt.mLQDT()
         self.model_lqd = mlqdt.transform(
             densities=Y_train,
-            densities_supports=Y_support)
+            densities_supports=Y_support, 
+            verbose=False
+            )
         # self.model_lqd.densities_to_lqdensities(verbose=False)
         
         # 2. L2 Expansion (K_dFPC)

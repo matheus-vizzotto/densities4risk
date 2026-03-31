@@ -1,0 +1,1877 @@
+2026-03-30 22:26:39,189 | INFO | 
+Initiating cross validation...
+2026-03-30 22:26:40,380 | INFO | Progress: (1/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 1
+2026-03-30 22:26:41,423 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63001/3415641620.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:26:41,424 | INFO | Progress: (2/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 2
+2026-03-30 22:26:42,402 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63001/3415641620.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:26:42,403 | INFO | Progress: (3/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 3
+2026-03-30 22:26:43,404 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63001/3415641620.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:26:43,404 | INFO | Progress: (4/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 4
+2026-03-30 22:26:44,402 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63001/3415641620.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:26:44,402 | INFO | Progress: (5/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 1
+2026-03-30 22:26:45,375 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63001/3415641620.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:26:45,375 | INFO | Progress: (6/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 2
+2026-03-30 22:27:12,210 | INFO | 
+Initiating cross validation...
+2026-03-30 22:27:13,272 | INFO | Progress: (1/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 1
+2026-03-30 22:27:14,240 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63001/3994620294.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:27:14,240 | INFO | Progress: (2/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 2
+2026-03-30 22:27:15,220 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63001/3994620294.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:27:15,221 | INFO | Progress: (3/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 3
+2026-03-30 22:27:16,181 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63001/3994620294.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:27:16,181 | INFO | Progress: (4/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 4
+2026-03-30 22:31:14,189 | INFO | 
+Initiating cross validation...
+2026-03-30 22:31:15,300 | INFO | Progress: (1/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 1
+2026-03-30 22:31:16,290 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/3994620294.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:31:16,294 | INFO | Progress: (2/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 2
+2026-03-30 22:31:17,266 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/3994620294.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:31:17,267 | INFO | Progress: (3/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 3
+2026-03-30 22:31:18,237 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/3994620294.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:31:18,237 | INFO | Progress: (4/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 4
+2026-03-30 22:31:19,206 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/3994620294.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:31:19,206 | INFO | Progress: (5/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 1
+2026-03-30 22:31:20,173 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/3994620294.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:31:20,174 | INFO | Progress: (6/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 2
+2026-03-30 22:31:21,141 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/3994620294.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:31:21,141 | INFO | Progress: (7/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 3
+2026-03-30 22:31:22,126 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/3994620294.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:31:22,126 | INFO | Progress: (8/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 4
+2026-03-30 22:31:23,097 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/3994620294.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:31:23,098 | INFO | Progress: (9/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 1
+2026-03-30 22:31:24,071 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/3994620294.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:31:24,071 | INFO | Progress: (10/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 2
+2026-03-30 22:31:25,037 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/3994620294.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:31:25,037 | INFO | Progress: (11/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 3
+2026-03-30 22:31:26,015 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/3994620294.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:31:26,015 | INFO | Progress: (12/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 4
+2026-03-30 22:31:26,995 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/3994620294.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:31:26,995 | INFO | Progress: (13/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 1
+2026-03-30 22:31:27,959 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/3994620294.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:31:27,960 | INFO | Progress: (14/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 2
+2026-03-30 22:31:28,996 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/3994620294.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:31:28,997 | INFO | Progress: (15/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 3
+2026-03-30 22:31:29,998 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/3994620294.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:31:29,999 | INFO | Progress: (16/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 4
+2026-03-30 22:31:30,966 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/3994620294.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:31:30,966 | INFO | Progress: (17/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 1
+2026-03-30 22:31:31,936 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/3994620294.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:31:31,936 | INFO | Progress: (18/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 2
+2026-03-30 22:31:32,910 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/3994620294.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:31:32,911 | INFO | Progress: (19/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 3
+2026-03-30 22:31:33,886 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/3994620294.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:31:33,886 | INFO | Progress: (20/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 4
+2026-03-30 22:31:34,875 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/3994620294.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:31:35,086 | INFO | Progress: (21/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 1
+2026-03-30 22:33:27,737 | INFO | 
+Initiating cross validation...
+2026-03-30 22:33:28,850 | INFO | Progress: (1/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 1
+2026-03-30 22:33:29,826 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/2863630202.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:33:29,827 | INFO | Progress: (2/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 2
+2026-03-30 22:33:30,794 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/2863630202.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:33:30,795 | INFO | Progress: (3/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 3
+2026-03-30 22:33:31,772 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/2863630202.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:33:31,772 | INFO | Progress: (4/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 4
+2026-03-30 22:33:32,763 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/2863630202.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:33:32,763 | INFO | Progress: (5/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 1
+2026-03-30 22:33:33,737 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/2863630202.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:33:33,738 | INFO | Progress: (6/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 2
+2026-03-30 22:33:34,733 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/2863630202.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:33:34,734 | INFO | Progress: (7/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 3
+2026-03-30 22:33:35,711 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/2863630202.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:33:35,711 | INFO | Progress: (8/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 4
+2026-03-30 22:33:36,748 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/2863630202.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:33:36,748 | INFO | Progress: (9/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 1
+2026-03-30 22:33:37,727 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/2863630202.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:33:37,728 | INFO | Progress: (10/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 2
+2026-03-30 22:33:38,703 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/2863630202.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:33:38,704 | INFO | Progress: (11/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 3
+2026-03-30 22:33:39,687 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/2863630202.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:33:39,687 | INFO | Progress: (12/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 4
+2026-03-30 22:33:40,661 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/2863630202.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:33:40,661 | INFO | Progress: (13/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 1
+2026-03-30 22:33:41,616 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/2863630202.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:33:41,617 | INFO | Progress: (14/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 2
+2026-03-30 22:33:42,584 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/2863630202.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:33:42,587 | INFO | Progress: (15/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 3
+2026-03-30 22:33:43,560 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/2863630202.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:33:43,560 | INFO | Progress: (16/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 4
+2026-03-30 22:33:44,538 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/2863630202.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:33:44,538 | INFO | Progress: (17/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 1
+2026-03-30 22:33:45,522 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/2863630202.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:33:45,522 | INFO | Progress: (18/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 2
+2026-03-30 22:33:46,518 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/2863630202.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:33:46,518 | INFO | Progress: (19/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 3
+2026-03-30 22:33:47,500 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/2863630202.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:33:47,500 | INFO | Progress: (20/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 4
+2026-03-30 22:33:48,484 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/2863630202.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:33:48,706 | INFO | Progress: (21/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 1
+2026-03-30 22:33:50,728 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/2863630202.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:33:50,728 | INFO | Progress: (22/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 2
+2026-03-30 22:33:52,721 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/2863630202.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:33:52,721 | INFO | Progress: (23/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 3
+2026-03-30 22:33:54,685 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/2863630202.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:33:54,686 | INFO | Progress: (24/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 4
+2026-03-30 22:33:56,699 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63233/2863630202.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 213, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-30 22:33:56,699 | INFO | Progress: (25/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 3 | VAR(q): 1
+2026-03-30 22:36:49,864 | INFO | 
+
+
+
+Initiating cross validation...
+2026-03-30 22:36:50,430 | INFO | Progress: (1/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 1
+2026-03-30 22:37:38,026 | INFO | 
+
+
+
+Initiating cross validation...
+2026-03-30 22:37:38,608 | INFO | Progress: (1/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 1
+2026-03-30 22:38:43,459 | INFO | 
+
+
+
+Initiating cross validation...
+2026-03-30 22:38:44,019 | INFO | Progress: (1/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 1
+2026-03-30 22:38:44,569 | INFO | Progress: (2/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 2
+2026-03-30 22:38:45,125 | INFO | Progress: (3/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 3
+2026-03-30 22:38:45,714 | INFO | Progress: (4/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 4
+2026-03-30 22:38:46,262 | INFO | Progress: (5/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 1
+2026-03-30 22:38:46,813 | INFO | Progress: (6/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 2
+2026-03-30 22:38:47,360 | INFO | Progress: (7/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 3
+2026-03-30 22:38:47,905 | INFO | Progress: (8/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 4
+2026-03-30 22:38:48,450 | INFO | Progress: (9/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 1
+2026-03-30 22:38:48,995 | INFO | Progress: (10/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 2
+2026-03-30 22:38:49,534 | INFO | Progress: (11/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 3
+2026-03-30 22:38:50,077 | INFO | Progress: (12/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 4
+2026-03-30 22:38:50,621 | INFO | Progress: (13/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 1
+2026-03-30 22:38:51,182 | INFO | Progress: (14/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 2
+2026-03-30 22:38:51,733 | INFO | Progress: (15/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 3
+2026-03-30 22:38:52,269 | INFO | Progress: (16/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 4
+2026-03-30 22:38:52,819 | INFO | Progress: (17/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 1
+2026-03-30 22:38:53,356 | INFO | Progress: (18/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 2
+2026-03-30 22:38:53,898 | INFO | Progress: (19/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 3
+2026-03-30 22:38:54,435 | INFO | Progress: (20/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 4
+2026-03-30 22:38:55,093 | INFO | Progress: (21/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 1
+2026-03-30 22:38:56,170 | INFO | Progress: (22/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 2
+2026-03-30 22:38:57,256 | INFO | Progress: (23/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 3
+2026-03-30 22:38:58,351 | INFO | Progress: (24/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 4
+2026-03-30 22:38:59,442 | INFO | Progress: (25/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 3 | VAR(q): 1
+2026-03-30 22:39:00,538 | INFO | Progress: (26/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 3 | VAR(q): 2
+2026-03-30 22:39:01,624 | INFO | Progress: (27/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 3 | VAR(q): 3
+2026-03-30 22:39:02,746 | INFO | Progress: (28/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 3 | VAR(q): 4
+2026-03-30 22:39:03,823 | INFO | Progress: (29/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 4 | VAR(q): 1
+2026-03-30 22:39:04,903 | INFO | Progress: (30/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 4 | VAR(q): 2
+2026-03-30 22:39:05,960 | INFO | Progress: (31/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 4 | VAR(q): 3
+2026-03-30 22:39:07,029 | INFO | Progress: (32/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 4 | VAR(q): 4
+2026-03-30 22:39:08,096 | INFO | Progress: (33/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 5 | VAR(q): 1
+2026-03-30 22:39:09,185 | INFO | Progress: (34/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 5 | VAR(q): 2
+2026-03-30 22:39:10,313 | INFO | Progress: (35/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 5 | VAR(q): 3
+2026-03-30 22:39:11,401 | INFO | Progress: (36/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 5 | VAR(q): 4
+2026-03-30 22:39:12,496 | INFO | Progress: (37/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 6 | VAR(q): 1
+2026-03-30 22:39:13,588 | INFO | Progress: (38/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 6 | VAR(q): 2
+2026-03-30 22:39:14,707 | INFO | Progress: (39/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 6 | VAR(q): 3
+2026-03-30 22:39:15,809 | INFO | Progress: (40/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 6 | VAR(q): 4
+2026-03-30 22:39:16,965 | INFO | Progress: (41/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 2 | VAR(q): 1
+2026-03-30 22:39:17,696 | INFO | Progress: (42/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 2 | VAR(q): 2
+2026-03-30 22:39:18,427 | INFO | Progress: (43/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 2 | VAR(q): 3
+2026-03-30 22:39:19,192 | INFO | Progress: (44/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 2 | VAR(q): 4
+2026-03-30 22:39:19,940 | INFO | Progress: (45/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 3 | VAR(q): 1
+2026-03-30 22:39:20,683 | INFO | Progress: (46/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 3 | VAR(q): 2
+2026-03-30 22:39:21,421 | INFO | Progress: (47/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 3 | VAR(q): 3
+2026-03-30 22:39:22,156 | INFO | Progress: (48/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 3 | VAR(q): 4
+2026-03-30 22:42:25,050 | INFO | 
+
+
+
+Initiating cross validation...
+2026-03-30 22:42:25,668 | INFO | Progress: (1/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 1
+2026-03-30 22:42:26,214 | INFO | Progress: (2/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 2
+2026-03-30 22:42:26,760 | INFO | Progress: (3/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 3
+2026-03-30 22:42:27,311 | INFO | Progress: (4/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 4
+2026-03-30 22:42:27,857 | INFO | Progress: (5/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 1
+2026-03-30 22:42:28,401 | INFO | Progress: (6/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 2
+2026-03-30 22:44:11,058 | INFO | 
+
+
+
+Initiating cross validation...
+2026-03-30 22:44:11,629 | INFO | Progress: (1/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 1
+2026-03-30 22:44:12,179 | INFO | Progress: (2/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 2
+2026-03-30 22:44:12,725 | INFO | Progress: (3/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 3
+2026-03-30 22:44:13,271 | INFO | Progress: (4/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 4
+2026-03-30 22:44:13,810 | INFO | Progress: (5/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 1
+2026-03-30 22:44:14,353 | INFO | Progress: (6/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 2
+2026-03-30 22:44:14,908 | INFO | Progress: (7/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 3
+2026-03-30 22:44:15,537 | INFO | Progress: (8/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 4
+2026-03-30 22:44:16,084 | INFO | Progress: (9/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 1
+2026-03-30 22:44:16,622 | INFO | Progress: (10/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 2
+2026-03-30 22:44:17,170 | INFO | Progress: (11/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 3
+2026-03-30 22:44:17,722 | INFO | Progress: (12/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 4
+2026-03-30 22:44:18,287 | INFO | Progress: (13/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 1
+2026-03-30 22:44:18,856 | INFO | Progress: (14/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 2
+2026-03-30 22:44:19,416 | INFO | Progress: (15/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 3
+2026-03-30 22:44:19,972 | INFO | Progress: (16/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 4
+2026-03-30 22:44:20,522 | INFO | Progress: (17/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 1
+2026-03-30 22:44:21,066 | INFO | Progress: (18/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 2
+2026-03-30 22:44:21,611 | INFO | Progress: (19/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 3
+2026-03-30 22:44:22,158 | INFO | Progress: (20/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 4
+2026-03-30 22:44:22,813 | INFO | Progress: (21/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 1
+2026-03-30 22:44:23,932 | INFO | Progress: (22/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 2
+2026-03-30 22:44:25,023 | INFO | Progress: (23/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 3
+2026-03-30 22:44:26,115 | INFO | Progress: (24/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 4
+2026-03-30 22:44:27,222 | INFO | Progress: (25/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 3 | VAR(q): 1
+2026-03-30 22:44:28,334 | INFO | Progress: (26/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 3 | VAR(q): 2
+2026-03-30 22:44:29,443 | INFO | Progress: (27/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 3 | VAR(q): 3
+2026-03-30 22:44:30,549 | INFO | Progress: (28/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 3 | VAR(q): 4
+2026-03-30 22:44:31,659 | INFO | Progress: (29/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 4 | VAR(q): 1
+2026-03-30 22:44:32,768 | INFO | Progress: (30/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 4 | VAR(q): 2
+2026-03-30 22:44:33,888 | INFO | Progress: (31/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 4 | VAR(q): 3
+2026-03-30 22:44:35,005 | INFO | Progress: (32/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 4 | VAR(q): 4
+2026-03-30 22:44:36,133 | INFO | Progress: (33/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 5 | VAR(q): 1
+2026-03-30 22:44:37,241 | INFO | Progress: (34/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 5 | VAR(q): 2
+2026-03-30 22:44:38,351 | INFO | Progress: (35/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 5 | VAR(q): 3
+2026-03-30 22:44:39,480 | INFO | Progress: (36/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 5 | VAR(q): 4
+2026-03-30 22:44:40,606 | INFO | Progress: (37/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 6 | VAR(q): 1
+2026-03-30 22:44:41,718 | INFO | Progress: (38/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 6 | VAR(q): 2
+2026-03-30 22:44:42,909 | INFO | Progress: (39/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 6 | VAR(q): 3
+2026-03-30 22:44:44,033 | INFO | Progress: (40/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 6 | VAR(q): 4
+2026-03-30 22:44:45,231 | INFO | Progress: (41/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 2 | VAR(q): 1
+2026-03-30 22:44:46,005 | INFO | Progress: (42/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 2 | VAR(q): 2
+2026-03-30 22:44:46,784 | INFO | Progress: (43/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 2 | VAR(q): 3
+2026-03-30 22:44:47,556 | INFO | Progress: (44/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 2 | VAR(q): 4
+2026-03-30 22:44:48,328 | INFO | Progress: (45/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 3 | VAR(q): 1
+2026-03-30 22:44:49,108 | INFO | Progress: (46/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 3 | VAR(q): 2
+2026-03-30 22:44:49,890 | INFO | Progress: (47/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 3 | VAR(q): 3
+2026-03-30 22:44:50,671 | INFO | Progress: (48/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 3 | VAR(q): 4
+2026-03-30 22:44:51,444 | INFO | Progress: (49/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 4 | VAR(q): 1
+2026-03-30 22:44:52,253 | INFO | Progress: (50/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 4 | VAR(q): 2
+2026-03-30 22:45:18,713 | INFO | 
+
+
+
+Initiating cross validation...
+2026-03-30 22:45:19,274 | INFO | Progress: (1/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 1
+2026-03-30 22:45:19,823 | INFO | Progress: (2/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 2
+2026-03-30 22:45:20,366 | INFO | Progress: (3/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 3
+2026-03-30 22:45:20,913 | INFO | Progress: (4/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 4
+2026-03-30 22:45:21,459 | INFO | Progress: (5/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 1
+2026-03-30 22:45:22,009 | INFO | Progress: (6/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 2
+2026-03-30 22:45:22,555 | INFO | Progress: (7/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 3
+2026-03-30 22:45:23,102 | INFO | Progress: (8/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 4
+2026-03-30 22:45:23,648 | INFO | Progress: (9/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 1
+2026-03-30 22:45:24,193 | INFO | Progress: (10/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 2
+2026-03-30 22:45:24,737 | INFO | Progress: (11/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 3
+2026-03-30 22:45:25,280 | INFO | Progress: (12/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 4
+2026-03-30 22:45:25,819 | INFO | Progress: (13/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 1
+2026-03-30 22:45:26,367 | INFO | Progress: (14/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 2
+2026-03-30 22:45:26,914 | INFO | Progress: (15/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 3
+2026-03-30 22:45:27,478 | INFO | Progress: (16/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 4
+2026-03-30 22:45:28,027 | INFO | Progress: (17/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 1
+2026-03-30 22:45:28,574 | INFO | Progress: (18/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 2
+2026-03-30 22:47:15,426 | INFO | 
+
+
+
+Initiating cross validation...
+2026-03-30 22:47:16,071 | INFO | Progress: (1/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 1
+2026-03-30 22:47:16,613 | INFO | Progress: (2/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 2
+2026-03-30 22:47:17,155 | INFO | Progress: (3/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 3
+2026-03-30 22:47:17,739 | INFO | Progress: (4/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 4
+2026-03-30 22:47:18,287 | INFO | Progress: (5/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 1
+2026-03-30 22:47:18,827 | INFO | Progress: (6/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 2
+2026-03-30 22:47:19,372 | INFO | Progress: (7/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 3
+2026-03-30 22:47:19,910 | INFO | Progress: (8/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 4
+2026-03-30 22:47:20,455 | INFO | Progress: (9/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 1
+2026-03-30 22:47:21,012 | INFO | Progress: (10/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 2
+2026-03-30 22:47:21,549 | INFO | Progress: (11/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 3
+2026-03-30 22:47:22,093 | INFO | Progress: (12/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 4
+2026-03-30 22:47:22,636 | INFO | Progress: (13/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 1
+2026-03-30 22:47:23,179 | INFO | Progress: (14/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 2
+2026-03-30 22:47:23,723 | INFO | Progress: (15/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 3
+2026-03-30 22:47:24,266 | INFO | Progress: (16/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 4
+2026-03-30 22:47:24,807 | INFO | Progress: (17/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 1
+2026-03-30 22:47:25,349 | INFO | Progress: (18/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 2
+2026-03-30 22:47:25,887 | INFO | Progress: (19/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 3
+2026-03-30 22:47:26,425 | INFO | Progress: (20/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 4
+2026-03-30 22:47:27,090 | INFO | Progress: (21/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 1
+2026-03-30 22:47:28,176 | INFO | Progress: (22/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 2
+2026-03-30 22:47:29,267 | INFO | Progress: (23/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 3
+2026-03-30 22:47:30,350 | INFO | Progress: (24/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 4
+2026-03-30 22:47:31,437 | INFO | Progress: (25/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 3 | VAR(q): 1
+2026-03-30 22:47:32,521 | INFO | Progress: (26/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 3 | VAR(q): 2
+2026-03-30 22:47:33,611 | INFO | Progress: (27/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 3 | VAR(q): 3
+2026-03-30 22:47:34,699 | INFO | Progress: (28/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 3 | VAR(q): 4
+2026-03-30 22:47:35,801 | INFO | Progress: (29/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 4 | VAR(q): 1
+2026-03-30 22:47:36,884 | INFO | Progress: (30/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 4 | VAR(q): 2
+2026-03-30 22:47:37,973 | INFO | Progress: (31/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 4 | VAR(q): 3
+2026-03-30 22:47:39,068 | INFO | Progress: (32/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 4 | VAR(q): 4
+2026-03-30 22:47:40,176 | INFO | Progress: (33/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 5 | VAR(q): 1
+2026-03-30 22:47:41,267 | INFO | Progress: (34/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 5 | VAR(q): 2
+2026-03-30 22:47:42,426 | INFO | Progress: (35/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 5 | VAR(q): 3
+2026-03-30 22:47:43,526 | INFO | Progress: (36/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 5 | VAR(q): 4
+2026-03-30 22:47:44,631 | INFO | Progress: (37/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 6 | VAR(q): 1
+2026-03-30 22:47:45,726 | INFO | Progress: (38/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 6 | VAR(q): 2
+2026-03-30 22:47:46,825 | INFO | Progress: (39/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 6 | VAR(q): 3
+2026-03-30 22:47:47,922 | INFO | Progress: (40/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 6 | VAR(q): 4
+2026-03-30 22:47:49,103 | INFO | Progress: (41/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 2 | VAR(q): 1
+2026-03-30 22:47:49,837 | INFO | Progress: (42/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 2 | VAR(q): 2
+2026-03-30 22:47:50,568 | INFO | Progress: (43/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 2 | VAR(q): 3
+2026-03-30 22:47:51,303 | INFO | Progress: (44/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 2 | VAR(q): 4
+2026-03-30 22:47:52,043 | INFO | Progress: (45/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 3 | VAR(q): 1
+2026-03-30 22:47:52,779 | INFO | Progress: (46/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 3 | VAR(q): 2
+2026-03-30 22:47:53,520 | INFO | Progress: (47/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 3 | VAR(q): 3
+2026-03-30 22:47:54,255 | INFO | Progress: (48/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 3 | VAR(q): 4
+2026-03-30 22:47:55,008 | INFO | Progress: (49/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 4 | VAR(q): 1
+2026-03-30 22:47:55,732 | INFO | Progress: (50/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 4 | VAR(q): 2
+2026-03-30 22:47:56,456 | INFO | Progress: (51/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 4 | VAR(q): 3
+2026-03-30 22:47:57,207 | INFO | Progress: (52/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 4 | VAR(q): 4
+2026-03-30 22:47:57,946 | INFO | Progress: (53/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 5 | VAR(q): 1
+2026-03-30 22:47:58,684 | INFO | Progress: (54/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 5 | VAR(q): 2
+2026-03-30 22:47:59,416 | INFO | Progress: (55/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 5 | VAR(q): 3
+2026-03-30 22:48:00,143 | INFO | Progress: (56/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 5 | VAR(q): 4
+2026-03-30 22:48:00,913 | INFO | Progress: (57/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 6 | VAR(q): 1
+2026-03-30 22:48:01,656 | INFO | Progress: (58/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 6 | VAR(q): 2
+2026-03-30 22:48:02,378 | INFO | Progress: (59/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 6 | VAR(q): 3
+2026-03-30 22:48:03,108 | INFO | Progress: (60/1300) | KDE: gaussian_rot_robust | PP: rolling_w5 | Dim: 6 | VAR(q): 4
+2026-03-30 22:48:03,989 | INFO | Progress: (61/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 2 | VAR(q): 1
+2026-03-30 22:48:04,042 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:04,044 | INFO | Progress: (62/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 2 | VAR(q): 2
+2026-03-30 22:48:04,096 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:04,096 | INFO | Progress: (63/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 2 | VAR(q): 3
+2026-03-30 22:48:04,149 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:04,150 | INFO | Progress: (64/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 2 | VAR(q): 4
+2026-03-30 22:48:04,200 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:04,201 | INFO | Progress: (65/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 3 | VAR(q): 1
+2026-03-30 22:48:04,252 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:04,253 | INFO | Progress: (66/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 3 | VAR(q): 2
+2026-03-30 22:48:04,304 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:04,305 | INFO | Progress: (67/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 3 | VAR(q): 3
+2026-03-30 22:48:04,357 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:04,357 | INFO | Progress: (68/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 3 | VAR(q): 4
+2026-03-30 22:48:04,410 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:04,411 | INFO | Progress: (69/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 4 | VAR(q): 1
+2026-03-30 22:48:04,461 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:04,461 | INFO | Progress: (70/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 4 | VAR(q): 2
+2026-03-30 22:48:04,512 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:04,513 | INFO | Progress: (71/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 4 | VAR(q): 3
+2026-03-30 22:48:04,568 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:04,568 | INFO | Progress: (72/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 4 | VAR(q): 4
+2026-03-30 22:48:04,621 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:04,622 | INFO | Progress: (73/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 5 | VAR(q): 1
+2026-03-30 22:48:04,673 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:04,673 | INFO | Progress: (74/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 5 | VAR(q): 2
+2026-03-30 22:48:04,725 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:04,726 | INFO | Progress: (75/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 5 | VAR(q): 3
+2026-03-30 22:48:04,778 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:04,779 | INFO | Progress: (76/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 5 | VAR(q): 4
+2026-03-30 22:48:04,830 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:04,831 | INFO | Progress: (77/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 6 | VAR(q): 1
+2026-03-30 22:48:04,882 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:04,882 | INFO | Progress: (78/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 6 | VAR(q): 2
+2026-03-30 22:48:04,936 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:04,936 | INFO | Progress: (79/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 6 | VAR(q): 3
+2026-03-30 22:48:04,991 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:04,992 | INFO | Progress: (80/1300) | KDE: gaussian_rot_robust | PP: rolling_w21 | Dim: 6 | VAR(q): 4
+2026-03-30 22:48:05,042 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:05,163 | INFO | Progress: (81/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 2 | VAR(q): 1
+2026-03-30 22:48:05,212 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:05,212 | INFO | Progress: (82/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 2 | VAR(q): 2
+2026-03-30 22:48:05,262 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:05,262 | INFO | Progress: (83/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 2 | VAR(q): 3
+2026-03-30 22:48:05,312 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:05,313 | INFO | Progress: (84/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 2 | VAR(q): 4
+2026-03-30 22:48:05,361 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:05,362 | INFO | Progress: (85/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 3 | VAR(q): 1
+2026-03-30 22:48:05,413 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:05,414 | INFO | Progress: (86/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 3 | VAR(q): 2
+2026-03-30 22:48:05,463 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:05,463 | INFO | Progress: (87/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 3 | VAR(q): 3
+2026-03-30 22:48:05,513 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:05,514 | INFO | Progress: (88/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 3 | VAR(q): 4
+2026-03-30 22:48:05,564 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:05,565 | INFO | Progress: (89/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 4 | VAR(q): 1
+2026-03-30 22:48:05,614 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:05,614 | INFO | Progress: (90/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 4 | VAR(q): 2
+2026-03-30 22:48:05,664 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:05,664 | INFO | Progress: (91/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 4 | VAR(q): 3
+2026-03-30 22:48:05,714 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:05,714 | INFO | Progress: (92/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 4 | VAR(q): 4
+2026-03-30 22:48:05,763 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:05,764 | INFO | Progress: (93/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 5 | VAR(q): 1
+2026-03-30 22:48:05,814 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:05,815 | INFO | Progress: (94/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 5 | VAR(q): 2
+2026-03-30 22:48:05,863 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:05,863 | INFO | Progress: (95/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 5 | VAR(q): 3
+2026-03-30 22:48:05,913 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:05,914 | INFO | Progress: (96/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 5 | VAR(q): 4
+2026-03-30 22:48:05,963 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:05,963 | INFO | Progress: (97/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 6 | VAR(q): 1
+2026-03-30 22:48:06,015 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:06,015 | INFO | Progress: (98/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 6 | VAR(q): 2
+2026-03-30 22:48:06,064 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:06,065 | INFO | Progress: (99/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 6 | VAR(q): 3
+2026-03-30 22:48:06,115 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:06,116 | INFO | Progress: (100/1300) | KDE: gaussian_rot_robust | PP: rolling_w63 | Dim: 6 | VAR(q): 4
+2026-03-30 22:48:06,165 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : Array must not contain infs or NaNs
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_63751/1319260015.py", line 55, in <module>
+    cv_mdfpc_measures, mdfpc_cv_curves = crossVal.cv(
+                                         ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 250, in fit
+    thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 197, in _compute_kstar_eigenvalues
+    vals, vecs = np.linalg.eig(Kstar)
+                 ^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 1495, in eig
+    _assert_finite(a)
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/numpy/linalg/_linalg.py", line 251, in _assert_finite
+    raise LinAlgError("Array must not contain infs or NaNs")
+numpy.linalg.LinAlgError: Array must not contain infs or NaNs
+2026-03-30 22:48:06,758 | INFO | Progress: (101/1300) | KDE: gaussian_rot | PP: False | Dim: 2 | VAR(q): 1
+2026-03-30 22:48:07,238 | INFO | Progress: (102/1300) | KDE: gaussian_rot | PP: False | Dim: 2 | VAR(q): 2
+2026-03-30 22:48:07,718 | INFO | Progress: (103/1300) | KDE: gaussian_rot | PP: False | Dim: 2 | VAR(q): 3
+2026-03-30 22:48:08,210 | INFO | Progress: (104/1300) | KDE: gaussian_rot | PP: False | Dim: 2 | VAR(q): 4
+2026-03-30 22:48:08,689 | INFO | Progress: (105/1300) | KDE: gaussian_rot | PP: False | Dim: 3 | VAR(q): 1
+2026-03-30 22:48:09,181 | INFO | Progress: (106/1300) | KDE: gaussian_rot | PP: False | Dim: 3 | VAR(q): 2
+2026-03-30 22:48:09,665 | INFO | Progress: (107/1300) | KDE: gaussian_rot | PP: False | Dim: 3 | VAR(q): 3
+2026-03-30 22:48:10,139 | INFO | Progress: (108/1300) | KDE: gaussian_rot | PP: False | Dim: 3 | VAR(q): 4
+2026-03-30 22:48:10,620 | INFO | Progress: (109/1300) | KDE: gaussian_rot | PP: False | Dim: 4 | VAR(q): 1
+2026-03-30 22:48:11,100 | INFO | Progress: (110/1300) | KDE: gaussian_rot | PP: False | Dim: 4 | VAR(q): 2
+2026-03-30 22:48:11,576 | INFO | Progress: (111/1300) | KDE: gaussian_rot | PP: False | Dim: 4 | VAR(q): 3
+2026-03-30 22:48:12,056 | INFO | Progress: (112/1300) | KDE: gaussian_rot | PP: False | Dim: 4 | VAR(q): 4
+2026-03-30 22:48:12,551 | INFO | Progress: (113/1300) | KDE: gaussian_rot | PP: False | Dim: 5 | VAR(q): 1
+2026-03-30 22:48:13,101 | INFO | Progress: (114/1300) | KDE: gaussian_rot | PP: False | Dim: 5 | VAR(q): 2
+2026-03-30 22:48:13,652 | INFO | Progress: (115/1300) | KDE: gaussian_rot | PP: False | Dim: 5 | VAR(q): 3
+2026-03-30 22:48:14,170 | INFO | Progress: (116/1300) | KDE: gaussian_rot | PP: False | Dim: 5 | VAR(q): 4
+2026-03-30 22:48:14,739 | INFO | Progress: (117/1300) | KDE: gaussian_rot | PP: False | Dim: 6 | VAR(q): 1
+2026-03-30 22:48:15,222 | INFO | Progress: (118/1300) | KDE: gaussian_rot | PP: False | Dim: 6 | VAR(q): 2
+2026-03-30 22:48:15,736 | INFO | Progress: (119/1300) | KDE: gaussian_rot | PP: False | Dim: 6 | VAR(q): 3
+2026-03-30 22:48:16,219 | INFO | Progress: (120/1300) | KDE: gaussian_rot | PP: False | Dim: 6 | VAR(q): 4
+2026-03-30 22:48:16,810 | INFO | Progress: (121/1300) | KDE: gaussian_rot | PP: expanding | Dim: 2 | VAR(q): 1
+2026-03-30 22:48:18,290 | INFO | Progress: (122/1300) | KDE: gaussian_rot | PP: expanding | Dim: 2 | VAR(q): 2
+2026-03-30 22:48:19,791 | INFO | Progress: (123/1300) | KDE: gaussian_rot | PP: expanding | Dim: 2 | VAR(q): 3
+2026-03-30 22:48:21,296 | INFO | Progress: (124/1300) | KDE: gaussian_rot | PP: expanding | Dim: 2 | VAR(q): 4
+2026-03-30 22:48:22,816 | INFO | Progress: (125/1300) | KDE: gaussian_rot | PP: expanding | Dim: 3 | VAR(q): 1
+2026-03-30 22:48:24,314 | INFO | Progress: (126/1300) | KDE: gaussian_rot | PP: expanding | Dim: 3 | VAR(q): 2
+2026-03-30 22:48:25,814 | INFO | Progress: (127/1300) | KDE: gaussian_rot | PP: expanding | Dim: 3 | VAR(q): 3
+2026-03-30 22:48:27,329 | INFO | Progress: (128/1300) | KDE: gaussian_rot | PP: expanding | Dim: 3 | VAR(q): 4
+2026-03-30 22:48:28,826 | INFO | Progress: (129/1300) | KDE: gaussian_rot | PP: expanding | Dim: 4 | VAR(q): 1
+2026-03-30 22:48:30,330 | INFO | Progress: (130/1300) | KDE: gaussian_rot | PP: expanding | Dim: 4 | VAR(q): 2
+2026-03-30 22:48:37,159 | INFO | 
+
+
+
+Initiating cross validation...
+2026-03-30 22:48:37,748 | INFO | Progress: (1/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 1
+2026-03-30 22:48:38,821 | INFO | Progress: (2/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 2
+2026-03-30 22:48:39,868 | INFO | Progress: (3/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 3
+2026-03-30 22:48:40,923 | INFO | Progress: (4/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 4
+2026-03-30 22:48:41,973 | INFO | Progress: (5/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 1
+2026-03-30 22:48:43,025 | INFO | Progress: (6/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 2
+2026-03-30 22:48:44,075 | INFO | Progress: (7/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 3
+2026-03-30 22:48:45,135 | INFO | Progress: (8/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 4
+2026-03-30 22:48:46,183 | INFO | Progress: (9/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 1
+2026-03-30 22:48:47,300 | INFO | Progress: (10/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 2
+2026-03-30 22:48:48,355 | INFO | Progress: (11/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 3
+2026-03-30 22:48:49,415 | INFO | Progress: (12/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 4
+2026-03-30 22:48:50,455 | INFO | Progress: (13/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 1
+2026-03-30 22:48:51,494 | INFO | Progress: (14/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 2
+2026-03-30 22:48:52,527 | INFO | Progress: (15/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 3
+2026-03-30 22:48:53,576 | INFO | Progress: (16/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 4
+2026-03-30 22:48:54,615 | INFO | Progress: (17/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 1
+2026-03-30 22:48:55,648 | INFO | Progress: (18/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 2
+2026-03-30 22:48:56,696 | INFO | Progress: (19/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 3
+2026-03-30 22:48:57,734 | INFO | Progress: (20/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 4
+2026-03-30 22:48:58,913 | INFO | Progress: (21/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 1
+2026-03-30 22:49:01,515 | INFO | Progress: (22/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 2
+2026-03-30 22:50:12,346 | INFO | 
+
+
+
+Initiating cross validation...
+2026-03-30 22:50:12,948 | INFO | Progress: (1/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 1
+2026-03-30 22:50:13,999 | INFO | Progress: (2/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 2
+2026-03-30 22:50:15,041 | INFO | Progress: (3/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 3
+2026-03-30 22:50:16,086 | INFO | Progress: (4/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 4
+2026-03-30 22:50:44,755 | INFO | 
+
+
+
+Initiating cross validation...
+2026-03-30 22:50:45,347 | INFO | Progress: (1/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 1
+2026-03-30 22:51:29,893 | INFO | Progress: (2/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 2
+2026-03-30 22:52:14,704 | INFO | Progress: (3/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 3
+2026-03-30 22:52:59,620 | INFO | Progress: (4/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 4
+2026-03-30 22:53:44,599 | INFO | Progress: (5/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 1
+2026-03-30 22:54:29,516 | INFO | Progress: (6/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 2
+2026-03-30 22:55:14,226 | INFO | Progress: (7/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 3
