@@ -193,7 +193,7 @@ def cv_dfpc(
         # fit model
         forecaster.fit(Y_train, Y_train_support)
         # forecast dict
-        dfpc_fc = forecaster.predict(horizon=1, var_lags=3, forecast_index=Y_test.columns)
+        dfpc_fc = forecaster.predict(horizon=1, var_lags=var_lags, forecast_index=Y_test.columns)
         dfpc_fc_dens = dfpc_fc["future_curves"]
         dfpc_fc_supp = dfpc_fc["future_support"].to_frame()
         

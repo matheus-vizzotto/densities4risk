@@ -360,3 +360,106 @@ def simulate_dependent_densities(n_days, lqd_template, phis, sigma=0.1):
     
     return simulated_lqds, scores
 
+def simulate_hilbert_process(
+    n: int,           # number of curves
+    nt: int,          # grid size
+    u: np.ndarray,    # nt x 1 grid over [0,1]
+    base_f,           # Base function (already in L2)
+    phis,             # AR parameters for the scores W_kt
+    variance=0.01     # Variance for the innovations
+    ):
+    """
+    Simulates functional data curves Y_t(u) in a Hilbert space context, 
+    incorporating serial dependence and Brownian Bridge noise.
+
+    The simulation follows the additive model:
+    Y_t(u) = [Λ_q(f)(u) + X_0t(u)] + ε_t(u)
+
+    Mathematical Components:
+    ------------------------
+    1. Base Signal [Λ_q(f)(u)]: 
+       The 'center' of the distribution in the Hilbert space. This is provided 
+       via the `base_f` argument, representing a density (e.g., Gaussian or 
+       Student-t) already mapped into L2 via a transformation (like the CLR 
+       or isometric log-ratio transform).
+
+    2. Serial Dependence [X_0t(u)]:
+       Modeled as a finite sum of harmonics: 
+       X_0t(u) = Σ_{k=1}^K W_{kt} * sin(2 * k * π * u)
+       where the scores W_{kt} follow an AR(1) process:
+       W_{kt} = φ_k * W_{k,t-1} + η_{kt},  η_{kt} ~ N(0, σ^2)
+       This captures how the shape of the curves evolves over time 't'.
+
+    3. Functional Noise [ε_t(u)]:
+       Represented by a Brownian Bridge (BB_t). Unlike standard white noise, 
+       the Brownian Bridge ensures:
+       - ε_t(0) = ε_t(1) = 0 (Boundary constraints)
+       - Cov(ε(s), ε(t)) = min(s,t) - s*t
+       This provides a realistic, continuous but non-differentiable 
+       stochastic perturbation to the functional observations.
+
+    Parameters:
+    -----------
+    n : int
+        Number of curves to simulate (temporal dimension).
+    nt : int
+        Number of grid points (spatial/domain dimension u).
+    u : np.ndarray
+        A (nt x 1) or (nt,) array representing the grid over the domain [0, 1].
+    base_f : np.ndarray
+        A (nt x 1) or (nt,) array representing the transformed base density 
+        function Λ_q(f).
+    phis : list or np.ndarray
+        List of K autoregressive parameters. Each φ_k corresponds to the 
+        dependence of the k-th harmonic score.
+    variance : float, optional
+        The variance (σ^2) of the innovations for the AR(1) scores. 
+        Default is 0.01.
+
+    Returns:
+    --------
+    Y : np.ndarray (nt x n)
+        The observed functional data (Signal + Noise).
+    X0 : np.ndarray (nt x n)
+        The latent serial dependence component.
+    BB : np.ndarray (nt x n)
+        The realized Brownian Bridge noise for each curve.
+    """
+    K = len(phis)
+    u = u.flatten()
+    
+    # 1. Simulate Latent Scores (W_kt) using AR(1) processes
+    # These drive the serial dependence X_0t
+    W = np.zeros((K, n))
+    for k in range(K):
+        # Innovation noise
+        eps = np.random.normal(scale=np.sqrt(variance), size=n)
+        for t in range(1, n):
+            W[k, t] = phis[k] * W[k, t - 1] + eps[t]
+
+    # 2. Build Serial Dependence Structure: X_0t(u)
+    # Using the sine basis as specified: sum W_kt * sin(2*k*pi*u)
+    X0 = np.zeros((nt, n))
+    for k in range(K):
+        # Note: k+1 used to avoid sin(0)
+        X0 += W[k][None, :] * np.sin(2 * (k + 1) * np.pi * u[:, None])
+
+    # 3. Generate Brownian Bridge Noise: BB_t(u)
+    # This acts as the epsilon_t(u) term
+    BB = np.zeros((nt, n))
+    dt = 1.0 / (nt - 1)
+    for t in range(n):
+        dw = np.random.normal(scale=np.sqrt(dt), size=nt)
+        dw[0] = 0
+        w = np.cumsum(dw)
+        # Brownian Bridge formula: B(u) = W(u) - u*W(1)
+        BB[:, t] = w - u * w[-1]
+
+    # 4. Assemble Y_t(u)
+    # base_f is expected to be (nt, 1) or (nt,)
+    if base_f.ndim == 1:
+        base_f = base_f[:, None]
+        
+    Y = base_f + X0 + BB
+
+    return Y, X0, BB
