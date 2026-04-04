@@ -574,8 +574,8 @@ def obtain_densities_from_lqd(
                                                     lqd, 
                                                     lqdSup_, 
                                                     c = c_[i], 
-                                                    # t0=t_[i],
-                                                    t0=t_, 
+                                                    t0=t_[i],
+                                                    # t0=t_, 
                                                     cut=cut,
                                                     verbose=verbose
                                                     )

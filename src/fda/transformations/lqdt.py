@@ -1,18 +1,8 @@
-
-
 import numpy as np
-import warnings
-from scipy import integrate
-from scipy import interpolate 
-from scipy.interpolate import interp1d
-from scipy.integrate import cumulative_trapezoid, trapezoid
-from scipy.interpolate import interp1d, CubicSpline, InterpolatedUnivariateSpline
-from scipy.integrate import cumulative_trapezoid, quad, trapezoid
 import pandas as pd
-import numpy as np
-from scipy.stats import gaussian_kde
+from scipy.integrate import cumulative_trapezoid, trapezoid
+from scipy.interpolate import interp1d, InterpolatedUnivariateSpline
 from src.fda.transformations.utils import duplicated_tol_sorted, compute_lqd_cut 
-from typing import Tuple
 
 
 # Fixed M to better approximate functions. Smaller M (like 256) generates worse approximations.
@@ -397,7 +387,8 @@ def obtain_densities_from_lqd(
         backward_support, backward_density = lqd2dens(
                                                     lqd, 
                                                     lqdSup_, 
-                                                    c = c_[i], 
+                                                    # c = c_[i], 
+                                                    c=c_,
                                                     # t0=t_[i],
                                                     t0=t_, 
                                                     cut=cut,
@@ -568,9 +559,10 @@ class mLQDT:
 
     def inverse_transform(
                         self, 
-                        lqd_obj: LQDRepresentation,
-                        verbose: bool=True
-                                ):
+                        lqd_obj:        LQDRepresentation,
+                        common_support: bool = False,
+                        verbose:        bool = True
+                        ):
         """
         Reconstruct probability density functions from their
         Log–Quantile–Density representation.
@@ -613,5 +605,36 @@ class mLQDT:
                                                             t_      =   t0s,
                                                             verbose = verbose
                                         )
+
+        if not common_support:
+            return densities_supports, densities
+
+        # 2. Define the global support range
+        grid_size = len(lqd_support)
+        global_min = densities_supports.min().min()
+        global_max = densities_supports.max().max()
+        interpolated_support = np.linspace(global_min, global_max, grid_size)
+
+        # 3. Interpolate each curve
+        interp_df = pd.DataFrame(index=interpolated_support, columns=densities.columns)
         
-        return densities_supports, densities
+        for col in densities.columns:
+            # Linear interpolation with zero-padding for tails
+            f_interp = interp1d(
+                densities_supports[col], 
+                densities[col], 
+                kind='linear', 
+                bounds_error=False, 
+                fill_value=0
+            )
+            
+            dens_values = f_interp(interpolated_support)
+            
+            # Re-normalize to ensure the integral is 1 on the new grid
+            area = np.trapezoid(dens_values, interpolated_support)
+            if area > 0:
+                dens_values /= area
+            
+            interp_df[col] = dens_values
+            
+        return interpolated_support, interp_df
