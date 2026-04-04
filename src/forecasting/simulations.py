@@ -1,10 +1,10 @@
-import numpy as np
-import pandas as pd
-import scipy.stats as stats
-import plotly.express as px
+import numpy                        as np
+import pandas                       as pd
+import scipy.stats                  as stats
+import plotly.express               as px
 import src.fda.transformations.lqdt as lqdt
-import src.fda.plots as fplt
-
+import src.fda.plots                as fplt
+import src.fda.simulations          as sim
 
 def generate_base_density(grid, kind="gaussian", **params):
     """
@@ -404,6 +404,36 @@ class FDFSimulator:
         }
 
         return self.result
+    
+    def get_samples_df(self, 
+                       n_samples=84
+                       ) -> pd.DataFrame:
+        """
+        Generates an (m x T) DataFrame of samples from the simulated densities.
+        m = n_samples (rows)
+        T = n_curves (columns)
+        
+        Preserves original column names from the simulation results.
+
+        Notes
+        ---------
+        * n_samples is set to 84 by default because this is the number of returns in 
+        5 min intraday samples from 10:05 to 17:00 (no overnight return considered),
+        just like for IBOVESPA.
+        """
+        if self.result is None:
+            raise ValueError("No simulation results found. Run 'run_simulation' first.")
+            
+        df_densities = self.result["densities"]
+        support = self.result["support"]
+        
+        # Use a dictionary comprehension for speed and column name preservation
+        sampled_returns = {
+            col: sim.sample_from_density(y=df_densities[col].values, x=support, n_samples=n_samples)
+            for col in df_densities.columns
+        }
+            
+        return pd.DataFrame(sampled_returns)
 
     def plot_simulation(self, space="density", title=None):
         if self.result is None:

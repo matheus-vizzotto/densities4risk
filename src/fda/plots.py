@@ -6,8 +6,7 @@ import plotly.express as px
 from typing import List
 from plotly.subplots import make_subplots
 from statsmodels.tsa.stattools import acf, pacf
-
-# TODO: plot_3d_ts traz domínio da função invertido
+import re
 
 def plot_2d_fts(
         df : pd.DataFrame, 
@@ -536,4 +535,22 @@ def plot_density_timeseries_3d(
 
     return fig
 
+def hex_to_rgba(hex_code, alpha=1):
+    hex_code = hex_code.lstrip('#')
+    rgb = tuple(int(hex_code[i:i+2], 16) for i in (0, 2, 4))
+    return f"rgba({rgb[0]}, {rgb[1]}, {rgb[2]}, {alpha})"
+def rgba_to_hex(rgba_str):
+    """
+    Convert 'rgba(r, g, b, a)' → '#RRGGBB'
+    Ignores alpha channel.
+    """
+    # Extract numbers
+    values = re.findall(r"[\d.]+", rgba_str)
+    
+    if len(values) < 3:
+        raise ValueError("Invalid RGBA format")
+    
+    r, g, b = map(int, values[:3])
+    
+    return f"#{r:02x}{g:02x}{b:02x}"
 
