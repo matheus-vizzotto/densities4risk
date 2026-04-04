@@ -32,3 +32,31 @@ def verify_density_area(x, f_x, method='simpson'):
         
     print(f"[{method.capitalize()}] Total Area: {area:.8f}")
     return area
+
+def _calculate_density_mean(
+        u_grid: np.array, 
+        density: np.array
+        ) -> float:
+    """
+    Calculates the first raw moment: mu = integral(u * f(u) du)
+    """
+    mean = simpson(y=u_grid * density, x=u_grid)
+
+    return mean
+
+def _calculate_density_variance(
+        u_grid: np.array, 
+        density: np.array
+        ) -> float:
+    """
+    Calculates the second central moment: Var = integral((u - mu)^2 * f(u) du)
+    """
+    mu = _calculate_density_mean(u_grid, density)
+    
+    # Calculate (u - mu)^2
+    squared_deviation = (u_grid - mu)**2
+    
+    # Integrate squared deviation weighted by the density
+    variance = simpson(y=squared_deviation * density, x=u_grid)
+    
+    return variance

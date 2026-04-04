@@ -489,7 +489,7 @@ class FDFSimulator:
             title=title or f"Simulated Functional Paths ({space.capitalize()})",
             xaxis_title="Support",
             yaxis_title=y_label,
-            hovermode="x unified",
+            # hovermode="x unified",
             # Scrollable legend if the list is too long
             legend=dict(
                 yanchor="top", 
