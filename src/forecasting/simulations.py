@@ -1,9 +1,10 @@
 import numpy as np
-import scipy
 import pandas as pd
-
-import numpy as np
 import scipy.stats as stats
+import plotly.express as px
+import src.fda.transformations.lqdt as lqdt
+import src.fda.plots as fplt
+
 
 def generate_base_density(grid, kind="gaussian", **params):
     """
@@ -291,3 +292,164 @@ def simulate_l2_process(
         Y = pd.DataFrame(Y, index=u, columns=dates)
 
     return Y, scores, X, noise
+
+class FDFSimulator:
+    """
+    Simulation engine for Functional Density Forecasting (FDF).
+    
+    Coordinates the transformation, simulation, and reconstruction of 
+    density-valued time series.
+    """
+    def __init__(self, x_grid, u_grid=None, t0=None):
+        self.x = x_grid  # Density support (e.g., returns)
+        self.u = u_grid if u_grid is not None else np.linspace(0, 1, len(x_grid)) # LQD support [0, 1]
+        # Default t0 to the point closest to zero
+        self.t0 = t0 if t0 is not None else x_grid[np.argmin(np.abs(x_grid))]
+        self.mlqdt = lqdt.mLQDT() 
+
+        # fitted values
+        self.result = None
+
+    def run_simulation(self, 
+                       base_pdf, 
+                       n_curves=100, 
+                       phis=[0.8, 0.5], 
+                       sigma=0.05, 
+                       noise_type="bridge",
+                       basis="cosine", 
+                       common_support=True
+                       ):
+        """
+        Runs a full simulation pipeline using a user-provided baseline density.
+
+        Parameters
+        ----------
+        base_pdf : np.ndarray
+            The density values f(x) evaluated on self.x_grid.
+        n_curves : int
+            Number of functional observations to simulate.
+        phis : list
+            Autoregressive coefficients for the latent process.
+        sigma : float
+            Scale of the functional noise.
+        noise_type : str
+            Type of stochastic perturbation ('bridge', 'wiener', etc.).
+        common_support : bool
+            If True, returns reconstructed densities on a shared grid.
+
+        Examples
+        --------
+        >>> # 1. Setup grids and engine
+        >>> x = np.linspace(-6, 6, 1000)
+        >>> u = np.linspace(0, 1, 1000)
+        >>> sim_engine = FDFSimulator(u_grid=u, x_grid=x)
+        >>> 
+        >>> # 2. Generate any custom baseline density
+        >>> my_pdf = generate_base_density(x, kind='student_t', df=3)
+        >>> 
+        >>> # 3. Run the simulation
+        >>> results = sim_engine.run_simulation(
+        ...     base_pdf=my_pdf, 
+        ...     n_curves=200, 
+        ...     sigma=0.05, 
+        ...     phis=[0.8, 0.5]
+        ... )
+        >>> 
+        >>> # 4. Access results
+        >>> simulated_densities = results['densities'] # pd.DataFrame
+        """
+        # 1. Forward Transform: Density -> LQD (L2 space)
+        # This converts your input PDF into the Hilbert space where we add noise
+        lqd_sup, lqd_base, c_val = lqdt.dens2lqd(
+            dens=base_pdf, 
+            dSup=self.x, 
+            lqdSup=self.u, 
+            t0=self.t0
+        )
+        
+        # 2. Simulate L2 Stochastic Process
+        # Generates Y_t(u) = LQD_base(u) + X_t(u) + epsilon_t(u)
+        Y_l2, _, _, _ = simulate_l2_process(
+            n=n_curves,
+            base_lqd=lqd_base,
+            u=self.u,
+            phis=phis,
+            sigma=sigma,
+            noise_type=noise_type,
+            as_dataframe=True,
+            basis=basis
+        )
+        
+        # 3. Inverse Transform: LQD -> Reconstructed Densities
+        # Package the simulated L2 curves with the necessary integration constants
+        lqd_obj = lqdt.LQDRepresentation(
+            lqd=Y_l2,
+            c=c_val,
+            lqd_support=self.u,
+            t0=self.t0
+        )
+        
+        reconstructed_support, df_densities = self.mlqdt.inverse_transform(
+            lqd_obj, 
+            common_support=common_support
+        )
+
+        self.result  = {
+            "Y_l2": Y_l2,           # The simulated curves in L2 space
+            "l2_mean": Y_l2.mean(axis=1),
+            "densities": df_densities, # The final reconstructed densities
+            "densities_mean": df_densities.mean(axis=1),
+            "support": reconstructed_support,
+            "c_val": c_val          # Useful for debugging shifts in support
+        }
+
+        return self.result
+
+    def plot_simulation(self, space="density", title=None):
+        if self.result is None:
+            raise ValueError("No simulation results found.")
+
+        if space == "density":
+            df = self.result["densities"].copy()
+            support = self.result["support"]
+            y_label = "Probability Density"
+            main_color = "rgba(150, 150, 150, 0.3)" 
+        else:
+            df = self.result["Y_l2"].copy()
+            support = self.u
+            y_label = "LQD Value (L2 Space)"
+            main_color = "rgba(0, 100, 250, 0.3)"
+
+        df.index = support
+        
+        # 1. Start with the spaghetti lines
+        fig = px.line(df, template="plotly_dark")
+        
+        # 2. Update traces to show in legend
+        # legendgroup allows you to toggle all simulated curves by clicking one
+        fig.update_traces(
+            line=dict(color=main_color, width=1), 
+            showlegend=True,
+            legendgroup="simulated" 
+        )
+
+        fig.update_layout(
+            title=title or f"Simulated Functional Paths ({space.capitalize()})",
+            xaxis_title="Support",
+            yaxis_title=y_label,
+            hovermode="x unified",
+            # Scrollable legend if the list is too long
+            legend=dict(
+                yanchor="top", 
+                y=0.99, 
+                xanchor="left", 
+                x=1.02, # Moves legend outside the plot area
+                traceorder="normal",
+                itemsizing="constant"
+            )
+        )
+
+        # Optional: Add the select menu utility you've been using
+        fplt.px_select_menu(fig)
+        
+        return fig
