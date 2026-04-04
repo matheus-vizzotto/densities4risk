@@ -181,6 +181,21 @@ def simulate_brownian_bridge(n, nt, u, sigma_bb=0.05):
 
     return BB
 
+def simulate_curve_noise(n, nt, u, scale=1):
+    """
+    Simula ruído funcional usando uma combinação linear de senos.
+    Baseado em Bhatia et al (2010).
+    """
+    mEps = np.zeros((nt, n))
+    for ii in range(n):
+        for jj in range(1, 11): 
+            mEps[:, ii] += (
+                stats.norm.rvs(scale=scale) * np.sqrt(2) *
+                np.sin(np.pi * u * jj) / (2 ** (jj - 1))
+            )
+
+    return mEps
+
 def simulate_white_noise(n, nt, sigma):
     """
     Simple iid functional noise.
@@ -204,6 +219,7 @@ def simulate_l2_process(
     u,
     phis,
     sigma=0.05,
+    error_sigma=0.05,
     noise_type="bridge",
     basis="cosine",
     as_dataframe=False,
@@ -229,7 +245,7 @@ def simulate_l2_process(
         AR(1) coefficients.
     sigma : float, optional
         Innovation standard deviation.
-    noise_type : {"bridge", "white"}, optional
+    noise_type : {"bb", "functional_noise", "white"}, optional
         Type of functional noise.
     as_dataframe : bool, optional
         If True, return Y as a pandas DataFrame with a daily date index.
@@ -269,10 +285,14 @@ def simulate_l2_process(
     basis = build_basis(K, u, basis_type=basis)
     X = build_dependence(scores, basis)
 
-    if noise_type == "bridge":
-        noise = simulate_brownian_bridge(n, nt, u)
-    else:
+    if noise_type == "bb":
+        noise = simulate_brownian_bridge(n, nt, u, sigma_bb=sigma)
+    elif noise_type == "functional_noise":
+        noise = simulate_curve_noise(n, nt, u, error_sigma)
+    elif noise_type == "white":
         noise = simulate_white_noise(n, nt, sigma)
+    else:
+        raise ValueError("noise_type must be 'bb', 'functional_noise' or 'white'")
 
     Y = assemble_l2_process(base_lqd, X, noise)
 
@@ -315,6 +335,7 @@ class FDFSimulator:
                        n_curves=100, 
                        phis=[0.8, 0.5], 
                        sigma=0.05, 
+                       error_sigma=0.05,
                        noise_type="bridge",
                        basis="cosine", 
                        common_support=True
@@ -375,6 +396,7 @@ class FDFSimulator:
             u=self.u,
             phis=phis,
             sigma=sigma,
+            error_sigma=error_sigma,
             noise_type=noise_type,
             as_dataframe=True,
             basis=basis
