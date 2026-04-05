@@ -95,6 +95,34 @@ def _bootstrap_select_n_components(
 
     return final_d0, bs_pvalues
 
+def _select_d0_by_variance(thetahat, threshold):
+    """
+    Select number of components d0 based on cumulative variance explained.
+
+    Parameters
+    ----------
+    thetahat : ndarray
+        Eigenvalues sorted in decreasing order.
+
+    threshold : float 
+        Target proportion of variance to preserve.
+
+    Returns
+    -------
+    d0 : int
+        Selected number of components.
+    cumvar : ndarray
+        Cumulative variance explained.
+    """
+    thetahat = np.real(thetahat)
+    
+    total_var = np.sum(thetahat)
+    cumvar = np.cumsum(thetahat) / total_var
+
+    d0 = np.searchsorted(cumvar, threshold) + 1
+
+    return d0, cumvar
+
 class K_dFPC:
     """
     Implements the estimation of a KLE-based dynamic factor model
@@ -167,6 +195,7 @@ class K_dFPC:
         self.u = None
         self.bs_pvalues = None
         self.fitted_values = None
+        self.cumvar = None
 
     # ------------------------------------------------------------
     def _compute_kstar_eigenvalues(self, Y_mat, p, du, return_vecs=False):
@@ -252,22 +281,17 @@ class K_dFPC:
                                                                         )
 
         # 2. Component Selection
-        if select_ncomp:
-            d0, bs_pvalues = _bootstrap_select_n_components(
-                                            self.Y, 
-                                            Ydev, 
-                                            Ybar, 
-                                            thetahat_old, 
-                                            gammahat_old, 
-                                            n, 
-                                            p, 
-                                            self.m, 
-                                            du, 
-                                            B, 
-                                            lag_max, 
-                                            alpha
-            )
+        if select_ncomp == "bootstrap":
+            d0, bs_pvalues = _bootstrap_select_n_components(...)
             self.bs_pvalues = bs_pvalues
+
+        elif select_ncomp == "variance":
+            d0, cumvar = _select_d0_by_variance(thetahat_old, threshold=0.95)
+            if d0 == 1:
+                # print("Adjusting d0 to 2 so it is compatible with VAR")
+                d0=2
+            self.cumvar = cumvar  # store for diagnostics
+
         else:
             d0 = dimension if dimension is not None else 1
 

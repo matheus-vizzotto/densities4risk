@@ -1,0 +1,239 @@
+2026-04-05 16:42:47,974 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 1
+2026-04-05 16:42:48,073 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 2
+2026-04-05 16:42:48,170 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 3
+2026-04-05 16:42:48,266 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 4
+2026-04-05 16:42:53,140 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 1
+2026-04-05 16:42:53,241 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 2
+2026-04-05 16:42:53,341 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 3
+2026-04-05 16:42:53,442 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 4
+2026-04-05 16:43:18,197 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 1
+2026-04-05 16:43:18,294 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_24819/354710046.py", line 41, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv(
+                                      ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 289, in fit
+    d0, cumvar = _select_d0_by_variance(thetahat_old, threshold=0.95)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: _select_d0_by_variance() missing 1 required positional argument: 'thetahat'
+2026-04-05 16:43:18,300 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 2
+2026-04-05 16:43:18,395 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_24819/354710046.py", line 41, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv(
+                                      ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 289, in fit
+    d0, cumvar = _select_d0_by_variance(thetahat_old, threshold=0.95)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: _select_d0_by_variance() missing 1 required positional argument: 'thetahat'
+2026-04-05 16:43:18,396 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 3
+2026-04-05 16:43:18,498 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_24819/354710046.py", line 41, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv(
+                                      ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 289, in fit
+    d0, cumvar = _select_d0_by_variance(thetahat_old, threshold=0.95)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: _select_d0_by_variance() missing 1 required positional argument: 'thetahat'
+2026-04-05 16:43:18,500 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 4
+2026-04-05 16:43:18,599 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_24819/354710046.py", line 41, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv(
+                                      ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 289, in fit
+    d0, cumvar = _select_d0_by_variance(thetahat_old, threshold=0.95)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: _select_d0_by_variance() missing 1 required positional argument: 'thetahat'
+2026-04-05 16:43:23,339 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 1
+2026-04-05 16:43:23,437 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_24819/354710046.py", line 41, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv(
+                                      ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 289, in fit
+    d0, cumvar = _select_d0_by_variance(thetahat_old, threshold=0.95)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: _select_d0_by_variance() missing 1 required positional argument: 'thetahat'
+2026-04-05 16:43:23,438 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 2
+2026-04-05 16:44:01,017 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 1
+2026-04-05 16:51:19,337 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 1
+2026-04-05 16:51:20,193 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_25343/4229195951.py", line 35, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv(
+                                      ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 125, in cv
+    mdfpc_fc = forecaster.predict(horizon=1, var_lags=var_lags, forecast_index=Y_test.columns)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 154, in predict
+    k_etahat_fc = run_multivariate_forecaster(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 19, in run_multivariate_forecaster
+    selected_nlags = forecaster.select_order_ic(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/models.py", line 54, in select_order_ic
+    model = VAR(self.Y)
+            ^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/statsmodels/tsa/vector_ar/var_model.py", line 552, in __init__
+    raise ValueError("Only gave one variable to VAR")
+ValueError: Only gave one variable to VAR
+2026-04-05 16:51:20,198 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 2
+2026-04-05 16:51:21,044 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_25343/4229195951.py", line 35, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv(
+                                      ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 125, in cv
+    mdfpc_fc = forecaster.predict(horizon=1, var_lags=var_lags, forecast_index=Y_test.columns)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 154, in predict
+    k_etahat_fc = run_multivariate_forecaster(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 19, in run_multivariate_forecaster
+    selected_nlags = forecaster.select_order_ic(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/models.py", line 54, in select_order_ic
+    model = VAR(self.Y)
+            ^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/statsmodels/tsa/vector_ar/var_model.py", line 552, in __init__
+    raise ValueError("Only gave one variable to VAR")
+ValueError: Only gave one variable to VAR
+2026-04-05 16:51:21,046 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 3
+2026-04-05 16:51:21,890 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_25343/4229195951.py", line 35, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv(
+                                      ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 125, in cv
+    mdfpc_fc = forecaster.predict(horizon=1, var_lags=var_lags, forecast_index=Y_test.columns)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 154, in predict
+    k_etahat_fc = run_multivariate_forecaster(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 19, in run_multivariate_forecaster
+    selected_nlags = forecaster.select_order_ic(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/models.py", line 54, in select_order_ic
+    model = VAR(self.Y)
+            ^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/statsmodels/tsa/vector_ar/var_model.py", line 552, in __init__
+    raise ValueError("Only gave one variable to VAR")
+ValueError: Only gave one variable to VAR
+2026-04-05 16:51:21,891 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 4
+2026-04-05 16:51:22,786 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_25343/4229195951.py", line 35, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv(
+                                      ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 125, in cv
+    mdfpc_fc = forecaster.predict(horizon=1, var_lags=var_lags, forecast_index=Y_test.columns)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 154, in predict
+    k_etahat_fc = run_multivariate_forecaster(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 19, in run_multivariate_forecaster
+    selected_nlags = forecaster.select_order_ic(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/models.py", line 54, in select_order_ic
+    model = VAR(self.Y)
+            ^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/statsmodels/tsa/vector_ar/var_model.py", line 552, in __init__
+    raise ValueError("Only gave one variable to VAR")
+ValueError: Only gave one variable to VAR
+2026-04-05 16:51:27,504 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 1
+2026-04-05 16:51:28,186 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_25343/4229195951.py", line 35, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv(
+                                      ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 125, in cv
+    mdfpc_fc = forecaster.predict(horizon=1, var_lags=var_lags, forecast_index=Y_test.columns)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 154, in predict
+    k_etahat_fc = run_multivariate_forecaster(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 19, in run_multivariate_forecaster
+    selected_nlags = forecaster.select_order_ic(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/models.py", line 54, in select_order_ic
+    model = VAR(self.Y)
+            ^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/statsmodels/tsa/vector_ar/var_model.py", line 552, in __init__
+    raise ValueError("Only gave one variable to VAR")
+ValueError: Only gave one variable to VAR
+2026-04-05 16:51:28,187 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 2
+2026-04-05 16:51:28,868 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_25343/4229195951.py", line 35, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv(
+                                      ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 125, in cv
+    mdfpc_fc = forecaster.predict(horizon=1, var_lags=var_lags, forecast_index=Y_test.columns)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 154, in predict
+    k_etahat_fc = run_multivariate_forecaster(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 19, in run_multivariate_forecaster
+    selected_nlags = forecaster.select_order_ic(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/models.py", line 54, in select_order_ic
+    model = VAR(self.Y)
+            ^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/statsmodels/tsa/vector_ar/var_model.py", line 552, in __init__
+    raise ValueError("Only gave one variable to VAR")
+ValueError: Only gave one variable to VAR
+2026-04-05 16:51:28,869 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 3
+2026-04-05 16:51:29,549 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_25343/4229195951.py", line 35, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv(
+                                      ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 125, in cv
+    mdfpc_fc = forecaster.predict(horizon=1, var_lags=var_lags, forecast_index=Y_test.columns)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 154, in predict
+    k_etahat_fc = run_multivariate_forecaster(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 19, in run_multivariate_forecaster
+    selected_nlags = forecaster.select_order_ic(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/models.py", line 54, in select_order_ic
+    model = VAR(self.Y)
+            ^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/statsmodels/tsa/vector_ar/var_model.py", line 552, in __init__
+    raise ValueError("Only gave one variable to VAR")
+ValueError: Only gave one variable to VAR
+2026-04-05 16:51:29,551 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 4
+2026-04-05 16:52:53,500 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 1
+2026-04-05 16:58:20,053 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 1
+2026-04-05 16:59:42,699 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 1
+2026-04-05 17:00:16,399 | INFO | Progress: (1/520) | KDE: t-student_adaptive_df=5 | VAR(q): 2
+2026-04-05 17:00:49,334 | INFO | Progress: (2/520) | KDE: t-student_adaptive_df=5 | VAR(q): 3
+2026-04-05 17:01:22,516 | INFO | Progress: (3/520) | KDE: t-student_adaptive_df=5 | VAR(q): 4
+2026-04-05 17:51:15,026 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 17:51:21,712 | INFO | Progress: (2/26) | Database: normal | KDE model: gaussian_rot
+2026-04-05 17:51:28,119 | INFO | Progress: (3/26) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-05 17:51:31,524 | INFO | Progress: (4/26) | Database: normal | KDE model: epanechnikov_rot
+2026-04-05 17:51:35,216 | INFO | Progress: (5/26) | Database: normal | KDE model: gaussian_cross_validate_loo
