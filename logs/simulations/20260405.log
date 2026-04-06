@@ -717,3 +717,69 @@ NameError: name 'KdFPC_kwargs' is not defined
 2026-04-05 19:51:13,165 | INFO | Progress: (26/26) | Database: student | KDE model: t-student_adaptive_df=5
 2026-04-05 19:51:13,165 | INFO | Progress: (26/26) | Database: student | KDE model: t-student_adaptive_df=5
 2026-04-05 19:51:13,165 | INFO | Progress: (26/26) | Database: student | KDE model: t-student_adaptive_df=5
+2026-04-05 23:28:30,733 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 23:28:30,734 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_31758/1874222010.py", line 35, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 23:28:30,734 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot
+2026-04-05 23:28:30,734 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_31758/1874222010.py", line 35, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 23:28:30,734 | INFO | Progress: (1/26) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-05 23:28:30,734 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_31758/1874222010.py", line 35, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 23:28:30,734 | INFO | Progress: (1/26) | Database: normal | KDE model: epanechnikov_rot
+2026-04-05 23:28:30,734 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_31758/1874222010.py", line 35, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 23:28:30,734 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_cross_validate_loo
+2026-04-05 23:28:30,734 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_31758/1874222010.py", line 35, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 23:28:30,734 | INFO | Progress: (1/26) | Database: normal | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 23:28:30,734 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_31758/1874222010.py", line 35, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 23:28:30,734 | INFO | Progress: (1/26) | Database: normal | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 23:28:30,735 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_31758/1874222010.py", line 35, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 23:29:14,212 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 23:29:16,156 | INFO | Progress: (2/26) | Database: normal | KDE model: gaussian_rot
+2026-04-05 23:29:17,970 | INFO | Progress: (3/26) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-05 23:30:06,210 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 23:30:08,119 | INFO | Progress: (2/26) | Database: normal | KDE model: gaussian_rot
+2026-04-05 23:30:09,971 | INFO | Progress: (3/26) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-05 23:30:12,502 | INFO | Progress: (4/26) | Database: normal | KDE model: epanechnikov_rot
+2026-04-05 23:30:14,800 | INFO | Progress: (5/26) | Database: normal | KDE model: gaussian_cross_validate_loo
+2026-04-05 23:30:17,169 | INFO | Progress: (6/26) | Database: normal | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 23:30:19,365 | INFO | Progress: (7/26) | Database: normal | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 23:31:31,814 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 23:31:33,732 | INFO | Progress: (2/26) | Database: normal | KDE model: gaussian_rot
+2026-04-05 23:31:35,479 | INFO | Progress: (3/26) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-05 23:31:37,955 | INFO | Progress: (4/26) | Database: normal | KDE model: epanechnikov_rot
+2026-04-05 23:31:40,241 | INFO | Progress: (5/26) | Database: normal | KDE model: gaussian_cross_validate_loo
+2026-04-05 23:31:42,665 | INFO | Progress: (6/26) | Database: normal | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 23:31:44,859 | INFO | Progress: (7/26) | Database: normal | KDE model: t-student_cross_validate_df=4_loo
