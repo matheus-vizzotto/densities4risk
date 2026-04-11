@@ -291,6 +291,8 @@ def simulate_l2_process(
         noise = simulate_curve_noise(n, nt, u, error_sigma)
     elif noise_type == "white":
         noise = simulate_white_noise(n, nt, sigma)
+    elif noise_type == "Null":
+        noise = np.zeros_like(X)
     else:
         raise ValueError("noise_type must be 'bb', 'functional_noise' or 'white'")
 

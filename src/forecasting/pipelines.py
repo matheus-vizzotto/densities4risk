@@ -140,11 +140,11 @@ class DensityForecaster:
                 raise ValueError(f"forecast_index length ({len(forecast_index)}) "
                                 f"must match horizon ({horizon})")
             future_dates = forecast_index
-        elif self.index_freq is not None:
-            # Automatic generation if freq was caught in .fit()
-            future_dates = pd.date_range(start=self.last_date, 
-                                        periods=horizon + 1, 
-                                        freq=self.index_freq)[1:]
+        # elif self.index_freq is not None:
+        #     # Automatic generation if freq was caught in .fit()
+        #     future_dates = pd.date_range(start=self.last_date, 
+        #                                 periods=horizon + 1, 
+        #                                 freq=self.index_freq)[1:]
         else:
             # Fallback to integer steps if no dates are available
             future_dates = np.arange(horizon)
