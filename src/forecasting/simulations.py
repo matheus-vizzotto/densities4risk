@@ -6,6 +6,31 @@ import src.fda.transformations.lqdt as lqdt
 import src.fda.plots                as fplt
 import src.fda.simulations          as sim
 
+def generate_ar_coeffs(d):
+    """
+    Generate AR coefficients for eigenfunctions dependence.
+    """
+    c = []
+    for l0 in range(d):
+        l = l0 + 1
+        c0 = (-1)**l * (0.9 - ((0.5*l)/d))
+        # print(c0, "\n")
+        c.append(c0)
+    return c
+
+# def generate_ar_coeffs(K, p=1):
+#     """
+#     Generate stable AR(p) coefficients with decay across lags and components.
+#     """
+#     coeffs = np.zeros((K, p))
+
+#     for k in range(K):
+#         for j in range(p):
+#             l = k + 1
+#             coeffs[k, j] = ((-1)**(l + j)) * (0.8 / (j + 1)) * (1 - l/(2*K))
+
+#     return coeffs
+
 def generate_base_density(grid, kind="gaussian", **params):
     """
     Generates a normalized density f(x) evaluated on a grid using 
@@ -191,7 +216,7 @@ def simulate_curve_noise(n, nt, u, scale=1):
         for jj in range(1, 11): 
             mEps[:, ii] += (
                 stats.norm.rvs(scale=scale) * np.sqrt(2) *
-                np.sin(np.pi * u * jj) / (2 ** (jj - 1))
+                np.cos(np.pi * u * jj) / (2 ** (jj - 1))
             )
 
     return mEps
@@ -217,7 +242,8 @@ def simulate_l2_process(
     n,
     base_lqd,
     u,
-    phis,
+    phis=None,
+    K=None,
     sigma=0.05,
     error_sigma=0.05,
     noise_type="bridge",
@@ -279,7 +305,13 @@ def simulate_l2_process(
     """
 
     nt = len(u)
-    K = len(phis)
+    if phis is None:
+        if K is None:
+            raise ValueError("Provide either 'phis' or 'K'")
+        phis = generate_ar_coeffs(K)
+    else:
+        phis = np.asarray(phis)
+        K = len(phis)
 
     scores = simulate_ar_scores(n, phis, sigma)
     basis = build_basis(K, u, basis_type=basis)
@@ -313,7 +345,7 @@ def simulate_l2_process(
 
         Y = pd.DataFrame(Y, index=u, columns=dates)
 
-    return Y, scores, X, noise
+    return Y, scores, X, noise, phis
 
 class FDFSimulator:
     """
@@ -331,15 +363,17 @@ class FDFSimulator:
 
         # fitted values
         self.result = None
+        self.ar_coeffs = None
 
     def run_simulation(self, 
                        base_pdf, 
-                       n_curves=100, 
-                       phis=[0.8, 0.5], 
                        sigma=0.05, 
                        error_sigma=0.05,
+                       dimensions=2,
+                       phis=None, 
                        noise_type="bridge",
                        basis="cosine", 
+                       n_curves=100, 
                        common_support=True
                        ):
         """
@@ -353,6 +387,8 @@ class FDFSimulator:
             Number of functional observations to simulate.
         phis : list
             Autoregressive coefficients for the latent process.
+        K: int
+            Number of dimensions for the simulated process.
         sigma : float
             Scale of the functional noise.
         noise_type : str
@@ -392,17 +428,19 @@ class FDFSimulator:
         
         # 2. Simulate L2 Stochastic Process
         # Generates Y_t(u) = LQD_base(u) + X_t(u) + epsilon_t(u)
-        Y_l2, _, _, _ = simulate_l2_process(
+        Y_l2, _, _, _, phis = simulate_l2_process(
             n=n_curves,
             base_lqd=lqd_base,
             u=self.u,
             phis=phis,
+            K=dimensions,
             sigma=sigma,
             error_sigma=error_sigma,
             noise_type=noise_type,
             as_dataframe=True,
             basis=basis
         )
+        self.ar_coeffs = phis
         
         # 3. Inverse Transform: LQD -> Reconstructed Densities
         # Package the simulated L2 curves with the necessary integration constants
@@ -421,7 +459,7 @@ class FDFSimulator:
         self.result  = {
             "Y_l2": Y_l2,           # The simulated curves in L2 space
             "l2_mean": Y_l2.mean(axis=1),
-            "densities": df_densities, # The final reconstructed densities
+            "densities": df_densities.fillna(0), # The final reconstructed densities
             "densities_mean": df_densities.mean(axis=1),
             "support": reconstructed_support,
             "c_val": c_val          # Useful for debugging shifts in support
