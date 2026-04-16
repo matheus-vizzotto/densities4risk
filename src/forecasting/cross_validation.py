@@ -296,5 +296,7 @@ def cv_sim(
                                 })
                         temp_df.set_index(["fold", "date", "support"], inplace=True)
                         curves_hist.append(temp_df) 
+                        d1.update({"curves": temp_df})
+                        d1.update({"curves_fc_date": df_fc.columns[0]})
                 
         return measures, pd.concat(curves_hist)
