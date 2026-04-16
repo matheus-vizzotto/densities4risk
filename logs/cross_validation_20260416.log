@@ -1,0 +1,29 @@
+2026-04-16 13:26:45,895 | INFO | 
+Initiating cross validation...
+2026-04-16 13:26:45,905 | INFO | Scenario: 9 | n_rep: 34 | KDE model: gaussianadaptive
+2026-04-16 13:43:21,263 | INFO | 
+Initiating cross validation...
+2026-04-16 13:43:21,270 | INFO | Scenario: 9 | n_rep: 34 | KDE model: gaussian adaptive
+2026-04-16 13:44:52,992 | INFO | Scenario: 0 | n_rep: 27 | KDE model: gaussian rot robust
+2026-04-16 13:46:19,999 | INFO | Scenario: 9 | n_rep: 17 | KDE model: gaussian cross validate
+2026-04-16 13:48:33,853 | INFO | 
+Initiating cross validation...
+2026-04-16 13:48:33,867 | INFO | Scenario: 9 | n_rep: 34 | KDE model: gaussian adaptive
+2026-04-16 13:50:04,838 | INFO | Scenario: 0 | n_rep: 27 | KDE model: gaussian rot robust
+2026-04-16 13:51:31,189 | INFO | Scenario: 9 | n_rep: 17 | KDE model: gaussian cross validate
+2026-04-16 13:52:47,996 | INFO | Scenario: 9 | n_rep: 42 | KDE model: t-student cross validate df=3
+2026-04-16 13:54:04,578 | INFO | Scenario: 0 | n_rep: 32 | KDE model: t-student cross validate df=3
+2026-04-16 13:55:24,778 | INFO | Scenario: 9 | n_rep: 29 | KDE model: gaussian rot
+2026-04-16 13:56:57,801 | INFO | Scenario: 0 | n_rep: 37 | KDE model: gaussian rot
+2026-04-16 13:58:05,340 | INFO | Scenario: 9 | n_rep: 10 | KDE model: gaussian rot robust
+2026-04-16 13:59:25,250 | INFO | Scenario: 0 | n_rep: 16 | KDE model: gaussian adaptive
+2026-04-16 14:00:32,456 | INFO | Scenario: 9 | n_rep: 16 | KDE model: t-student adaptive df=3
+2026-04-16 14:02:00,720 | INFO | Scenario: 9 | n_rep: 43 | KDE model: gaussian adaptive
+2026-04-16 14:03:24,627 | INFO | Scenario: 0 | n_rep: 3 | KDE model: t-student cross validate df=3
+2026-04-16 14:05:09,618 | INFO | Scenario: 9 | n_rep: 3 | KDE model: gaussian adaptive
+2026-04-16 14:06:51,307 | INFO | Scenario: 9 | n_rep: 25 | KDE model: t-student adaptive df=3
+2026-04-16 14:08:12,225 | INFO | Scenario: 9 | n_rep: 43 | KDE model: t-student cross validate df=3
+2026-04-16 14:09:39,105 | INFO | Scenario: 0 | n_rep: 33 | KDE model: t-student cross validate df=3
+2026-04-16 14:10:57,952 | INFO | Scenario: 9 | n_rep: 11 | KDE model: gaussian rot
+2026-04-16 14:12:28,023 | INFO | Scenario: 9 | n_rep: 41 | KDE model: t-student adaptive df=3
+2026-04-16 14:14:10,661 | INFO | Scenario: 0 | n_rep: 2 | KDE model: t-student cross validate df=3
