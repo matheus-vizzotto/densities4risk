@@ -24,6 +24,9 @@ def get_rot_bandwidth_ck():
             "silverman":          CK_EPANECHNIKOV_SILVERMAN,
             # "silverman_adjusted": CK_GAUSSIAN_SILVERMAN_ADJUSTED * CK_EPANECHNIKOV_SILVERMAN / CK_GAUSSIAN_SILVERMAN # scaled to preserve Silverman/Gaussian ratio
         },
+        "t-student": {
+            "silverman":          CK_GAUSSIAN_SILVERMAN
+        }
     }
 
     return ROT_BANDWIDTH_CK

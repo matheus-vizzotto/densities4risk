@@ -86,11 +86,20 @@ s
     dens = np.asarray(dens)
     dSup = np.asarray(dSup)
 
-    # Default t0
+    # ------------------------------------------------------------------
+    # Step 0 — Default reference point t0
+    # ------------------------------------------------------------------
+    # The constant c = F(t0) is used later when inverting the transform.
+    # If not provided, we anchor the transformation at the left boundary.
     if t0 is None:
         t0 = dSup[0]
 
-    # ---- Check density requirements ----
+    # ------------------------------------------------------------------
+    # Step 1 — Validate density and enforce normalization
+    # ------------------------------------------------------------------
+    # The LQD requires a *valid density*: non-negative and integrating to 1.
+    # Numerical estimates (e.g., KDEs) often violate normalization slightly,
+    # so we renormalize if needed.
     if np.any(dens < 0):
         raise ValueError("Please correct negative density values.")
 
@@ -99,7 +108,12 @@ s
             print("Density does not integrate to 1 with tolerance 1e-5 - renormalizing now.")
         dens = dens / trapezoid(dens, dSup)
 
-    # ---- Handle zero density values by truncating support ----
+    # ------------------------------------------------------------------
+    # Step 2 — Enforce strict positivity of the density
+    # ------------------------------------------------------------------
+    # The LQD involves log f(Q(u)), so zeros in the density lead to +inf.
+    # To avoid undefined values, we *truncate the support* to the region
+    # where the density is strictly positive.
     if np.any(dens == 0):
         if verbose:
             print("There are some zero density values - truncating support grid so all are positive")
@@ -110,11 +124,17 @@ s
         dens = dens[lbd:ubd+1]
         dSup = dSup[lbd:ubd+1]
 
+        # Renormalize after truncation
         dens = dens / trapezoid(dens, dSup)
 
     N = len(dSup)
 
-    # ---- Check LQD output grid ----
+    # ------------------------------------------------------------------
+    # Step 3 — Define the target grid in probability space [0,1]
+    # ------------------------------------------------------------------
+    # The LQD lives on the quantile domain u ∈ [0,1].
+    # If the user does not provide a grid, we create a uniform one.
+    # If the provided grid does not span [0,1], we reset it.
     if lqdSup is None:
         lqdSup = np.linspace(0, 1, N)
     else:
@@ -124,7 +144,11 @@ s
                 print("Problem with support of the LQD domain’s boundaries - resetting to default.")
             lqdSup = np.linspace(0, 1, N)
 
-    # ---- Check t0 ----
+    # ------------------------------------------------------------------
+    # Step 4 — Ensure t0 lies on the discretized support
+    # ------------------------------------------------------------------
+    # Since the CDF is computed numerically on dSup, we need t0 to match
+    # one of these grid points. Otherwise, we snap to the closest value.
     if t0 not in dSup:
         if verbose:
             print("t0 is not a value in dSup - resetting to closest value")
@@ -133,25 +157,59 @@ s
     M = len(lqdSup)
     c_ind = np.where(dSup == t0)[0][0]
 
-    # ---- Compute CDF and constant c ----
+    # ------------------------------------------------------------------
+    # Step 5 — Compute the CDF and the anchoring constant c
+    # ------------------------------------------------------------------
+    # We approximate:
+    #     F(x) = ∫ f(s) ds
+    # using cumulative trapezoidal integration.
+    # The constant c = F(t0) is stored for later reconstruction.
     tmp = cumulative_trapezoid(dens, dSup, initial=0)
     c = tmp[c_ind]
 
-    # ---- Remove duplicated CDF values (monotonicity issues in KDE) ----
+    # ------------------------------------------------------------------
+    # Step 6 — Enforce invertibility of F and construct (u, L(u)) pairs
+    # ------------------------------------------------------------------
+    # We want to compute:
+    #     L(u) = -log f(Q(u)),   where Q(u) = F^{-1}(u)
+    #
+    # Instead of explicitly computing Q(u), we use the change of variable:
+    #     u = F(x)   ⇔   x = Q(u)
+    #
+    # So if we evaluate everything on the original grid {x_i}, we obtain:
+    #     u_i = F(x_i)
+    #     L(u_i) = -log f(x_i) = -log f(Q(u_i))
+    #
+    # This gives us a parametric representation of the LQD:
+    #     (u_i, L(u_i))
+    #
+    # HOWEVER: this only works if F is strictly increasing, so that the
+    # mapping u ↦ x = Q(u) is well-defined (i.e., invertible).
+    #
+    # In practice (e.g., with KDEs), the empirical CDF may have flat regions:
+    #     F(x_i) = F(x_{i+1})
+    # which breaks invertibility (multiple x map to the same u).
+    #
+    # To fix this, we remove points where the CDF does not increase,
+    # ensuring that the remaining grid defines a valid quantile map.
     left_dup  = np.concatenate([np.diff(tmp[:N//2]) == 0, [False]])
     right_dup = np.concatenate([[False], np.diff(tmp[N//2:]) == 0])
 
-    # NOTE: In R: !c(indL, indR)
     keep = ~(np.concatenate([left_dup, right_dup]))
 
-    qtemp = tmp[keep]
-    lqd_temp = -np.log(dens[keep])
+    # Reduced grids (valid for inversion)
+    qtemp    = tmp[keep]                 # CDF values (≈ u grid)
+    lqd_temp = -np.log(dens[keep])       # L(u) = -log f(Q(u))
 
-    # ---- Interpolate lqd on the desired LQD support ----
+    # ------------------------------------------------------------------
+    # Step 7 — Interpolate L(u) onto the desired grid
+    # ------------------------------------------------------------------
+    # We now have L evaluated at irregular points qtemp ≈ u.
+    # We interpolate to obtain L on the user-defined grid lqdSup.
     lqd = np.zeros(M)
 
-    # Handle infinite boundary values
-    # Returns True if the value is either NaN or Inf (ADAPTATION FROM R)
+    # Detect problematic boundary values (NaN or ±inf),
+    # which typically arise near the edges of the support.
     temp_first_inf = np.isnan(lqd_temp[0]) | np.isinf(lqd_temp[0])
     temp_last_inf = np.isnan(lqd_temp[-1]) | np.isinf(lqd_temp[-1])
 
@@ -162,6 +220,8 @@ s
         tmpInd = np.arange(len(qtemp))
         Ind = np.arange(M)
 
+        # If boundaries are infinite, exclude them from interpolation
+        # and assign +inf explicitly at the endpoints.
         if temp_first_inf:
             lqd[0] = np.inf
             tmpInd = tmpInd[1:]
@@ -177,10 +237,14 @@ s
         lqd[Ind] = interp(lqdSup[Ind])
 
     else:
+        # Standard interpolation when no boundary issues are present
         interp = interp1d(qtemp, lqd_temp, kind="linear",
                           fill_value="extrapolate")
         lqd = interp(lqdSup)
 
+    # ------------------------------------------------------------------
+    # Output: (u-grid, L(u), anchoring constant)
+    # ------------------------------------------------------------------
     return lqdSup, lqd, c
 
 def lqd2dens(
@@ -198,7 +262,7 @@ def lqd2dens(
     (LQD) transform. This is the inverse of `dens2lqd`.
 
     This implementation follows the mathematical framework used in
-    Kokoszka & Reimherr (2017, 2019) for functional transformations of 
+    Kokoszka (2019) for functional transformations of 
     probability density functions.
     """
 
@@ -252,10 +316,6 @@ def lqd2dens(
     else:
         Q = cumulative_trapezoid(exp_lqd, lqdSup, initial=0)
         dtemp = t0 + Q - Q[c_ind]
-
-    # =====================================================
-    #     CORRECT R-LIKE DUPLICATE REMOVAL (NO ERRORS)
-    # =====================================================
 
     mid = M // 2
 
