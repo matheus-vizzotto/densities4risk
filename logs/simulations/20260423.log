@@ -1,0 +1,6 @@
+2026-04-23 00:05:50,872 | INFO | 
+Initiating cross validation...
+2026-04-23 00:05:50,887 | INFO | Scenario: 0 | n_rep: 0 | KDE model: gaussian adaptive
+2026-04-23 00:08:00,098 | INFO | Scenario: 0 | n_rep: 0 | KDE model: gaussian rot
+2026-04-23 00:09:18,840 | INFO | Scenario: 0 | n_rep: 0 | KDE model: t-student adaptive df=3
+2026-04-23 00:10:23,843 | INFO | Scenario: 0 | n_rep: 0 | KDE model: t-student rot df=3
