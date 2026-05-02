@@ -1,6 +1,8 @@
 import numpy                        as np
 import pandas                       as pd
 import scipy.stats                  as stats
+from scipy.stats import t
+from scipy.special import gamma
 import plotly.express               as px
 import src.fda.transformations.lqdt as lqdt
 import src.fda.plots                as fplt
@@ -545,3 +547,524 @@ class FDFSimulator:
         fplt.px_select_menu(fig)
         
         return fig
+    
+
+
+########################################
+############# GAS MODEL ################
+########################################
+class SkewStudentT:
+    """
+    Raw (non-standardized) Fernández–Steel skewed Student-t distribution.
+
+    This class implements the asymmetric density obtained by applying
+    a scale transformation to each half of a symmetric Student-t density.
+
+    Definition
+    ----------
+    Let b_ν(x) be the standard Student-t density with ν degrees of freedom.
+    For asymmetry parameter a > 0, define:
+
+        h̃(x | a, ν) = c(a) * [ b_ν(a x)  if x < 0
+                               b_ν(x / a) if x ≥ 0 ]
+
+    where:
+        c(a) = 2 / (a + a^{-1})
+
+    Key properties
+    --------------
+    - a = 1 → symmetric Student-t
+    - a > 1 → heavier right tail
+    - a < 1 → heavier left tail
+    - Mean ≠ 0 and variance ≠ 1 (must be standardized separately)
+
+    This class provides:
+    - density evaluation
+    - raw moments required for standardization
+
+    Example
+    -------
+    Evaluate the raw density and compute its moments:
+
+    >>> import numpy as np
+    >>> x = np.linspace(-4, 4, 200)
+    >>> dens = SkewStudentT.density(x, a=1.5, nu=8)
+    >>> mu, sigma = SkewStudentT.moments(a=1.5, nu=8)
+    >>> mu, sigma
+    """
+
+    @staticmethod
+    def M1_nu(nu: float) -> float:
+        """
+        First absolute moment over (0, ∞) of a Student-t distribution.
+
+        This quantity appears in the analytical expression of the
+        mean of the skewed-t distribution.
+
+        Parameters
+        ----------
+        nu : float
+            Degrees of freedom (must satisfy nu > 1)
+
+        Returns
+        -------
+        float
+            E[T * 1{T > 0}] where T ~ t_ν
+        """
+        return (np.sqrt(nu) * gamma((nu + 1) / 2)) / \
+               ((nu - 1) * np.sqrt(np.pi) * gamma(nu / 2))
+
+    @staticmethod
+    def moments(a: float, nu: float):
+        """
+        Mean and standard deviation of the raw skewed-t distribution.
+
+        These are used to standardize the distribution to zero mean
+        and unit variance.
+
+        Parameters
+        ----------
+        a : float
+            Asymmetry parameter (a > 0)
+
+        nu : float
+            Degrees of freedom (nu > 2 required for variance)
+
+        Returns
+        -------
+        mu : float
+            Mean of the raw skewed-t
+
+        sigma : float
+            Standard deviation of the raw skewed-t
+        """
+        c_a = 2.0 / (a + 1.0 / a)
+
+        # First absolute moment of symmetric t
+        m1 = SkewStudentT.M1_nu(nu)
+
+        # Variance of symmetric t
+        v = nu / (nu - 2.0)
+
+        # Analytical expressions derived from piecewise scaling
+        mu = c_a * m1 * (a**2 - a**(-2))
+        m2 = c_a * (v / 2.0) * (a**3 + a**(-3))
+
+        var = m2 - mu**2
+        return mu, np.sqrt(var)
+
+    @staticmethod
+    def density(x, a: float, nu: float, log: bool = False):
+        """
+        Evaluate the raw skewed-t density.
+
+        Parameters
+        ----------
+        x : array_like
+            Evaluation points
+
+        a : float
+            Asymmetry parameter
+
+        nu : float
+            Degrees of freedom
+
+        log : bool, optional
+            If True, return log-density
+
+        Returns
+        -------
+        ndarray
+            Density values evaluated at x
+        """
+        c_a = 2.0 / (a + 1.0 / a)
+
+        # Piecewise definition implemented vectorially
+        dens = np.where(
+            x < 0,
+            c_a * t.pdf(a * x, df=nu),
+            c_a * t.pdf(x / a, df=nu)
+        )
+
+        return np.log(dens) if log else dens
+
+
+class StandardizedSkewStudentT:
+    """
+    Standardized Fernández–Steel skewed Student-t distribution.
+
+    This class transforms the raw skewed-t into a distribution with:
+        E[X] = 0
+        Var[X] = 1
+
+    Transformation
+    --------------
+    If X_raw ~ h̃(x | a, ν), define:
+
+        X_std = (X_raw - μ(a)) / σ(a)
+
+    Then the density is:
+
+        h(x) = σ(a) * h̃( μ(a) + σ(a) x )
+
+    where μ(a), σ(a) come from SkewStudentT.moments.
+
+    Notes
+    -----
+    - This is the object used inside the GAS likelihood.
+    - Standardization ensures parameters (m, σ) have usual interpretation.
+
+    Example
+    -------
+    Draw samples and evaluate density:
+
+    >>> dist = StandardizedSkewStudentT(a=1.5, nu=8)
+    >>> x = np.linspace(-3, 3, 100)
+    >>> dens = dist.density(x)
+    >>> sample = dist.random_numbers(1000)
+    >>> np.mean(sample), np.std(sample)
+    """
+
+    def __init__(self, a, nu: float = 8.0):
+        """
+        Parameters
+        ----------
+        a : float or ndarray
+            Asymmetry parameter
+
+        nu : float
+            Degrees of freedom
+        """
+        self.a = a
+        self.nu = nu
+
+        # Precompute standardization constants
+        self.mu, self.sigma = SkewStudentT.moments(a=self.a, nu=self.nu)
+
+    def density(self, x, log=False):
+        """
+        Evaluate standardized skewed-t density.
+
+        Parameters
+        ----------
+        x : array_like
+            Standardized input
+
+        log : bool
+            Return log-density if True
+
+        Returns
+        -------
+        ndarray
+        """
+        # Transform back to raw scale
+        y = self.mu + self.sigma * x
+
+        logdens = (
+            np.log(self.sigma) +
+            SkewStudentT.density(y, a=self.a, nu=self.nu, log=True)
+        )
+
+        return logdens if log else np.exp(logdens)
+
+    def random_numbers(self, n: int):
+        """
+        Generate i.i.d. draws from the standardized skewed-t.
+
+        Method
+        ------
+        Uses the Fernández–Steel construction:
+
+        1. Draw |T| from Student-t
+        2. Assign sign with probability:
+               P(X ≥ 0) = a² / (1 + a²)
+        3. Apply asymmetric scaling
+        4. Standardize
+
+        Parameters
+        ----------
+        n : int
+            Number of samples
+
+        Returns
+        -------
+        ndarray
+        """
+        p_pos = self.a**2 / (1 + self.a**2)
+
+        # Bernoulli draw for sign
+        sign_pos = np.random.rand(n) < p_pos
+
+        # Absolute t draws
+        w = np.abs(t.rvs(df=self.nu, size=n))
+
+        # Apply asymmetry
+        x_raw = np.where(sign_pos, self.a * w, -w / self.a)
+
+        # Standardize
+        return (x_raw - self.mu) / self.sigma
+
+
+class GasModel:
+    """
+    GAS(1,1) model with standardized skewed Student-t conditional density.
+
+    Model structure
+    ---------------
+    Observation equation:
+        Z_t | θ_t ~ g(· | θ_t)
+
+    Parameterization:
+        θ_t = (m_t, ℓ_t, η_t)
+        σ_t = exp(ℓ_t)
+        a_t = exp(η_t)
+
+    Conditional density:
+        g(z | θ) = (1/σ) * h( (z - m)/σ | a, ν )
+
+    where h is the standardized skewed-t.
+
+    Dynamics (γ = 0 case):
+        θ_{t+1} = θ* + α ∇_t + β (θ_t - θ*)
+
+    with:
+        ∇_t = ∂ log g(Z_t | θ) / ∂θ
+
+    Notes
+    -----
+    - Uses numerical differentiation for the score
+    - Avoids Fisher scaling (γ = 0)
+    - Suitable as a baseline computational implementation
+
+    Example
+    -------
+    Full workflow: simulation + density evaluation
+
+    >>> import numpy as np
+    >>> gm = GasModel(nu=8)
+    >>> sim = gm.simulate(T=200, random_state=123)
+    >>> grid = np.linspace(-5, 5, 200)
+
+    >>> dens = gm.conditional_densities(
+    ...     grid=grid,
+    ...     theta_path=sim["theta"]
+    ... )
+
+    >>> sim["Z"][:5]
+    >>> dens.shape
+    """
+
+    def __init__(
+        self,
+        nu=8,
+        theta_star=None,
+        alpha=None,
+        beta=None,
+        eps: float = 1e-5,
+    ):
+        """
+        Parameters
+        ----------
+        nu : float
+            Degrees of freedom of skewed-t
+
+        theta_star : ndarray, shape (3,)
+            Long-run parameter level
+
+        alpha : ndarray (3x3)
+            Score sensitivity matrix
+
+        beta : ndarray (3x3)
+            Persistence matrix
+
+        eps : float
+            Step size for numerical differentiation
+        """
+        self.nu = nu
+        self.eps = eps
+
+        self.theta_star = (
+            theta_star if theta_star is not None
+            else np.array([0.0, np.log(1.0), np.log(1.0)])
+        )
+
+        self.alpha = alpha if alpha is not None else np.diag([0.03, 0.02, 0.015])
+        self.beta = beta if beta is not None else np.diag([0.95, 0.90, 0.85])
+
+    def logpdf(self, z, theta):
+        """
+        Log conditional density log g(z | θ).
+
+        Steps:
+        1. Transform parameters to (σ, a)
+        2. Standardize observation
+        3. Evaluate standardized skewed-t
+        4. Add Jacobian term (-log σ)
+
+        Returns
+        -------
+        float or ndarray
+        """
+        m, ell, eta = theta
+
+        sigma = np.exp(ell)
+        a = np.exp(eta)
+
+        x = (z - m) / sigma
+
+        skt = StandardizedSkewStudentT(a=a, nu=self.nu)
+
+        return -ell + skt.density(x, log=True)
+
+    def rvs(self, n: int, theta):
+        """
+        Draw samples from g(z | θ).
+
+        Implements:
+            Z = m + σ * X_std
+
+        Returns
+        -------
+        ndarray
+        """
+        m, ell, eta = theta
+
+        sigma = np.exp(ell)
+        a = np.exp(eta)
+
+        skt = StandardizedSkewStudentT(a=a, nu=self.nu)
+
+        return m + sigma * skt.random_numbers(n)
+
+    def score(self, z, theta):
+        """
+        Numerical score vector ∇_t.
+
+        Uses central finite differences:
+            ∂f/∂θ ≈ [f(θ+h) - f(θ-h)] / (2h)
+
+        Adaptive step size improves stability.
+
+        Returns
+        -------
+        ndarray, shape (3,)
+        """
+        theta = np.asarray(theta)
+        grad = np.zeros_like(theta)
+
+        for j in range(len(theta)):
+            step = self.eps * (1 + abs(theta[j]))
+
+            theta_plus = theta.copy()
+            theta_minus = theta.copy()
+
+            theta_plus[j] += step
+            theta_minus[j] -= step
+
+            lp = self.logpdf(z, theta_plus)
+            lm = self.logpdf(z, theta_minus)
+
+            grad[j] = (lp - lm) / (2 * step)
+
+        return grad
+
+    def simulate(self, T: int, theta_init=None, random_state=None):
+        """
+        Simulate a trajectory from the GAS model.
+
+        Algorithm
+        ---------
+        For t = 1,...,T:
+            1. Draw Z_t | θ_t
+            2. Compute score ∇_t
+            3. Update θ_{t+1}
+
+        Returns
+        -------
+        dict containing:
+            Z           : observations
+            theta       : parameter path
+            mean        : m_t
+            sd          : σ_t
+            asymmetry   : a_t
+            score       : score sequence
+        """
+        if random_state is not None:
+            np.random.seed(random_state)
+
+        theta_init = (
+            theta_init.copy()
+            if theta_init is not None
+            else self.theta_star.copy()
+        )
+
+        k = len(self.theta_star)
+
+        Z = np.zeros(T)
+        theta_path = np.zeros((T + 1, k))
+        scores = np.zeros((T, k))
+
+        theta_path[0] = theta_init
+
+        for t in range(T):
+            theta_t = theta_path[t]
+
+            # Step 1: draw observation
+            Z[t] = self.rvs(1, theta_t)[0]
+
+            # Step 2: compute score
+            grad = self.score(Z[t], theta_t)
+            scores[t] = grad
+
+            # Step 3: GAS update
+            theta_path[t + 1] = (
+                self.theta_star
+                + self.alpha @ grad
+                + self.beta @ (theta_t - self.theta_star)
+            )
+
+        return {
+            "Z": Z,
+            "theta": theta_path[:-1],
+            "mean": theta_path[:-1, 0],
+            "sd": np.exp(theta_path[:-1, 1]),
+            "asymmetry": np.exp(theta_path[:-1, 2]),
+            "score": scores,
+        }
+
+    def conditional_densities(self, grid, theta_path, log=False):
+        """
+        Evaluate f_t(z) over a grid for all t.
+
+        Fully vectorized over:
+            - time (rows)
+            - grid (columns)
+
+        Useful for:
+        - visualization
+        - density forecast evaluation
+
+        Returns
+        -------
+        DataFrame
+            Rows = grid
+            Columns = time index
+        """
+        grid = np.asarray(grid)
+        theta_path = np.asarray(theta_path)
+
+        m = theta_path[:, 0][:, None]
+        ell = theta_path[:, 1][:, None]
+        eta = theta_path[:, 2][:, None]
+
+        sigma = np.exp(ell)
+        a = np.exp(eta)
+
+        x = (grid[None, :] - m) / sigma
+
+        skt = StandardizedSkewStudentT(a=a, nu=self.nu)
+        logdens = -ell + skt.density(x, log=True)
+
+        return pd.DataFrame(
+            logdens if log else np.exp(logdens)
+        ).T.set_index(grid)
