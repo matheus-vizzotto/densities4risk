@@ -5,8 +5,6 @@ from typing import List, Union, Optional, Iterable, Any
 from scipy.stats import norm, t
 from scipy.integrate import trapezoid, simpson
 from sklearn.neighbors import KernelDensity
-from KDEpy.bw_selection import improved_sheather_jones
-from rpy2.robjects import r, FloatVector
 import warnings
 
 def get_rot_bandwidth_ck():
@@ -234,6 +232,8 @@ class BandwidthSelector:
         """
         base_data = self.X
         if improved:
+            from KDEpy.bw_selection import improved_sheather_jones
+
             data = base_data.values.reshape(-1,1) if base_data.ndim == 1 and isinstance(base_data, pd.Series) else self.X
 
             if self.kernel != "gaussian":
@@ -244,6 +244,8 @@ class BandwidthSelector:
             
             bandwidth = improved_sheather_jones(data=data, weights=weights)
         else:
+            from rpy2.robjects import r, FloatVector
+
             data_r = FloatVector(base_data.values)
             bandwidth = r['bw.SJ'](data_r)[0]
 
@@ -721,4 +723,3 @@ def weigh_norm_densities(
             df_result[col] = transformed / norm
 
     return df_result
-

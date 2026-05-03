@@ -275,6 +275,11 @@ class K_dFPC:
         self.u, self.m = u, self.Y.shape[0]
         n = self.Y.shape[1]
 
+        # Substitutes INF values coming from the mLQDT
+        if np.isinf(self.Y).any():
+            # 2. Use boolean indexing to replace both positive and negative inf with 1000 (will later be cut but the inverse transformation)
+            self.Y[np.isinf(self.Y)] = 1000           
+
         # 1. Initial Fit using the unified method
         thetahat_old, gammahat_old, Ydev, Ybar = self._compute_kstar_eigenvalues(
                                                                             self.Y, p, du, return_vecs=True

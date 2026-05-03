@@ -1068,3 +1068,5 @@ class GasModel:
         return pd.DataFrame(
             logdens if log else np.exp(logdens)
         ).T.set_index(grid)
+    
+
