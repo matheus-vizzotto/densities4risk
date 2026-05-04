@@ -45,7 +45,10 @@ def compute_lqd_cut(
         k: int = 15,
         threshold: float = 7.0,
         max_frac: float = 0.1,
-        cut_nan: bool = False
+        cut_nan: bool = False,
+        cut_small_boundary: bool = True,
+        boundary_abs_min: float = 1.0,
+        threshold_abs: bool = True
     ) -> Tuple[int, int]:
     """
     Compute adaptive boundary cuts for a single LQD curve that has problematic values (extreme or nan).
@@ -58,6 +61,8 @@ def compute_lqd_cut(
         Number of boundary points to inspect on each side.
     threshold : float
         LQD value above which points are considered unstable.
+    threshold_abs : bool
+        If True, apply the instability threshold to absolute LQD values.
     cut_nan : bool
         Include cutting NaN values that appear in the left or right endpoints of the support
 
@@ -97,11 +102,28 @@ def compute_lqd_cut(
     left_slice = arr[nan_left:nan_left + k]
     right_slice = arr[M - nan_right - k:M - nan_right]
 
+    if threshold_abs:
+        left_slice = np.abs(left_slice)
+        right_slice = np.abs(right_slice)
+
     left_thr = int(np.sum(left_slice > threshold))
     right_thr = int(np.sum(right_slice > threshold))
 
     left = nan_left + left_thr
     right = nan_right + right_thr
+
+    # Optional: cut suspiciously small endpoint LQD values.
+    # A near-zero LQD at the extreme boundary implies density near 1
+    # at a tail endpoint, which is often a forecast artifact.
+    if cut_small_boundary:
+        left_valid_start = nan_left
+        right_valid_end = M - nan_right - 1
+
+        if left_valid_start < M and abs(arr[left_valid_start]) < boundary_abs_min:
+            left += 1
+
+        if right_valid_end >= 0 and abs(arr[right_valid_end]) < boundary_abs_min:
+            right += 1
 
     # Safety cap
     max_cut = int(max_frac * M)
