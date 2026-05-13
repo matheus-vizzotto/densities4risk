@@ -891,6 +891,8 @@ class GasModel:
         self.alpha = alpha if alpha is not None else np.diag([0.03, 0.02, 0.015])
         self.beta = beta if beta is not None else np.diag([0.95, 0.90, 0.85])
 
+        self.results = None
+
     def logpdf(self, z, theta):
         """
         Log conditional density log g(z | θ).
@@ -968,7 +970,13 @@ class GasModel:
 
         return grad
 
-    def simulate(self, T: int, theta_init=None, random_state=None):
+    def simulate(
+            self, 
+            T: int, 
+            theta_init = None, 
+            burn_in : int = 100, 
+            random_state = None
+            ):
         """
         Simulate a trajectory from the GAS model.
 
@@ -991,6 +999,8 @@ class GasModel:
         """
         if random_state is not None:
             np.random.seed(random_state)
+        if burn_in:
+            T += burn_in
 
         theta_init = (
             theta_init.copy()
@@ -1023,14 +1033,17 @@ class GasModel:
                 + self.beta @ (theta_t - self.theta_star)
             )
 
-        return {
-            "Z": Z,
-            "theta": theta_path[:-1],
-            "mean": theta_path[:-1, 0],
-            "sd": np.exp(theta_path[:-1, 1]),
-            "asymmetry": np.exp(theta_path[:-1, 2]),
-            "score": scores,
-        }
+        results = {
+                    "Z": Z[burn_in:],
+                    "theta": theta_path[burn_in:-1],
+                    "mean": theta_path[burn_in:-1, 0],
+                    "sd": np.exp(theta_path[burn_in:-1, 1]),
+                    "asymmetry": np.exp(theta_path[burn_in:-1, 2]),
+                    "score": scores[burn_in:],
+                }
+        
+        self.results = results
+        return results
 
     def conditional_densities(self, grid, theta_path, log=False):
         """
@@ -1068,5 +1081,68 @@ class GasModel:
         return pd.DataFrame(
             logdens if log else np.exp(logdens)
         ).T.set_index(grid)
-    
+        
+    def bootstrap(self, sample: pd.Series, grid: np.ndarray, n_boot: int = 1000):
+            """
+            Executes the bootstrap procedure for time T.
+            
+            Parameters
+            ----------
+            sample : np.ndarray
+                The cross-sectional data points (e.g., 288 points) observed 
+                at the final time step T-1.
+            n_boot : int
+                Number of bootstrap iterations (B).
 
+            Returns
+            -------
+            list of dicts
+                Each dict contains 'theta_t_b' (the bootstrap density parameters)
+                and 'Z_it_b' (the simulated cross-section for that density).
+            """
+            date = sample.name
+            sample = sample.values
+
+            if self.results is None:
+                raise ValueError("You must run .simulate() before bootstrapping.")
+
+            # Step 0: Extract theta_{T-1} from the last state of simulation
+            # theta_path is (T, k), so [-1] is the final parameter state
+            theta_prev = self.results["theta"][-1]
+            n_t = len(sample)
+            
+            boot_results = []
+
+            for b in range(n_boot):
+                # Step (a): Randomly sample one z from the cross-section Z_{t-1}
+                # and generate the bootstrap density parameters theta_t^(b)
+                z_sample = np.random.choice(sample)
+                
+                # Compute score using the sampled observation and the anchor theta
+                grad = self.score(z_sample, theta_prev)
+                
+                # Update to obtain f_t^(b) parameters
+                theta_t_b = (
+                    self.theta_star
+                    + self.alpha @ grad
+                    + self.beta @ (theta_prev - self.theta_star)
+                )
+
+                # Step (b): Sample n_t points from the resulting density f_t^(b)
+                Z_it_b = self.rvs(n_t, theta_t_b)
+                Z_it_b = pd.DataFrame(Z_it_b)
+                Z_it_b.columns = [date]
+
+                density_df = self.conditional_densities(
+                                grid=grid, 
+                                theta_path=theta_t_b.reshape(1, -1)
+                            )
+
+                boot_results.append({
+                    "theta_t_b": theta_t_b,
+                    "density": density_df,
+                    "Z_it_b": Z_it_b
+                })
+
+            return boot_results
+    
