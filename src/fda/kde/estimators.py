@@ -416,7 +416,7 @@ def df_bandwidth_selector(
     ) -> pd.DataFrame:
  
    
-    results = {}
+    result_series = []
         
     # 1. Prepare Init Parameters
     # We pull 'df' out of kwargs if it exists to pass it to the constructor
@@ -427,12 +427,12 @@ def df_bandwidth_selector(
     # 2. Remaining kwargs are specific to the method (e.g., alpha, cv, rule)
     method_params = kwargs
 
-    for col_name in X.columns:
+    for col_idx, col_name in enumerate(X.columns):
         # Drop NaNs to perform calculation
-        clean_col = X[col_name].dropna()
+        clean_col = X.iloc[:, col_idx].dropna()
         
         if clean_col.empty:
-            results[col_name] = np.full(len(X), np.nan)
+            result_series.append(pd.Series(np.nan, index=X.index, name=col_name))
             continue
 
         # Initialize the selector with kernel and potentially df
@@ -446,13 +446,14 @@ def df_bandwidth_selector(
         
         # Map results back to the original index to preserve NaN positions
         if np.isscalar(res):
-            results[col_name] = np.full(len(X), res)
+            result_series.append(pd.Series(res, index=X.index, name=col_name))
         else:
             full_series = pd.Series(np.nan, index=X.index)
             full_series.loc[clean_col.index] = res
-            results[col_name] = full_series.values
+            full_series.name = col_name
+            result_series.append(full_series)
                 
-    return pd.DataFrame(results, index=X.index)
+    return pd.concat(result_series, axis=1)
     
 class KDE:
     """
@@ -615,22 +616,31 @@ def df_to_kde(
     # Define your grid
     base_grid = np.linspace(X.min().min(), X.max().max(), m)
 
-    results = {}
-    results_grids = {}
+    results = []
+    results_grids = []
     
-    for col_name in X.columns:
-        col = X.loc[:, col_name]
-        h_col = h.loc[:, col_name].values
+    if X.shape != h.shape:
+        raise ValueError(
+            f"X and h must have the same shape. Got X.shape={X.shape} and h.shape={h.shape}."
+        )
+
+    for col_idx, col_name in enumerate(X.columns):
+        col = X.iloc[:, col_idx]
+        h_col = h.iloc[:, col_idx].values
         
         # Now **kwargs only contains things like 'df' for t-student
         kde = KDE(kernel=kernel, **kwargs) 
         grid, density = kde.transform(col, h=h_col, grid=base_grid)
         
-        results_grids[col_name] = grid
-        results[col_name] = density
+        results_grids.append(grid)
+        results.append(density)
 
-    df_grids = pd.DataFrame(results_grids)
-    df_densities = pd.DataFrame(results, index=base_grid)
+    df_grids = pd.DataFrame(np.column_stack(results_grids), columns=X.columns)
+    df_densities = pd.DataFrame(
+        np.column_stack(results),
+        index=base_grid,
+        columns=X.columns
+    )
     
 
     # Use the local variable we "captured"
@@ -690,9 +700,14 @@ def weigh_norm_densities(
     >>> print(weighed_df)
     """
     
-    df_result = pd.DataFrame(index=df_densities.index, columns=df_densities.columns)
+    df_result = pd.DataFrame(
+        np.nan,
+        index=df_densities.index,
+        columns=df_densities.columns,
+        dtype=float
+    )
     
-    for i, col in enumerate(df_densities.columns):
+    for i in range(df_densities.shape[1]):
         
         # 1. Determine the Reference Mean (The "Prior")
         if mean_mode == 'full':
@@ -712,14 +727,14 @@ def weigh_norm_densities(
 
         # 2. Pointwise Multiplication
         # This sharpens the density where both the observation and mean agree
-        transformed = df_densities[col] * ref_mean
+        transformed = df_densities.iloc[:, i] * ref_mean
         
         # 3. Normalization
         if norm == 'area':
             area = trapezoid(transformed, support)
             # Avoid division by zero if densities are disjoint
-            df_result[col] = transformed / area if area > 0 else 0.0
+            df_result.iloc[:, i] = transformed / area if area > 0 else 0.0
         else:
-            df_result[col] = transformed / norm
+            df_result.iloc[:, i] = transformed / norm
 
     return df_result
