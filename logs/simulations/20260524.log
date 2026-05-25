@@ -1,0 +1,17 @@
+2026-05-24 21:02:46,119 | INFO | 
+Initiating cross validation...
+2026-05-24 21:02:46,199 | INFO | Scenario: scenario_1___nu=3 | n_rep: 0 | KDE model: gaussian rot
+2026-05-24 21:03:52,384 | INFO | 
+Initiating cross validation...
+2026-05-24 21:03:52,454 | INFO | Scenario: scenario_1___nu=3 | n_rep: 0 | KDE model: gaussian rot
+2026-05-24 21:03:55,672 | INFO | 
+Initiating cross validation...
+2026-05-24 21:03:55,723 | INFO | Scenario: scenario_1___nu=3 | n_rep: 0 | KDE model: gaussian rot
+2026-05-24 21:05:48,910 | INFO | 
+Initiating cross validation...
+2026-05-24 21:05:48,969 | INFO | Scenario: scenario_1___nu=3 | n_rep: 0 | KDE model: gaussian rot
+2026-05-24 21:22:10,458 | INFO | 
+Initiating cross validation...
+2026-05-24 21:22:10,703 | INFO | Scenario: scenario_1___nu=3 | n_rep: 0 | KDE model: gaussian rot
+2026-05-24 22:11:18,683 | INFO | Scenario: scenario_1___nu=8 | n_rep: 0 | KDE model: gaussian rot
+2026-05-24 23:17:58,392 | INFO | Scenario: scenario_2___nu=3 | n_rep: 0 | KDE model: gaussian rot

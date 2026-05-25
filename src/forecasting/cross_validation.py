@@ -8,7 +8,7 @@ import src.fda.dfpc              as dfpc
 import src.forecasting.pipelines as fp
 import src.forecasting.accuracy  as acc 
 
-from typing import List, Tuple, Union
+from typing import List, Tuple, Union, Literal
 
 def train_test_split(
     Y: pd.DataFrame,
@@ -300,3 +300,141 @@ def cv_sim(
                         d1.update({"curves_fc_date": df_fc.columns[0]})
                 
         return measures, pd.concat(curves_hist)
+
+
+from typing import List, Tuple, Literal, Optional
+import numpy as np
+
+
+from typing import List, Tuple, Literal
+import numpy as np
+
+
+def cv_window(
+    T: int,
+    h: int = 1,
+    window_type: Literal["expanding", "rolling"] = "expanding",
+    window_size: int = 50,
+    step: int = 1,
+) -> List[Tuple[np.ndarray, np.ndarray]]:
+    """
+    Generate time series cross-validation splits using
+    expanding or rolling windows.
+
+    Parameters
+    ----------
+    T : int
+        Total number of observations.
+
+    h : int, default=1
+        Forecast horizon.
+
+    window_type : {"expanding", "rolling"}, default="expanding"
+        Cross-validation scheme.
+
+        - "expanding":
+            Training set grows over time.
+
+        - "rolling":
+            Fixed-size moving training window.
+
+    window_size : int, default=50
+        Training window size.
+
+        - Expanding:
+            Initial training size.
+
+        - Rolling:
+            Fixed rolling training size.
+
+    step : int, default=1
+        Step size between folds.
+
+    Returns
+    -------
+    List[Tuple[np.ndarray, np.ndarray]]
+        List of `(train_idx, test_idx)` tuples.
+
+    Examples
+    --------
+    Expanding window:
+
+        train = [0, 1, 2]
+        test  = [3]
+
+        train = [0, 1, 2, 3]
+        test  = [4]
+
+    Rolling window:
+
+        train = [0, 1, 2]
+        test  = [3]
+
+        train = [1, 2, 3]
+        test  = [4]
+    """
+
+    # =========================
+    # Validation
+    # =========================
+
+    if T <= 0:
+        raise ValueError("T must be positive.")
+
+    if h <= 0:
+        raise ValueError("h must be positive.")
+
+    if window_size < 0:
+        raise ValueError("window_size must be >= 0.")
+
+    if step <= 0:
+        raise ValueError("step must be positive.")
+
+    if window_type not in {"expanding", "rolling"}:
+        raise ValueError(
+            "window_type must be either "
+            "'expanding' or 'rolling'."
+        )
+
+    splits = []
+
+    # =====================================
+    # Expanding window
+    # =====================================
+
+    if window_type == "expanding":
+
+        for t in range(window_size, T, step):
+
+            test_end = t + h
+
+            if test_end > T:
+                break
+
+            train_idx = np.arange(0, t)
+            test_idx = np.arange(t, test_end)
+
+            splits.append((train_idx, test_idx))
+
+    # =====================================
+    # Rolling window
+    # =====================================
+
+    else:
+
+        for test_start in range(window_size, T, step):
+
+            test_end = test_start + h
+
+            if test_end > T:
+                break
+
+            train_start = test_start - window_size
+            train_end = test_start
+
+            train_idx = np.arange(train_start, train_end)
+            test_idx = np.arange(test_start, test_end)
+
+            splits.append((train_idx, test_idx))
+
+    return splits
