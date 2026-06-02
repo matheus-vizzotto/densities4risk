@@ -8,6 +8,9 @@ import pmdarima as pm
 from statsmodels.tsa.vector_ar.var_model import VARResults
 from statsmodels.graphics.tsaplots import plot_acf
 
+
+from sklearn.linear_model import Ridge, ElasticNet
+
 from typing import Optional, Dict, Union
 
 
@@ -239,3 +242,247 @@ def univariate_forecaster(
     )
     
     return forecast
+
+class ScoreForecaster:
+    """
+    Forecast FPC scores from intraday observations.
+
+    The model estimates
+
+        eta_{t,j} = H_j(z_{t-1}, ..., z_{t-lag})
+
+    separately for each score j.
+
+    Parameters
+    ----------
+    model : {"ridge", "elasticnet", "lightgbm"}
+        Regression algorithm.
+
+    lag : int, default=1
+        Number of previous days used as predictors.
+
+    model_params : dict, optional
+        Parameters passed to the regression model.
+
+    Notes
+    -----
+    If each day contains m intraday observations and lag=L,
+    then each predictor vector has dimension
+
+        m * L
+
+    Example
+    -------
+    Suppose
+
+        samples.shape = (300, 288)
+        scores.shape  = (300, 3)
+
+    Then
+
+        forecaster.fit(samples, scores)
+
+    learns
+
+        eta_t = H(z_{t-1})
+
+    and
+
+        forecaster.predict_next(samples)
+
+    returns a 3-dimensional score forecast.
+    """
+
+    def __init__(
+        self,
+        model="ridge",
+        lag=1,
+        model_params=None
+    ):
+
+        self.model_name = model.lower()
+        self.lag = lag
+        self.model_params = model_params or {}
+
+        self.models_ = None
+        self.n_components_ = None
+
+    def _build_model(self):
+
+        if self.model_name == "ridge":
+
+            return Ridge(
+                alpha=self.model_params.get(
+                    "alpha", 1.0
+                )
+            )
+
+        elif self.model_name == "elasticnet":
+
+            return ElasticNet(
+                alpha=self.model_params.get(
+                    "alpha", 1.0
+                ),
+                l1_ratio=self.model_params.get(
+                    "l1_ratio", 0.5
+                ),
+                max_iter=self.model_params.get(
+                    "max_iter", 10000
+                )
+            )
+
+        raise ValueError(
+            f"Unknown model '{self.model_name}'."
+        )
+
+    def _build_design_matrix(
+        self,
+        samples,
+        scores
+    ):
+        """
+        Construct lagged intraday predictors.
+
+        Parameters
+        ----------
+        samples : ndarray (T, m)
+            Intraday observations.
+
+        scores : ndarray (T, d)
+            FPC scores.
+
+        Returns
+        -------
+        X : ndarray
+            Predictor matrix.
+
+        Y : ndarray
+            Response matrix.
+        """
+
+        T, m = samples.shape
+        _, d = scores.shape
+
+        X = []
+        Y = []
+
+        for t in range(self.lag, T):
+
+            predictors = samples[
+                t-self.lag:t
+            ].reshape(-1)
+
+            X.append(predictors)
+
+            Y.append(scores[t])
+
+        return (
+            np.asarray(X),
+            np.asarray(Y)
+        )
+
+    def fit(
+        self,
+        samples,
+        scores
+    ):
+        """
+        Fit forecasting models.
+
+        Parameters
+        ----------
+        samples : ndarray (T, m)
+            Intraday observations.
+
+        scores : ndarray (T, d)
+            FPC score matrix.
+
+        Returns
+        -------
+        self
+        """
+
+        X, Y = self._build_design_matrix(
+            samples,
+            scores
+        )
+
+        self.n_components_ = Y.shape[1]
+
+        self.models_ = []
+
+        for j in range(self.n_components_):
+
+            model = self._build_model()
+
+            model.fit(
+                X,
+                Y[:, j]
+            )
+
+            self.models_.append(model)
+
+        return self
+
+    def predict_next(
+        self,
+        samples
+    ):
+        """
+        Forecast next score vector.
+
+        Parameters
+        ----------
+        samples : ndarray (T, m)
+
+        Returns
+        -------
+        ndarray (d,)
+        """
+
+        x = samples[
+            -self.lag:
+        ].reshape(1, -1)
+
+        preds = np.zeros(
+            self.n_components_
+        )
+
+        for j, model in enumerate(
+            self.models_
+        ):
+            preds[j] = model.predict(x)[0]
+
+        return preds.reshape([-1,1])
+
+    def fitted_values(
+        self,
+        samples,
+        scores
+    ):
+        """
+        In-sample fitted score forecasts.
+
+        Returns
+        -------
+        ndarray (T-lag, d)
+        """
+
+        X, _ = self._build_design_matrix(
+            samples,
+            scores
+        )
+
+        preds = np.zeros(
+            (
+                X.shape[0],
+                self.n_components_
+            )
+        )
+
+        for j, model in enumerate(
+            self.models_
+        ):
+            preds[:, j] = model.predict(X)
+
+        return preds

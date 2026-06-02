@@ -270,3 +270,116 @@ class DensityForecaster_HZ:
             "future_support":   df_support,
             "future_curves":    pd.DataFrame(k_curve_forecast)
         }
+    
+
+class SimulationForecaster:
+    """
+    Time-series forecaster for Probability Density Functions (PDFs).
+
+    This class implements a forecasting pipeline for functional data (densities) 
+    by mapping them into a Hilbert space using the Log-Quantile Density (LQD) 
+    transformation. It reduces dimensionality via Karhunen-Loève dynamic Functional 
+    Principal Component (K-dFPC) Analysis and forecasts the resulting 
+    coefficients using a multivariate ScoreForecaster.
+
+    Parameters
+    ----------
+    kdfpc_kwargs : dict, optional
+        Keyword arguments passed to the `dfpc.K_dFPC` model (e.g., n_components).
+    forecaster_model : str, default='ridge'
+        The underlying model type used by the ScoreForecaster.
+    lag : int, default=3
+        The number of lags to consider for the score forecaster.
+
+    Attributes
+    ----------
+    model_lqd : lqdt.mLQDT
+        The fitted LQD transformation object containing LQD curves and constants.
+    model_kdfpc : dfpc.K_dFPC
+        The fitted Functional PCA model.
+    score_forecaster : ScoreForecaster
+        The fitted multivariate forecaster for PCA scores.
+
+    Example
+    ----------
+    forecaster = SimulationForecaster(kdfpc_kwargs=KdFPC_kwargs, forecaster_model="elasticnet")
+    forecaster.fit(Y_train, Y_supp_train, returns=returns_train)
+    results = forecaster.predict(horizon=1, forecast_index=Y_test.to_frame().columns)
+    """
+    
+    def __init__(self, kdfpc_kwargs=None, forecaster_model="ridge", lag=3):
+        self.kdfpc_kwargs = kdfpc_kwargs or {}
+        self.forecaster_model = forecaster_model
+        self.lag = lag
+        
+        # Initialized during fitting
+        self.returns = None
+        self.model_lqd = None
+        self.model_kdfpc = None
+        self.score_forecaster = None
+
+    def fit(self, Y_train: pd.DataFrame, Y_support: pd.DataFrame, returns: pd.DataFrame):
+        """
+        Fits the LQD transformation, Functional PCA, and the internal ScoreForecaster.
+        """
+        self.returns = returns
+        # 1. Transform Densities to LQD Space
+        mlqdt = lqdt.mLQDT()
+        self.model_lqd = mlqdt.transform(
+            densities=Y_train,
+            densities_supports=Y_support, 
+            verbose=False
+        )
+        
+        # 2. Extract L2 Expansion (K_dFPC)
+        lqd_values = self.model_lqd.lqd.values
+        lqd_support = self.model_lqd.lqd_support
+        
+        # Use a copy to avoid mutating constructor configurations dynamically
+        kdfpc_params = self.kdfpc_kwargs.copy()
+        kdfpc_params.update({
+            "u": lqd_support,
+            "du": self.model_lqd.du
+        })
+        
+        self.model_kdfpc = dfpc.K_dFPC(lqd_values)
+        self.model_kdfpc.fit(**kdfpc_params)
+        
+        # 3. Fit Multivariate Score Forecaster
+        scores = self.model_kdfpc.etahat.values.real
+        
+        self.score_forecaster = fm.ScoreForecaster(
+            model=self.forecaster_model,
+            lag=self.lag
+        )
+        self.score_forecaster.fit(returns.values, scores)
+
+        return self
+
+    def predict(self, horizon: int, forecast_index: pd.Index = None) -> dict:
+        """
+        Forecasts future scores, reconstructs LQD curves, and inverts them back to densities.
+        """
+        if self.score_forecaster is None:
+            raise RuntimeError("The forecaster must be fitted before calling predict.")
+
+        # Build forecasted index labels
+        if forecast_index is not None:
+            if len(forecast_index) != horizon:
+                raise ValueError(f"forecast_index length ({len(forecast_index)}) must match horizon ({horizon})")
+            future_dates = forecast_index
+        else:
+            future_dates = np.arange(horizon)
+        
+        # 1. Forecast Scores
+        k_etahat_fc = self.score_forecaster.predict_next(self.returns.values)
+        
+        # 2. Reconstruct LQD Curves
+        L2_curve_forecast = self.model_kdfpc.predict(k_etahat_fc)
+        L2_curve_forecast.columns = future_dates
+        
+        
+        return {
+            "future_L2_curves": L2_curve_forecast,
+            "future_scores": k_etahat_fc
+        }
