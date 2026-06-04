@@ -324,7 +324,7 @@ class SimulationForecaster:
         self.model_kdfpc = None
         self.score_forecaster = None
 
-    def fit(self, Y_train: pd.DataFrame, Y_support: pd.DataFrame, returns: pd.DataFrame):
+    def fit(self, Y_train: pd.DataFrame, Y_support: pd.DataFrame, returns: pd.DataFrame, fpc_style:  str = "dynamic"):
         """
         Fits the LQD transformation, Functional PCA, and the internal ScoreForecaster.
         """
@@ -348,7 +348,12 @@ class SimulationForecaster:
             "du": self.model_lqd.du
         })
         
-        self.model_kdfpc = dfpc.K_dFPC(lqd_values)
+        if   fpc_style == "dynamic":
+            self.model_kdfpc = dfpc.K_dFPC(lqd_values)
+        elif fpc_style == "static":
+            self.model_kdfpc = dfpc.K_sFPC(lqd_values)
+        else:
+            raise ValueError("FPC style not available. Choose one of the following: ['dynamic', 'static'].")
         self.model_kdfpc.fit(**kdfpc_params)
         
         # 3. Fit Multivariate Score Forecaster
@@ -381,7 +386,7 @@ class SimulationForecaster:
         k_etahat_fc = self.score_forecaster.predict_next(self.returns.values)
         
         # 2. Reconstruct LQD Curves
-        L2_curve_forecast = self.model_kdfpc.predict(k_etahat_fc)
+        L2_curve_forecast = pd.DataFrame(self.model_kdfpc.predict(k_etahat_fc))
         L2_curve_forecast.columns = future_dates
         
         
