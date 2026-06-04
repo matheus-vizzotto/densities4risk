@@ -96,7 +96,8 @@ class DensityForecaster:
 
     def fit(self, 
             Y_train:    pd.DataFrame, 
-            Y_support:  pd.DataFrame
+            Y_support:  pd.DataFrame,
+            fpc_style:  str = "dynamic"
             ):
         # 1. Transform Densities
         mlqdt = lqdt.mLQDT()
@@ -116,7 +117,12 @@ class DensityForecaster:
             "du": self.model_lqd.du
         })
         
-        self.model_kdfpc = dfpc.K_dFPC(lqd_values)
+        if   fpc_style == "dynamic":
+            self.model_kdfpc = dfpc.K_dFPC(lqd_values)
+        elif fpc_style == "static":
+            self.model_kdfpc = dfpc.K_sFPC(lqd_values)
+        else:
+            raise ValueError("FPC style not available. Choose one of the following: ['dynamic', 'static'].")
         self.model_kdfpc.fit(**self.kdfpc_kwargs)
         
         # 3. Fit ARIMA for the 'c' constant

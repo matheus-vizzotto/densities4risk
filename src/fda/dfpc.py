@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import pywt
+from skfda import FDataGrid
+from skfda.preprocessing.dim_reduction import FPCA
 from src.fda.utils import (
                 L2norm, 
                 inner_product,
@@ -658,6 +660,168 @@ class W_dFPC:
         prop = np.linalg.norm(self.L[:i], 1) / np.linalg.norm(self.L, 1)
         print(f"Proportion of the total eigenvalue mass contained in the first {i} eigenvalues: {prop:.5%}")
         return prop 
+    
+class K_sFPC:
+    """
+    Implements a Static Functional Principal Component Analysis (sFPC) wrapper 
+    using skfda. Designed as a drop-in replacement for the K_dFPC class.
+
+    This class takes as input a matrix Y of shape (m, T), where:
+        m = number of grid points
+        T = number of time points (curves)
+    """
+
+    def __init__(self, Y):
+        """
+        Initialize the model with data.
+
+        Parameters
+        ----------
+        Y : ndarray (m, T)
+            Functional time series sample evaluated on an m-point grid.
+        """
+        # skfda requires a copy if we are modifying it, but we'll modify in fit
+        self.Y = np.copy(Y) if isinstance(Y, np.ndarray) else Y.values.copy()
+        self.m, self.T = self.Y.shape
+
+        # Filled after fit()
+        self.Ybar = None
+        self.thetahat = None
+        self.gammahat = None  # Will remain None (not applicable for static FPC)
+        self.psihat = None
+        self.etahat = None
+        self.Yhat = None
+        self.epsilonhat = None
+        self.d0 = None
+        self.u = None
+        self.bs_pvalues = None
+        self.fitted_values = None
+        self.cumvar = None
+        self.model = None
+
+    def fit(self, p=None, u=None, du=0.05, lag_max=5, B=1_000, alpha=0.05, 
+            select_ncomp=False, dimension=None):
+        """
+        Fit the static FPC model using skfda.
+
+        Note: Dynamic parameters (p, lag_max, B, alpha) are accepted in the 
+        signature to maintain pipeline compatibility but are ignored during fitting.
+        """
+        self.u = u if u is not None else np.arange(self.m)
+
+        # Substitutes INF values (matching your original preprocessing)
+        if np.isinf(self.Y).any():
+            self.Y[np.isinf(self.Y)] = 1000
+
+        # 1. Prepare data for skfda
+        # Y is (m, T). skfda expects (n_samples, n_features), which is (T, m).
+        fd = FDataGrid(data_matrix=self.Y.T, grid_points=self.u)
+
+        # 2. Component Selection
+        if select_ncomp == "variance":
+            # Fit a temporary model to determine cumulative variance
+            temp_model = FPCA(n_components=min(self.m, self.T) - 1)
+            temp_model.fit(fd)
+            cumvar = np.cumsum(temp_model.explained_variance_ratio_)
+            d0 = np.argmax(cumvar >= 0.95) + 1
+            if d0 == 1:
+                d0 = 2  # Adjusted for VAR compatibility as per original code
+            self.cumvar = cumvar
+        else:
+            # Fallback to fixed dimension
+            d0 = dimension if dimension is not None else 1
+            
+        self.d0 = d0
+
+        # 3. Final Estimation
+        self.model = FPCA(n_components=self.d0)
+        self.model.fit(fd)
+        
+        # scores shape: (T, d0)
+        scores = self.model.transform(fd)
+
+        # 4. Extract and align shapes with K_dFPC
+        
+        # Mean curve Ybar: skfda shape is (1, m, 1) -> reshape to (m, 1)
+        Ybar = self.model.mean_.data_matrix[0, :, 0].reshape(-1, 1)
+        
+        # Eigenvalues
+        thetahat = self.model.explained_variance_
+        
+        # Spatial basis functions psihat: skfda shape is (d0, m, 1) -> reshape to (m, d0)
+        psihat_arr = self.model.components_.data_matrix[:, :, 0].T
+        
+        # Reconstruct curves Yhat: Ybar + psihat @ etahat.T
+        # psihat_arr is (m, d0), scores.T is (d0, T) -> result is (m, T)
+        etahat_transposed = scores.T
+        Yhat = Ybar + (psihat_arr @ etahat_transposed)
+        epsilonhat = self.Y - Yhat
+
+        # 5. Store results matching original formats exactly
+        self.Ybar = Ybar
+        self.thetahat = thetahat
+        self.gammahat = None # K* eigenvectors don't exist here
+        
+        # DataFrame shapes aligned to K_dFPC definition
+        self.psihat = pd.DataFrame(
+            psihat_arr, 
+            index=self.u,
+            columns=[f"basis_{i}" for i in range(1, self.d0 + 1)]
+        )
+        self.etahat = pd.DataFrame(
+            scores, 
+            columns=[f"scores_{i}" for i in range(1, self.d0 + 1)]
+        )
+        
+        self.Yhat = Yhat
+        self.epsilonhat = epsilonhat
+        self.fitted_values = Yhat
+
+        return self
+
+    def plot_psihat(self):
+        """Plot spatial basis functions."""
+        if self.psihat is None:
+            raise ValueError("Model not fitted yet.")
+
+        plt.figure()
+        # Using .values to safely index the DataFrame
+        psi_vals = self.psihat.values
+        for i in range(self.d0):
+            plt.plot(self.u, psi_vals[:, i], alpha=0.6, label=f"ψ_{i+1}")
+
+        plt.title("Static FPC decomposition: $\\hat{\\psi}$")
+        plt.legend()
+        plt.show()
+
+    def plot_etahat(self):
+        """Plot temporal score series."""
+        if self.etahat is None:
+            raise ValueError("Model not fitted yet.")
+
+        plt.figure()
+        # etahat is (T, d0). Extract values to loop through components securely.
+        eta_vals = self.etahat.values
+        for i in range(self.d0):
+            plt.plot(eta_vals[:, i], alpha=0.6, label=f"η_{i+1}")
+
+        plt.title("Static FPC temporal scores $\\hat{\\eta}$")
+        plt.legend()
+        plt.show()
+
+    def predict(self, etahat_values):
+        """
+        Reconstruct curves from temporal scores.
+
+        Parameters
+        ----------
+        etahat_values : ndarray (d0, T)
+            Scores used to reconstruct the curves.
+        """
+        if self.Ybar is None or self.psihat is None:
+            raise ValueError("Model not fitted yet.")
+            
+        return self.Ybar + self.psihat.values @ etahat_values
         
 
 ########################################

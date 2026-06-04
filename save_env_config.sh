@@ -3,13 +3,13 @@
 OUTPUT_DIR="environment"
 TIMESTAMP=$(date +%Y%m%d)
 
-mkdir -p $OUTPUT_DIR
+mkdir -p "$OUTPUT_DIR"
 
 FILENAME="environment_${TIMESTAMP}.yml"
 
-echo "Exporting current conda environment..."
+echo "Exporting current conda environment with package versions..."
 
-conda env export --from-history --no-builds > "$OUTPUT_DIR/$FILENAME"
+conda env export --no-builds > "$OUTPUT_DIR/$FILENAME"
 
 if [ $? -eq 0 ]; then
     echo "----------------------------------------"
