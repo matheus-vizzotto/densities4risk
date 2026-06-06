@@ -10,6 +10,7 @@ from src.fda.utils import (
                 wavedec_sizes,
                 vec2coeffs
 )
+from scipy.linalg import eigh
 
 # ============================================================
 # Main Class
@@ -744,7 +745,7 @@ class W_dFPC2:
             self.u = u if u is not None else np.arange(self.m)
             self.d0 = dimension
 
-            # Substitutes INF values (matches K_dFPC safety mechanism)
+            # Substitutes INF values
             if np.isinf(self.Y).any():
                 self.Y[np.isinf(self.Y)] = 1000
 
@@ -752,15 +753,14 @@ class W_dFPC2:
             nt = self.m
             n = self.T
 
-            # Get sizes from the environment (assuming wavedec_sizes is imported/defined)
             sizes, J = wavedec_sizes(nt, wavelet, N)
             
-            # ----- "A" matrix -----
-            A = np.zeros((J, n))
-
-            for ii in range(n):
-                coeffs = pywt.wavedec(Y[:, ii], wavelet=wavelet, level=N)
-                A[:, ii] = np.concatenate(coeffs)
+            # ------------------------------------------------------------------
+            # OPTIMIZATION 1: Fully Vectorized Wavelet Decomposition
+            # pywt can process all 'n' curves simultaneously along axis=0
+            # ------------------------------------------------------------------
+            coeffs_list = pywt.wavedec(Y, wavelet=wavelet, level=N, axis=0)
+            A = np.concatenate(coeffs_list, axis=0)  # Shape: (J, n)
 
             # ----- mean coeffs -----
             mu_A = np.mean(A, axis=1, keepdims=True)
@@ -774,16 +774,18 @@ class W_dFPC2:
                 Ct = C[:, k:(n - p + k)]
                 D1 += Ct.T @ Ct
 
-            D = C1 @ D1 @ C1.T / ((n - p) ** 2)
+            D = C1 @ (D1 / ((n - p) ** 2)) @ C1.T
 
-            # eigendecomposition (+ ordering)
-            L, B = np.linalg.eig(D)
-            idx = np.argsort(-L)
+            # ------------------------------------------------------------------
+            # OPTIMIZATION 2: Symmetric Eigendecomposition
+            # D is a symmetric real matrix. eigh is exponentially faster than eig.
+            # eigh returns values in ascending order, so we reverse them.
+            # ------------------------------------------------------------------
+            L, B = eigh(D)
+            L = L[::-1]       # Reverse to descending
+            B = B[:, ::-1]    # Reverse eigenvectors to match
 
-            L = L[idx]
-            B = B[:, idx]
-            
-            # FIX 1: Slice the reconstructed mean curve to exact length nt
+            # Reconstruct mean curve
             mu_hat = pywt.waverec(vec2coeffs(mu_A[:, 0], sizes), wavelet)
             mu_hat = mu_hat[:nt].reshape(-1, 1) 
 
@@ -791,17 +793,18 @@ class W_dFPC2:
             H = np.zeros((nt, self.d0))
             for m_idx in range(self.d0):
                 coeffs_m = vec2coeffs(B[:, m_idx], sizes)
-                # FIX 2: Slice the reconstructed eigenfunction to exact length nt
                 reconstructed_H = pywt.waverec(coeffs_m, wavelet)
                 H[:, m_idx] = reconstructed_H[:nt]
 
             # ----- compute scores (etahat) -----
             scores = B[:, :self.d0].T @ C      # shape (d0, n)
 
-            # ----- reconstruct curves -----
-            Yhat = np.zeros_like(Y)
-            for t in range(n):
-                Yhat[:, t] = mu_hat.flatten() + H @ scores[:, t]
+            # ------------------------------------------------------------------
+            # OPTIMIZATION 3: Vectorized Curve Reconstruction
+            # mu_hat is (nt, 1), (H @ scores) is (nt, n). 
+            # NumPy broadcasting handles this instantly without a loop.
+            # ------------------------------------------------------------------
+            Yhat = mu_hat + (H @ scores)
 
             # --------------------------------------------------------
             # Store results in K_dFPC format
