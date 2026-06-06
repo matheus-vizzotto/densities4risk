@@ -350,6 +350,8 @@ class SimulationForecaster:
         
         if   fpc_style == "dynamic":
             self.model_kdfpc = dfpc.K_dFPC(lqd_values)
+        elif fpc_style == "wavelet":
+            self.model_kdfpc = dfpc.W_dFPC2(lqd_values)
         elif fpc_style == "static":
             self.model_kdfpc = dfpc.K_sFPC(lqd_values)
         else:

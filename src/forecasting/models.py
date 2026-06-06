@@ -8,8 +8,8 @@ import pmdarima as pm
 from statsmodels.tsa.vector_ar.var_model import VARResults
 from statsmodels.graphics.tsaplots import plot_acf
 
-
 from sklearn.linear_model import Ridge, ElasticNet
+import asgl
 
 from typing import Optional, Dict, Union
 
@@ -318,10 +318,9 @@ class ScoreForecaster:
             )
 
         elif self.model_name == "elasticnet":
-
             return ElasticNet(
                 alpha=self.model_params.get(
-                    "alpha", 1.0
+                    "alpha", 0.001
                 ),
                 l1_ratio=self.model_params.get(
                     "l1_ratio", 0.5
@@ -329,6 +328,15 @@ class ScoreForecaster:
                 max_iter=self.model_params.get(
                     "max_iter", 10000
                 )
+            )
+
+        elif self.model_name == "adalasso":
+
+            return asgl.Regressor(
+                model="lm",
+                penalization="alasso",
+                lambda1=self.model_params.get("lambda1", 0.01),
+                weight_technique=self.model_params.get("weight_technique", "lasso")
             )
 
         raise ValueError(

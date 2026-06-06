@@ -661,6 +661,241 @@ class W_dFPC:
         print(f"Proportion of the total eigenvalue mass contained in the first {i} eigenvalues: {prop:.5%}")
         return prop 
     
+
+class W_dFPC2:
+    """
+    Wavelet dynamic Functional Principal Components (W-dFPC) that mimics K_dFPC structure for pipelines
+
+    Implements the Wavelet Dimensionality Estimation procedure described in
+    Fonseca & Pinheiro (2020).
+
+    This class takes as input a matrix Y of shape (m, T), where:
+        m = number of grid points
+        T = number of time points (curves)
+
+    After calling `.fit(...)`, the class computes and stores:
+        - Ybar          : mean curve
+        - psihat        : estimated spatial basis functions (wavelet eigenfunctions)
+        - etahat        : temporal score series
+        - thetahat      : eigenvalues
+        - gammahat      : eigenvectors
+        - Yhat          : fitted reconstruction
+        - fitted_values : same as Yhat
+        - epsilonhat    : residual curves
+        - d0            : selected dimension
+
+    Methods
+    -------
+    fit(...)
+        Fit the dynamic Wavelet model.
+
+    plot_psihat()
+        Plot the spatial basis functions.
+
+    plot_etahat()
+        Plot the temporal scores.
+
+    predict(etahat_values)
+        Reconstruct curves from arbitrary scores.
+
+    Example
+    -------
+    n  = 100
+    m  = 256
+    u  = np.linspace(0.01, 0.99, m)
+    Y = np.random.randn(m, n) # Shape (m, T)
+    
+    model = W_dFPC(Y)  
+    model.fit(u=u, N=3, wavelet='db2', p=5, dimension=3)
+    model.plot_psihat()
+    model.plot_etahat()
+    scores_pred = np.zeros((3, 1))
+    predicted_Y = model.predict(scores_pred)
+    """
+
+    def __init__(self, Y):
+        """
+        Initialize the model with data.
+
+        Parameters
+        ----------
+        Y : ndarray (m, T)
+            Functional time series sample evaluated on an m-point grid.
+        """
+        self.Y = Y
+        self.m, self.T = Y.shape
+
+        # Filled after fit()
+        self.Ybar = None
+        self.thetahat = None
+        self.gammahat = None
+        self.psihat = None
+        self.etahat = None
+        self.Yhat = None
+        self.epsilonhat = None
+        self.fitted_values = None
+        self.d0 = None
+        self.u = None
+
+    def fit(self, p=5, u=None, dimension=3, N=3, wavelet='db2', **kwargs):
+            """
+            Fit the Wavelet dFPC model.
+            """
+            self.u = u if u is not None else np.arange(self.m)
+            self.d0 = dimension
+
+            # Substitutes INF values (matches K_dFPC safety mechanism)
+            if np.isinf(self.Y).any():
+                self.Y[np.isinf(self.Y)] = 1000
+
+            Y = self.Y
+            nt = self.m
+            n = self.T
+
+            # Get sizes from the environment (assuming wavedec_sizes is imported/defined)
+            sizes, J = wavedec_sizes(nt, wavelet, N)
+            
+            # ----- "A" matrix -----
+            A = np.zeros((J, n))
+
+            for ii in range(n):
+                coeffs = pywt.wavedec(Y[:, ii], wavelet=wavelet, level=N)
+                A[:, ii] = np.concatenate(coeffs)
+
+            # ----- mean coeffs -----
+            mu_A = np.mean(A, axis=1, keepdims=True)
+            C = A - mu_A
+
+            # ----- lagged covariance D -----
+            C1 = C[:, :n - p]
+            D1 = np.zeros((n - p, n - p))
+
+            for k in range(1, p + 1):
+                Ct = C[:, k:(n - p + k)]
+                D1 += Ct.T @ Ct
+
+            D = C1 @ D1 @ C1.T / ((n - p) ** 2)
+
+            # eigendecomposition (+ ordering)
+            L, B = np.linalg.eig(D)
+            idx = np.argsort(-L)
+
+            L = L[idx]
+            B = B[:, idx]
+            
+            # FIX 1: Slice the reconstructed mean curve to exact length nt
+            mu_hat = pywt.waverec(vec2coeffs(mu_A[:, 0], sizes), wavelet)
+            mu_hat = mu_hat[:nt].reshape(-1, 1) 
+
+            # ----- reconstruct eigenfunctions (psihat) -----
+            H = np.zeros((nt, self.d0))
+            for m_idx in range(self.d0):
+                coeffs_m = vec2coeffs(B[:, m_idx], sizes)
+                # FIX 2: Slice the reconstructed eigenfunction to exact length nt
+                reconstructed_H = pywt.waverec(coeffs_m, wavelet)
+                H[:, m_idx] = reconstructed_H[:nt]
+
+            # ----- compute scores (etahat) -----
+            scores = B[:, :self.d0].T @ C      # shape (d0, n)
+
+            # ----- reconstruct curves -----
+            Yhat = np.zeros_like(Y)
+            for t in range(n):
+                Yhat[:, t] = mu_hat.flatten() + H @ scores[:, t]
+
+            # --------------------------------------------------------
+            # Store results in K_dFPC format
+            # --------------------------------------------------------
+            self.Ybar = mu_hat
+            self.thetahat = L
+            self.gammahat = B
+            
+            self.psihat = pd.DataFrame(H, columns=[f"basis_{i}" for i in range(1, self.d0+1)])
+            self.etahat = pd.DataFrame(scores.T, columns=[f"scores_{i}" for i in range(1, self.d0+1)])
+            
+            self.Yhat = Yhat
+            self.epsilonhat = self.Y - Yhat
+            self.fitted_values = Yhat
+
+            return self
+    
+    def plot_psihat(self):
+        """
+        Plot spatial basis functions ψ_i(u). (Wavelet eigenfunctions)
+        """
+        if self.psihat is None:
+            raise ValueError("Model not fitted yet.")
+        
+        d = self.psihat.shape[1]
+
+        plt.figure()
+        for i in range(d):
+            # We use iloc since psihat is a DataFrame
+            plt.plot(self.u, self.psihat.iloc[:, i], alpha=0.6, label=f"ψ_{i+1}")
+
+        plt.title("Wavelet-based decomposition: $\\hat{\\psi}$")
+        plt.legend()
+        plt.show()
+
+    def plot_etahat(self):
+        """
+        Plot temporal score series η_i(t).
+        """
+        if self.etahat is None:
+            raise ValueError("Model not fitted yet.")
+
+        plt.figure()
+        d = self.etahat.shape[1]
+        
+        for i in range(d):
+            plt.plot(self.etahat.iloc[:, i], alpha=0.6, label=f"η_{i+1}")
+
+        plt.title("Wavelet-based temporal scores $\\hat{\\eta}$")
+        plt.legend()
+        plt.show()
+
+    def predict(self, etahat_values):
+        """
+        Reconstruct curves from temporal scores. Can be applied to
+        fitted or forecasted scores.
+
+        Parameters
+        ----------
+        etahat_values : ndarray or pd.DataFrame
+            Scores used to reconstruct the curves.
+
+        Returns
+        -------
+        ndarray (m, T)
+            Reconstructed functional observations.
+        """
+        if self.Ybar is None or self.psihat is None:
+            raise ValueError("Model not fitted yet.")
+            
+        # Handle case where pipeline passes a pandas DataFrame of scores
+        if isinstance(etahat_values, pd.DataFrame):
+            scores_mat = etahat_values.values.T
+        else:
+            scores_mat = np.asarray(etahat_values)
+            if scores_mat.ndim == 1:
+                scores_mat = scores_mat[:, None]
+
+        # psihat is (m, d0), scores_mat should be (d0, k)
+        psi_mat = self.psihat.values
+        
+        return self.Ybar + psi_mat @ scores_mat
+    
+    def eig_proportion(self, i: int = 2) -> float:
+        """
+        Proportion of the total eigenvalue mass contained in the first i eigenvalues
+        """
+        if self.thetahat is None:
+            raise ValueError("Model not fitted yet.")
+            
+        prop = np.linalg.norm(self.thetahat[:i], 1) / np.linalg.norm(self.thetahat, 1)
+        print(f"Proportion of the total eigenvalue mass contained in the first {i} eigenvalues: {prop:.5%}")
+        return prop
+    
 class K_sFPC:
     """
     Implements a Static Functional Principal Component Analysis (sFPC) wrapper 
