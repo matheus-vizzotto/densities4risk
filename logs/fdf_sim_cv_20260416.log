@@ -1,0 +1,307 @@
+2026-04-16 13:26:45,895 | INFO | 
+Initiating cross validation...
+2026-04-16 13:26:45,905 | INFO | Scenario: 9 | n_rep: 34 | KDE model: gaussianadaptive
+2026-04-16 13:43:21,263 | INFO | 
+Initiating cross validation...
+2026-04-16 13:43:21,270 | INFO | Scenario: 9 | n_rep: 34 | KDE model: gaussian adaptive
+2026-04-16 13:44:52,992 | INFO | Scenario: 0 | n_rep: 27 | KDE model: gaussian rot robust
+2026-04-16 13:46:19,999 | INFO | Scenario: 9 | n_rep: 17 | KDE model: gaussian cross validate
+2026-04-16 13:48:33,853 | INFO | 
+Initiating cross validation...
+2026-04-16 13:48:33,867 | INFO | Scenario: 9 | n_rep: 34 | KDE model: gaussian adaptive
+2026-04-16 13:50:04,838 | INFO | Scenario: 0 | n_rep: 27 | KDE model: gaussian rot robust
+2026-04-16 13:51:31,189 | INFO | Scenario: 9 | n_rep: 17 | KDE model: gaussian cross validate
+2026-04-16 13:52:47,996 | INFO | Scenario: 9 | n_rep: 42 | KDE model: t-student cross validate df=3
+2026-04-16 13:54:04,578 | INFO | Scenario: 0 | n_rep: 32 | KDE model: t-student cross validate df=3
+2026-04-16 13:55:24,778 | INFO | Scenario: 9 | n_rep: 29 | KDE model: gaussian rot
+2026-04-16 13:56:57,801 | INFO | Scenario: 0 | n_rep: 37 | KDE model: gaussian rot
+2026-04-16 13:58:05,340 | INFO | Scenario: 9 | n_rep: 10 | KDE model: gaussian rot robust
+2026-04-16 13:59:25,250 | INFO | Scenario: 0 | n_rep: 16 | KDE model: gaussian adaptive
+2026-04-16 14:00:32,456 | INFO | Scenario: 9 | n_rep: 16 | KDE model: t-student adaptive df=3
+2026-04-16 14:02:00,720 | INFO | Scenario: 9 | n_rep: 43 | KDE model: gaussian adaptive
+2026-04-16 14:03:24,627 | INFO | Scenario: 0 | n_rep: 3 | KDE model: t-student cross validate df=3
+2026-04-16 14:05:09,618 | INFO | Scenario: 9 | n_rep: 3 | KDE model: gaussian adaptive
+2026-04-16 14:06:51,307 | INFO | Scenario: 9 | n_rep: 25 | KDE model: t-student adaptive df=3
+2026-04-16 14:08:12,225 | INFO | Scenario: 9 | n_rep: 43 | KDE model: t-student cross validate df=3
+2026-04-16 14:09:39,105 | INFO | Scenario: 0 | n_rep: 33 | KDE model: t-student cross validate df=3
+2026-04-16 14:10:57,952 | INFO | Scenario: 9 | n_rep: 11 | KDE model: gaussian rot
+2026-04-16 14:12:28,023 | INFO | Scenario: 9 | n_rep: 41 | KDE model: t-student adaptive df=3
+2026-04-16 14:14:10,661 | INFO | Scenario: 0 | n_rep: 2 | KDE model: t-student cross validate df=3
+2026-04-16 14:15:44,282 | INFO | Scenario: 9 | n_rep: 39 | KDE model: gaussian rot robust
+2026-04-16 14:17:24,953 | INFO | Scenario: 0 | n_rep: 38 | KDE model: gaussian adaptive
+2026-04-16 14:18:47,478 | INFO | Scenario: 9 | n_rep: 40 | KDE model: gaussian cross validate
+2026-04-16 14:20:13,239 | INFO | Scenario: 0 | n_rep: 49 | KDE model: gaussian rot robust
+2026-04-16 14:21:29,448 | INFO | Scenario: 0 | n_rep: 2 | KDE model: gaussian adaptive
+2026-04-16 14:23:06,548 | INFO | Scenario: 9 | n_rep: 24 | KDE model: gaussian cross validate
+2026-04-16 14:24:12,778 | INFO | Scenario: 0 | n_rep: 31 | KDE model: gaussian rot robust
+2026-04-16 14:25:31,898 | INFO | Scenario: 9 | n_rep: 41 | KDE model: gaussian rot robust
+2026-04-16 14:27:11,331 | INFO | Scenario: 0 | n_rep: 1 | KDE model: t-student cross validate df=3
+2026-04-16 14:28:51,840 | INFO | Scenario: 9 | n_rep: 7 | KDE model: gaussian cross validate
+2026-04-16 14:30:22,817 | INFO | Scenario: 9 | n_rep: 36 | KDE model: gaussian cross validate
+2026-04-16 14:31:50,876 | INFO | Scenario: 9 | n_rep: 37 | KDE model: t-student adaptive df=3
+2026-04-16 14:33:58,749 | INFO | Scenario: 9 | n_rep: 6 | KDE model: t-student adaptive df=3
+2026-04-16 14:35:12,900 | INFO | Scenario: 0 | n_rep: 30 | KDE model: t-student cross validate df=3
+2026-04-16 14:36:54,059 | INFO | Scenario: 0 | n_rep: 32 | KDE model: gaussian rot
+2026-04-16 14:38:09,661 | INFO | Scenario: 9 | n_rep: 40 | KDE model: t-student cross validate df=3
+2026-04-16 14:39:38,690 | INFO | Scenario: 0 | n_rep: 18 | KDE model: gaussian rot robust
+2026-04-16 14:41:03,091 | INFO | Scenario: 0 | n_rep: 30 | KDE model: gaussian adaptive
+2026-04-16 14:42:42,426 | INFO | Scenario: 0 | n_rep: 9 | KDE model: gaussian rot
+2026-04-16 14:44:02,759 | INFO | Scenario: 0 | n_rep: 0 | KDE model: t-student cross validate df=3
+2026-04-16 14:45:31,178 | INFO | Scenario: 0 | n_rep: 47 | KDE model: gaussian adaptive
+2026-04-16 14:46:50,023 | INFO | Scenario: 9 | n_rep: 14 | KDE model: gaussian rot
+2026-04-16 14:48:34,104 | INFO | Scenario: 0 | n_rep: 6 | KDE model: gaussian rot robust
+2026-04-16 14:49:31,499 | INFO | Scenario: 9 | n_rep: 12 | KDE model: gaussian adaptive
+2026-04-16 14:50:48,938 | INFO | Scenario: 0 | n_rep: 31 | KDE model: t-student cross validate df=3
+2026-04-16 14:52:15,809 | INFO | Scenario: 9 | n_rep: 41 | KDE model: t-student cross validate df=3
+2026-04-16 14:53:56,731 | INFO | Scenario: 9 | n_rep: 20 | KDE model: t-student adaptive df=3
+2026-04-16 14:55:12,869 | INFO | Scenario: 0 | n_rep: 6 | KDE model: t-student cross validate df=3
+2026-04-16 14:56:09,738 | INFO | Scenario: 9 | n_rep: 44 | KDE model: t-student adaptive df=3
+2026-04-16 14:57:27,340 | INFO | Scenario: 0 | n_rep: 6 | KDE model: gaussian rot
+2026-04-16 14:58:23,472 | INFO | Scenario: 0 | n_rep: 37 | KDE model: t-student cross validate df=3
+2026-04-16 14:59:26,619 | INFO | Scenario: 9 | n_rep: 47 | KDE model: t-student cross validate df=3
+2026-04-16 15:00:30,605 | INFO | Scenario: 9 | n_rep: 45 | KDE model: gaussian cross validate
+2026-04-16 15:01:57,286 | INFO | Scenario: 9 | n_rep: 29 | KDE model: gaussian adaptive
+2026-04-16 15:03:28,401 | INFO | Scenario: 9 | n_rep: 21 | KDE model: gaussian cross validate
+2026-04-16 15:04:43,622 | INFO | Scenario: 9 | n_rep: 15 | KDE model: gaussian rot robust
+2026-04-16 15:06:01,919 | INFO | Scenario: 0 | n_rep: 7 | KDE model: t-student cross validate df=3
+2026-04-16 15:07:37,942 | INFO | Scenario: 9 | n_rep: 12 | KDE model: gaussian cross validate
+2026-04-16 15:08:49,634 | INFO | Scenario: 0 | n_rep: 25 | KDE model: gaussian adaptive
+2026-04-16 15:10:25,838 | INFO | Scenario: 0 | n_rep: 19 | KDE model: gaussian cross validate
+2026-04-16 15:11:36,657 | INFO | Scenario: 9 | n_rep: 0 | KDE model: gaussian rot
+2026-04-16 15:12:57,963 | INFO | Scenario: 9 | n_rep: 23 | KDE model: gaussian rot
+2026-04-16 15:14:09,106 | INFO | Scenario: 0 | n_rep: 18 | KDE model: t-student adaptive df=3
+2026-04-16 15:15:35,369 | INFO | Scenario: 0 | n_rep: 44 | KDE model: gaussian rot
+2026-04-16 15:17:16,214 | INFO | Scenario: 9 | n_rep: 13 | KDE model: t-student adaptive df=3
+2026-04-16 15:18:45,717 | INFO | Scenario: 0 | n_rep: 36 | KDE model: t-student cross validate df=3
+2026-04-16 15:20:20,132 | INFO | Scenario: 9 | n_rep: 46 | KDE model: t-student cross validate df=3
+2026-04-16 15:21:42,609 | INFO | Scenario: 0 | n_rep: 22 | KDE model: gaussian rot robust
+2026-04-16 15:23:05,389 | INFO | Scenario: 0 | n_rep: 3 | KDE model: gaussian rot robust
+2026-04-16 15:24:41,957 | INFO | Scenario: 9 | n_rep: 21 | KDE model: gaussian adaptive
+2026-04-16 15:26:01,807 | INFO | Scenario: 9 | n_rep: 45 | KDE model: t-student cross validate df=3
+2026-04-16 15:27:35,418 | INFO | Scenario: 0 | n_rep: 35 | KDE model: t-student cross validate df=3
+2026-04-16 15:29:00,940 | INFO | Scenario: 0 | n_rep: 3 | KDE model: gaussian rot
+2026-04-16 15:30:36,705 | INFO | Scenario: 0 | n_rep: 4 | KDE model: t-student cross validate df=3
+2026-04-16 15:32:06,326 | INFO | Scenario: 9 | n_rep: 44 | KDE model: t-student cross validate df=3
+2026-04-16 15:33:28,978 | INFO | Scenario: 0 | n_rep: 34 | KDE model: t-student cross validate df=3
+2026-04-16 15:34:38,168 | INFO | Scenario: 0 | n_rep: 41 | KDE model: gaussian rot
+2026-04-16 15:36:11,066 | INFO | Scenario: 0 | n_rep: 8 | KDE model: gaussian cross validate
+2026-04-16 15:37:30,930 | INFO | Scenario: 0 | n_rep: 38 | KDE model: gaussian cross validate
+2026-04-16 15:38:49,646 | INFO | Scenario: 9 | n_rep: 2 | KDE model: gaussian cross validate
+2026-04-16 15:39:56,945 | INFO | Scenario: 9 | n_rep: 26 | KDE model: gaussian rot
+2026-04-16 15:41:13,817 | INFO | Scenario: 9 | n_rep: 33 | KDE model: gaussian cross validate
+2026-04-16 15:42:45,854 | INFO | Scenario: 0 | n_rep: 38 | KDE model: gaussian rot
+2026-04-16 15:44:08,851 | INFO | Scenario: 9 | n_rep: 32 | KDE model: t-student adaptive df=3
+2026-04-16 15:45:42,564 | INFO | Scenario: 9 | n_rep: 5 | KDE model: gaussian rot
+2026-04-16 15:47:09,707 | INFO | Scenario: 9 | n_rep: 44 | KDE model: gaussian rot robust
+2026-04-16 15:48:29,313 | INFO | Scenario: 0 | n_rep: 5 | KDE model: t-student cross validate df=3
+2026-04-16 15:49:28,479 | INFO | Scenario: 9 | n_rep: 3 | KDE model: t-student adaptive df=3
+2026-04-16 15:51:02,942 | INFO | Scenario: 0 | n_rep: 39 | KDE model: t-student adaptive df=3
+2026-04-16 15:52:16,514 | INFO | Scenario: 0 | n_rep: 9 | KDE model: t-student adaptive df=3
+2026-04-16 15:53:33,976 | INFO | Scenario: 0 | n_rep: 34 | KDE model: gaussian rot robust
+2026-04-16 15:54:39,726 | INFO | Scenario: 0 | n_rep: 26 | KDE model: t-student adaptive df=3
+2026-04-16 15:55:57,792 | INFO | Scenario: 9 | n_rep: 49 | KDE model: t-student adaptive df=3
+2026-04-16 15:57:06,921 | INFO | Scenario: 9 | n_rep: 11 | KDE model: t-student cross validate df=3
+2026-04-16 15:58:32,580 | INFO | Scenario: 0 | n_rep: 12 | KDE model: gaussian rot robust
+2026-04-16 16:00:00,155 | INFO | Scenario: 0 | n_rep: 42 | KDE model: t-student adaptive df=3
+2026-04-16 16:01:43,975 | INFO | Scenario: 0 | n_rep: 43 | KDE model: gaussian cross validate
+2026-04-16 16:03:05,483 | INFO | Scenario: 9 | n_rep: 48 | KDE model: gaussian cross validate
+2026-04-16 16:04:34,392 | INFO | Scenario: 9 | n_rep: 25 | KDE model: gaussian rot robust
+2026-04-16 16:05:55,417 | INFO | Scenario: 0 | n_rep: 27 | KDE model: gaussian cross validate
+2026-04-16 16:07:12,847 | INFO | Scenario: 9 | n_rep: 26 | KDE model: t-student cross validate df=3
+2026-04-16 16:08:31,689 | INFO | Scenario: 0 | n_rep: 12 | KDE model: gaussian rot
+2026-04-16 16:09:55,260 | INFO | Scenario: 9 | n_rep: 10 | KDE model: t-student cross validate df=3
+2026-04-16 16:11:12,117 | INFO | Scenario: 0 | n_rep: 14 | KDE model: gaussian cross validate
+2026-04-16 16:13:10,916 | INFO | Scenario: 0 | n_rep: 15 | KDE model: t-student adaptive df=3
+2026-04-16 16:14:26,156 | INFO | Scenario: 9 | n_rep: 26 | KDE model: gaussian adaptive
+2026-04-16 16:15:45,949 | INFO | Scenario: 9 | n_rep: 27 | KDE model: t-student cross validate df=3
+2026-04-16 16:16:54,605 | INFO | Scenario: 9 | n_rep: 34 | KDE model: gaussian rot
+2026-04-16 16:18:30,012 | INFO | Scenario: 0 | n_rep: 17 | KDE model: gaussian rot
+2026-04-16 16:19:42,468 | INFO | Scenario: 9 | n_rep: 24 | KDE model: t-student cross validate df=3
+2026-04-16 16:20:47,841 | INFO | Scenario: 9 | n_rep: 13 | KDE model: t-student cross validate df=3
+2026-04-16 16:22:22,158 | INFO | Scenario: 0 | n_rep: 43 | KDE model: gaussian rot robust
+2026-04-16 16:23:44,463 | INFO | Scenario: 0 | n_rep: 22 | KDE model: gaussian adaptive
+2026-04-16 16:25:15,317 | INFO | Scenario: 9 | n_rep: 33 | KDE model: gaussian rot robust
+2026-04-16 16:26:47,811 | INFO | Scenario: 9 | n_rep: 48 | KDE model: gaussian rot
+2026-04-16 16:28:21,806 | INFO | Scenario: 9 | n_rep: 5 | KDE model: gaussian rot robust
+2026-04-16 16:29:41,475 | INFO | Scenario: 9 | n_rep: 31 | KDE model: gaussian rot
+2026-04-16 16:31:23,774 | INFO | Scenario: 0 | n_rep: 5 | KDE model: gaussian cross validate
+2026-04-16 16:32:31,027 | INFO | Scenario: 0 | n_rep: 35 | KDE model: gaussian cross validate
+2026-04-16 16:33:57,655 | INFO | Scenario: 9 | n_rep: 25 | KDE model: t-student cross validate df=3
+2026-04-16 16:35:25,291 | INFO | Scenario: 0 | n_rep: 34 | KDE model: t-student adaptive df=3
+2026-04-16 16:36:29,408 | INFO | Scenario: 0 | n_rep: 4 | KDE model: t-student adaptive df=3
+2026-04-16 16:37:59,461 | INFO | Scenario: 9 | n_rep: 12 | KDE model: t-student cross validate df=3
+2026-04-16 16:39:15,288 | INFO | Scenario: 9 | n_rep: 23 | KDE model: t-student cross validate df=3
+2026-04-16 16:40:34,111 | INFO | Scenario: 9 | n_rep: 47 | KDE model: gaussian rot
+2026-04-16 16:44:11,698 | INFO | Scenario: 0 | n_rep: 40 | KDE model: gaussian adaptive
+2026-04-16 17:18:24,761 | INFO | Scenario: 0 | n_rep: 20 | KDE model: gaussian rot
+2026-04-16 17:34:57,660 | INFO | Scenario: 9 | n_rep: 15 | KDE model: gaussian adaptive
+2026-04-16 17:51:29,792 | INFO | Scenario: 0 | n_rep: 11 | KDE model: gaussian cross validate
+2026-04-16 18:24:01,331 | INFO | Scenario: 9 | n_rep: 14 | KDE model: t-student cross validate df=3
+2026-04-16 18:45:42,286 | INFO | Scenario: 0 | n_rep: 10 | KDE model: t-student adaptive df=3
+2026-04-16 19:18:42,285 | INFO | Scenario: 0 | n_rep: 37 | KDE model: gaussian adaptive
+2026-04-16 19:35:33,973 | INFO | Scenario: 9 | n_rep: 20 | KDE model: gaussian rot robust
+2026-04-16 19:46:11,980 | INFO | Scenario: 9 | n_rep: 28 | KDE model: t-student adaptive df=3
+2026-04-16 20:02:56,812 | INFO | Scenario: 0 | n_rep: 18 | KDE model: gaussian rot
+2026-04-16 20:36:47,423 | INFO | Scenario: 0 | n_rep: 23 | KDE model: t-student adaptive df=3
+2026-04-16 20:47:46,547 | INFO | Scenario: 0 | n_rep: 47 | KDE model: t-student adaptive df=3
+2026-04-16 21:21:46,160 | INFO | Scenario: 9 | n_rep: 22 | KDE model: t-student cross validate df=3
+2026-04-16 21:22:43,730 | INFO | Scenario: 0 | n_rep: 9 | KDE model: gaussian rot robust
+2026-04-16 21:24:01,052 | INFO | Scenario: 0 | n_rep: 46 | KDE model: gaussian cross validate
+2026-04-16 21:41:43,081 | INFO | Scenario: 0 | n_rep: 22 | KDE model: gaussian cross validate
+2026-04-16 22:04:44,040 | INFO | Scenario: 0 | n_rep: 19 | KDE model: gaussian adaptive
+2026-04-16 22:05:59,534 | INFO | Scenario: 9 | n_rep: 29 | KDE model: gaussian cross validate
+2026-04-16 22:37:52,240 | INFO | Scenario: 0 | n_rep: 17 | KDE model: gaussian rot robust
+2026-04-16 22:39:00,613 | INFO | Scenario: 9 | n_rep: 15 | KDE model: t-student cross validate df=3
+2026-04-16 22:40:24,111 | INFO | Scenario: 0 | n_rep: 0 | KDE model: gaussian cross validate
+2026-04-16 22:41:48,097 | INFO | Scenario: 0 | n_rep: 30 | KDE model: gaussian cross validate
+2026-04-16 22:43:21,907 | INFO | Scenario: 9 | n_rep: 16 | KDE model: t-student cross validate df=3
+2026-04-16 22:45:06,146 | INFO | Scenario: 0 | n_rep: 5 | KDE model: gaussian adaptive
+2026-04-16 22:46:12,940 | INFO | Scenario: 0 | n_rep: 28 | KDE model: gaussian rot robust
+2026-04-16 22:47:43,310 | INFO | Scenario: 9 | n_rep: 0 | KDE model: gaussian rot robust
+2026-04-16 22:49:23,218 | INFO | Scenario: 0 | n_rep: 31 | KDE model: t-student adaptive df=3
+2026-04-16 22:50:58,897 | INFO | Scenario: 9 | n_rep: 4 | KDE model: gaussian adaptive
+2026-04-16 22:52:53,704 | INFO | Scenario: 0 | n_rep: 1 | KDE model: t-student adaptive df=3
+2026-04-16 22:54:45,930 | INFO | Scenario: 0 | n_rep: 48 | KDE model: gaussian adaptive
+2026-04-16 22:56:01,243 | INFO | Scenario: 0 | n_rep: 25 | KDE model: gaussian rot
+2026-04-16 22:58:06,108 | INFO | Scenario: 9 | n_rep: 21 | KDE model: t-student cross validate df=3
+2026-04-16 22:59:59,725 | INFO | Scenario: 9 | n_rep: 42 | KDE model: gaussian rot
+2026-04-16 23:01:51,134 | INFO | Scenario: 0 | n_rep: 11 | KDE model: gaussian adaptive
+2026-04-16 23:04:01,399 | INFO | Scenario: 9 | n_rep: 17 | KDE model: t-student cross validate df=3
+2026-04-16 23:05:51,826 | INFO | Scenario: 9 | n_rep: 36 | KDE model: gaussian rot robust
+2026-04-16 23:38:31,688 | INFO | Scenario: 9 | n_rep: 44 | KDE model: gaussian adaptive
+2026-04-16 23:49:49,766 | INFO | Scenario: 0 | n_rep: 46 | KDE model: gaussian rot robust
+2026-04-17 00:22:22,630 | INFO | Scenario: 9 | n_rep: 33 | KDE model: gaussian adaptive
+2026-04-17 00:30:37,285 | INFO | Scenario: 9 | n_rep: 20 | KDE model: t-student cross validate df=3
+2026-04-17 00:50:13,343 | INFO | Scenario: 0 | n_rep: 14 | KDE model: gaussian adaptive
+2026-04-17 01:23:13,150 | INFO | Scenario: 0 | n_rep: 24 | KDE model: gaussian cross validate
+2026-04-17 01:39:45,692 | INFO | Scenario: 9 | n_rep: 22 | KDE model: gaussian rot
+2026-04-17 01:51:29,819 | INFO | Scenario: 0 | n_rep: 40 | KDE model: gaussian cross validate
+2026-04-17 02:25:26,511 | INFO | Scenario: 9 | n_rep: 41 | KDE model: gaussian adaptive
+2026-04-17 02:42:42,522 | INFO | Scenario: 9 | n_rep: 4 | KDE model: t-student cross validate df=3
+2026-04-17 03:08:48,012 | INFO | Scenario: 0 | n_rep: 45 | KDE model: gaussian rot
+2026-04-17 03:40:47,385 | INFO | Scenario: 9 | n_rep: 1 | KDE model: gaussian rot
+2026-04-17 03:53:33,707 | INFO | Scenario: 9 | n_rep: 36 | KDE model: gaussian adaptive
+2026-04-17 04:27:35,094 | INFO | Scenario: 0 | n_rep: 41 | KDE model: t-student adaptive df=3
+2026-04-17 04:44:50,703 | INFO | Scenario: 0 | n_rep: 25 | KDE model: t-student adaptive df=3
+2026-04-17 04:54:52,800 | INFO | Scenario: 9 | n_rep: 5 | KDE model: t-student cross validate df=3
+2026-04-17 05:28:03,127 | INFO | Scenario: 0 | n_rep: 16 | KDE model: t-student adaptive df=3
+2026-04-17 05:44:22,959 | INFO | Scenario: 0 | n_rep: 0 | KDE model: gaussian adaptive
+2026-04-17 05:55:20,206 | INFO | Scenario: 9 | n_rep: 14 | KDE model: gaussian rot robust
+2026-04-17 06:29:21,814 | INFO | Scenario: 9 | n_rep: 18 | KDE model: gaussian adaptive
+2026-04-17 06:47:47,361 | INFO | Scenario: 0 | n_rep: 23 | KDE model: gaussian rot robust
+2026-04-17 06:56:31,908 | INFO | Scenario: 0 | n_rep: 7 | KDE model: gaussian rot
+2026-04-17 07:30:37,119 | INFO | Scenario: 0 | n_rep: 17 | KDE model: gaussian cross validate
+2026-04-17 07:48:38,730 | INFO | Scenario: 9 | n_rep: 1 | KDE model: gaussian adaptive
+2026-04-17 07:57:13,432 | INFO | Scenario: 9 | n_rep: 4 | KDE model: gaussian rot
+2026-04-17 08:28:53,456 | INFO | Scenario: 0 | n_rep: 2 | KDE model: gaussian rot robust
+2026-04-17 08:30:29,428 | INFO | Scenario: 9 | n_rep: 49 | KDE model: gaussian adaptive
+2026-04-17 08:43:50,848 | INFO | Scenario: 0 | n_rep: 40 | KDE model: gaussian rot
+2026-04-17 08:45:18,255 | INFO | Scenario: 9 | n_rep: 6 | KDE model: t-student cross validate df=3
+2026-04-17 08:46:29,144 | INFO | Scenario: 0 | n_rep: 39 | KDE model: gaussian rot
+2026-04-17 09:14:38,549 | INFO | Scenario: 9 | n_rep: 27 | KDE model: gaussian rot
+2026-04-17 09:48:57,427 | INFO | Scenario: 0 | n_rep: 45 | KDE model: gaussian adaptive
+2026-04-17 09:50:32,050 | INFO | Scenario: 9 | n_rep: 10 | KDE model: gaussian adaptive
+2026-04-17 09:59:51,980 | INFO | Scenario: 0 | n_rep: 7 | KDE model: t-student adaptive df=3
+2026-04-17 10:32:41,150 | INFO | Scenario: 9 | n_rep: 9 | KDE model: gaussian adaptive
+2026-04-17 10:50:15,188 | INFO | Scenario: 0 | n_rep: 2 | KDE model: gaussian rot
+2026-04-17 11:00:33,902 | INFO | Scenario: 0 | n_rep: 37 | KDE model: t-student adaptive df=3
+2026-04-17 11:17:33,466 | INFO | Scenario: 0 | n_rep: 36 | KDE model: gaussian cross validate
+2026-04-17 11:35:02,749 | INFO | Scenario: 0 | n_rep: 6 | KDE model: gaussian cross validate
+2026-04-17 11:35:58,897 | INFO | Scenario: 0 | n_rep: 8 | KDE model: gaussian adaptive
+2026-04-17 11:37:22,428 | INFO | Scenario: 0 | n_rep: 35 | KDE model: gaussian rot robust
+2026-04-17 11:39:04,039 | INFO | Scenario: 9 | n_rep: 7 | KDE model: t-student cross validate df=3
+2026-04-17 11:40:48,669 | INFO | Scenario: 0 | n_rep: 32 | KDE model: gaussian adaptive
+2026-04-17 12:01:36,146 | INFO | Scenario: 9 | n_rep: 45 | KDE model: gaussian rot robust
+2026-04-17 12:34:17,293 | INFO | Scenario: 0 | n_rep: 26 | KDE model: gaussian rot robust
+2026-04-17 12:52:27,881 | INFO | Scenario: 0 | n_rep: 13 | KDE model: t-student adaptive df=3
+2026-04-17 13:02:29,025 | INFO | Scenario: 9 | n_rep: 18 | KDE model: t-student adaptive df=3
+2026-04-17 13:20:29,942 | INFO | Scenario: 9 | n_rep: 39 | KDE model: t-student cross validate df=3
+2026-04-17 13:53:42,841 | INFO | Scenario: 0 | n_rep: 49 | KDE model: t-student cross validate df=3
+2026-04-17 13:54:58,081 | INFO | Scenario: 9 | n_rep: 10 | KDE model: gaussian rot
+2026-04-17 14:19:51,996 | INFO | Scenario: 9 | n_rep: 19 | KDE model: gaussian cross validate
+2026-04-17 14:37:09,915 | INFO | Scenario: 9 | n_rep: 1 | KDE model: t-student cross validate df=3
+2026-04-17 14:54:44,487 | INFO | Scenario: 0 | n_rep: 12 | KDE model: gaussian cross validate
+2026-04-17 15:04:22,973 | INFO | Scenario: 9 | n_rep: 11 | KDE model: gaussian rot robust
+2026-04-17 15:37:03,344 | INFO | Scenario: 0 | n_rep: 21 | KDE model: gaussian cross validate
+2026-04-17 15:55:04,164 | INFO | Scenario: 9 | n_rep: 38 | KDE model: t-student cross validate df=3
+2026-04-17 15:56:29,213 | INFO | Scenario: 0 | n_rep: 48 | KDE model: t-student cross validate df=3
+2026-04-17 16:21:05,317 | INFO | Scenario: 0 | n_rep: 45 | KDE model: gaussian cross validate
+2026-04-17 16:37:29,457 | INFO | Scenario: 0 | n_rep: 36 | KDE model: gaussian rot
+2026-04-17 16:56:04,176 | INFO | Scenario: 9 | n_rep: 28 | KDE model: gaussian rot
+2026-04-17 16:57:19,405 | INFO | Scenario: 0 | n_rep: 44 | KDE model: t-student adaptive df=3
+2026-04-17 17:23:54,853 | INFO | Scenario: 9 | n_rep: 0 | KDE model: t-student cross validate df=3
+2026-04-17 17:58:36,563 | INFO | Scenario: 0 | n_rep: 48 | KDE model: gaussian rot robust
+2026-04-17 17:59:35,310 | INFO | Scenario: 0 | n_rep: 27 | KDE model: gaussian adaptive
+2026-04-17 18:07:46,281 | INFO | Scenario: 0 | n_rep: 20 | KDE model: t-student adaptive df=3
+2026-04-17 18:24:01,959 | INFO | Scenario: 9 | n_rep: 38 | KDE model: gaussian rot robust
+2026-04-17 18:57:45,489 | INFO | Scenario: 9 | n_rep: 40 | KDE model: gaussian rot robust
+2026-04-17 18:59:11,502 | INFO | Scenario: 9 | n_rep: 8 | KDE model: t-student adaptive df=3
+2026-04-17 19:25:22,937 | INFO | Scenario: 9 | n_rep: 39 | KDE model: t-student adaptive df=3
+2026-04-17 19:42:27,521 | INFO | Scenario: 0 | n_rep: 2 | KDE model: t-student adaptive df=3
+2026-04-17 19:59:19,922 | INFO | Scenario: 0 | n_rep: 32 | KDE model: t-student adaptive df=3
+2026-04-17 20:09:51,884 | INFO | Scenario: 9 | n_rep: 3 | KDE model: t-student cross validate df=3
+2026-04-17 20:28:01,491 | INFO | Scenario: 0 | n_rep: 30 | KDE model: gaussian rot robust
+2026-04-17 20:29:31,169 | INFO | Scenario: 9 | n_rep: 15 | KDE model: gaussian rot
+2026-04-17 20:30:56,326 | INFO | Scenario: 0 | n_rep: 33 | KDE model: gaussian cross validate
+2026-04-17 20:32:08,697 | INFO | Scenario: 0 | n_rep: 8 | KDE model: gaussian rot
+2026-04-17 20:33:50,204 | INFO | Scenario: 0 | n_rep: 3 | KDE model: gaussian cross validate
+2026-04-17 20:35:30,417 | INFO | Scenario: 9 | n_rep: 38 | KDE model: gaussian cross validate
+2026-04-17 20:36:59,736 | INFO | Scenario: 9 | n_rep: 23 | KDE model: gaussian adaptive
+2026-04-17 20:38:32,051 | INFO | Scenario: 9 | n_rep: 9 | KDE model: gaussian cross validate
+2026-04-17 20:40:13,744 | INFO | Scenario: 9 | n_rep: 2 | KDE model: t-student cross validate df=3
+2026-04-17 20:41:58,648 | INFO | Scenario: 0 | n_rep: 33 | KDE model: gaussian rot
+2026-04-17 20:43:35,788 | INFO | Scenario: 0 | n_rep: 19 | KDE model: gaussian rot robust
+2026-04-17 20:45:20,778 | INFO | Scenario: 0 | n_rep: 7 | KDE model: gaussian rot robust
+2026-04-17 20:47:12,654 | INFO | Scenario: 0 | n_rep: 28 | KDE model: t-student cross validate df=3
+2026-04-17 20:49:13,272 | INFO | Scenario: 9 | n_rep: 15 | KDE model: t-student adaptive df=3
+2026-04-17 20:51:21,589 | INFO | Scenario: 0 | n_rep: 28 | KDE model: gaussian adaptive
+2026-04-17 20:53:31,235 | INFO | Scenario: 9 | n_rep: 14 | KDE model: gaussian cross validate
+2026-04-17 21:10:33,971 | INFO | Scenario: 0 | n_rep: 19 | KDE model: gaussian rot
+2026-04-17 21:27:06,035 | INFO | Scenario: 0 | n_rep: 8 | KDE model: gaussian rot robust
+2026-04-17 21:28:31,093 | INFO | Scenario: 9 | n_rep: 24 | KDE model: gaussian adaptive
+2026-04-17 21:44:41,009 | INFO | Scenario: 9 | n_rep: 27 | KDE model: gaussian cross validate
+2026-04-17 21:46:00,393 | INFO | Scenario: 0 | n_rep: 48 | KDE model: gaussian cross validate
+2026-04-17 21:46:56,216 | INFO | Scenario: 0 | n_rep: 29 | KDE model: t-student cross validate df=3
+2026-04-17 22:11:44,860 | INFO | Scenario: 9 | n_rep: 43 | KDE model: gaussian cross validate
+2026-04-17 22:44:49,542 | INFO | Scenario: 9 | n_rep: 21 | KDE model: gaussian rot robust
+2026-04-17 22:45:59,921 | INFO | Scenario: 0 | n_rep: 16 | KDE model: gaussian rot robust
+2026-04-17 22:47:09,265 | INFO | Scenario: 9 | n_rep: 42 | KDE model: t-student adaptive df=3
+2026-04-17 23:04:16,108 | INFO | Scenario: 0 | n_rep: 49 | KDE model: t-student adaptive df=3
+2026-04-17 23:29:04,843 | INFO | Scenario: 9 | n_rep: 26 | KDE model: t-student adaptive df=3
+2026-04-17 23:46:35,215 | INFO | Scenario: 9 | n_rep: 46 | KDE model: gaussian rot
+2026-04-18 00:04:14,027 | INFO | Scenario: 0 | n_rep: 21 | KDE model: gaussian rot
+2026-04-18 00:13:51,767 | INFO | Scenario: 9 | n_rep: 5 | KDE model: t-student adaptive df=3
+2026-04-18 00:46:29,466 | INFO | Scenario: 9 | n_rep: 34 | KDE model: t-student adaptive df=3
+2026-04-18 00:47:54,324 | INFO | Scenario: 0 | n_rep: 20 | KDE model: gaussian adaptive
+2026-04-18 01:06:23,347 | INFO | Scenario: 9 | n_rep: 35 | KDE model: gaussian cross validate
+2026-04-18 01:14:54,278 | INFO | Scenario: 9 | n_rep: 4 | KDE model: gaussian cross validate
+2026-04-18 01:49:12,146 | INFO | Scenario: 9 | n_rep: 1 | KDE model: gaussian rot robust
+2026-04-18 01:50:39,007 | INFO | Scenario: 0 | n_rep: 29 | KDE model: gaussian rot robust
+2026-04-18 02:15:46,257 | INFO | Scenario: 0 | n_rep: 47 | KDE model: gaussian rot robust
+2026-04-18 02:33:11,413 | INFO | Scenario: 0 | n_rep: 24 | KDE model: gaussian rot
+2026-04-18 02:50:22,103 | INFO | Scenario: 9 | n_rep: 37 | KDE model: gaussian rot robust
+2026-04-18 03:17:03,856 | INFO | Scenario: 9 | n_rep: 43 | KDE model: gaussian rot
+2026-04-18 03:49:17,977 | INFO | Scenario: 0 | n_rep: 29 | KDE model: gaussian cross validate
+2026-04-18 03:50:41,855 | INFO | Scenario: 9 | n_rep: 35 | KDE model: gaussian rot
+2026-04-18 04:17:36,235 | INFO | Scenario: 0 | n_rep: 13 | KDE model: gaussian rot robust
+2026-04-18 04:51:01,995 | INFO | Scenario: 9 | n_rep: 22 | KDE model: gaussian cross validate
+2026-04-18 04:51:58,847 | INFO | Scenario: 0 | n_rep: 35 | KDE model: gaussian adaptive
+2026-04-18 05:08:34,210 | INFO | Scenario: 9 | n_rep: 46 | KDE model: gaussian cross validate
+2026-04-18 05:36:18,863 | INFO | Scenario: 9 | n_rep: 47 | KDE model: t-student adaptive df=3
+2026-04-18 05:52:17,646 | INFO | Scenario: 0 | n_rep: 42 | KDE model: gaussian adaptive
+2026-04-18 06:09:47,442 | INFO | Scenario: 9 | n_rep: 24 | KDE model: gaussian rot robust
+2026-04-18 06:19:49,420 | INFO | Scenario: 9 | n_rep: 23 | KDE model: t-student adaptive df=3
+2026-04-18 06:36:24,796 | INFO | Scenario: 9 | n_rep: 17 | KDE model: gaussian adaptive
+2026-04-18 06:53:06,218 | INFO | Scenario: 0 | n_rep: 28 | KDE model: t-student adaptive df=3
+2026-04-18 07:09:48,701 | INFO | Scenario: 0 | n_rep: 13 | KDE model: gaussian rot
+2026-04-18 07:36:59,193 | INFO | Scenario: 9 | n_rep: 10 | KDE model: t-student adaptive df=3
+2026-04-18 07:53:34,624 | INFO | Scenario: 9 | n_rep: 11 | KDE model: gaussian cross validate
+2026-04-18 07:54:59,511 | INFO | Scenario: 9 | n_rep: 39 | KDE model: gaussian adaptive
+2026-04-18 08:22:13,113 | INFO | Scenario: 9 | n_rep: 6 | KDE model: gaussian adaptive
+2026-04-18 08:23:25,697 | INFO | Scenario: 9 | n_rep: 32 | KDE model: gaussian rot robust
+2026-04-18 08:40:15,744 | INFO | Scenario: 0 | n_rep: 18 | KDE model: t-student cross validate df=3
+2026-04-18 08:57:53,642 | INFO | Scenario: 0 | n_rep: 42 | KDE model: gaussian rot robust
+2026-04-18 09:22:09,078 | INFO | Scenario: 9 | n_rep: 49 | KDE model: gaussian rot
+2026-04-18 09:38:28,622 | INFO | Scenario: 0 | n_rep: 7 | KDE model: gaussian adaptive
+2026-04-18 09:56:44,687 | INFO | Scenario: 9 | n_rep: 30 | KDE model: gaussian rot
+2026-04-18 10:01:36,696 | INFO | Scenario: 9 | n_rep: 31 | KDE model: gaussian adaptive

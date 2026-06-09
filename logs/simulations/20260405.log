@@ -1,0 +1,1026 @@
+2026-04-05 16:42:47,974 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 1
+2026-04-05 16:42:48,073 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 2
+2026-04-05 16:42:48,170 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 3
+2026-04-05 16:42:48,266 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 4
+2026-04-05 16:42:53,140 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 1
+2026-04-05 16:42:53,241 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 2
+2026-04-05 16:42:53,341 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 3
+2026-04-05 16:42:53,442 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 4
+2026-04-05 16:43:18,197 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 1
+2026-04-05 16:43:18,294 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_24819/354710046.py", line 41, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv(
+                                      ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 289, in fit
+    d0, cumvar = _select_d0_by_variance(thetahat_old, threshold=0.95)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: _select_d0_by_variance() missing 1 required positional argument: 'thetahat'
+2026-04-05 16:43:18,300 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 2
+2026-04-05 16:43:18,395 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_24819/354710046.py", line 41, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv(
+                                      ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 289, in fit
+    d0, cumvar = _select_d0_by_variance(thetahat_old, threshold=0.95)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: _select_d0_by_variance() missing 1 required positional argument: 'thetahat'
+2026-04-05 16:43:18,396 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 3
+2026-04-05 16:43:18,498 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_24819/354710046.py", line 41, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv(
+                                      ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 289, in fit
+    d0, cumvar = _select_d0_by_variance(thetahat_old, threshold=0.95)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: _select_d0_by_variance() missing 1 required positional argument: 'thetahat'
+2026-04-05 16:43:18,500 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 4
+2026-04-05 16:43:18,599 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_24819/354710046.py", line 41, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv(
+                                      ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 289, in fit
+    d0, cumvar = _select_d0_by_variance(thetahat_old, threshold=0.95)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: _select_d0_by_variance() missing 1 required positional argument: 'thetahat'
+2026-04-05 16:43:23,339 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 1
+2026-04-05 16:43:23,437 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_24819/354710046.py", line 41, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv(
+                                      ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 123, in cv
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 120, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 289, in fit
+    d0, cumvar = _select_d0_by_variance(thetahat_old, threshold=0.95)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: _select_d0_by_variance() missing 1 required positional argument: 'thetahat'
+2026-04-05 16:43:23,438 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 2
+2026-04-05 16:44:01,017 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 1
+2026-04-05 16:51:19,337 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 1
+2026-04-05 16:51:20,193 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_25343/4229195951.py", line 35, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv(
+                                      ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 125, in cv
+    mdfpc_fc = forecaster.predict(horizon=1, var_lags=var_lags, forecast_index=Y_test.columns)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 154, in predict
+    k_etahat_fc = run_multivariate_forecaster(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 19, in run_multivariate_forecaster
+    selected_nlags = forecaster.select_order_ic(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/models.py", line 54, in select_order_ic
+    model = VAR(self.Y)
+            ^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/statsmodels/tsa/vector_ar/var_model.py", line 552, in __init__
+    raise ValueError("Only gave one variable to VAR")
+ValueError: Only gave one variable to VAR
+2026-04-05 16:51:20,198 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 2
+2026-04-05 16:51:21,044 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_25343/4229195951.py", line 35, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv(
+                                      ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 125, in cv
+    mdfpc_fc = forecaster.predict(horizon=1, var_lags=var_lags, forecast_index=Y_test.columns)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 154, in predict
+    k_etahat_fc = run_multivariate_forecaster(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 19, in run_multivariate_forecaster
+    selected_nlags = forecaster.select_order_ic(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/models.py", line 54, in select_order_ic
+    model = VAR(self.Y)
+            ^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/statsmodels/tsa/vector_ar/var_model.py", line 552, in __init__
+    raise ValueError("Only gave one variable to VAR")
+ValueError: Only gave one variable to VAR
+2026-04-05 16:51:21,046 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 3
+2026-04-05 16:51:21,890 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_25343/4229195951.py", line 35, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv(
+                                      ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 125, in cv
+    mdfpc_fc = forecaster.predict(horizon=1, var_lags=var_lags, forecast_index=Y_test.columns)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 154, in predict
+    k_etahat_fc = run_multivariate_forecaster(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 19, in run_multivariate_forecaster
+    selected_nlags = forecaster.select_order_ic(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/models.py", line 54, in select_order_ic
+    model = VAR(self.Y)
+            ^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/statsmodels/tsa/vector_ar/var_model.py", line 552, in __init__
+    raise ValueError("Only gave one variable to VAR")
+ValueError: Only gave one variable to VAR
+2026-04-05 16:51:21,891 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 4
+2026-04-05 16:51:22,786 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_25343/4229195951.py", line 35, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv(
+                                      ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 125, in cv
+    mdfpc_fc = forecaster.predict(horizon=1, var_lags=var_lags, forecast_index=Y_test.columns)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 154, in predict
+    k_etahat_fc = run_multivariate_forecaster(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 19, in run_multivariate_forecaster
+    selected_nlags = forecaster.select_order_ic(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/models.py", line 54, in select_order_ic
+    model = VAR(self.Y)
+            ^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/statsmodels/tsa/vector_ar/var_model.py", line 552, in __init__
+    raise ValueError("Only gave one variable to VAR")
+ValueError: Only gave one variable to VAR
+2026-04-05 16:51:27,504 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 1
+2026-04-05 16:51:28,186 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_25343/4229195951.py", line 35, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv(
+                                      ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 125, in cv
+    mdfpc_fc = forecaster.predict(horizon=1, var_lags=var_lags, forecast_index=Y_test.columns)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 154, in predict
+    k_etahat_fc = run_multivariate_forecaster(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 19, in run_multivariate_forecaster
+    selected_nlags = forecaster.select_order_ic(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/models.py", line 54, in select_order_ic
+    model = VAR(self.Y)
+            ^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/statsmodels/tsa/vector_ar/var_model.py", line 552, in __init__
+    raise ValueError("Only gave one variable to VAR")
+ValueError: Only gave one variable to VAR
+2026-04-05 16:51:28,187 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 2
+2026-04-05 16:51:28,868 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_25343/4229195951.py", line 35, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv(
+                                      ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 125, in cv
+    mdfpc_fc = forecaster.predict(horizon=1, var_lags=var_lags, forecast_index=Y_test.columns)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 154, in predict
+    k_etahat_fc = run_multivariate_forecaster(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 19, in run_multivariate_forecaster
+    selected_nlags = forecaster.select_order_ic(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/models.py", line 54, in select_order_ic
+    model = VAR(self.Y)
+            ^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/statsmodels/tsa/vector_ar/var_model.py", line 552, in __init__
+    raise ValueError("Only gave one variable to VAR")
+ValueError: Only gave one variable to VAR
+2026-04-05 16:51:28,869 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 3
+2026-04-05 16:51:29,549 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_25343/4229195951.py", line 35, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv(
+                                      ^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 125, in cv
+    mdfpc_fc = forecaster.predict(horizon=1, var_lags=var_lags, forecast_index=Y_test.columns)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 154, in predict
+    k_etahat_fc = run_multivariate_forecaster(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 19, in run_multivariate_forecaster
+    selected_nlags = forecaster.select_order_ic(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/models.py", line 54, in select_order_ic
+    model = VAR(self.Y)
+            ^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/statsmodels/tsa/vector_ar/var_model.py", line 552, in __init__
+    raise ValueError("Only gave one variable to VAR")
+ValueError: Only gave one variable to VAR
+2026-04-05 16:51:29,551 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 4
+2026-04-05 16:52:53,500 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 1
+2026-04-05 16:58:20,053 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 1
+2026-04-05 16:59:42,699 | INFO | Progress: (0/520) | KDE: t-student_adaptive_df=5 | VAR(q): 1
+2026-04-05 17:00:16,399 | INFO | Progress: (1/520) | KDE: t-student_adaptive_df=5 | VAR(q): 2
+2026-04-05 17:00:49,334 | INFO | Progress: (2/520) | KDE: t-student_adaptive_df=5 | VAR(q): 3
+2026-04-05 17:01:22,516 | INFO | Progress: (3/520) | KDE: t-student_adaptive_df=5 | VAR(q): 4
+2026-04-05 17:51:15,026 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 17:51:21,712 | INFO | Progress: (2/26) | Database: normal | KDE model: gaussian_rot
+2026-04-05 17:51:28,119 | INFO | Progress: (3/26) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-05 17:51:31,524 | INFO | Progress: (4/26) | Database: normal | KDE model: epanechnikov_rot
+2026-04-05 17:51:35,216 | INFO | Progress: (5/26) | Database: normal | KDE model: gaussian_cross_validate_loo
+2026-04-05 18:55:18,298 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 18:56:36,881 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 18:56:43,655 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 18:56:43,657 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,658 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot
+2026-04-05 18:56:43,658 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,658 | INFO | Progress: (1/26) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-05 18:56:43,658 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,658 | INFO | Progress: (1/26) | Database: normal | KDE model: epanechnikov_rot
+2026-04-05 18:56:43,658 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,658 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_cross_validate_loo
+2026-04-05 18:56:43,658 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,658 | INFO | Progress: (1/26) | Database: normal | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 18:56:43,658 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,658 | INFO | Progress: (1/26) | Database: normal | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 18:56:43,658 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,658 | INFO | Progress: (1/26) | Database: normal | KDE model: t-student_cross_validate_df=5_loo
+2026-04-05 18:56:43,658 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,659 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_adaptive
+2026-04-05 18:56:43,659 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,659 | INFO | Progress: (1/26) | Database: normal | KDE model: epanechnikov_adaptive
+2026-04-05 18:56:43,659 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,659 | INFO | Progress: (1/26) | Database: normal | KDE model: t-student_adaptive_df=3
+2026-04-05 18:56:43,659 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,659 | INFO | Progress: (1/26) | Database: normal | KDE model: t-student_adaptive_df=4
+2026-04-05 18:56:43,659 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,659 | INFO | Progress: (1/26) | Database: normal | KDE model: t-student_adaptive_df=5
+2026-04-05 18:56:43,659 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,659 | INFO | Progress: (1/26) | Database: student | KDE model: gaussian_rot_robust
+2026-04-05 18:56:43,659 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,659 | INFO | Progress: (1/26) | Database: student | KDE model: gaussian_rot
+2026-04-05 18:56:43,659 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,659 | INFO | Progress: (1/26) | Database: student | KDE model: epanechnikov_rot_robust
+2026-04-05 18:56:43,659 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,659 | INFO | Progress: (1/26) | Database: student | KDE model: epanechnikov_rot
+2026-04-05 18:56:43,659 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,659 | INFO | Progress: (1/26) | Database: student | KDE model: gaussian_cross_validate_loo
+2026-04-05 18:56:43,660 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,660 | INFO | Progress: (1/26) | Database: student | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 18:56:43,660 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,660 | INFO | Progress: (1/26) | Database: student | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 18:56:43,660 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,660 | INFO | Progress: (1/26) | Database: student | KDE model: t-student_cross_validate_df=5_loo
+2026-04-05 18:56:43,660 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,660 | INFO | Progress: (1/26) | Database: student | KDE model: gaussian_adaptive
+2026-04-05 18:56:43,660 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,660 | INFO | Progress: (1/26) | Database: student | KDE model: epanechnikov_adaptive
+2026-04-05 18:56:43,660 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,660 | INFO | Progress: (1/26) | Database: student | KDE model: t-student_adaptive_df=3
+2026-04-05 18:56:43,660 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,660 | INFO | Progress: (1/26) | Database: student | KDE model: t-student_adaptive_df=4
+2026-04-05 18:56:43,660 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:56:43,660 | INFO | Progress: (1/26) | Database: student | KDE model: t-student_adaptive_df=5
+2026-04-05 18:56:43,660 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_28157/262841356.py", line 31, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 18:57:52,956 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 18:57:52,956 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 18:57:55,335 | INFO | Progress: (2/26) | Database: normal | KDE model: gaussian_rot
+2026-04-05 18:57:55,335 | INFO | Progress: (2/26) | Database: normal | KDE model: gaussian_rot
+2026-04-05 18:57:57,571 | INFO | Progress: (3/26) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-05 18:57:57,571 | INFO | Progress: (3/26) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-05 18:57:59,290 | INFO | Progress: (4/26) | Database: normal | KDE model: epanechnikov_rot
+2026-04-05 18:57:59,290 | INFO | Progress: (4/26) | Database: normal | KDE model: epanechnikov_rot
+2026-04-05 18:58:01,029 | INFO | Progress: (5/26) | Database: normal | KDE model: gaussian_cross_validate_loo
+2026-04-05 18:58:01,029 | INFO | Progress: (5/26) | Database: normal | KDE model: gaussian_cross_validate_loo
+2026-04-05 18:58:03,255 | INFO | Progress: (6/26) | Database: normal | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 18:58:03,255 | INFO | Progress: (6/26) | Database: normal | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 18:58:05,042 | INFO | Progress: (7/26) | Database: normal | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 18:58:05,042 | INFO | Progress: (7/26) | Database: normal | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 18:58:06,667 | INFO | Progress: (8/26) | Database: normal | KDE model: t-student_cross_validate_df=5_loo
+2026-04-05 18:58:06,667 | INFO | Progress: (8/26) | Database: normal | KDE model: t-student_cross_validate_df=5_loo
+2026-04-05 18:58:08,595 | INFO | Progress: (9/26) | Database: normal | KDE model: gaussian_adaptive
+2026-04-05 18:58:08,595 | INFO | Progress: (9/26) | Database: normal | KDE model: gaussian_adaptive
+2026-04-05 18:58:10,819 | INFO | Progress: (10/26) | Database: normal | KDE model: epanechnikov_adaptive
+2026-04-05 18:58:10,819 | INFO | Progress: (10/26) | Database: normal | KDE model: epanechnikov_adaptive
+2026-04-05 18:58:12,545 | INFO | Progress: (11/26) | Database: normal | KDE model: t-student_adaptive_df=3
+2026-04-05 18:58:12,545 | INFO | Progress: (11/26) | Database: normal | KDE model: t-student_adaptive_df=3
+2026-04-05 18:58:14,266 | INFO | Progress: (12/26) | Database: normal | KDE model: t-student_adaptive_df=4
+2026-04-05 18:58:14,266 | INFO | Progress: (12/26) | Database: normal | KDE model: t-student_adaptive_df=4
+2026-04-05 18:58:15,911 | INFO | Progress: (13/26) | Database: normal | KDE model: t-student_adaptive_df=5
+2026-04-05 18:58:15,911 | INFO | Progress: (13/26) | Database: normal | KDE model: t-student_adaptive_df=5
+2026-04-05 18:58:17,830 | INFO | Progress: (14/26) | Database: student | KDE model: gaussian_rot_robust
+2026-04-05 18:58:17,830 | INFO | Progress: (14/26) | Database: student | KDE model: gaussian_rot_robust
+2026-04-05 18:58:19,972 | INFO | Progress: (15/26) | Database: student | KDE model: gaussian_rot
+2026-04-05 18:58:19,972 | INFO | Progress: (15/26) | Database: student | KDE model: gaussian_rot
+2026-04-05 18:58:22,116 | INFO | Progress: (16/26) | Database: student | KDE model: epanechnikov_rot_robust
+2026-04-05 18:58:22,116 | INFO | Progress: (16/26) | Database: student | KDE model: epanechnikov_rot_robust
+2026-04-05 18:58:24,066 | INFO | Progress: (17/26) | Database: student | KDE model: epanechnikov_rot
+2026-04-05 18:58:24,066 | INFO | Progress: (17/26) | Database: student | KDE model: epanechnikov_rot
+2026-04-05 18:58:26,094 | INFO | Progress: (18/26) | Database: student | KDE model: gaussian_cross_validate_loo
+2026-04-05 18:58:26,094 | INFO | Progress: (18/26) | Database: student | KDE model: gaussian_cross_validate_loo
+2026-04-05 18:58:28,249 | INFO | Progress: (19/26) | Database: student | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 18:58:28,249 | INFO | Progress: (19/26) | Database: student | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 18:58:29,794 | INFO | Progress: (20/26) | Database: student | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 18:58:29,794 | INFO | Progress: (20/26) | Database: student | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 18:58:31,225 | INFO | Progress: (21/26) | Database: student | KDE model: t-student_cross_validate_df=5_loo
+2026-04-05 18:58:31,225 | INFO | Progress: (21/26) | Database: student | KDE model: t-student_cross_validate_df=5_loo
+2026-04-05 18:58:33,268 | INFO | Progress: (22/26) | Database: student | KDE model: gaussian_adaptive
+2026-04-05 18:58:33,268 | INFO | Progress: (22/26) | Database: student | KDE model: gaussian_adaptive
+2026-04-05 18:58:35,426 | INFO | Progress: (23/26) | Database: student | KDE model: epanechnikov_adaptive
+2026-04-05 18:58:35,426 | INFO | Progress: (23/26) | Database: student | KDE model: epanechnikov_adaptive
+2026-04-05 18:58:37,392 | INFO | Progress: (24/26) | Database: student | KDE model: t-student_adaptive_df=3
+2026-04-05 18:58:37,392 | INFO | Progress: (24/26) | Database: student | KDE model: t-student_adaptive_df=3
+2026-04-05 18:58:38,945 | INFO | Progress: (25/26) | Database: student | KDE model: t-student_adaptive_df=4
+2026-04-05 18:58:38,945 | INFO | Progress: (25/26) | Database: student | KDE model: t-student_adaptive_df=4
+2026-04-05 18:58:40,383 | INFO | Progress: (26/26) | Database: student | KDE model: t-student_adaptive_df=5
+2026-04-05 18:58:40,383 | INFO | Progress: (26/26) | Database: student | KDE model: t-student_adaptive_df=5
+2026-04-05 19:00:45,860 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 19:00:45,860 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 19:00:48,212 | INFO | Progress: (2/26) | Database: normal | KDE model: gaussian_rot
+2026-04-05 19:00:48,212 | INFO | Progress: (2/26) | Database: normal | KDE model: gaussian_rot
+2026-04-05 19:00:50,445 | INFO | Progress: (3/26) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-05 19:00:50,445 | INFO | Progress: (3/26) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-05 19:00:52,134 | INFO | Progress: (4/26) | Database: normal | KDE model: epanechnikov_rot
+2026-04-05 19:00:52,134 | INFO | Progress: (4/26) | Database: normal | KDE model: epanechnikov_rot
+2026-04-05 19:00:53,981 | INFO | Progress: (5/26) | Database: normal | KDE model: gaussian_cross_validate_loo
+2026-04-05 19:00:53,981 | INFO | Progress: (5/26) | Database: normal | KDE model: gaussian_cross_validate_loo
+2026-04-05 19:00:56,374 | INFO | Progress: (6/26) | Database: normal | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 19:00:56,374 | INFO | Progress: (6/26) | Database: normal | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 19:00:58,068 | INFO | Progress: (7/26) | Database: normal | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 19:00:58,068 | INFO | Progress: (7/26) | Database: normal | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 19:00:59,679 | INFO | Progress: (8/26) | Database: normal | KDE model: t-student_cross_validate_df=5_loo
+2026-04-05 19:00:59,679 | INFO | Progress: (8/26) | Database: normal | KDE model: t-student_cross_validate_df=5_loo
+2026-04-05 19:01:01,655 | INFO | Progress: (9/26) | Database: normal | KDE model: gaussian_adaptive
+2026-04-05 19:01:01,655 | INFO | Progress: (9/26) | Database: normal | KDE model: gaussian_adaptive
+2026-04-05 19:01:03,885 | INFO | Progress: (10/26) | Database: normal | KDE model: epanechnikov_adaptive
+2026-04-05 19:01:03,885 | INFO | Progress: (10/26) | Database: normal | KDE model: epanechnikov_adaptive
+2026-04-05 19:01:05,564 | INFO | Progress: (11/26) | Database: normal | KDE model: t-student_adaptive_df=3
+2026-04-05 19:01:05,564 | INFO | Progress: (11/26) | Database: normal | KDE model: t-student_adaptive_df=3
+2026-04-05 19:01:07,251 | INFO | Progress: (12/26) | Database: normal | KDE model: t-student_adaptive_df=4
+2026-04-05 19:01:07,251 | INFO | Progress: (12/26) | Database: normal | KDE model: t-student_adaptive_df=4
+2026-04-05 19:01:08,877 | INFO | Progress: (13/26) | Database: normal | KDE model: t-student_adaptive_df=5
+2026-04-05 19:01:08,877 | INFO | Progress: (13/26) | Database: normal | KDE model: t-student_adaptive_df=5
+2026-04-05 19:01:10,785 | INFO | Progress: (14/26) | Database: student | KDE model: gaussian_rot_robust
+2026-04-05 19:01:10,785 | INFO | Progress: (14/26) | Database: student | KDE model: gaussian_rot_robust
+2026-04-05 19:01:12,903 | INFO | Progress: (15/26) | Database: student | KDE model: gaussian_rot
+2026-04-05 19:01:12,903 | INFO | Progress: (15/26) | Database: student | KDE model: gaussian_rot
+2026-04-05 19:01:15,032 | INFO | Progress: (16/26) | Database: student | KDE model: epanechnikov_rot_robust
+2026-04-05 19:01:15,032 | INFO | Progress: (16/26) | Database: student | KDE model: epanechnikov_rot_robust
+2026-04-05 19:01:16,974 | INFO | Progress: (17/26) | Database: student | KDE model: epanechnikov_rot
+2026-04-05 19:01:16,974 | INFO | Progress: (17/26) | Database: student | KDE model: epanechnikov_rot
+2026-04-05 19:01:18,910 | INFO | Progress: (18/26) | Database: student | KDE model: gaussian_cross_validate_loo
+2026-04-05 19:01:18,910 | INFO | Progress: (18/26) | Database: student | KDE model: gaussian_cross_validate_loo
+2026-04-05 19:01:21,132 | INFO | Progress: (19/26) | Database: student | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 19:01:21,132 | INFO | Progress: (19/26) | Database: student | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 19:01:22,648 | INFO | Progress: (20/26) | Database: student | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 19:01:22,648 | INFO | Progress: (20/26) | Database: student | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 19:01:24,096 | INFO | Progress: (21/26) | Database: student | KDE model: t-student_cross_validate_df=5_loo
+2026-04-05 19:01:24,096 | INFO | Progress: (21/26) | Database: student | KDE model: t-student_cross_validate_df=5_loo
+2026-04-05 19:01:26,150 | INFO | Progress: (22/26) | Database: student | KDE model: gaussian_adaptive
+2026-04-05 19:01:26,150 | INFO | Progress: (22/26) | Database: student | KDE model: gaussian_adaptive
+2026-04-05 19:01:28,331 | INFO | Progress: (23/26) | Database: student | KDE model: epanechnikov_adaptive
+2026-04-05 19:01:28,331 | INFO | Progress: (23/26) | Database: student | KDE model: epanechnikov_adaptive
+2026-04-05 19:01:30,292 | INFO | Progress: (24/26) | Database: student | KDE model: t-student_adaptive_df=3
+2026-04-05 19:01:30,292 | INFO | Progress: (24/26) | Database: student | KDE model: t-student_adaptive_df=3
+2026-04-05 19:01:31,857 | INFO | Progress: (25/26) | Database: student | KDE model: t-student_adaptive_df=4
+2026-04-05 19:01:31,857 | INFO | Progress: (25/26) | Database: student | KDE model: t-student_adaptive_df=4
+2026-04-05 19:01:33,298 | INFO | Progress: (26/26) | Database: student | KDE model: t-student_adaptive_df=5
+2026-04-05 19:01:33,298 | INFO | Progress: (26/26) | Database: student | KDE model: t-student_adaptive_df=5
+2026-04-05 19:04:26,825 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 19:04:26,825 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 19:04:29,143 | INFO | Progress: (2/26) | Database: normal | KDE model: gaussian_rot
+2026-04-05 19:04:29,143 | INFO | Progress: (2/26) | Database: normal | KDE model: gaussian_rot
+2026-04-05 19:04:31,375 | INFO | Progress: (3/26) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-05 19:04:31,375 | INFO | Progress: (3/26) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-05 19:04:33,065 | INFO | Progress: (4/26) | Database: normal | KDE model: epanechnikov_rot
+2026-04-05 19:04:33,065 | INFO | Progress: (4/26) | Database: normal | KDE model: epanechnikov_rot
+2026-04-05 19:04:34,810 | INFO | Progress: (5/26) | Database: normal | KDE model: gaussian_cross_validate_loo
+2026-04-05 19:04:34,810 | INFO | Progress: (5/26) | Database: normal | KDE model: gaussian_cross_validate_loo
+2026-04-05 19:43:21,630 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 19:43:21,630 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 19:43:21,630 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 19:43:23,513 | INFO | Progress: (2/26) | Database: normal | KDE model: gaussian_rot
+2026-04-05 19:43:23,513 | INFO | Progress: (2/26) | Database: normal | KDE model: gaussian_rot
+2026-04-05 19:43:23,513 | INFO | Progress: (2/26) | Database: normal | KDE model: gaussian_rot
+2026-04-05 19:43:25,174 | INFO | Progress: (3/26) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-05 19:43:25,174 | INFO | Progress: (3/26) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-05 19:43:25,174 | INFO | Progress: (3/26) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-05 19:43:26,906 | INFO | Progress: (4/26) | Database: normal | KDE model: epanechnikov_rot
+2026-04-05 19:43:26,906 | INFO | Progress: (4/26) | Database: normal | KDE model: epanechnikov_rot
+2026-04-05 19:43:26,906 | INFO | Progress: (4/26) | Database: normal | KDE model: epanechnikov_rot
+2026-04-05 19:43:28,733 | INFO | Progress: (5/26) | Database: normal | KDE model: gaussian_cross_validate_loo
+2026-04-05 19:43:28,733 | INFO | Progress: (5/26) | Database: normal | KDE model: gaussian_cross_validate_loo
+2026-04-05 19:43:28,733 | INFO | Progress: (5/26) | Database: normal | KDE model: gaussian_cross_validate_loo
+2026-04-05 19:43:30,982 | INFO | Progress: (6/26) | Database: normal | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 19:43:30,982 | INFO | Progress: (6/26) | Database: normal | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 19:43:30,982 | INFO | Progress: (6/26) | Database: normal | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 19:43:32,913 | INFO | Progress: (7/26) | Database: normal | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 19:43:32,913 | INFO | Progress: (7/26) | Database: normal | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 19:43:32,913 | INFO | Progress: (7/26) | Database: normal | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 19:43:34,907 | INFO | Progress: (8/26) | Database: normal | KDE model: t-student_cross_validate_df=5_loo
+2026-04-05 19:43:34,907 | INFO | Progress: (8/26) | Database: normal | KDE model: t-student_cross_validate_df=5_loo
+2026-04-05 19:43:34,907 | INFO | Progress: (8/26) | Database: normal | KDE model: t-student_cross_validate_df=5_loo
+2026-04-05 19:43:36,875 | INFO | Progress: (9/26) | Database: normal | KDE model: gaussian_adaptive
+2026-04-05 19:43:36,875 | INFO | Progress: (9/26) | Database: normal | KDE model: gaussian_adaptive
+2026-04-05 19:43:36,875 | INFO | Progress: (9/26) | Database: normal | KDE model: gaussian_adaptive
+2026-04-05 19:43:39,008 | INFO | Progress: (10/26) | Database: normal | KDE model: epanechnikov_adaptive
+2026-04-05 19:43:39,008 | INFO | Progress: (10/26) | Database: normal | KDE model: epanechnikov_adaptive
+2026-04-05 19:43:39,008 | INFO | Progress: (10/26) | Database: normal | KDE model: epanechnikov_adaptive
+2026-04-05 19:43:41,064 | INFO | Progress: (11/26) | Database: normal | KDE model: t-student_adaptive_df=3
+2026-04-05 19:43:41,064 | INFO | Progress: (11/26) | Database: normal | KDE model: t-student_adaptive_df=3
+2026-04-05 19:43:41,064 | INFO | Progress: (11/26) | Database: normal | KDE model: t-student_adaptive_df=3
+2026-04-05 19:43:42,971 | INFO | Progress: (12/26) | Database: normal | KDE model: t-student_adaptive_df=4
+2026-04-05 19:43:42,971 | INFO | Progress: (12/26) | Database: normal | KDE model: t-student_adaptive_df=4
+2026-04-05 19:43:42,971 | INFO | Progress: (12/26) | Database: normal | KDE model: t-student_adaptive_df=4
+2026-04-05 19:43:44,948 | INFO | Progress: (13/26) | Database: normal | KDE model: t-student_adaptive_df=5
+2026-04-05 19:43:44,948 | INFO | Progress: (13/26) | Database: normal | KDE model: t-student_adaptive_df=5
+2026-04-05 19:43:44,948 | INFO | Progress: (13/26) | Database: normal | KDE model: t-student_adaptive_df=5
+2026-04-05 19:43:46,916 | INFO | Progress: (14/26) | Database: student | KDE model: gaussian_rot_robust
+2026-04-05 19:43:46,916 | INFO | Progress: (14/26) | Database: student | KDE model: gaussian_rot_robust
+2026-04-05 19:43:46,916 | INFO | Progress: (14/26) | Database: student | KDE model: gaussian_rot_robust
+2026-04-05 19:43:50,389 | INFO | Progress: (15/26) | Database: student | KDE model: gaussian_rot
+2026-04-05 19:43:50,389 | INFO | Progress: (15/26) | Database: student | KDE model: gaussian_rot
+2026-04-05 19:43:50,389 | INFO | Progress: (15/26) | Database: student | KDE model: gaussian_rot
+2026-04-05 19:43:51,888 | INFO | Progress: (16/26) | Database: student | KDE model: epanechnikov_rot_robust
+2026-04-05 19:43:51,888 | INFO | Progress: (16/26) | Database: student | KDE model: epanechnikov_rot_robust
+2026-04-05 19:43:51,888 | INFO | Progress: (16/26) | Database: student | KDE model: epanechnikov_rot_robust
+2026-04-05 19:43:53,981 | INFO | Progress: (17/26) | Database: student | KDE model: epanechnikov_rot
+2026-04-05 19:43:53,981 | INFO | Progress: (17/26) | Database: student | KDE model: epanechnikov_rot
+2026-04-05 19:43:53,981 | INFO | Progress: (17/26) | Database: student | KDE model: epanechnikov_rot
+2026-04-05 19:43:55,415 | INFO | Progress: (18/26) | Database: student | KDE model: gaussian_cross_validate_loo
+2026-04-05 19:43:55,415 | INFO | Progress: (18/26) | Database: student | KDE model: gaussian_cross_validate_loo
+2026-04-05 19:43:55,415 | INFO | Progress: (18/26) | Database: student | KDE model: gaussian_cross_validate_loo
+2026-04-05 19:43:56,811 | INFO | Progress: (19/26) | Database: student | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 19:43:56,811 | INFO | Progress: (19/26) | Database: student | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 19:43:56,811 | INFO | Progress: (19/26) | Database: student | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 19:43:58,311 | INFO | Progress: (20/26) | Database: student | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 19:43:58,311 | INFO | Progress: (20/26) | Database: student | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 19:43:58,311 | INFO | Progress: (20/26) | Database: student | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 19:44:00,254 | INFO | Progress: (21/26) | Database: student | KDE model: t-student_cross_validate_df=5_loo
+2026-04-05 19:44:00,254 | INFO | Progress: (21/26) | Database: student | KDE model: t-student_cross_validate_df=5_loo
+2026-04-05 19:44:00,254 | INFO | Progress: (21/26) | Database: student | KDE model: t-student_cross_validate_df=5_loo
+2026-04-05 19:44:02,123 | INFO | Progress: (22/26) | Database: student | KDE model: gaussian_adaptive
+2026-04-05 19:44:02,123 | INFO | Progress: (22/26) | Database: student | KDE model: gaussian_adaptive
+2026-04-05 19:44:02,123 | INFO | Progress: (22/26) | Database: student | KDE model: gaussian_adaptive
+2026-04-05 19:44:04,117 | INFO | Progress: (23/26) | Database: student | KDE model: epanechnikov_adaptive
+2026-04-05 19:44:04,117 | INFO | Progress: (23/26) | Database: student | KDE model: epanechnikov_adaptive
+2026-04-05 19:44:04,117 | INFO | Progress: (23/26) | Database: student | KDE model: epanechnikov_adaptive
+2026-04-05 19:44:06,070 | INFO | Progress: (24/26) | Database: student | KDE model: t-student_adaptive_df=3
+2026-04-05 19:44:06,070 | INFO | Progress: (24/26) | Database: student | KDE model: t-student_adaptive_df=3
+2026-04-05 19:44:06,070 | INFO | Progress: (24/26) | Database: student | KDE model: t-student_adaptive_df=3
+2026-04-05 19:44:09,431 | INFO | Progress: (25/26) | Database: student | KDE model: t-student_adaptive_df=4
+2026-04-05 19:44:09,431 | INFO | Progress: (25/26) | Database: student | KDE model: t-student_adaptive_df=4
+2026-04-05 19:44:09,431 | INFO | Progress: (25/26) | Database: student | KDE model: t-student_adaptive_df=4
+2026-04-05 19:44:11,363 | INFO | Progress: (26/26) | Database: student | KDE model: t-student_adaptive_df=5
+2026-04-05 19:44:11,363 | INFO | Progress: (26/26) | Database: student | KDE model: t-student_adaptive_df=5
+2026-04-05 19:44:11,363 | INFO | Progress: (26/26) | Database: student | KDE model: t-student_adaptive_df=5
+2026-04-05 19:50:24,122 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 19:50:24,122 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 19:50:24,122 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 19:50:24,122 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 19:50:25,995 | INFO | Progress: (2/26) | Database: normal | KDE model: gaussian_rot
+2026-04-05 19:50:25,995 | INFO | Progress: (2/26) | Database: normal | KDE model: gaussian_rot
+2026-04-05 19:50:25,995 | INFO | Progress: (2/26) | Database: normal | KDE model: gaussian_rot
+2026-04-05 19:50:25,995 | INFO | Progress: (2/26) | Database: normal | KDE model: gaussian_rot
+2026-04-05 19:50:27,643 | INFO | Progress: (3/26) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-05 19:50:27,643 | INFO | Progress: (3/26) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-05 19:50:27,643 | INFO | Progress: (3/26) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-05 19:50:27,643 | INFO | Progress: (3/26) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-05 19:50:29,356 | INFO | Progress: (4/26) | Database: normal | KDE model: epanechnikov_rot
+2026-04-05 19:50:29,356 | INFO | Progress: (4/26) | Database: normal | KDE model: epanechnikov_rot
+2026-04-05 19:50:29,356 | INFO | Progress: (4/26) | Database: normal | KDE model: epanechnikov_rot
+2026-04-05 19:50:29,356 | INFO | Progress: (4/26) | Database: normal | KDE model: epanechnikov_rot
+2026-04-05 19:50:31,200 | INFO | Progress: (5/26) | Database: normal | KDE model: gaussian_cross_validate_loo
+2026-04-05 19:50:31,200 | INFO | Progress: (5/26) | Database: normal | KDE model: gaussian_cross_validate_loo
+2026-04-05 19:50:31,200 | INFO | Progress: (5/26) | Database: normal | KDE model: gaussian_cross_validate_loo
+2026-04-05 19:50:31,200 | INFO | Progress: (5/26) | Database: normal | KDE model: gaussian_cross_validate_loo
+2026-04-05 19:50:33,618 | INFO | Progress: (6/26) | Database: normal | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 19:50:33,618 | INFO | Progress: (6/26) | Database: normal | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 19:50:33,618 | INFO | Progress: (6/26) | Database: normal | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 19:50:33,618 | INFO | Progress: (6/26) | Database: normal | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 19:50:35,615 | INFO | Progress: (7/26) | Database: normal | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 19:50:35,615 | INFO | Progress: (7/26) | Database: normal | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 19:50:35,615 | INFO | Progress: (7/26) | Database: normal | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 19:50:35,615 | INFO | Progress: (7/26) | Database: normal | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 19:50:37,577 | INFO | Progress: (8/26) | Database: normal | KDE model: t-student_cross_validate_df=5_loo
+2026-04-05 19:50:37,577 | INFO | Progress: (8/26) | Database: normal | KDE model: t-student_cross_validate_df=5_loo
+2026-04-05 19:50:37,577 | INFO | Progress: (8/26) | Database: normal | KDE model: t-student_cross_validate_df=5_loo
+2026-04-05 19:50:37,577 | INFO | Progress: (8/26) | Database: normal | KDE model: t-student_cross_validate_df=5_loo
+2026-04-05 19:50:39,467 | INFO | Progress: (9/26) | Database: normal | KDE model: gaussian_adaptive
+2026-04-05 19:50:39,467 | INFO | Progress: (9/26) | Database: normal | KDE model: gaussian_adaptive
+2026-04-05 19:50:39,467 | INFO | Progress: (9/26) | Database: normal | KDE model: gaussian_adaptive
+2026-04-05 19:50:39,467 | INFO | Progress: (9/26) | Database: normal | KDE model: gaussian_adaptive
+2026-04-05 19:50:41,507 | INFO | Progress: (10/26) | Database: normal | KDE model: epanechnikov_adaptive
+2026-04-05 19:50:41,507 | INFO | Progress: (10/26) | Database: normal | KDE model: epanechnikov_adaptive
+2026-04-05 19:50:41,507 | INFO | Progress: (10/26) | Database: normal | KDE model: epanechnikov_adaptive
+2026-04-05 19:50:41,507 | INFO | Progress: (10/26) | Database: normal | KDE model: epanechnikov_adaptive
+2026-04-05 19:50:43,482 | INFO | Progress: (11/26) | Database: normal | KDE model: t-student_adaptive_df=3
+2026-04-05 19:50:43,482 | INFO | Progress: (11/26) | Database: normal | KDE model: t-student_adaptive_df=3
+2026-04-05 19:50:43,482 | INFO | Progress: (11/26) | Database: normal | KDE model: t-student_adaptive_df=3
+2026-04-05 19:50:43,482 | INFO | Progress: (11/26) | Database: normal | KDE model: t-student_adaptive_df=3
+2026-04-05 19:50:45,320 | INFO | Progress: (12/26) | Database: normal | KDE model: t-student_adaptive_df=4
+2026-04-05 19:50:45,320 | INFO | Progress: (12/26) | Database: normal | KDE model: t-student_adaptive_df=4
+2026-04-05 19:50:45,320 | INFO | Progress: (12/26) | Database: normal | KDE model: t-student_adaptive_df=4
+2026-04-05 19:50:45,320 | INFO | Progress: (12/26) | Database: normal | KDE model: t-student_adaptive_df=4
+2026-04-05 19:50:47,229 | INFO | Progress: (13/26) | Database: normal | KDE model: t-student_adaptive_df=5
+2026-04-05 19:50:47,229 | INFO | Progress: (13/26) | Database: normal | KDE model: t-student_adaptive_df=5
+2026-04-05 19:50:47,229 | INFO | Progress: (13/26) | Database: normal | KDE model: t-student_adaptive_df=5
+2026-04-05 19:50:47,229 | INFO | Progress: (13/26) | Database: normal | KDE model: t-student_adaptive_df=5
+2026-04-05 19:50:49,137 | INFO | Progress: (14/26) | Database: student | KDE model: gaussian_rot_robust
+2026-04-05 19:50:49,137 | INFO | Progress: (14/26) | Database: student | KDE model: gaussian_rot_robust
+2026-04-05 19:50:49,137 | INFO | Progress: (14/26) | Database: student | KDE model: gaussian_rot_robust
+2026-04-05 19:50:49,137 | INFO | Progress: (14/26) | Database: student | KDE model: gaussian_rot_robust
+2026-04-05 19:50:52,372 | INFO | Progress: (15/26) | Database: student | KDE model: gaussian_rot
+2026-04-05 19:50:52,372 | INFO | Progress: (15/26) | Database: student | KDE model: gaussian_rot
+2026-04-05 19:50:52,372 | INFO | Progress: (15/26) | Database: student | KDE model: gaussian_rot
+2026-04-05 19:50:52,372 | INFO | Progress: (15/26) | Database: student | KDE model: gaussian_rot
+2026-04-05 19:50:53,805 | INFO | Progress: (16/26) | Database: student | KDE model: epanechnikov_rot_robust
+2026-04-05 19:50:53,805 | INFO | Progress: (16/26) | Database: student | KDE model: epanechnikov_rot_robust
+2026-04-05 19:50:53,805 | INFO | Progress: (16/26) | Database: student | KDE model: epanechnikov_rot_robust
+2026-04-05 19:50:53,805 | INFO | Progress: (16/26) | Database: student | KDE model: epanechnikov_rot_robust
+2026-04-05 19:50:55,849 | INFO | Progress: (17/26) | Database: student | KDE model: epanechnikov_rot
+2026-04-05 19:50:55,849 | INFO | Progress: (17/26) | Database: student | KDE model: epanechnikov_rot
+2026-04-05 19:50:55,849 | INFO | Progress: (17/26) | Database: student | KDE model: epanechnikov_rot
+2026-04-05 19:50:55,849 | INFO | Progress: (17/26) | Database: student | KDE model: epanechnikov_rot
+2026-04-05 19:50:57,245 | INFO | Progress: (18/26) | Database: student | KDE model: gaussian_cross_validate_loo
+2026-04-05 19:50:57,245 | INFO | Progress: (18/26) | Database: student | KDE model: gaussian_cross_validate_loo
+2026-04-05 19:50:57,245 | INFO | Progress: (18/26) | Database: student | KDE model: gaussian_cross_validate_loo
+2026-04-05 19:50:57,245 | INFO | Progress: (18/26) | Database: student | KDE model: gaussian_cross_validate_loo
+2026-04-05 19:50:58,617 | INFO | Progress: (19/26) | Database: student | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 19:50:58,617 | INFO | Progress: (19/26) | Database: student | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 19:50:58,617 | INFO | Progress: (19/26) | Database: student | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 19:50:58,617 | INFO | Progress: (19/26) | Database: student | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 19:51:00,106 | INFO | Progress: (20/26) | Database: student | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 19:51:00,106 | INFO | Progress: (20/26) | Database: student | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 19:51:00,106 | INFO | Progress: (20/26) | Database: student | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 19:51:00,106 | INFO | Progress: (20/26) | Database: student | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 19:51:02,020 | INFO | Progress: (21/26) | Database: student | KDE model: t-student_cross_validate_df=5_loo
+2026-04-05 19:51:02,020 | INFO | Progress: (21/26) | Database: student | KDE model: t-student_cross_validate_df=5_loo
+2026-04-05 19:51:02,020 | INFO | Progress: (21/26) | Database: student | KDE model: t-student_cross_validate_df=5_loo
+2026-04-05 19:51:02,020 | INFO | Progress: (21/26) | Database: student | KDE model: t-student_cross_validate_df=5_loo
+2026-04-05 19:51:03,878 | INFO | Progress: (22/26) | Database: student | KDE model: gaussian_adaptive
+2026-04-05 19:51:03,878 | INFO | Progress: (22/26) | Database: student | KDE model: gaussian_adaptive
+2026-04-05 19:51:03,878 | INFO | Progress: (22/26) | Database: student | KDE model: gaussian_adaptive
+2026-04-05 19:51:03,878 | INFO | Progress: (22/26) | Database: student | KDE model: gaussian_adaptive
+2026-04-05 19:51:05,930 | INFO | Progress: (23/26) | Database: student | KDE model: epanechnikov_adaptive
+2026-04-05 19:51:05,930 | INFO | Progress: (23/26) | Database: student | KDE model: epanechnikov_adaptive
+2026-04-05 19:51:05,930 | INFO | Progress: (23/26) | Database: student | KDE model: epanechnikov_adaptive
+2026-04-05 19:51:05,930 | INFO | Progress: (23/26) | Database: student | KDE model: epanechnikov_adaptive
+2026-04-05 19:51:07,875 | INFO | Progress: (24/26) | Database: student | KDE model: t-student_adaptive_df=3
+2026-04-05 19:51:07,875 | INFO | Progress: (24/26) | Database: student | KDE model: t-student_adaptive_df=3
+2026-04-05 19:51:07,875 | INFO | Progress: (24/26) | Database: student | KDE model: t-student_adaptive_df=3
+2026-04-05 19:51:07,875 | INFO | Progress: (24/26) | Database: student | KDE model: t-student_adaptive_df=3
+2026-04-05 19:51:11,216 | INFO | Progress: (25/26) | Database: student | KDE model: t-student_adaptive_df=4
+2026-04-05 19:51:11,216 | INFO | Progress: (25/26) | Database: student | KDE model: t-student_adaptive_df=4
+2026-04-05 19:51:11,216 | INFO | Progress: (25/26) | Database: student | KDE model: t-student_adaptive_df=4
+2026-04-05 19:51:11,216 | INFO | Progress: (25/26) | Database: student | KDE model: t-student_adaptive_df=4
+2026-04-05 19:51:13,165 | INFO | Progress: (26/26) | Database: student | KDE model: t-student_adaptive_df=5
+2026-04-05 19:51:13,165 | INFO | Progress: (26/26) | Database: student | KDE model: t-student_adaptive_df=5
+2026-04-05 19:51:13,165 | INFO | Progress: (26/26) | Database: student | KDE model: t-student_adaptive_df=5
+2026-04-05 19:51:13,165 | INFO | Progress: (26/26) | Database: student | KDE model: t-student_adaptive_df=5
+2026-04-05 23:28:30,733 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 23:28:30,734 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_31758/1874222010.py", line 35, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 23:28:30,734 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot
+2026-04-05 23:28:30,734 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_31758/1874222010.py", line 35, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 23:28:30,734 | INFO | Progress: (1/26) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-05 23:28:30,734 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_31758/1874222010.py", line 35, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 23:28:30,734 | INFO | Progress: (1/26) | Database: normal | KDE model: epanechnikov_rot
+2026-04-05 23:28:30,734 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_31758/1874222010.py", line 35, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 23:28:30,734 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_cross_validate_loo
+2026-04-05 23:28:30,734 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_31758/1874222010.py", line 35, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 23:28:30,734 | INFO | Progress: (1/26) | Database: normal | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 23:28:30,734 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_31758/1874222010.py", line 35, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 23:28:30,734 | INFO | Progress: (1/26) | Database: normal | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 23:28:30,735 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_31758/1874222010.py", line 35, in <module>
+    KdFPC_kwargs = KdFPC_kwargs,
+                  ^^^^^^^^^^^^
+NameError: name 'KdFPC_kwargs' is not defined
+2026-04-05 23:29:14,212 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 23:29:16,156 | INFO | Progress: (2/26) | Database: normal | KDE model: gaussian_rot
+2026-04-05 23:29:17,970 | INFO | Progress: (3/26) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-05 23:30:06,210 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 23:30:08,119 | INFO | Progress: (2/26) | Database: normal | KDE model: gaussian_rot
+2026-04-05 23:30:09,971 | INFO | Progress: (3/26) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-05 23:30:12,502 | INFO | Progress: (4/26) | Database: normal | KDE model: epanechnikov_rot
+2026-04-05 23:30:14,800 | INFO | Progress: (5/26) | Database: normal | KDE model: gaussian_cross_validate_loo
+2026-04-05 23:30:17,169 | INFO | Progress: (6/26) | Database: normal | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 23:30:19,365 | INFO | Progress: (7/26) | Database: normal | KDE model: t-student_cross_validate_df=4_loo
+2026-04-05 23:31:31,814 | INFO | Progress: (1/26) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-05 23:31:33,732 | INFO | Progress: (2/26) | Database: normal | KDE model: gaussian_rot
+2026-04-05 23:31:35,479 | INFO | Progress: (3/26) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-05 23:31:37,955 | INFO | Progress: (4/26) | Database: normal | KDE model: epanechnikov_rot
+2026-04-05 23:31:40,241 | INFO | Progress: (5/26) | Database: normal | KDE model: gaussian_cross_validate_loo
+2026-04-05 23:31:42,665 | INFO | Progress: (6/26) | Database: normal | KDE model: t-student_cross_validate_df=3_loo
+2026-04-05 23:31:44,859 | INFO | Progress: (7/26) | Database: normal | KDE model: t-student_cross_validate_df=4_loo
+2026-04-06 05:46:11,847 | INFO | 
+Initiating cross validation...
+2026-04-06 22:56:56,406 | INFO | 
+Initiating cross validation...
+2026-04-06 22:57:06,136 | INFO | 
+Initiating cross validation...
+2026-04-06 22:57:06,140 | INFO | Progress: (1/260) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-06 22:57:07,508 | INFO | Progress: (2/260) | Database: normal | KDE model: gaussian_rot
+2026-04-06 22:59:16,242 | INFO | 
+Initiating cross validation...
+2026-04-06 22:59:16,249 | INFO | Progress: (1/260) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-06 22:59:17,750 | INFO | Progress: (2/260) | Database: normal | KDE model: gaussian_rot
+2026-04-06 22:59:18,940 | INFO | Progress: (3/260) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-06 23:23:22,939 | INFO | 
+Initiating cross validation...
+2026-04-06 23:23:22,948 | INFO | Progress: (1/260) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-06 23:23:24,248 | INFO | Progress: (2/260) | Database: normal | KDE model: gaussian_rot
+2026-04-06 23:33:50,869 | INFO | 
+Initiating cross validation...
+2026-04-06 23:33:50,877 | INFO | Progress: (1/260) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-06 23:33:52,415 | INFO | Progress: (2/260) | Database: normal | KDE model: gaussian_rot
+2026-04-06 23:33:53,614 | INFO | Progress: (3/260) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-06 23:45:31,964 | INFO | 
+Initiating cross validation...
+2026-04-06 23:45:39,251 | INFO | 
+Initiating cross validation...
+2026-04-06 23:45:39,320 | INFO | Progress: (1/260) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-06 23:45:40,456 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "pandas/_libs/index.pyx", line 660, in pandas._libs.index.DatetimeEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 2761, in pandas._libs.hashtable.Int64HashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 2785, in pandas._libs.hashtable.Int64HashTable.get_item
+KeyError: 1758931200000000
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3641, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 628, in pandas._libs.index.DatetimeEngine.get_loc
+  File "pandas/_libs/index.pyx", line 662, in pandas._libs.index.DatetimeEngine.get_loc
+KeyError: Timestamp('2025-09-27 00:00:00')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexes/datetimes.py", line 996, in get_loc
+    return Index.get_loc(self, key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3648, in get_loc
+    raise KeyError(key) from err
+KeyError: Timestamp('2025-09-27 00:00:00')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_32994/1205388445.py", line 35, in <module>
+    cv_fpc_measures, dfpc_cv_curves = cv_sim(
+                                      ^^^^^^^
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_32994/2328054872.py", line 39, in cv_sim
+    df_supp, df_kde, df_fc = fdaUtils.align_densities(
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/utils.py", line 213, in align_densities
+    supp_col, f_col, f_hat_col = align_and_normalize_density(densities_support.loc[:,col], densities.loc[:,col], fc_densities_support.loc[:,col], fc_densities.loc[:,col])
+                                                             ~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexing.py", line 1200, in __getitem__
+    return self._getitem_tuple(key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexing.py", line 1386, in _getitem_tuple
+    return self._getitem_lowerdim(tup)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexing.py", line 1093, in _getitem_lowerdim
+    section = self._getitem_axis(key, axis=i)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexing.py", line 1449, in _getitem_axis
+    return self._get_label(key, axis=axis)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexing.py", line 1399, in _get_label
+    return self.obj.xs(label, axis=axis)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/generic.py", line 4239, in xs
+    return self[key]
+           ~~~~^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/frame.py", line 4378, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexes/datetimes.py", line 998, in get_loc
+    raise KeyError(orig_key) from err
+KeyError: Timestamp('2025-09-27 00:00:00')
+2026-04-06 23:45:40,462 | INFO | Progress: (1/260) | Database: normal | KDE model: gaussian_rot
+2026-04-06 23:45:41,087 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "pandas/_libs/index.pyx", line 660, in pandas._libs.index.DatetimeEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 2761, in pandas._libs.hashtable.Int64HashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 2785, in pandas._libs.hashtable.Int64HashTable.get_item
+KeyError: 1758931200000000
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3641, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 628, in pandas._libs.index.DatetimeEngine.get_loc
+  File "pandas/_libs/index.pyx", line 662, in pandas._libs.index.DatetimeEngine.get_loc
+KeyError: Timestamp('2025-09-27 00:00:00')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexes/datetimes.py", line 996, in get_loc
+    return Index.get_loc(self, key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3648, in get_loc
+    raise KeyError(key) from err
+KeyError: Timestamp('2025-09-27 00:00:00')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_32994/1205388445.py", line 35, in <module>
+    cv_fpc_measures, dfpc_cv_curves = cv_sim(
+                                      ^^^^^^^
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_32994/2328054872.py", line 39, in cv_sim
+    df_supp, df_kde, df_fc = fdaUtils.align_densities(
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/utils.py", line 213, in align_densities
+    supp_col, f_col, f_hat_col = align_and_normalize_density(densities_support.loc[:,col], densities.loc[:,col], fc_densities_support.loc[:,col], fc_densities.loc[:,col])
+                                                             ~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexing.py", line 1200, in __getitem__
+    return self._getitem_tuple(key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexing.py", line 1386, in _getitem_tuple
+    return self._getitem_lowerdim(tup)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexing.py", line 1093, in _getitem_lowerdim
+    section = self._getitem_axis(key, axis=i)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexing.py", line 1449, in _getitem_axis
+    return self._get_label(key, axis=axis)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexing.py", line 1399, in _get_label
+    return self.obj.xs(label, axis=axis)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/generic.py", line 4239, in xs
+    return self[key]
+           ~~~~^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/frame.py", line 4378, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexes/datetimes.py", line 998, in get_loc
+    raise KeyError(orig_key) from err
+KeyError: Timestamp('2025-09-27 00:00:00')
+2026-04-06 23:45:41,088 | INFO | Progress: (1/260) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-06 23:45:41,732 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "pandas/_libs/index.pyx", line 660, in pandas._libs.index.DatetimeEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 2761, in pandas._libs.hashtable.Int64HashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 2785, in pandas._libs.hashtable.Int64HashTable.get_item
+KeyError: 1758931200000000
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3641, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 628, in pandas._libs.index.DatetimeEngine.get_loc
+  File "pandas/_libs/index.pyx", line 662, in pandas._libs.index.DatetimeEngine.get_loc
+KeyError: Timestamp('2025-09-27 00:00:00')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexes/datetimes.py", line 996, in get_loc
+    return Index.get_loc(self, key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 3648, in get_loc
+    raise KeyError(key) from err
+KeyError: Timestamp('2025-09-27 00:00:00')
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_32994/1205388445.py", line 35, in <module>
+    cv_fpc_measures, dfpc_cv_curves = cv_sim(
+                                      ^^^^^^^
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_32994/2328054872.py", line 39, in cv_sim
+    df_supp, df_kde, df_fc = fdaUtils.align_densities(
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/utils.py", line 213, in align_densities
+    supp_col, f_col, f_hat_col = align_and_normalize_density(densities_support.loc[:,col], densities.loc[:,col], fc_densities_support.loc[:,col], fc_densities.loc[:,col])
+                                                             ~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexing.py", line 1200, in __getitem__
+    return self._getitem_tuple(key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexing.py", line 1386, in _getitem_tuple
+    return self._getitem_lowerdim(tup)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexing.py", line 1093, in _getitem_lowerdim
+    section = self._getitem_axis(key, axis=i)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexing.py", line 1449, in _getitem_axis
+    return self._get_label(key, axis=axis)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexing.py", line 1399, in _get_label
+    return self.obj.xs(label, axis=axis)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/generic.py", line 4239, in xs
+    return self[key]
+           ~~~~^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/frame.py", line 4378, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexes/datetimes.py", line 998, in get_loc
+    raise KeyError(orig_key) from err
+KeyError: Timestamp('2025-09-27 00:00:00')
+2026-04-06 23:47:15,243 | INFO | 
+Initiating cross validation...
+2026-04-06 23:47:15,278 | INFO | Progress: (1/260) | Database: normal | KDE model: gaussian_rot_robust
+2026-04-06 23:47:15,278 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_32994/1962645223.py", line 35, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv_sim(
+                                      ^^^^^^^^^^^^^^^
+AttributeError: module 'src.forecasting.cross_validation' has no attribute 'cv_sim'
+2026-04-06 23:47:15,278 | INFO | Progress: (1/260) | Database: normal | KDE model: gaussian_rot
+2026-04-06 23:47:15,278 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_32994/1962645223.py", line 35, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv_sim(
+                                      ^^^^^^^^^^^^^^^
+AttributeError: module 'src.forecasting.cross_validation' has no attribute 'cv_sim'
+2026-04-06 23:47:15,278 | INFO | Progress: (1/260) | Database: normal | KDE model: epanechnikov_rot_robust
+2026-04-06 23:47:15,278 | ERROR | 	 ERROR
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_32994/1962645223.py", line 35, in <module>
+    cv_fpc_measures, dfpc_cv_curves = crossVal.cv_sim(
+                                      ^^^^^^^^^^^^^^^
+AttributeError: module 'src.forecasting.cross_validation' has no attribute 'cv_sim'

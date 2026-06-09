@@ -10,3 +10,4 @@
 !data/processed/*.xlsx
 !data/processed/*.json
 !data/processed/*.npz
+!data/processed/cv_models_summary*.jbl

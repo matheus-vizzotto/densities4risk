@@ -1,0 +1,516 @@
+2026-04-23 00:05:50,872 | INFO | 
+Initiating cross validation...
+2026-04-23 00:05:50,887 | INFO | Scenario: 0 | n_rep: 0 | KDE model: gaussian adaptive
+2026-04-23 00:08:00,098 | INFO | Scenario: 0 | n_rep: 0 | KDE model: gaussian rot
+2026-04-23 00:09:18,840 | INFO | Scenario: 0 | n_rep: 0 | KDE model: t-student adaptive df=3
+2026-04-23 00:10:23,843 | INFO | Scenario: 0 | n_rep: 0 | KDE model: t-student rot df=3
+2026-04-23 00:11:32,738 | INFO | Scenario: 0 | n_rep: 1 | KDE model: gaussian adaptive
+2026-04-23 00:13:22,064 | INFO | Scenario: 0 | n_rep: 1 | KDE model: gaussian rot
+2026-04-23 00:15:12,473 | INFO | Scenario: 0 | n_rep: 1 | KDE model: t-student adaptive df=3
+2026-04-23 00:17:04,768 | INFO | Scenario: 0 | n_rep: 1 | KDE model: t-student rot df=3
+2026-04-23 00:18:53,873 | INFO | Scenario: 0 | n_rep: 2 | KDE model: gaussian adaptive
+2026-04-23 00:20:18,205 | INFO | Scenario: 0 | n_rep: 2 | KDE model: gaussian rot
+2026-04-23 00:21:42,894 | INFO | Scenario: 0 | n_rep: 2 | KDE model: t-student adaptive df=3
+2026-04-23 00:23:05,480 | INFO | Scenario: 0 | n_rep: 2 | KDE model: t-student rot df=3
+2026-04-23 00:24:28,905 | INFO | Scenario: 0 | n_rep: 3 | KDE model: gaussian adaptive
+2026-04-23 00:25:54,183 | INFO | Scenario: 0 | n_rep: 3 | KDE model: gaussian rot
+2026-04-23 00:27:14,664 | INFO | Scenario: 0 | n_rep: 3 | KDE model: t-student adaptive df=3
+2026-04-23 00:28:40,742 | INFO | Scenario: 0 | n_rep: 3 | KDE model: t-student rot df=3
+2026-04-23 00:29:57,489 | INFO | Scenario: 0 | n_rep: 4 | KDE model: gaussian adaptive
+2026-04-23 00:31:29,580 | INFO | Scenario: 0 | n_rep: 4 | KDE model: gaussian rot
+2026-04-23 00:33:02,336 | INFO | Scenario: 0 | n_rep: 4 | KDE model: t-student adaptive df=3
+2026-04-23 00:34:33,469 | INFO | Scenario: 0 | n_rep: 4 | KDE model: t-student rot df=3
+2026-04-23 00:36:04,227 | INFO | Scenario: 0 | n_rep: 5 | KDE model: gaussian adaptive
+2026-04-23 00:37:03,665 | INFO | Scenario: 0 | n_rep: 5 | KDE model: gaussian rot
+2026-04-23 00:38:03,345 | INFO | Scenario: 0 | n_rep: 5 | KDE model: t-student adaptive df=3
+2026-04-23 00:39:01,528 | INFO | Scenario: 0 | n_rep: 5 | KDE model: t-student rot df=3
+2026-04-23 00:40:00,118 | INFO | Scenario: 0 | n_rep: 6 | KDE model: gaussian adaptive
+2026-04-23 00:41:16,755 | INFO | Scenario: 0 | n_rep: 6 | KDE model: gaussian rot
+2026-04-23 00:42:29,303 | INFO | Scenario: 0 | n_rep: 6 | KDE model: t-student adaptive df=3
+2026-04-23 00:43:43,546 | INFO | Scenario: 0 | n_rep: 6 | KDE model: t-student rot df=3
+2026-04-23 00:44:54,968 | INFO | Scenario: 0 | n_rep: 7 | KDE model: gaussian adaptive
+2026-04-23 00:46:17,614 | INFO | Scenario: 0 | n_rep: 7 | KDE model: gaussian rot
+2026-04-23 00:47:40,490 | INFO | Scenario: 0 | n_rep: 7 | KDE model: t-student adaptive df=3
+2026-04-23 00:49:05,587 | INFO | Scenario: 0 | n_rep: 7 | KDE model: t-student rot df=3
+2026-04-23 00:50:28,142 | INFO | Scenario: 0 | n_rep: 8 | KDE model: gaussian adaptive
+2026-04-23 00:52:02,302 | INFO | Scenario: 0 | n_rep: 8 | KDE model: gaussian rot
+2026-04-23 00:53:33,349 | INFO | Scenario: 0 | n_rep: 8 | KDE model: t-student adaptive df=3
+2026-04-23 00:55:03,859 | INFO | Scenario: 0 | n_rep: 8 | KDE model: t-student rot df=3
+2026-04-23 00:56:32,804 | INFO | Scenario: 0 | n_rep: 9 | KDE model: gaussian adaptive
+2026-04-23 00:57:40,343 | INFO | Scenario: 0 | n_rep: 9 | KDE model: gaussian rot
+2026-04-23 00:58:50,628 | INFO | Scenario: 0 | n_rep: 9 | KDE model: t-student adaptive df=3
+2026-04-23 00:59:59,122 | INFO | Scenario: 0 | n_rep: 9 | KDE model: t-student rot df=3
+2026-04-23 01:01:08,598 | INFO | Scenario: 0 | n_rep: 10 | KDE model: gaussian adaptive
+2026-04-23 01:02:06,831 | INFO | Scenario: 0 | n_rep: 10 | KDE model: gaussian rot
+2026-04-23 01:03:07,979 | INFO | Scenario: 0 | n_rep: 10 | KDE model: t-student adaptive df=3
+2026-04-23 01:04:07,899 | INFO | Scenario: 0 | n_rep: 10 | KDE model: t-student rot df=3
+2026-04-23 01:05:11,871 | INFO | Scenario: 0 | n_rep: 11 | KDE model: gaussian adaptive
+2026-04-23 01:06:28,560 | INFO | Scenario: 0 | n_rep: 11 | KDE model: gaussian rot
+2026-04-23 01:07:52,671 | INFO | Scenario: 0 | n_rep: 11 | KDE model: t-student adaptive df=3
+2026-04-23 01:09:07,921 | INFO | Scenario: 0 | n_rep: 11 | KDE model: t-student rot df=3
+2026-04-23 01:10:32,100 | INFO | Scenario: 0 | n_rep: 12 | KDE model: gaussian adaptive
+2026-04-23 01:11:40,484 | INFO | Scenario: 0 | n_rep: 12 | KDE model: gaussian rot
+2026-04-23 01:12:43,652 | INFO | Scenario: 0 | n_rep: 12 | KDE model: t-student adaptive df=3
+2026-04-23 01:13:52,102 | INFO | Scenario: 0 | n_rep: 12 | KDE model: t-student rot df=3
+2026-04-23 01:14:53,202 | INFO | Scenario: 0 | n_rep: 13 | KDE model: gaussian adaptive
+2026-04-23 01:16:14,860 | INFO | Scenario: 0 | n_rep: 13 | KDE model: gaussian rot
+2026-04-23 01:17:45,644 | INFO | Scenario: 0 | n_rep: 13 | KDE model: t-student adaptive df=3
+2026-04-23 01:19:04,715 | INFO | Scenario: 0 | n_rep: 13 | KDE model: t-student rot df=3
+2026-04-23 01:20:34,725 | INFO | Scenario: 0 | n_rep: 14 | KDE model: gaussian adaptive
+2026-04-23 01:22:41,445 | INFO | Scenario: 0 | n_rep: 14 | KDE model: gaussian rot
+2026-04-23 01:24:37,488 | INFO | Scenario: 0 | n_rep: 14 | KDE model: t-student adaptive df=3
+2026-04-23 01:26:34,467 | INFO | Scenario: 0 | n_rep: 14 | KDE model: t-student rot df=3
+2026-04-23 01:28:30,579 | INFO | Scenario: 0 | n_rep: 15 | KDE model: gaussian adaptive
+2026-04-23 01:30:15,509 | INFO | Scenario: 0 | n_rep: 15 | KDE model: gaussian rot
+2026-04-23 01:31:58,192 | INFO | Scenario: 0 | n_rep: 15 | KDE model: t-student adaptive df=3
+2026-04-23 01:33:37,607 | INFO | Scenario: 0 | n_rep: 15 | KDE model: t-student rot df=3
+2026-04-23 01:35:18,094 | INFO | Scenario: 0 | n_rep: 16 | KDE model: gaussian adaptive
+2026-04-23 01:36:30,790 | INFO | Scenario: 0 | n_rep: 16 | KDE model: gaussian rot
+2026-04-23 01:37:38,942 | INFO | Scenario: 0 | n_rep: 16 | KDE model: t-student adaptive df=3
+2026-04-23 01:38:49,618 | INFO | Scenario: 0 | n_rep: 16 | KDE model: t-student rot df=3
+2026-04-23 01:40:00,862 | INFO | Scenario: 0 | n_rep: 17 | KDE model: gaussian adaptive
+2026-04-23 01:41:36,830 | INFO | Scenario: 0 | n_rep: 17 | KDE model: gaussian rot
+2026-04-23 01:43:13,626 | INFO | Scenario: 0 | n_rep: 17 | KDE model: t-student adaptive df=3
+2026-04-23 01:44:49,998 | INFO | Scenario: 0 | n_rep: 17 | KDE model: t-student rot df=3
+2026-04-23 01:46:20,429 | INFO | Scenario: 0 | n_rep: 18 | KDE model: gaussian adaptive
+2026-04-23 01:47:29,807 | INFO | Scenario: 0 | n_rep: 18 | KDE model: gaussian rot
+2026-04-23 01:48:45,487 | INFO | Scenario: 0 | n_rep: 18 | KDE model: t-student adaptive df=3
+2026-04-23 01:49:59,120 | INFO | Scenario: 0 | n_rep: 18 | KDE model: t-student rot df=3
+2026-04-23 01:51:15,675 | INFO | Scenario: 0 | n_rep: 19 | KDE model: gaussian adaptive
+2026-04-23 01:53:57,465 | INFO | Scenario: 0 | n_rep: 19 | KDE model: gaussian rot
+2026-04-23 01:56:29,598 | INFO | Scenario: 0 | n_rep: 19 | KDE model: t-student adaptive df=3
+2026-04-23 01:59:06,103 | INFO | Scenario: 0 | n_rep: 19 | KDE model: t-student rot df=3
+2026-04-23 02:01:30,666 | INFO | Scenario: 0 | n_rep: 20 | KDE model: gaussian adaptive
+2026-04-23 02:02:59,623 | INFO | Scenario: 0 | n_rep: 20 | KDE model: gaussian rot
+2026-04-23 02:04:29,065 | INFO | Scenario: 0 | n_rep: 20 | KDE model: t-student adaptive df=3
+2026-04-23 02:05:59,394 | INFO | Scenario: 0 | n_rep: 20 | KDE model: t-student rot df=3
+2026-04-23 02:07:31,594 | INFO | Scenario: 0 | n_rep: 21 | KDE model: gaussian adaptive
+2026-04-23 02:08:48,837 | INFO | Scenario: 0 | n_rep: 21 | KDE model: gaussian rot
+2026-04-23 02:10:15,974 | INFO | Scenario: 0 | n_rep: 21 | KDE model: t-student adaptive df=3
+2026-04-23 02:11:34,967 | INFO | Scenario: 0 | n_rep: 21 | KDE model: t-student rot df=3
+2026-04-23 02:13:00,061 | INFO | Scenario: 0 | n_rep: 22 | KDE model: gaussian adaptive
+2026-04-23 02:14:25,852 | INFO | Scenario: 0 | n_rep: 22 | KDE model: gaussian rot
+2026-04-23 02:16:03,702 | INFO | Scenario: 0 | n_rep: 22 | KDE model: t-student adaptive df=3
+2026-04-23 02:17:33,135 | INFO | Scenario: 0 | n_rep: 22 | KDE model: t-student rot df=3
+2026-04-23 02:19:04,061 | INFO | Scenario: 0 | n_rep: 23 | KDE model: gaussian adaptive
+2026-04-23 02:20:28,072 | INFO | Scenario: 0 | n_rep: 23 | KDE model: gaussian rot
+2026-04-23 02:21:46,948 | INFO | Scenario: 0 | n_rep: 23 | KDE model: t-student adaptive df=3
+2026-04-23 02:23:07,543 | INFO | Scenario: 0 | n_rep: 23 | KDE model: t-student rot df=3
+2026-04-23 02:24:25,608 | INFO | Scenario: 0 | n_rep: 24 | KDE model: gaussian adaptive
+2026-04-23 02:25:53,396 | INFO | Scenario: 0 | n_rep: 24 | KDE model: gaussian rot
+2026-04-23 02:27:20,152 | INFO | Scenario: 0 | n_rep: 24 | KDE model: t-student adaptive df=3
+2026-04-23 02:28:45,500 | INFO | Scenario: 0 | n_rep: 24 | KDE model: t-student rot df=3
+2026-04-23 02:30:10,407 | INFO | Scenario: 0 | n_rep: 25 | KDE model: gaussian adaptive
+2026-04-23 02:31:31,198 | INFO | Scenario: 0 | n_rep: 25 | KDE model: gaussian rot
+2026-04-23 02:32:52,007 | INFO | Scenario: 0 | n_rep: 25 | KDE model: t-student adaptive df=3
+2026-04-23 02:34:12,653 | INFO | Scenario: 0 | n_rep: 25 | KDE model: t-student rot df=3
+2026-04-23 02:35:29,753 | INFO | Scenario: 0 | n_rep: 26 | KDE model: gaussian adaptive
+2026-04-23 02:37:07,968 | INFO | Scenario: 0 | n_rep: 26 | KDE model: gaussian rot
+2026-04-23 02:38:30,796 | INFO | Scenario: 0 | n_rep: 26 | KDE model: t-student adaptive df=3
+2026-04-23 02:40:05,025 | INFO | Scenario: 0 | n_rep: 26 | KDE model: t-student rot df=3
+2026-04-23 02:41:36,831 | INFO | Scenario: 0 | n_rep: 27 | KDE model: gaussian adaptive
+2026-04-23 02:43:23,451 | INFO | Scenario: 0 | n_rep: 27 | KDE model: gaussian rot
+2026-04-23 02:45:21,994 | INFO | Scenario: 0 | n_rep: 27 | KDE model: t-student adaptive df=3
+2026-04-23 02:47:11,514 | INFO | Scenario: 0 | n_rep: 27 | KDE model: t-student rot df=3
+2026-04-23 02:49:06,915 | INFO | Scenario: 0 | n_rep: 28 | KDE model: gaussian adaptive
+2026-04-23 02:50:41,185 | INFO | Scenario: 0 | n_rep: 28 | KDE model: gaussian rot
+2026-04-23 02:52:14,898 | INFO | Scenario: 0 | n_rep: 28 | KDE model: t-student adaptive df=3
+2026-04-23 02:53:57,420 | INFO | Scenario: 0 | n_rep: 28 | KDE model: t-student rot df=3
+2026-04-23 02:55:25,575 | INFO | Scenario: 0 | n_rep: 29 | KDE model: gaussian adaptive
+2026-04-23 02:56:51,834 | INFO | Scenario: 0 | n_rep: 29 | KDE model: gaussian rot
+2026-04-23 02:58:18,993 | INFO | Scenario: 0 | n_rep: 29 | KDE model: t-student adaptive df=3
+2026-04-23 02:59:42,145 | INFO | Scenario: 0 | n_rep: 29 | KDE model: t-student rot df=3
+2026-04-23 03:00:55,226 | INFO | Scenario: 0 | n_rep: 30 | KDE model: gaussian adaptive
+2026-04-23 03:02:57,166 | INFO | Scenario: 0 | n_rep: 30 | KDE model: gaussian rot
+2026-04-23 03:04:51,301 | INFO | Scenario: 0 | n_rep: 30 | KDE model: t-student adaptive df=3
+2026-04-23 03:06:53,779 | INFO | Scenario: 0 | n_rep: 30 | KDE model: t-student rot df=3
+2026-04-23 03:08:34,503 | INFO | Scenario: 0 | n_rep: 31 | KDE model: gaussian adaptive
+2026-04-23 03:10:23,118 | INFO | Scenario: 0 | n_rep: 31 | KDE model: gaussian rot
+2026-04-23 03:12:06,980 | INFO | Scenario: 0 | n_rep: 31 | KDE model: t-student adaptive df=3
+2026-04-23 03:13:54,189 | INFO | Scenario: 0 | n_rep: 31 | KDE model: t-student rot df=3
+2026-04-23 03:15:35,169 | INFO | Scenario: 0 | n_rep: 32 | KDE model: gaussian adaptive
+2026-04-23 03:16:54,897 | INFO | Scenario: 0 | n_rep: 32 | KDE model: gaussian rot
+2026-04-23 03:18:17,048 | INFO | Scenario: 0 | n_rep: 32 | KDE model: t-student adaptive df=3
+2026-04-23 03:19:40,449 | INFO | Scenario: 0 | n_rep: 32 | KDE model: t-student rot df=3
+2026-04-23 03:21:01,609 | INFO | Scenario: 0 | n_rep: 33 | KDE model: gaussian adaptive
+2026-04-23 03:22:24,982 | INFO | Scenario: 0 | n_rep: 33 | KDE model: gaussian rot
+2026-04-23 03:23:41,893 | INFO | Scenario: 0 | n_rep: 33 | KDE model: t-student adaptive df=3
+2026-04-23 03:25:01,089 | INFO | Scenario: 0 | n_rep: 33 | KDE model: t-student rot df=3
+2026-04-23 03:26:22,852 | INFO | Scenario: 0 | n_rep: 34 | KDE model: gaussian adaptive
+2026-04-23 03:27:56,369 | INFO | Scenario: 0 | n_rep: 34 | KDE model: gaussian rot
+2026-04-23 03:29:21,157 | INFO | Scenario: 0 | n_rep: 34 | KDE model: t-student adaptive df=3
+2026-04-23 03:30:45,946 | INFO | Scenario: 0 | n_rep: 34 | KDE model: t-student rot df=3
+2026-04-23 03:32:10,164 | INFO | Scenario: 0 | n_rep: 35 | KDE model: gaussian adaptive
+2026-04-23 03:33:31,589 | INFO | Scenario: 0 | n_rep: 35 | KDE model: gaussian rot
+2026-04-23 03:34:44,023 | INFO | Scenario: 0 | n_rep: 35 | KDE model: t-student adaptive df=3
+2026-04-23 03:36:01,144 | INFO | Scenario: 0 | n_rep: 35 | KDE model: t-student rot df=3
+2026-04-23 03:37:21,460 | INFO | Scenario: 0 | n_rep: 36 | KDE model: gaussian adaptive
+2026-04-23 03:38:43,411 | INFO | Scenario: 0 | n_rep: 36 | KDE model: gaussian rot
+2026-04-23 03:40:09,905 | INFO | Scenario: 0 | n_rep: 36 | KDE model: t-student adaptive df=3
+2026-04-23 03:41:29,871 | INFO | Scenario: 0 | n_rep: 36 | KDE model: t-student rot df=3
+2026-04-23 03:42:52,133 | INFO | Scenario: 0 | n_rep: 37 | KDE model: gaussian adaptive
+2026-04-23 03:43:53,672 | INFO | Scenario: 0 | n_rep: 37 | KDE model: gaussian rot
+2026-04-23 03:44:57,741 | INFO | Scenario: 0 | n_rep: 37 | KDE model: t-student adaptive df=3
+2026-04-23 03:45:59,704 | INFO | Scenario: 0 | n_rep: 37 | KDE model: t-student rot df=3
+2026-04-23 03:47:04,482 | INFO | Scenario: 0 | n_rep: 38 | KDE model: gaussian adaptive
+2026-04-23 03:48:27,489 | INFO | Scenario: 0 | n_rep: 38 | KDE model: gaussian rot
+2026-04-23 03:49:42,606 | INFO | Scenario: 0 | n_rep: 38 | KDE model: t-student adaptive df=3
+2026-04-23 03:51:02,021 | INFO | Scenario: 0 | n_rep: 38 | KDE model: t-student rot df=3
+2026-04-23 03:52:17,309 | INFO | Scenario: 0 | n_rep: 39 | KDE model: gaussian adaptive
+2026-04-23 03:54:02,034 | INFO | Scenario: 0 | n_rep: 39 | KDE model: gaussian rot
+2026-04-23 03:55:44,809 | INFO | Scenario: 0 | n_rep: 39 | KDE model: t-student adaptive df=3
+2026-04-23 03:57:33,568 | INFO | Scenario: 0 | n_rep: 39 | KDE model: t-student rot df=3
+2026-04-23 03:59:08,046 | INFO | Scenario: 0 | n_rep: 40 | KDE model: gaussian adaptive
+2026-04-23 04:00:31,974 | INFO | Scenario: 0 | n_rep: 40 | KDE model: gaussian rot
+2026-04-23 04:01:56,597 | INFO | Scenario: 0 | n_rep: 40 | KDE model: t-student adaptive df=3
+2026-04-23 04:03:20,445 | INFO | Scenario: 0 | n_rep: 40 | KDE model: t-student rot df=3
+2026-04-23 04:04:42,183 | INFO | Scenario: 0 | n_rep: 41 | KDE model: gaussian adaptive
+2026-04-23 04:06:00,013 | INFO | Scenario: 0 | n_rep: 41 | KDE model: gaussian rot
+2026-04-23 04:07:17,789 | INFO | Scenario: 0 | n_rep: 41 | KDE model: t-student adaptive df=3
+2026-04-23 04:08:33,612 | INFO | Scenario: 0 | n_rep: 41 | KDE model: t-student rot df=3
+2026-04-23 04:09:53,963 | INFO | Scenario: 0 | n_rep: 42 | KDE model: gaussian adaptive
+2026-04-23 04:11:13,117 | INFO | Scenario: 0 | n_rep: 42 | KDE model: gaussian rot
+2026-04-23 04:12:31,609 | INFO | Scenario: 0 | n_rep: 42 | KDE model: t-student adaptive df=3
+2026-04-23 04:13:54,447 | INFO | Scenario: 0 | n_rep: 42 | KDE model: t-student rot df=3
+2026-04-23 04:15:07,704 | INFO | Scenario: 0 | n_rep: 43 | KDE model: gaussian adaptive
+2026-04-23 04:16:41,191 | INFO | Scenario: 0 | n_rep: 43 | KDE model: gaussian rot
+2026-04-23 04:18:19,139 | INFO | Scenario: 0 | n_rep: 43 | KDE model: t-student adaptive df=3
+2026-04-23 04:19:56,252 | INFO | Scenario: 0 | n_rep: 43 | KDE model: t-student rot df=3
+2026-04-23 04:21:32,711 | INFO | Scenario: 0 | n_rep: 44 | KDE model: gaussian adaptive
+2026-04-23 04:23:15,355 | INFO | Scenario: 0 | n_rep: 44 | KDE model: gaussian rot
+2026-04-23 04:24:57,551 | INFO | Scenario: 0 | n_rep: 44 | KDE model: t-student adaptive df=3
+2026-04-23 04:26:42,655 | INFO | Scenario: 0 | n_rep: 44 | KDE model: t-student rot df=3
+2026-04-23 04:28:24,309 | INFO | Scenario: 0 | n_rep: 45 | KDE model: gaussian adaptive
+2026-04-23 04:29:56,630 | INFO | Scenario: 0 | n_rep: 45 | KDE model: gaussian rot
+2026-04-23 04:31:27,373 | INFO | Scenario: 0 | n_rep: 45 | KDE model: t-student adaptive df=3
+2026-04-23 04:32:56,231 | INFO | Scenario: 0 | n_rep: 45 | KDE model: t-student rot df=3
+2026-04-23 04:34:26,374 | INFO | Scenario: 0 | n_rep: 46 | KDE model: gaussian adaptive
+2026-04-23 04:35:22,623 | INFO | Scenario: 0 | n_rep: 46 | KDE model: gaussian rot
+2026-04-23 04:36:30,459 | INFO | Scenario: 0 | n_rep: 46 | KDE model: t-student adaptive df=3
+2026-04-23 04:37:30,705 | INFO | Scenario: 0 | n_rep: 46 | KDE model: t-student rot df=3
+2026-04-23 04:38:40,456 | INFO | Scenario: 0 | n_rep: 47 | KDE model: gaussian adaptive
+2026-04-23 04:40:10,704 | INFO | Scenario: 0 | n_rep: 47 | KDE model: gaussian rot
+2026-04-23 04:41:42,110 | INFO | Scenario: 0 | n_rep: 47 | KDE model: t-student adaptive df=3
+2026-04-23 04:43:24,698 | INFO | Scenario: 0 | n_rep: 47 | KDE model: t-student rot df=3
+2026-04-23 04:44:59,532 | INFO | Scenario: 0 | n_rep: 48 | KDE model: gaussian adaptive
+2026-04-23 04:46:27,393 | INFO | Scenario: 0 | n_rep: 48 | KDE model: gaussian rot
+2026-04-23 04:47:59,977 | INFO | Scenario: 0 | n_rep: 48 | KDE model: t-student adaptive df=3
+2026-04-23 04:49:31,970 | INFO | Scenario: 0 | n_rep: 48 | KDE model: t-student rot df=3
+2026-04-23 04:51:02,083 | INFO | Scenario: 0 | n_rep: 49 | KDE model: gaussian adaptive
+2026-04-23 04:52:20,274 | INFO | Scenario: 0 | n_rep: 49 | KDE model: gaussian rot
+2026-04-23 04:53:18,089 | INFO | Scenario: 0 | n_rep: 49 | KDE model: t-student adaptive df=3
+2026-04-23 04:54:22,760 | INFO | Scenario: 0 | n_rep: 49 | KDE model: t-student rot df=3
+2026-04-23 04:55:13,455 | INFO | Scenario: 0 | n_rep: 50 | KDE model: gaussian adaptive
+2026-04-23 04:56:38,532 | INFO | Scenario: 0 | n_rep: 50 | KDE model: gaussian rot
+2026-04-23 04:58:04,424 | INFO | Scenario: 0 | n_rep: 50 | KDE model: t-student adaptive df=3
+2026-04-23 04:59:29,938 | INFO | Scenario: 0 | n_rep: 50 | KDE model: t-student rot df=3
+2026-04-23 05:00:55,764 | INFO | Scenario: 0 | n_rep: 51 | KDE model: gaussian adaptive
+2026-04-23 05:02:33,246 | INFO | Scenario: 0 | n_rep: 51 | KDE model: gaussian rot
+2026-04-23 05:04:12,082 | INFO | Scenario: 0 | n_rep: 51 | KDE model: t-student adaptive df=3
+2026-04-23 05:05:49,903 | INFO | Scenario: 0 | n_rep: 51 | KDE model: t-student rot df=3
+2026-04-23 05:07:23,633 | INFO | Scenario: 0 | n_rep: 52 | KDE model: gaussian adaptive
+2026-04-23 05:08:36,230 | INFO | Scenario: 0 | n_rep: 52 | KDE model: gaussian rot
+2026-04-23 05:09:52,207 | INFO | Scenario: 0 | n_rep: 52 | KDE model: t-student adaptive df=3
+2026-04-23 05:11:05,823 | INFO | Scenario: 0 | n_rep: 52 | KDE model: t-student rot df=3
+2026-04-23 05:12:19,500 | INFO | Scenario: 0 | n_rep: 53 | KDE model: gaussian adaptive
+2026-04-23 05:14:00,763 | INFO | Scenario: 0 | n_rep: 53 | KDE model: gaussian rot
+2026-04-23 05:15:45,127 | INFO | Scenario: 0 | n_rep: 53 | KDE model: t-student adaptive df=3
+2026-04-23 05:17:27,654 | INFO | Scenario: 0 | n_rep: 53 | KDE model: t-student rot df=3
+2026-04-23 05:19:06,429 | INFO | Scenario: 0 | n_rep: 54 | KDE model: gaussian adaptive
+2026-04-23 05:20:15,727 | INFO | Scenario: 0 | n_rep: 54 | KDE model: gaussian rot
+2026-04-23 05:21:20,849 | INFO | Scenario: 0 | n_rep: 54 | KDE model: t-student adaptive df=3
+2026-04-23 05:22:28,515 | INFO | Scenario: 0 | n_rep: 54 | KDE model: t-student rot df=3
+2026-04-23 05:23:37,507 | INFO | Scenario: 0 | n_rep: 55 | KDE model: gaussian adaptive
+2026-04-23 05:25:01,405 | INFO | Scenario: 0 | n_rep: 55 | KDE model: gaussian rot
+2026-04-23 05:26:24,084 | INFO | Scenario: 0 | n_rep: 55 | KDE model: t-student adaptive df=3
+2026-04-23 05:27:43,572 | INFO | Scenario: 0 | n_rep: 55 | KDE model: t-student rot df=3
+2026-04-23 05:29:08,023 | INFO | Scenario: 0 | n_rep: 56 | KDE model: gaussian adaptive
+2026-04-23 05:30:26,571 | INFO | Scenario: 0 | n_rep: 56 | KDE model: gaussian rot
+2026-04-23 05:31:38,622 | INFO | Scenario: 0 | n_rep: 56 | KDE model: t-student adaptive df=3
+2026-04-23 05:32:55,363 | INFO | Scenario: 0 | n_rep: 56 | KDE model: t-student rot df=3
+2026-04-23 05:34:07,199 | INFO | Scenario: 0 | n_rep: 57 | KDE model: gaussian adaptive
+2026-04-23 05:35:30,357 | INFO | Scenario: 0 | n_rep: 57 | KDE model: gaussian rot
+2026-04-23 05:36:52,805 | INFO | Scenario: 0 | n_rep: 57 | KDE model: t-student adaptive df=3
+2026-04-23 05:38:14,319 | INFO | Scenario: 0 | n_rep: 57 | KDE model: t-student rot df=3
+2026-04-23 05:39:33,307 | INFO | Scenario: 0 | n_rep: 58 | KDE model: gaussian adaptive
+2026-04-23 05:40:52,505 | INFO | Scenario: 0 | n_rep: 58 | KDE model: gaussian rot
+2026-04-23 05:42:05,408 | INFO | Scenario: 0 | n_rep: 58 | KDE model: t-student adaptive df=3
+2026-04-23 05:43:20,044 | INFO | Scenario: 0 | n_rep: 58 | KDE model: t-student rot df=3
+2026-04-23 05:44:35,254 | INFO | Scenario: 0 | n_rep: 59 | KDE model: gaussian adaptive
+2026-04-23 05:46:12,915 | INFO | Scenario: 0 | n_rep: 59 | KDE model: gaussian rot
+2026-04-23 05:47:49,977 | INFO | Scenario: 0 | n_rep: 59 | KDE model: t-student adaptive df=3
+2026-04-23 05:49:31,760 | INFO | Scenario: 0 | n_rep: 59 | KDE model: t-student rot df=3
+2026-04-23 05:50:58,536 | INFO | Scenario: 0 | n_rep: 60 | KDE model: gaussian adaptive
+2026-04-23 05:51:53,988 | INFO | Scenario: 0 | n_rep: 60 | KDE model: gaussian rot
+2026-04-23 05:53:12,355 | INFO | Scenario: 0 | n_rep: 60 | KDE model: t-student adaptive df=3
+2026-04-23 05:54:11,609 | INFO | Scenario: 0 | n_rep: 60 | KDE model: t-student rot df=3
+2026-04-23 05:55:50,816 | INFO | Scenario: 0 | n_rep: 61 | KDE model: gaussian adaptive
+2026-04-23 05:57:14,199 | INFO | Scenario: 0 | n_rep: 61 | KDE model: gaussian rot
+2026-04-23 05:58:46,456 | INFO | Scenario: 0 | n_rep: 61 | KDE model: t-student adaptive df=3
+2026-04-23 06:00:21,062 | INFO | Scenario: 0 | n_rep: 61 | KDE model: t-student rot df=3
+2026-04-23 06:01:48,229 | INFO | Scenario: 0 | n_rep: 62 | KDE model: gaussian adaptive
+2026-04-23 06:03:25,829 | INFO | Scenario: 0 | n_rep: 62 | KDE model: gaussian rot
+2026-04-23 06:05:00,700 | INFO | Scenario: 0 | n_rep: 62 | KDE model: t-student adaptive df=3
+2026-04-23 06:06:34,426 | INFO | Scenario: 0 | n_rep: 62 | KDE model: t-student rot df=3
+2026-04-23 06:08:08,014 | INFO | Scenario: 0 | n_rep: 63 | KDE model: gaussian adaptive
+2026-04-23 06:09:09,675 | INFO | Scenario: 0 | n_rep: 63 | KDE model: gaussian rot
+2026-04-23 06:10:12,406 | INFO | Scenario: 0 | n_rep: 63 | KDE model: t-student adaptive df=3
+2026-04-23 06:11:13,693 | INFO | Scenario: 0 | n_rep: 63 | KDE model: t-student rot df=3
+2026-04-23 06:12:18,445 | INFO | Scenario: 0 | n_rep: 64 | KDE model: gaussian adaptive
+2026-04-23 06:13:47,613 | INFO | Scenario: 0 | n_rep: 64 | KDE model: gaussian rot
+2026-04-23 06:15:14,623 | INFO | Scenario: 0 | n_rep: 64 | KDE model: t-student adaptive df=3
+2026-04-23 06:16:40,336 | INFO | Scenario: 0 | n_rep: 64 | KDE model: t-student rot df=3
+2026-04-23 06:18:01,902 | INFO | Scenario: 0 | n_rep: 65 | KDE model: gaussian adaptive
+2026-04-23 06:19:27,966 | INFO | Scenario: 0 | n_rep: 65 | KDE model: gaussian rot
+2026-04-23 06:20:43,591 | INFO | Scenario: 0 | n_rep: 65 | KDE model: t-student adaptive df=3
+2026-04-23 06:22:05,366 | INFO | Scenario: 0 | n_rep: 65 | KDE model: t-student rot df=3
+2026-04-23 06:23:15,826 | INFO | Scenario: 0 | n_rep: 66 | KDE model: gaussian adaptive
+2026-04-23 06:24:10,494 | INFO | Scenario: 0 | n_rep: 66 | KDE model: gaussian rot
+2026-04-23 06:25:05,104 | INFO | Scenario: 0 | n_rep: 66 | KDE model: t-student adaptive df=3
+2026-04-23 06:25:59,705 | INFO | Scenario: 0 | n_rep: 66 | KDE model: t-student rot df=3
+2026-04-23 06:26:54,186 | INFO | Scenario: 0 | n_rep: 67 | KDE model: gaussian adaptive
+2026-04-23 06:28:11,783 | INFO | Scenario: 0 | n_rep: 67 | KDE model: gaussian rot
+2026-04-23 06:29:22,959 | INFO | Scenario: 0 | n_rep: 67 | KDE model: t-student adaptive df=3
+2026-04-23 06:30:38,854 | INFO | Scenario: 0 | n_rep: 67 | KDE model: t-student rot df=3
+2026-04-23 06:31:38,013 | INFO | Scenario: 0 | n_rep: 68 | KDE model: gaussian adaptive
+2026-04-23 06:33:13,854 | INFO | Scenario: 0 | n_rep: 68 | KDE model: gaussian rot
+2026-04-23 06:34:34,373 | INFO | Scenario: 0 | n_rep: 68 | KDE model: t-student adaptive df=3
+2026-04-23 06:36:02,588 | INFO | Scenario: 0 | n_rep: 68 | KDE model: t-student rot df=3
+2026-04-23 06:37:25,012 | INFO | Scenario: 0 | n_rep: 69 | KDE model: gaussian adaptive
+2026-04-23 06:39:00,644 | INFO | Scenario: 0 | n_rep: 69 | KDE model: gaussian rot
+2026-04-23 06:40:34,927 | INFO | Scenario: 0 | n_rep: 69 | KDE model: t-student adaptive df=3
+2026-04-23 06:42:14,404 | INFO | Scenario: 0 | n_rep: 69 | KDE model: t-student rot df=3
+2026-04-23 06:43:49,715 | INFO | Scenario: 0 | n_rep: 70 | KDE model: gaussian adaptive
+2026-04-23 06:45:07,944 | INFO | Scenario: 0 | n_rep: 70 | KDE model: gaussian rot
+2026-04-23 06:46:27,033 | INFO | Scenario: 0 | n_rep: 70 | KDE model: t-student adaptive df=3
+2026-04-23 06:47:48,612 | INFO | Scenario: 0 | n_rep: 70 | KDE model: t-student rot df=3
+2026-04-23 06:49:04,198 | INFO | Scenario: 0 | n_rep: 71 | KDE model: gaussian adaptive
+2026-04-23 06:50:19,137 | INFO | Scenario: 0 | n_rep: 71 | KDE model: gaussian rot
+2026-04-23 06:51:37,383 | INFO | Scenario: 0 | n_rep: 71 | KDE model: t-student adaptive df=3
+2026-04-23 06:52:51,123 | INFO | Scenario: 0 | n_rep: 71 | KDE model: t-student rot df=3
+2026-04-23 06:54:04,571 | INFO | Scenario: 0 | n_rep: 72 | KDE model: gaussian adaptive
+2026-04-23 06:55:49,836 | INFO | Scenario: 0 | n_rep: 72 | KDE model: gaussian rot
+2026-04-23 06:57:18,066 | INFO | Scenario: 0 | n_rep: 72 | KDE model: t-student adaptive df=3
+2026-04-23 06:58:49,704 | INFO | Scenario: 0 | n_rep: 72 | KDE model: t-student rot df=3
+2026-04-23 07:00:14,253 | INFO | Scenario: 0 | n_rep: 73 | KDE model: gaussian adaptive
+2026-04-23 07:01:34,629 | INFO | Scenario: 0 | n_rep: 73 | KDE model: gaussian rot
+2026-04-23 07:03:05,465 | INFO | Scenario: 0 | n_rep: 73 | KDE model: t-student adaptive df=3
+2026-04-23 07:04:22,063 | INFO | Scenario: 0 | n_rep: 73 | KDE model: t-student rot df=3
+2026-04-23 07:05:48,786 | INFO | Scenario: 0 | n_rep: 74 | KDE model: gaussian adaptive
+2026-04-23 07:08:26,815 | INFO | Scenario: 0 | n_rep: 74 | KDE model: gaussian rot
+2026-04-23 07:11:06,720 | INFO | Scenario: 0 | n_rep: 74 | KDE model: t-student adaptive df=3
+2026-04-23 07:13:43,724 | INFO | Scenario: 0 | n_rep: 74 | KDE model: t-student rot df=3
+2026-04-23 07:16:28,090 | INFO | Scenario: 0 | n_rep: 75 | KDE model: gaussian adaptive
+2026-04-23 07:17:26,372 | INFO | Scenario: 0 | n_rep: 75 | KDE model: gaussian rot
+2026-04-23 07:18:46,469 | INFO | Scenario: 0 | n_rep: 75 | KDE model: t-student adaptive df=3
+2026-04-23 07:19:47,675 | INFO | Scenario: 0 | n_rep: 75 | KDE model: t-student rot df=3
+2026-04-23 07:21:07,310 | INFO | Scenario: 0 | n_rep: 76 | KDE model: gaussian adaptive
+2026-04-23 07:22:40,150 | INFO | Scenario: 0 | n_rep: 76 | KDE model: gaussian rot
+2026-04-23 07:24:02,825 | INFO | Scenario: 0 | n_rep: 76 | KDE model: t-student adaptive df=3
+2026-04-23 07:25:33,926 | INFO | Scenario: 0 | n_rep: 76 | KDE model: t-student rot df=3
+2026-04-23 07:27:01,433 | INFO | Scenario: 0 | n_rep: 77 | KDE model: gaussian adaptive
+2026-04-23 07:28:25,154 | INFO | Scenario: 0 | n_rep: 77 | KDE model: gaussian rot
+2026-04-23 07:29:50,833 | INFO | Scenario: 0 | n_rep: 77 | KDE model: t-student adaptive df=3
+2026-04-23 07:31:18,891 | INFO | Scenario: 0 | n_rep: 77 | KDE model: t-student rot df=3
+2026-04-23 07:32:46,886 | INFO | Scenario: 0 | n_rep: 78 | KDE model: gaussian adaptive
+2026-04-23 07:34:04,514 | INFO | Scenario: 0 | n_rep: 78 | KDE model: gaussian rot
+2026-04-23 07:35:21,560 | INFO | Scenario: 0 | n_rep: 78 | KDE model: t-student adaptive df=3
+2026-04-23 07:36:38,661 | INFO | Scenario: 0 | n_rep: 78 | KDE model: t-student rot df=3
+2026-04-23 07:37:53,822 | INFO | Scenario: 0 | n_rep: 79 | KDE model: gaussian adaptive
+2026-04-23 07:39:39,062 | INFO | Scenario: 0 | n_rep: 79 | KDE model: gaussian rot
+2026-04-23 07:41:16,278 | INFO | Scenario: 0 | n_rep: 79 | KDE model: t-student adaptive df=3
+2026-04-23 07:43:01,824 | INFO | Scenario: 0 | n_rep: 79 | KDE model: t-student rot df=3
+2026-04-23 07:44:38,092 | INFO | Scenario: 0 | n_rep: 80 | KDE model: gaussian adaptive
+2026-04-23 07:45:59,479 | INFO | Scenario: 0 | n_rep: 80 | KDE model: gaussian rot
+2026-04-23 07:47:25,924 | INFO | Scenario: 0 | n_rep: 80 | KDE model: t-student adaptive df=3
+2026-04-23 07:48:53,438 | INFO | Scenario: 0 | n_rep: 80 | KDE model: t-student rot df=3
+2026-04-23 07:50:18,760 | INFO | Scenario: 0 | n_rep: 81 | KDE model: gaussian adaptive
+2026-04-23 07:51:52,644 | INFO | Scenario: 0 | n_rep: 81 | KDE model: gaussian rot
+2026-04-23 07:53:20,221 | INFO | Scenario: 0 | n_rep: 81 | KDE model: t-student adaptive df=3
+2026-04-23 07:54:52,368 | INFO | Scenario: 0 | n_rep: 81 | KDE model: t-student rot df=3
+2026-04-23 07:56:19,728 | INFO | Scenario: 0 | n_rep: 82 | KDE model: gaussian adaptive
+2026-04-23 07:57:47,625 | INFO | Scenario: 0 | n_rep: 82 | KDE model: gaussian rot
+2026-04-23 07:59:12,795 | INFO | Scenario: 0 | n_rep: 82 | KDE model: t-student adaptive df=3
+2026-04-23 08:00:38,898 | INFO | Scenario: 0 | n_rep: 82 | KDE model: t-student rot df=3
+2026-04-23 08:02:07,391 | INFO | Scenario: 0 | n_rep: 83 | KDE model: gaussian adaptive
+2026-04-23 08:04:16,502 | INFO | Scenario: 0 | n_rep: 83 | KDE model: gaussian rot
+2026-04-23 08:06:09,802 | INFO | Scenario: 0 | n_rep: 83 | KDE model: t-student adaptive df=3
+2026-04-23 08:08:05,410 | INFO | Scenario: 0 | n_rep: 83 | KDE model: t-student rot df=3
+2026-04-23 08:10:00,788 | INFO | Scenario: 0 | n_rep: 84 | KDE model: gaussian adaptive
+2026-04-23 08:11:28,705 | INFO | Scenario: 0 | n_rep: 84 | KDE model: gaussian rot
+2026-04-23 08:12:59,493 | INFO | Scenario: 0 | n_rep: 84 | KDE model: t-student adaptive df=3
+2026-04-23 08:14:27,714 | INFO | Scenario: 0 | n_rep: 84 | KDE model: t-student rot df=3
+2026-04-23 08:16:01,640 | INFO | Scenario: 0 | n_rep: 85 | KDE model: gaussian adaptive
+2026-04-23 08:17:24,821 | INFO | Scenario: 0 | n_rep: 85 | KDE model: gaussian rot
+2026-04-23 08:18:51,270 | INFO | Scenario: 0 | n_rep: 85 | KDE model: t-student adaptive df=3
+2026-04-23 08:20:19,416 | INFO | Scenario: 0 | n_rep: 85 | KDE model: t-student rot df=3
+2026-04-23 08:21:42,378 | INFO | Scenario: 0 | n_rep: 86 | KDE model: gaussian adaptive
+2026-04-23 08:23:05,460 | INFO | Scenario: 0 | n_rep: 86 | KDE model: gaussian rot
+2026-04-23 08:24:18,310 | INFO | Scenario: 0 | n_rep: 86 | KDE model: t-student adaptive df=3
+2026-04-23 08:25:40,246 | INFO | Scenario: 0 | n_rep: 86 | KDE model: t-student rot df=3
+2026-04-23 08:26:50,082 | INFO | Scenario: 0 | n_rep: 87 | KDE model: gaussian adaptive
+2026-04-23 08:28:29,848 | INFO | Scenario: 0 | n_rep: 87 | KDE model: gaussian rot
+2026-04-23 08:30:08,446 | INFO | Scenario: 0 | n_rep: 87 | KDE model: t-student adaptive df=3
+2026-04-23 08:31:46,994 | INFO | Scenario: 0 | n_rep: 87 | KDE model: t-student rot df=3
+2026-04-23 08:33:26,346 | INFO | Scenario: 0 | n_rep: 88 | KDE model: gaussian adaptive
+2026-04-23 08:34:49,096 | INFO | Scenario: 0 | n_rep: 88 | KDE model: gaussian rot
+2026-04-23 08:36:15,097 | INFO | Scenario: 0 | n_rep: 88 | KDE model: t-student adaptive df=3
+2026-04-23 08:37:41,949 | INFO | Scenario: 0 | n_rep: 88 | KDE model: t-student rot df=3
+2026-04-23 08:39:06,271 | INFO | Scenario: 0 | n_rep: 89 | KDE model: gaussian adaptive
+2026-04-23 08:40:29,093 | INFO | Scenario: 0 | n_rep: 89 | KDE model: gaussian rot
+2026-04-23 08:41:46,994 | INFO | Scenario: 0 | n_rep: 89 | KDE model: t-student adaptive df=3
+2026-04-23 08:43:09,811 | INFO | Scenario: 0 | n_rep: 89 | KDE model: t-student rot df=3
+2026-04-23 08:44:29,705 | INFO | Scenario: 0 | n_rep: 90 | KDE model: gaussian adaptive
+2026-04-23 08:46:05,485 | INFO | Scenario: 0 | n_rep: 90 | KDE model: gaussian rot
+2026-04-23 08:47:33,847 | INFO | Scenario: 0 | n_rep: 90 | KDE model: t-student adaptive df=3
+2026-04-23 08:49:02,484 | INFO | Scenario: 0 | n_rep: 90 | KDE model: t-student rot df=3
+2026-04-23 08:50:27,910 | INFO | Scenario: 0 | n_rep: 91 | KDE model: gaussian adaptive
+2026-04-23 08:51:58,987 | INFO | Scenario: 0 | n_rep: 91 | KDE model: gaussian rot
+2026-04-23 08:53:43,942 | INFO | Scenario: 0 | n_rep: 91 | KDE model: t-student adaptive df=3
+2026-04-23 08:55:18,611 | INFO | Scenario: 0 | n_rep: 91 | KDE model: t-student rot df=3
+2026-04-23 08:57:07,715 | INFO | Scenario: 0 | n_rep: 92 | KDE model: gaussian adaptive
+2026-04-23 08:58:32,989 | INFO | Scenario: 0 | n_rep: 92 | KDE model: gaussian rot
+2026-04-23 08:59:57,139 | INFO | Scenario: 0 | n_rep: 92 | KDE model: t-student adaptive df=3
+2026-04-23 09:01:22,679 | INFO | Scenario: 0 | n_rep: 92 | KDE model: t-student rot df=3
+2026-04-23 09:02:47,522 | INFO | Scenario: 0 | n_rep: 93 | KDE model: gaussian adaptive
+2026-04-23 09:04:05,424 | INFO | Scenario: 0 | n_rep: 93 | KDE model: gaussian rot
+2026-04-23 09:05:28,208 | INFO | Scenario: 0 | n_rep: 93 | KDE model: t-student adaptive df=3
+2026-04-23 09:06:48,511 | INFO | Scenario: 0 | n_rep: 93 | KDE model: t-student rot df=3
+2026-04-23 09:08:06,082 | INFO | Scenario: 0 | n_rep: 94 | KDE model: gaussian adaptive
+2026-04-23 09:09:16,286 | INFO | Scenario: 0 | n_rep: 94 | KDE model: gaussian rot
+2026-04-23 09:10:34,931 | INFO | Scenario: 0 | n_rep: 94 | KDE model: t-student adaptive df=3
+2026-04-23 09:11:46,752 | INFO | Scenario: 0 | n_rep: 94 | KDE model: t-student rot df=3
+2026-04-23 09:13:05,588 | INFO | Scenario: 0 | n_rep: 95 | KDE model: gaussian adaptive
+2026-04-23 09:14:51,885 | INFO | Scenario: 0 | n_rep: 95 | KDE model: gaussian rot
+2026-04-23 09:16:33,714 | INFO | Scenario: 0 | n_rep: 95 | KDE model: t-student adaptive df=3
+2026-04-23 09:18:18,154 | INFO | Scenario: 0 | n_rep: 95 | KDE model: t-student rot df=3
+2026-04-23 09:19:54,452 | INFO | Scenario: 0 | n_rep: 96 | KDE model: gaussian adaptive
+2026-04-23 09:21:17,605 | INFO | Scenario: 0 | n_rep: 96 | KDE model: gaussian rot
+2026-04-23 09:22:34,306 | INFO | Scenario: 0 | n_rep: 96 | KDE model: t-student adaptive df=3
+2026-04-23 09:23:55,666 | INFO | Scenario: 0 | n_rep: 96 | KDE model: t-student rot df=3
+2026-04-23 09:25:09,358 | INFO | Scenario: 0 | n_rep: 97 | KDE model: gaussian adaptive
+2026-04-23 09:26:41,434 | INFO | Scenario: 0 | n_rep: 97 | KDE model: gaussian rot
+2026-04-23 09:28:08,279 | INFO | Scenario: 0 | n_rep: 97 | KDE model: t-student adaptive df=3
+2026-04-23 09:29:40,409 | INFO | Scenario: 0 | n_rep: 97 | KDE model: t-student rot df=3
+2026-04-23 09:31:00,619 | INFO | Scenario: 0 | n_rep: 98 | KDE model: gaussian adaptive
+2026-04-23 09:33:08,125 | INFO | Scenario: 0 | n_rep: 98 | KDE model: gaussian rot
+2026-04-23 09:35:03,080 | INFO | Scenario: 0 | n_rep: 98 | KDE model: t-student adaptive df=3
+2026-04-23 09:37:10,104 | INFO | Scenario: 0 | n_rep: 98 | KDE model: t-student rot df=3
+2026-04-23 09:39:10,088 | INFO | Scenario: 0 | n_rep: 99 | KDE model: gaussian adaptive
+2026-04-23 09:40:38,279 | INFO | Scenario: 0 | n_rep: 99 | KDE model: gaussian rot
+2026-04-23 09:41:55,136 | INFO | Scenario: 0 | n_rep: 99 | KDE model: t-student adaptive df=3
+2026-04-23 09:43:16,827 | INFO | Scenario: 0 | n_rep: 99 | KDE model: t-student rot df=3
+2026-04-23 09:44:36,418 | INFO | Scenario: 1 | n_rep: 0 | KDE model: gaussian adaptive
+2026-04-23 09:46:14,290 | INFO | Scenario: 1 | n_rep: 0 | KDE model: gaussian rot
+2026-04-23 09:47:47,112 | INFO | Scenario: 1 | n_rep: 0 | KDE model: t-student adaptive df=3
+2026-04-23 09:49:26,337 | INFO | Scenario: 1 | n_rep: 0 | KDE model: t-student rot df=3
+2026-04-23 09:50:58,616 | INFO | Scenario: 1 | n_rep: 1 | KDE model: gaussian adaptive
+2026-04-23 09:52:48,486 | INFO | Scenario: 1 | n_rep: 1 | KDE model: gaussian rot
+2026-04-23 09:54:39,373 | INFO | Scenario: 1 | n_rep: 1 | KDE model: t-student adaptive df=3
+2026-04-23 09:56:27,566 | INFO | Scenario: 1 | n_rep: 1 | KDE model: t-student rot df=3
+2026-04-23 09:58:13,922 | INFO | Scenario: 1 | n_rep: 2 | KDE model: gaussian adaptive
+2026-04-23 09:59:33,962 | INFO | Scenario: 1 | n_rep: 2 | KDE model: gaussian rot
+2026-04-23 10:00:55,975 | INFO | Scenario: 1 | n_rep: 2 | KDE model: t-student adaptive df=3
+2026-04-23 10:02:16,443 | INFO | Scenario: 1 | n_rep: 2 | KDE model: t-student rot df=3
+2026-04-23 10:03:36,319 | INFO | Scenario: 1 | n_rep: 3 | KDE model: gaussian adaptive
+2026-04-23 10:05:05,489 | INFO | Scenario: 1 | n_rep: 3 | KDE model: gaussian rot
+2026-04-23 10:06:34,985 | INFO | Scenario: 1 | n_rep: 3 | KDE model: t-student adaptive df=3
+2026-04-23 10:08:04,493 | INFO | Scenario: 1 | n_rep: 3 | KDE model: t-student rot df=3
+2026-04-23 10:09:31,871 | INFO | Scenario: 1 | n_rep: 4 | KDE model: gaussian adaptive
+2026-04-23 10:11:21,559 | INFO | Scenario: 1 | n_rep: 4 | KDE model: gaussian rot
+2026-04-23 10:13:03,874 | INFO | Scenario: 1 | n_rep: 4 | KDE model: t-student adaptive df=3
+2026-04-23 10:14:56,593 | INFO | Scenario: 1 | n_rep: 4 | KDE model: t-student rot df=3
+2026-04-23 10:16:37,623 | INFO | Scenario: 1 | n_rep: 5 | KDE model: gaussian adaptive
+2026-04-23 10:17:55,304 | INFO | Scenario: 1 | n_rep: 5 | KDE model: gaussian rot
+2026-04-23 10:19:10,840 | INFO | Scenario: 1 | n_rep: 5 | KDE model: t-student adaptive df=3
+2026-04-23 10:20:28,032 | INFO | Scenario: 1 | n_rep: 5 | KDE model: t-student rot df=3
+2026-04-23 10:21:37,556 | INFO | Scenario: 1 | n_rep: 6 | KDE model: gaussian adaptive
+2026-04-23 10:23:10,911 | INFO | Scenario: 1 | n_rep: 6 | KDE model: gaussian rot
+2026-04-23 10:24:43,894 | INFO | Scenario: 1 | n_rep: 6 | KDE model: t-student adaptive df=3
+2026-04-23 10:26:19,989 | INFO | Scenario: 1 | n_rep: 6 | KDE model: t-student rot df=3
+2026-04-23 10:27:47,073 | INFO | Scenario: 1 | n_rep: 7 | KDE model: gaussian adaptive
+2026-04-23 10:29:16,860 | INFO | Scenario: 1 | n_rep: 7 | KDE model: gaussian rot
+2026-04-23 10:30:47,089 | INFO | Scenario: 1 | n_rep: 7 | KDE model: t-student adaptive df=3
+2026-04-23 10:32:19,486 | INFO | Scenario: 1 | n_rep: 7 | KDE model: t-student rot df=3
+2026-04-23 10:33:53,447 | INFO | Scenario: 1 | n_rep: 8 | KDE model: gaussian adaptive
+2026-04-23 10:35:10,387 | INFO | Scenario: 1 | n_rep: 8 | KDE model: gaussian rot
+2026-04-23 10:36:26,368 | INFO | Scenario: 1 | n_rep: 8 | KDE model: t-student adaptive df=3
+2026-04-23 10:37:43,626 | INFO | Scenario: 1 | n_rep: 8 | KDE model: t-student rot df=3
+2026-04-23 10:39:00,569 | INFO | Scenario: 1 | n_rep: 9 | KDE model: gaussian adaptive
+2026-04-23 10:40:16,403 | INFO | Scenario: 1 | n_rep: 9 | KDE model: gaussian rot
+2026-04-23 10:41:43,133 | INFO | Scenario: 1 | n_rep: 9 | KDE model: t-student adaptive df=3
+2026-04-23 10:43:03,748 | INFO | Scenario: 1 | n_rep: 9 | KDE model: t-student rot df=3
+2026-04-23 10:44:22,407 | INFO | Scenario: 1 | n_rep: 10 | KDE model: gaussian adaptive
+2026-04-23 10:45:32,914 | INFO | Scenario: 1 | n_rep: 10 | KDE model: gaussian rot
+2026-04-23 10:46:54,583 | INFO | Scenario: 1 | n_rep: 10 | KDE model: t-student adaptive df=3
+2026-04-23 10:48:09,991 | INFO | Scenario: 1 | n_rep: 10 | KDE model: t-student rot df=3
+2026-04-23 10:49:32,593 | INFO | Scenario: 1 | n_rep: 11 | KDE model: gaussian adaptive
+2026-04-23 10:51:14,850 | INFO | Scenario: 1 | n_rep: 11 | KDE model: gaussian rot
+2026-04-23 10:52:46,647 | INFO | Scenario: 1 | n_rep: 11 | KDE model: t-student adaptive df=3
+2026-04-23 10:54:21,259 | INFO | Scenario: 1 | n_rep: 11 | KDE model: t-student rot df=3
+2026-04-23 10:55:45,195 | INFO | Scenario: 1 | n_rep: 12 | KDE model: gaussian adaptive
+2026-04-23 10:57:15,827 | INFO | Scenario: 1 | n_rep: 12 | KDE model: gaussian rot
+2026-04-23 10:58:45,060 | INFO | Scenario: 1 | n_rep: 12 | KDE model: t-student adaptive df=3
+2026-04-23 11:00:19,981 | INFO | Scenario: 1 | n_rep: 12 | KDE model: t-student rot df=3
+2026-04-23 11:01:49,088 | INFO | Scenario: 1 | n_rep: 13 | KDE model: gaussian adaptive
+2026-04-23 11:03:05,637 | INFO | Scenario: 1 | n_rep: 13 | KDE model: gaussian rot
+2026-04-23 11:04:24,837 | INFO | Scenario: 1 | n_rep: 13 | KDE model: t-student adaptive df=3
+2026-04-23 11:05:44,329 | INFO | Scenario: 1 | n_rep: 13 | KDE model: t-student rot df=3
+2026-04-23 11:07:04,262 | INFO | Scenario: 1 | n_rep: 14 | KDE model: gaussian adaptive
+2026-04-23 11:08:26,332 | INFO | Scenario: 1 | n_rep: 14 | KDE model: gaussian rot
+2026-04-23 11:09:47,689 | INFO | Scenario: 1 | n_rep: 14 | KDE model: t-student adaptive df=3
+2026-04-23 11:11:06,402 | INFO | Scenario: 1 | n_rep: 14 | KDE model: t-student rot df=3
+2026-04-23 11:12:30,090 | INFO | Scenario: 1 | n_rep: 15 | KDE model: gaussian adaptive
+2026-04-23 11:14:00,871 | INFO | Scenario: 1 | n_rep: 15 | KDE model: gaussian rot
+2026-04-23 11:15:33,298 | INFO | Scenario: 1 | n_rep: 15 | KDE model: t-student adaptive df=3
+2026-04-23 11:16:58,992 | INFO | Scenario: 1 | n_rep: 15 | KDE model: t-student rot df=3
+2026-04-23 11:18:28,760 | INFO | Scenario: 1 | n_rep: 16 | KDE model: gaussian adaptive
+2026-04-23 11:19:55,828 | INFO | Scenario: 1 | n_rep: 16 | KDE model: gaussian rot
+2026-04-23 11:21:18,040 | INFO | Scenario: 1 | n_rep: 16 | KDE model: t-student adaptive df=3
+2026-04-23 11:22:43,190 | INFO | Scenario: 1 | n_rep: 16 | KDE model: t-student rot df=3
+2026-04-23 11:24:13,201 | INFO | Scenario: 1 | n_rep: 17 | KDE model: gaussian adaptive
+2026-04-23 11:25:31,486 | INFO | Scenario: 1 | n_rep: 17 | KDE model: gaussian rot
+2026-04-23 11:26:45,387 | INFO | Scenario: 1 | n_rep: 17 | KDE model: t-student adaptive df=3
+2026-04-23 11:28:06,172 | INFO | Scenario: 1 | n_rep: 17 | KDE model: t-student rot df=3
+2026-04-23 11:29:26,826 | INFO | Scenario: 1 | n_rep: 18 | KDE model: gaussian adaptive
+2026-04-23 11:31:03,024 | INFO | Scenario: 1 | n_rep: 18 | KDE model: gaussian rot
+2026-04-23 11:32:26,214 | INFO | Scenario: 1 | n_rep: 18 | KDE model: t-student adaptive df=3
+2026-04-23 11:33:55,558 | INFO | Scenario: 1 | n_rep: 18 | KDE model: t-student rot df=3
+2026-04-23 11:35:20,330 | INFO | Scenario: 1 | n_rep: 19 | KDE model: gaussian adaptive
+2026-04-23 11:36:46,396 | INFO | Scenario: 1 | n_rep: 19 | KDE model: gaussian rot
+2026-04-23 11:38:11,478 | INFO | Scenario: 1 | n_rep: 19 | KDE model: t-student adaptive df=3
+2026-04-23 11:39:35,205 | INFO | Scenario: 1 | n_rep: 19 | KDE model: t-student rot df=3
+2026-04-23 11:41:01,780 | INFO | Scenario: 1 | n_rep: 20 | KDE model: gaussian adaptive
+2026-04-23 11:42:24,438 | INFO | Scenario: 1 | n_rep: 20 | KDE model: gaussian rot
+2026-04-23 11:43:47,210 | INFO | Scenario: 1 | n_rep: 20 | KDE model: t-student adaptive df=3
+2026-04-23 11:45:11,521 | INFO | Scenario: 1 | n_rep: 20 | KDE model: t-student rot df=3
+2026-04-23 11:46:27,561 | INFO | Scenario: 1 | n_rep: 21 | KDE model: gaussian adaptive
+2026-04-23 11:47:49,049 | INFO | Scenario: 1 | n_rep: 21 | KDE model: gaussian rot
+2026-04-23 11:49:09,584 | INFO | Scenario: 1 | n_rep: 21 | KDE model: t-student adaptive df=3
+2026-04-23 11:50:29,627 | INFO | Scenario: 1 | n_rep: 21 | KDE model: t-student rot df=3
+2026-04-23 11:51:50,144 | INFO | Scenario: 1 | n_rep: 22 | KDE model: gaussian adaptive
+2026-04-23 11:53:49,148 | INFO | Scenario: 1 | n_rep: 22 | KDE model: gaussian rot
+2026-04-23 11:55:33,356 | INFO | Scenario: 1 | n_rep: 22 | KDE model: t-student adaptive df=3
+2026-04-23 11:57:23,884 | INFO | Scenario: 1 | n_rep: 22 | KDE model: t-student rot df=3
+2026-04-23 11:59:06,066 | INFO | Scenario: 1 | n_rep: 23 | KDE model: gaussian adaptive
+2026-04-23 12:00:43,463 | INFO | Scenario: 1 | n_rep: 23 | KDE model: gaussian rot
+2026-04-23 12:02:09,254 | INFO | Scenario: 1 | n_rep: 23 | KDE model: t-student adaptive df=3
+2026-04-23 12:03:42,013 | INFO | Scenario: 1 | n_rep: 23 | KDE model: t-student rot df=3
+2026-04-23 12:05:07,784 | INFO | Scenario: 1 | n_rep: 24 | KDE model: gaussian adaptive
+2026-04-23 12:06:42,567 | INFO | Scenario: 1 | n_rep: 24 | KDE model: gaussian rot
+2026-04-23 12:08:16,830 | INFO | Scenario: 1 | n_rep: 24 | KDE model: t-student adaptive df=3
+2026-04-23 12:09:48,049 | INFO | Scenario: 1 | n_rep: 24 | KDE model: t-student rot df=3
+2026-04-23 12:11:16,323 | INFO | Scenario: 1 | n_rep: 25 | KDE model: gaussian adaptive
+2026-04-23 12:12:39,003 | INFO | Scenario: 1 | n_rep: 25 | KDE model: gaussian rot
+2026-04-23 12:14:17,922 | INFO | Scenario: 1 | n_rep: 25 | KDE model: t-student adaptive df=3
+2026-04-23 12:15:47,787 | INFO | Scenario: 1 | n_rep: 25 | KDE model: t-student rot df=3
+2026-04-23 12:17:29,442 | INFO | Scenario: 1 | n_rep: 26 | KDE model: gaussian adaptive
+2026-04-23 12:18:45,095 | INFO | Scenario: 1 | n_rep: 26 | KDE model: gaussian rot
+2026-04-23 12:19:50,388 | INFO | Scenario: 1 | n_rep: 26 | KDE model: t-student adaptive df=3
+2026-04-23 12:21:03,972 | INFO | Scenario: 1 | n_rep: 26 | KDE model: t-student rot df=3
+2026-04-23 12:22:04,812 | INFO | Scenario: 1 | n_rep: 27 | KDE model: gaussian adaptive
+2026-04-23 12:23:19,751 | INFO | Scenario: 1 | n_rep: 27 | KDE model: gaussian rot
+2026-04-23 12:24:40,086 | INFO | Scenario: 1 | n_rep: 27 | KDE model: t-student adaptive df=3
+2026-04-23 12:26:00,469 | INFO | Scenario: 1 | n_rep: 27 | KDE model: t-student rot df=3
+2026-04-23 12:27:17,323 | INFO | Scenario: 1 | n_rep: 28 | KDE model: gaussian adaptive
+2026-04-23 12:28:31,961 | INFO | Scenario: 1 | n_rep: 28 | KDE model: gaussian rot

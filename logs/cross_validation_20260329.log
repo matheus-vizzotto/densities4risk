@@ -1,0 +1,297 @@
+2026-03-29 23:34:47,257 | INFO | 
+Initiating cross validation...
+2026-03-29 23:34:47,860 | INFO | Progress: (1/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 1
+2026-03-29 23:34:48,417 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_60772/2256028609.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-29 23:34:48,418 | INFO | Progress: (2/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 2
+2026-03-29 23:34:48,969 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_60772/2256028609.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-29 23:34:48,970 | INFO | Progress: (3/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 3
+2026-03-29 23:34:49,508 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_60772/2256028609.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-29 23:34:49,508 | INFO | Progress: (4/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 4
+2026-03-29 23:34:50,049 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_60772/2256028609.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-29 23:34:50,050 | INFO | Progress: (5/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 1
+2026-03-29 23:34:50,585 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_60772/2256028609.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-29 23:34:50,585 | INFO | Progress: (6/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 2
+2026-03-29 23:34:51,126 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_60772/2256028609.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-29 23:34:51,126 | INFO | Progress: (7/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 3
+2026-03-29 23:34:51,668 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_60772/2256028609.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-29 23:34:51,668 | INFO | Progress: (8/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 4
+2026-03-29 23:34:52,210 | ERROR | 	 ERROR for d=3 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_60772/2256028609.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-29 23:34:52,211 | INFO | Progress: (9/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 1
+2026-03-29 23:34:52,748 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_60772/2256028609.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-29 23:34:52,748 | INFO | Progress: (10/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 2
+2026-03-29 23:34:53,285 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_60772/2256028609.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-29 23:34:53,285 | INFO | Progress: (11/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 3
+2026-03-29 23:34:53,825 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_60772/2256028609.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-29 23:34:53,825 | INFO | Progress: (12/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 4
+2026-03-29 23:34:54,366 | ERROR | 	 ERROR for d=4 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_60772/2256028609.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-29 23:34:54,366 | INFO | Progress: (13/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 1
+2026-03-29 23:34:54,905 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_60772/2256028609.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-29 23:34:54,905 | INFO | Progress: (14/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 2
+2026-03-29 23:34:55,459 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_60772/2256028609.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-29 23:34:55,459 | INFO | Progress: (15/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 3
+2026-03-29 23:34:56,004 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_60772/2256028609.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-29 23:34:56,005 | INFO | Progress: (16/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 4
+2026-03-29 23:34:56,551 | ERROR | 	 ERROR for d=5 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_60772/2256028609.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-29 23:34:56,551 | INFO | Progress: (17/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 1
+2026-03-29 23:34:57,136 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_60772/2256028609.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-29 23:34:57,136 | INFO | Progress: (18/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 2
+2026-03-29 23:34:57,681 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_60772/2256028609.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-29 23:34:57,681 | INFO | Progress: (19/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 3
+2026-03-29 23:34:58,226 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_60772/2256028609.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-29 23:34:58,226 | INFO | Progress: (20/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 4
+2026-03-29 23:34:58,767 | ERROR | 	 ERROR for d=6 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_60772/2256028609.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-29 23:34:58,878 | INFO | Progress: (21/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 1
+2026-03-29 23:35:00,011 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_60772/2256028609.py", line 64, in <module>
+    cv_dfpc_measures, dfpc_cv_curves = crossVal.cv_dfpc(
+                                       ^^^^^^^^^^^^^^^^^
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/cross_validation.py", line 189, in cv_dfpc
+    forecaster.fit(Y_train, Y_train_support)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/forecasting/pipelines.py", line 211, in fit
+    self.model_kdfpc.fit(**self.kdfpc_kwargs)
+  File "/Users/vizzotto/Documents/GitHub/densities4risk/notebooks/../src/fda/dfpc.py", line 908, in fit
+    sp = super_fun(
+         ^^^^^^^^^^
+TypeError: super_fun() missing 3 required positional arguments: 'lag_max', 'B', and 'alpha'
+2026-03-29 23:35:00,011 | INFO | Progress: (22/1300) | KDE: gaussian_rot_robust | PP: expanding | Dim: 2 | VAR(q): 2
