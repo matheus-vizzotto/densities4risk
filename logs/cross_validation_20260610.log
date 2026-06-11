@@ -1,0 +1,37 @@
+2026-06-11 00:14:22,397 | INFO | 
+Initiating cross validation...
+2026-06-11 00:14:23,194 | INFO | Progress: (1/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 1
+2026-06-11 00:14:24,237 | ERROR | 	 ERROR for d=2 and {'kernel': 'gaussian', 'method': 'rot', 'sigma_robust': True} : index 101 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "/var/folders/t3/pppk4b013151kb4wpjbj3hvh0000gn/T/ipykernel_3115/700798749.py", line 62, in <module>
+    test_date = df_densities.columns[idx_test]
+                ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/indexes/base.py", line 5425, in __getitem__
+    result = getitem(key)
+             ^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/arrays/datetimelike.py", line 393, in __getitem__
+    result = cast(Union[Self, DTScalarOrNaT], super().__getitem__(key))
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/envs/densities4risk/lib/python3.11/site-packages/pandas/core/arrays/_mixins.py", line 305, in __getitem__
+    result = self._ndarray[key]
+             ~~~~~~~~~~~~~^^^^^
+IndexError: index 101 is out of bounds for axis 0 with size 1
+2026-06-11 00:14:24,238 | INFO | Progress: (2/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 2
+2026-06-11 00:14:24,238 | INFO | Progress: (3/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 3
+2026-06-11 00:14:24,238 | INFO | Progress: (4/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | VAR(q): 4
+2026-06-11 00:14:24,238 | INFO | Progress: (5/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 1
+2026-06-11 00:14:24,238 | INFO | Progress: (6/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 2
+2026-06-11 00:14:24,238 | INFO | Progress: (7/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 3
+2026-06-11 00:14:24,238 | INFO | Progress: (8/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 3 | VAR(q): 4
+2026-06-11 00:14:24,238 | INFO | Progress: (9/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 1
+2026-06-11 00:14:24,238 | INFO | Progress: (10/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 2
+2026-06-11 00:14:24,238 | INFO | Progress: (11/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 3
+2026-06-11 00:14:24,238 | INFO | Progress: (12/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 4 | VAR(q): 4
+2026-06-11 00:14:24,238 | INFO | Progress: (13/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 1
+2026-06-11 00:14:24,238 | INFO | Progress: (14/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 2
+2026-06-11 00:14:24,238 | INFO | Progress: (15/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 3
+2026-06-11 00:14:24,238 | INFO | Progress: (16/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 5 | VAR(q): 4
+2026-06-11 00:14:24,238 | INFO | Progress: (17/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 1
+2026-06-11 00:14:24,238 | INFO | Progress: (18/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 2
+2026-06-11 00:14:24,238 | INFO | Progress: (19/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 3
+2026-06-11 00:14:24,238 | INFO | Progress: (20/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 6 | VAR(q): 4
