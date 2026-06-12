@@ -1,0 +1,12 @@
+2026-06-11 23:39:58,620 | INFO | 
+Initiating cross validation...
+2026-06-11 23:40:09,414 | INFO | 
+Initiating cross validation...
+2026-06-11 23:40:10,304 | INFO | Progress: (0/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | Etahat forecast model: VAR | Lags: 1
+2026-06-11 23:40:10,739 | INFO | Progress: (0/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | Etahat forecast model: regression_ridge | Lags: 1
+2026-06-11 23:40:11,183 | INFO | Progress: (0/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | Etahat forecast model: regression_adalasso | Lags: 1
+2026-06-11 23:40:11,668 | INFO | Progress: (0/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | Etahat forecast model: VAR | Lags: 1
+2026-06-11 23:40:12,122 | INFO | Progress: (0/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | Etahat forecast model: regression_ridge | Lags: 1
+2026-06-11 23:40:12,603 | INFO | Progress: (0/1300) | KDE: gaussian_rot_robust | PP: False | Dim: 2 | Etahat forecast model: regression_adalasso | Lags: 1
+2026-06-11 23:40:17,726 | INFO | 
+Initiating cross validation...
