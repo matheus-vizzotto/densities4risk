@@ -9,6 +9,7 @@ from statsmodels.tsa.vector_ar.var_model import VARResults
 from statsmodels.graphics.tsaplots import plot_acf
 
 from sklearn.linear_model import Ridge, ElasticNet
+from sklearn.ensemble import RandomForestRegressor
 import asgl
 
 from typing import Optional, Dict, Union
@@ -318,6 +319,7 @@ class ScoreForecaster:
             )
 
         elif self.model_name == "elasticnet":
+
             return ElasticNet(
                 alpha=self.model_params.get(
                     "alpha", 0.001
@@ -335,8 +337,41 @@ class ScoreForecaster:
             return asgl.Regressor(
                 model="lm",
                 penalization="alasso",
-                lambda1=self.model_params.get("lambda1", 0.01),
-                weight_technique=self.model_params.get("weight_technique", "lasso")
+                lambda1=self.model_params.get(
+                    "lambda1", 0.01
+                ),
+                weight_technique=self.model_params.get(
+                    "weight_technique", "lasso"
+                )
+            )
+
+        elif self.model_name == "randomforest":
+
+            return RandomForestRegressor(
+                n_estimators=self.model_params.get(
+                    "n_estimators", 200
+                ),
+                max_depth=self.model_params.get(
+                    "max_depth", 8
+                ),
+                min_samples_split=self.model_params.get(
+                    "min_samples_split", 2
+                ),
+                min_samples_leaf=self.model_params.get(
+                    "min_samples_leaf", 5
+                ),
+                max_features=self.model_params.get(
+                    "max_features", "sqrt"
+                ),
+                bootstrap=self.model_params.get(
+                    "bootstrap", True
+                ),
+                random_state=self.model_params.get(
+                    "random_state", 123
+                ),
+                n_jobs=self.model_params.get(
+                    "n_jobs", -1
+                )
             )
 
         raise ValueError(
