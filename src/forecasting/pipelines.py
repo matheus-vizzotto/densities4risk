@@ -3,7 +3,9 @@ import pandas as pd
 import src.fda.dfpc as dfpc
 import src.fda.transformations.lqdt as lqdt
 import src.forecasting.models as fm
+import src.forecasting.simulations as fsim
 import pmdarima as pm
+from scipy.optimize import minimize
 
 def run_multivariate_forecaster(
         scores    : np.array,
@@ -395,4 +397,235 @@ class SimulationForecaster:
         return {
             "future_L2_curves": L2_curve_forecast,
             "future_scores": k_etahat_fc
+        }
+
+class ASTParameterEstimator:
+    """
+    Daily MLE estimator for the standardized Fernández-Steel skew-t model.
+
+    State vector:
+        theta = (mu, log_sigma, log_a)
+
+    where
+        sigma = exp(log_sigma)
+        a     = exp(log_a)
+    """
+
+    def __init__(self, nu=8):
+        self.nu = nu
+
+    def _negative_loglikelihood(self, theta, z):
+
+        mu = theta[0]
+        sigma = np.exp(theta[1])
+        a = np.exp(theta[2])
+
+        dist = fsim.StandardizedSkewStudentT(
+            a=a,
+            nu=self.nu
+        )
+
+        x = (z - mu) / sigma
+
+        loglik = np.sum(
+            -np.log(sigma)
+            + dist.density(x, log=True)
+        )
+
+        return -loglik
+
+    def fit_day(self, z, x0=None):
+
+        z = np.asarray(z)
+
+        if x0 is None:
+            x0 = np.array([
+                np.mean(z),
+                np.log(np.std(z)),
+                0.0
+            ])
+
+        res = minimize(
+            self._negative_loglikelihood,
+            x0=x0,
+            args=(z,),
+            method="L-BFGS-B"
+        )
+
+        return res.x
+
+    def fit(self, samples: pd.DataFrame):
+
+        params = []
+
+        x0 = None
+
+        for col in samples.columns:
+
+            z = samples[col].dropna().values
+
+            theta = self.fit_day(
+                z=z,
+                x0=x0
+            )
+
+            params.append(theta)
+
+            x0 = theta.copy()
+
+        params = pd.DataFrame(
+            params,
+            columns=[
+                "mu",
+                "log_sigma",
+                "log_a"
+            ],
+            index=samples.columns
+        )
+
+        return params
+
+
+class ParametricDensityForecaster:
+    """
+    Parametric benchmark based on daily MLE estimation of an
+    asymmetric Student-t distribution followed by VAR forecasting.
+    """
+
+    def __init__(
+        self,
+        nu=3,
+        maxlags=10,
+        criteria="bic"
+    ):
+
+        self.nu = nu
+        self.maxlags = maxlags
+        self.criteria = criteria
+
+        self.model_estimator = None
+        self.parameter_history = None
+
+    def fit(
+        self,
+        samples: pd.DataFrame
+    ):
+
+        self.model_estimator = ASTParameterEstimator(
+            nu=self.nu
+        )
+
+        self.parameter_history = self.model_estimator.fit(
+            samples
+        )
+
+        return self
+
+    def predict(
+        self,
+        horizon,
+        support,
+        var_lags=None,
+        forecast_index=None
+    ):
+        # --------------------------------------------------
+        # Build forecast dates
+        # --------------------------------------------------
+
+        if forecast_index is not None:
+
+            if len(forecast_index) != horizon:
+                raise ValueError(
+                    f"forecast_index length ({len(forecast_index)}) "
+                    f"must match horizon ({horizon})"
+                )
+
+            future_dates = forecast_index
+
+        elif (
+            hasattr(self, "index_freq")
+            and self.index_freq is not None
+            and self.last_date is not None
+        ):
+
+            future_dates = pd.date_range(
+                start=self.last_date,
+                periods=horizon + 1,
+                freq=self.index_freq
+            )[1:]
+
+        else:
+
+            future_dates = np.arange(horizon)
+
+
+        theta_fc = run_multivariate_forecaster(
+
+            scores=self.parameter_history.values,
+
+            maxlags_=self.maxlags,
+
+            criteria_=self.criteria,
+
+            h_=horizon,
+
+            selected_nlags=var_lags
+
+        )
+
+        mu_fc = theta_fc[0]
+        sigma_fc = np.exp(theta_fc[1])
+        a_fc = np.exp(theta_fc[2])
+
+        density_list = []
+        support_list = []
+
+        for h in range(horizon):
+
+            dist = fsim.StandardizedSkewStudentT(
+                a=a_fc[h],
+                nu=self.nu
+            )
+
+            x = (support - mu_fc[h]) / sigma_fc[h]
+
+            density = dist.density(x) / sigma_fc[h]
+
+            density_list.append(density)
+            support_list.append(support)
+
+        future_densities = pd.DataFrame(
+            np.asarray(density_list).T, index=support_list[0].values, columns=future_dates
+        )
+
+        future_supports = pd.DataFrame(
+            np.asarray(support_list).T, columns=future_dates
+        )
+
+        future_parameters = pd.DataFrame({
+            "mu": mu_fc,
+            "sigma": sigma_fc,
+            "a": a_fc
+        })
+
+        mlqdt = lqdt.mLQDT()
+        self.model_lqd = mlqdt.transform(
+            densities=future_densities,
+            densities_supports=future_supports, 
+            verbose=False
+            )
+        lqd_values  = self.model_lqd.lqd.values
+        lqd_support = self.model_lqd.lqd_support
+        lqd_forecast = pd.DataFrame(lqd_values, index=lqd_support, columns=future_dates)
+
+        return {
+
+            "future_parameters": future_parameters,
+
+            "future_densities": future_densities,
+
+            "future_L2_curves": lqd_forecast,
+
+            "supp": support_list
+
         }
