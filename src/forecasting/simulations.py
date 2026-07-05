@@ -767,7 +767,7 @@ class StandardizedSkewStudentT:
 
         return logdens if log else np.exp(logdens)
 
-    def random_numbers(self, n: int):
+    def random_numbers(self, n: int, random_state=None):
         """
         Generate i.i.d. draws from the standardized skewed-t.
 

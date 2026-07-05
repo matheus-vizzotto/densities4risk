@@ -8013,3 +8013,10 @@ Initiating cross validation...
 2026-06-23 11:11:32,046 | INFO | Scenario: scenario_4___nu=8 | n_rep: 997 | KDE model: gaussian rot
 2026-06-23 11:11:39,432 | INFO | Scenario: scenario_4___nu=8 | n_rep: 998 | KDE model: gaussian rot
 2026-06-23 11:11:46,469 | INFO | Scenario: scenario_4___nu=8 | n_rep: 999 | KDE model: gaussian rot
+2026-07-04 22:32:29,994 | INFO | 
+Initiating cross validation...
+2026-07-04 22:32:30,012 | INFO | Scenario: scenario_1___nu=3 | n_rep: 0 | KDE model: gaussian rot
+2026-07-04 22:37:05,683 | INFO | 
+Initiating cross validation...
+2026-07-04 22:37:05,703 | INFO | Scenario: scenario_1___nu=3 | n_rep: 0 | KDE model: gaussian rot
+2026-07-04 22:37:14,737 | INFO | Scenario: scenario_1___nu=3 | n_rep: 1 | KDE model: gaussian rot

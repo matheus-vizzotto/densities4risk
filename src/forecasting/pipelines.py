@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import src.fda.dfpc as dfpc
 import src.fda.transformations.lqdt as lqdt
+import src.fda.kde.estimators           as kde
 import src.forecasting.models as fm
 import src.forecasting.simulations as fsim
 import pmdarima as pm
@@ -490,18 +491,45 @@ class ParametricDensityForecaster:
     """
     Parametric benchmark based on daily MLE estimation of an
     asymmetric Student-t distribution followed by VAR forecasting.
+
+    Parameters
+    ----------
+    forecast : {"density", "kde"}
+        density : returns the analytical AST density.
+        kde     : draws Monte Carlo samples from the AST forecast and
+                  estimates a KDE on the supplied support grid.
     """
 
     def __init__(
         self,
         nu=3,
         maxlags=10,
-        criteria="bic"
+        criteria="bic",
+        kde_bw_params=None,
+        kde_params=None,
     ):
 
         self.nu = nu
         self.maxlags = maxlags
         self.criteria = criteria
+
+        self.kde_bw_params = (
+            kde_bw_params
+            if kde_bw_params is not None
+            else {
+                "method": "rot",
+                "kernel": "gaussian",
+                "sigma_robust": False,
+            }
+        )
+
+        self.kde_params = (
+            kde_params
+            if kde_params is not None
+            else {
+                "kernel": "gaussian",
+            }
+        )
 
         self.model_estimator = None
         self.parameter_history = None
@@ -515,9 +543,7 @@ class ParametricDensityForecaster:
             nu=self.nu
         )
 
-        self.parameter_history = self.model_estimator.fit(
-            samples
-        )
+        self.parameter_history = self.model_estimator.fit(samples)
 
         return self
 
@@ -525,9 +551,20 @@ class ParametricDensityForecaster:
         self,
         horizon,
         support,
+        forecast="density",
+        sample_size=288,
+        random_state=None,
         var_lags=None,
-        forecast_index=None
+        forecast_index=None,
     ):
+
+        if forecast not in {"density", "kde"}:
+            raise ValueError(
+                "forecast must be either 'density' or 'kde'."
+            )
+
+        rng = np.random.default_rng(random_state)
+
         # --------------------------------------------------
         # Build forecast dates
         # --------------------------------------------------
@@ -551,26 +588,23 @@ class ParametricDensityForecaster:
             future_dates = pd.date_range(
                 start=self.last_date,
                 periods=horizon + 1,
-                freq=self.index_freq
+                freq=self.index_freq,
             )[1:]
 
         else:
 
             future_dates = np.arange(horizon)
 
+        # --------------------------------------------------
+        # Forecast AST parameters
+        # --------------------------------------------------
 
         theta_fc = run_multivariate_forecaster(
-
             scores=self.parameter_history.values,
-
             maxlags_=self.maxlags,
-
             criteria_=self.criteria,
-
             h_=horizon,
-
-            selected_nlags=var_lags
-
+            selected_nlags=var_lags,
         )
 
         mu_fc = theta_fc[0]
@@ -580,52 +614,105 @@ class ParametricDensityForecaster:
         density_list = []
         support_list = []
 
+        kde_params = self.kde_params.copy()
+        # kde_params["df"] = support.values
+
+        # --------------------------------------------------
+        # Build forecast densities
+        # --------------------------------------------------
+
         for h in range(horizon):
 
             dist = fsim.StandardizedSkewStudentT(
                 a=a_fc[h],
-                nu=self.nu
+                nu=self.nu,
             )
 
-            x = (support - mu_fc[h]) / sigma_fc[h]
+            if forecast == "density":
 
-            density = dist.density(x) / sigma_fc[h]
+                x = (support - mu_fc[h]) / sigma_fc[h]
+
+                density = dist.density(x) / sigma_fc[h]
+
+            else:
+
+                # Monte Carlo sample
+                sample = (
+                    mu_fc[h]
+                    + sigma_fc[h]
+                    * dist.random_numbers(
+                        sample_size,
+                        random_state=rng,
+                    )
+                )
+
+                returns_df = pd.DataFrame(
+                    sample,
+                    columns=["returns"],
+                )
+
+                df_h = kde.df_bandwidth_selector(
+                    returns_df,
+                    **self.kde_bw_params,
+                )
+
+                _, df_density = kde.df_to_kde(
+                    X=returns_df,
+                    h=df_h,
+                    normalize_densities=False,
+                    **kde_params,
+                )
+
+                density = df_density.iloc[:, 0].values
 
             density_list.append(density)
             support_list.append(support)
 
+        # --------------------------------------------------
+        # Density DataFrames
+        # --------------------------------------------------
+
         future_densities = pd.DataFrame(
-            np.asarray(density_list).T, index=support_list[0].values, columns=future_dates
+            np.asarray(density_list).T,
+            index=support.values,
+            columns=future_dates,
         )
 
         future_supports = pd.DataFrame(
-            np.asarray(support_list).T, columns=future_dates
+            np.asarray(support_list).T,
+            columns=future_dates,
         )
 
-        future_parameters = pd.DataFrame({
-            "mu": mu_fc,
-            "sigma": sigma_fc,
-            "a": a_fc
-        })
+        future_parameters = pd.DataFrame(
+            {
+                "mu": mu_fc,
+                "sigma": sigma_fc,
+                "a": a_fc,
+            },
+            index=future_dates,
+        )
+
+        # --------------------------------------------------
+        # LQD transformation
+        # --------------------------------------------------
 
         mlqdt = lqdt.mLQDT()
+
         self.model_lqd = mlqdt.transform(
             densities=future_densities,
-            densities_supports=future_supports, 
-            verbose=False
-            )
-        lqd_values  = self.model_lqd.lqd.values
-        lqd_support = self.model_lqd.lqd_support
-        lqd_forecast = pd.DataFrame(lqd_values, index=lqd_support, columns=future_dates)
+            densities_supports=future_supports,
+            verbose=False,
+        )
+
+        lqd_forecast = pd.DataFrame(
+            self.model_lqd.lqd.values,
+            index=self.model_lqd.lqd_support,
+            columns=future_dates,
+        )
 
         return {
-
             "future_parameters": future_parameters,
-
             "future_densities": future_densities,
-
             "future_L2_curves": lqd_forecast,
-
-            "supp": support_list
-
+            "supp": future_supports,
         }
