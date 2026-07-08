@@ -137,3 +137,36 @@ def build_lags(
         df.dropna(inplace=True)
 
     return df
+
+def mark_repeated_columns(df, threshold=10, dropna=True):
+    """
+    Identify columns that contain any value repeated more than `threshold` times.
+    Function to detect weird data, like returns on Ash Wednesday (started on 13pm).
+    Already detected: '2025-03-05', '2025-08-01'.
+
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Columns represent days.
+    threshold : int
+        Maximum allowed repetitions of a single value.
+    dropna : bool
+        Whether to ignore NaNs when counting repetitions.
+
+    Returns
+    -------
+    bad_cols : list
+        Column names with excessive repetition.
+    mask : pd.Series
+        Boolean mask indexed by columns.
+    """
+
+    def has_too_many_repeats(col):
+        counts = col.value_counts(dropna=dropna)
+        return counts.max() > threshold if not counts.empty else False
+
+    mask = df.apply(has_too_many_repeats, axis=0)
+
+    bad_cols = mask[mask].index.tolist()
+
+    return bad_cols, mask
