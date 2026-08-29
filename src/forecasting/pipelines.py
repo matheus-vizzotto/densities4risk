@@ -149,11 +149,6 @@ class DensityForecaster:
                 raise ValueError(f"forecast_index length ({len(forecast_index)}) "
                                 f"must match horizon ({horizon})")
             future_dates = forecast_index
-        # elif self.index_freq is not None:
-        #     # Automatic generation if freq was caught in .fit()
-        #     future_dates = pd.date_range(start=self.last_date, 
-        #                                 periods=horizon + 1, 
-        #                                 freq=self.index_freq)[1:]
         else:
             # Fallback to integer steps if no dates are available
             future_dates = np.arange(horizon)
@@ -507,6 +502,7 @@ class ParametricDensityForecaster:
         criteria="bic",
         kde_bw_params=None,
         kde_params=None,
+        n_kde_forecasts=1,
     ):
 
         self.nu = nu
@@ -531,8 +527,61 @@ class ParametricDensityForecaster:
             }
         )
 
+        self.n_kde_forecasts = self._validate_n_kde_forecasts(
+            n_kde_forecasts
+        )
         self.model_estimator = None
         self.parameter_history = None
+
+    @staticmethod
+    def _validate_n_kde_forecasts(n_kde_forecasts):
+        if not isinstance(n_kde_forecasts, (int, np.integer)):
+            raise ValueError("n_kde_forecasts must be a positive integer.")
+
+        if n_kde_forecasts < 1:
+            raise ValueError("n_kde_forecasts must be a positive integer.")
+
+        return int(n_kde_forecasts)
+
+    def _ast_kde_density(
+        self,
+        dist,
+        mu,
+        sigma,
+        sample_size,
+        support,
+        rng,
+    ):
+        sample = (
+            mu
+            + sigma
+            * dist.random_numbers(
+                sample_size,
+                random_state=rng,
+            )
+        )
+
+        returns_df = pd.DataFrame(
+            sample,
+            columns=["returns"],
+        )
+
+        df_h = kde.df_bandwidth_selector(
+            returns_df,
+            **self.kde_bw_params,
+        )
+
+        kde_params = self.kde_params.copy()
+        kernel = kde_params.pop("kernel", "gaussian")
+        kde_model = kde.KDE(kernel=kernel, **kde_params)
+
+        _, density = kde_model.transform(
+            X=returns_df["returns"],
+            h=df_h["returns"].values,
+            grid=support,
+        )
+
+        return density
 
     def fit(
         self,
@@ -556,6 +605,7 @@ class ParametricDensityForecaster:
         random_state=None,
         var_lags=None,
         forecast_index=None,
+        n_kde_forecasts=None,
     ):
 
         if forecast not in {"density", "kde"}:
@@ -563,7 +613,15 @@ class ParametricDensityForecaster:
                 "forecast must be either 'density' or 'kde'."
             )
 
+        if n_kde_forecasts is None:
+            n_kde_forecasts = self.n_kde_forecasts
+
+        n_kde_forecasts = self._validate_n_kde_forecasts(
+            n_kde_forecasts
+        )
+
         rng = np.random.default_rng(random_state)
+        support = np.asarray(support, dtype=float)
 
         # --------------------------------------------------
         # Build forecast dates
@@ -613,9 +671,9 @@ class ParametricDensityForecaster:
 
         density_list = []
         support_list = []
-
-        kde_params = self.kde_params.copy()
-        # kde_params["df"] = support.values
+        kde_density_list = []
+        kde_support_list = []
+        kde_columns = []
 
         # --------------------------------------------------
         # Build forecast densities
@@ -636,34 +694,27 @@ class ParametricDensityForecaster:
 
             else:
 
-                # Monte Carlo sample
-                sample = (
-                    mu_fc[h]
-                    + sigma_fc[h]
-                    * dist.random_numbers(
-                        sample_size,
-                        random_state=rng,
+                density_draws = []
+
+                for a in range(n_kde_forecasts):
+
+                    density_a = self._ast_kde_density(
+                        dist=dist,
+                        mu=mu_fc[h],
+                        sigma=sigma_fc[h],
+                        sample_size=sample_size,
+                        support=support,
+                        rng=rng,
                     )
-                )
 
-                returns_df = pd.DataFrame(
-                    sample,
-                    columns=["returns"],
-                )
+                    density_draws.append(density_a)
 
-                df_h = kde.df_bandwidth_selector(
-                    returns_df,
-                    **self.kde_bw_params,
-                )
+                    if n_kde_forecasts > 1:
+                        kde_density_list.append(density_a)
+                        kde_support_list.append(support)
+                        kde_columns.append((future_dates[h], a + 1))
 
-                _, df_density = kde.df_to_kde(
-                    X=returns_df,
-                    h=df_h,
-                    normalize_densities=False,
-                    **kde_params,
-                )
-
-                density = df_density.iloc[:, 0].values
+                density = np.mean(density_draws, axis=0)
 
             density_list.append(density)
             support_list.append(support)
@@ -674,7 +725,7 @@ class ParametricDensityForecaster:
 
         future_densities = pd.DataFrame(
             np.asarray(density_list).T,
-            index=support.values,
+            index=support,
             columns=future_dates,
         )
 
@@ -698,21 +749,72 @@ class ParametricDensityForecaster:
 
         mlqdt = lqdt.mLQDT()
 
-        self.model_lqd = mlqdt.transform(
-            densities=future_densities,
-            densities_supports=future_supports,
-            verbose=False,
-        )
+        if forecast == "kde" and n_kde_forecasts > 1:
 
-        lqd_forecast = pd.DataFrame(
-            self.model_lqd.lqd.values,
-            index=self.model_lqd.lqd_support,
-            columns=future_dates,
-        )
+            kde_columns = pd.MultiIndex.from_tuples(
+                kde_columns,
+                names=["forecast_date", "kde_forecast"],
+            )
+
+            kde_densities = pd.DataFrame(
+                np.asarray(kde_density_list).T,
+                index=support,
+                columns=kde_columns,
+            )
+
+            kde_supports = pd.DataFrame(
+                np.asarray(kde_support_list).T,
+                columns=kde_columns,
+            )
+
+            model_lqd_all = mlqdt.transform(
+                densities=kde_densities,
+                densities_supports=kde_supports,
+                verbose=False,
+            )
+
+            lqd_forecast = (
+                model_lqd_all.lqd
+                .T
+                .groupby(level="forecast_date")
+                .mean()
+                .T
+            )
+            lqd_forecast = lqd_forecast.loc[:, future_dates]
+
+            c_forecast = (
+                pd.Series(model_lqd_all.c, index=kde_columns)
+                .groupby(level="forecast_date")
+                .mean()
+                .loc[future_dates]
+                .values
+            )
+
+            self.model_lqd = lqdt.LQDRepresentation(
+                lqd=lqd_forecast,
+                lqd_support=model_lqd_all.lqd_support,
+                c=c_forecast,
+                t0=model_lqd_all.t0,
+            )
+
+        else:
+
+            self.model_lqd = mlqdt.transform(
+                densities=future_densities,
+                densities_supports=future_supports,
+                verbose=False,
+            )
+
+            lqd_forecast = pd.DataFrame(
+                self.model_lqd.lqd.values,
+                index=self.model_lqd.lqd_support,
+                columns=future_dates,
+            )
 
         return {
             "future_parameters": future_parameters,
             "future_densities": future_densities,
             "future_L2_curves": lqd_forecast,
             "supp": future_supports,
+            "n_kde_forecasts": n_kde_forecasts,
         }
